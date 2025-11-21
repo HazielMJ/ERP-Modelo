@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Recursos Humanos - Sistema ERP</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="rrhhstyles.css">
+</head>
+<body>
+    <div class="main-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-chart-line"></i> ERP System</h2>
+                <p>Sistema Integral de Gestión</p>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-section">
+                    <div class="nav-section-title">PRINCIPAL</div>
+                </li>
+                <li class="nav-item" data-modulo="dashboard">
+                    <a href="/dashboard" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="administracion">
+                    <div class="nav-section-title">ADMINISTRACIÓN</div>
+                </li>
+                <li class="nav-item" data-modulo="usuarios">
+                    <a href="/usuarios" class="nav-link">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="contabilidad">
+                    <a href="/contabilidad" class="nav-link">
+                        <i class="fas fa-calculator"></i>
+                        <span>Contabilidad</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="ventas">
+                    <div class="nav-section-title">VENTAS</div>
+                </li>
+                <li class="nav-item" data-modulo="Clientes">
+                    <a href="/Clientes" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="ventas">
+                    <a href="/ventas" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Ventas</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="facturacion">
+                    <a href="/facturacion" class="nav-link">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Facturación</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="punto-venta">
+                    <a href="/Punto de venta" class="nav-link">
+                        <i class="fas fa-cash-register"></i>
+                        <span>Punto de Venta</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="compras">
+                    <div class="nav-section-title">COMPRAS</div>
+                </li>
+                <li class="nav-item" data-modulo="proveedores">
+                    <a href="/proveedores" class="nav-link">
+                        <i class="fas fa-truck"></i>
+                        <span>Proveedores</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="Compras">
+                    <a href="/Compras" class="nav-link">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Compras</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="inventario">
+                    <div class="nav-section-title">INVENTARIO</div>
+                </li>
+                <li class="nav-item" data-modulo="Inventario">
+                    <a href="/Inventario" class="nav-link">
+                        <i class="fas fa-boxes"></i>
+                        <span>Inventario</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="almacenes">
+                    <a href="/Almacenes" class="nav-link">
+                        <i class="fas fa-warehouse"></i>
+                        <span>Almacenes</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="rrhh">
+                    <div class="nav-section-title">RECURSOS HUMANOS</div>
+                </li>
+                <li class="nav-item" data-modulo="rrhh">
+                    <a href="/rrhh" class="nav-link">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Empleados</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="nomina">
+                    <a href="/nomina" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Nómina</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="logistica">
+                    <div class="nav-section-title">LOGÍSTICA</div>
+                </li>
+                <li class="nav-item" data-modulo="logistica">
+                    <a href="/logistica" class="nav-link">
+                        <i class="fas fa-shipping-fast"></i>
+                        <span>Envíos</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="analisis">
+                    <div class="nav-section-title">ANÁLISIS</div>
+                </li>
+                <li class="nav-item" data-modulo="reportes">
+                    <a href="/reportes" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reportes</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="sistema">
+                    <div class="nav-section-title">SISTEMA</div>
+                </li>
+                <li class="nav-item" data-modulo="configuracion">
+                    <a href="/configuracion" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Configuración</span>
+                    </a>
+                </li>
+                <li>
+            <div class="logout-section">
+                <button class="btn-logout" onclick="cerrarSesion()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </div>
+                </li>
+            </ul>
+        </aside>
+
+        <div class="main-content">
+            
+            <header class="page-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1><i class="fas fa-user-tie"></i> Recursos Humanos</h1>
+                        <div class="breadcrumb">
+                            <a href="/dashboard"><i class="fas fa-home"></i> Inicio</a>
+                            <span>/</span>
+                            <span>Recursos Humanos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="btn btn-primary" onclick="mostrarModalSegunTab()" id="btnAccionPrincipal">
+                        <i class="fas fa-plus"></i>
+                        Nuevo Empleado
+                    </button>
+                </div>
+            </header>
+
+            <div class="tabs-container">
+                <div class="tabs-nav">
+                    <button class="tab-button active" onclick="switchTab('empleados')" data-tab="empleados">
+                        <i class="fas fa-users"></i>
+                        <span>Empleados</span>
+                        <span class="tab-badge" id="badgeEmpleados">0</span>
+                    </button>
+                    <button class="tab-button" onclick="switchTab('departamentos')" data-tab="departamentos">
+                        <i class="fas fa-building"></i>
+                        <span>Departamentos</span>
+                        <span class="tab-badge" id="badgeDepartamentos">0</span>
+                    </button>
+                    <button class="tab-button" onclick="switchTab('puestos')" data-tab="puestos">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Puestos</span>
+                        <span class="tab-badge" id="badgePuestos">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="tab-content active" id="tab-empleados">
+                <section class="content-section">
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card" style="border-left-color: var(--verde-exito)">
+                            <div class="stat-header">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--verde-exito), var(--verde-exito-gradient));">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="totalEmpleados">0</div>
+                            <div class="stat-label">Empleados Activos</div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--azul-principal)">
+                            <div class="stat-header">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--azul-principal), var(--azul-secundario));">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="totalDepartamentos">0</div>
+                            <div class="stat-label">Departamentos</div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--amarillo-advertencia)">
+                            <div class="stat-header">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--amarillo-advertencia), var(--amarillo-advertencia-dark));">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="totalPuestos">0</div>
+                            <div class="stat-label">Puestos</div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--morado)">
+                            <div class="stat-header">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--morado), var(--morado-dark));">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="empleadosNuevosMes">0</div>
+                            <div class="stat-label">Nuevos este Mes</div>
+                        </div>
+                    </div>
+
+                    <div class="toolbar">
+                        <div class="search-box">
+                            <i class="fas fa-search input-icon"></i>
+                            <input type="text" class="search-input" id="searchEmpleados" placeholder="Buscar por nombre, RFC, código...">
+                        </div>
+                        <div class="toolbar-actions">
+                            <button class="btn btn-secondary" onclick="cargarEmpleados()">
+                                <i class="fas fa-sync-alt"></i>
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">
+                                <i class="fas fa-list"></i>
+                                Listado de Empleados
+                            </h3>
+                        </div>
+                        <div class="loading" id="loadingEmpleados">
+                            <div class="spinner"></div>
+                            <p>Cargando empleados...</p>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nombre Completo</th>
+                                    <th>RFC</th>
+                                    <th>Puesto</th>
+                                    <th>Departamento</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="empleadosBody">
+                                <tr>
+                                    <td colspan="7" class="empty-state">
+                                        <i class="fas fa-users"></i>
+                                        <h3>No hay empleados registrados</h3>
+                                        <p>Comienza agregando un nuevo empleado</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </section>
+            </div>
+
+            <div class="tab-content" id="tab-departamentos">
+                <section class="content-section">
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card" style="border-left-color: var(--azul-principal)">
+                            <div class="stat-header">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--azul-principal), var(--azul-secundario));">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="totalDepartamentos2">0</div>
+                            <div class="stat-label">Total Departamentos</div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--verde-exito)">
+                            <div class="stat-header">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--verde-exito), var(--verde-exito-gradient));">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="departamentosActivos">0</div>
+                            <div class="stat-label">Departamentos Activos</div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--morado)">
+                            <div class="stat-header">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--morado), var(--morado-dark));">
+                                    <i class="fas fa-sitemap"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="departamentosConJefe">0</div>
+                            <div class="stat-label">Con Jefe Asignado</div>
+                        </div>
+                    </div>
+
+                    <div class="toolbar">
+                        <div class="search-box">
+                            <i class="fas fa-search input-icon"></i>
+                            <input type="text" class="search-input" id="searchDepartamentos" placeholder="Buscar departamentos...">
+                        </div>
+                        <div class="toolbar-actions">
+                            <button class="btn btn-secondary" onclick="cargarDepartamentos()">
+                                <i class="fas fa-sync-alt"></i>
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">
+                                <i class="fas fa-list"></i>
+                                Listado de Departamentos
+                            </h3>
+                        </div>
+                        <div class="loading" id="loadingDepartamentos">
+                            <div class="spinner"></div>
+                            <p>Cargando departamentos...</p>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Departamento Padre</th>
+                                    <th>Jefe</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="departamentosBody">
+                                <tr>
+                                    <td colspan="6" class="empty-state">
+                                        <i class="fas fa-building"></i>
+                                        <h3>No hay departamentos registrados</h3>
+                                        <p>Comienza agregando un nuevo departamento</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </section>
+            </div>
+
+            <div class="tab-content" id="tab-puestos">
+                <section class="content-section">
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card" style="border-left-color: var(--amarillo-advertencia)">
+                            <div class="stat-header">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--amarillo-advertencia), var(--amarillo-advertencia-dark));">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="totalPuestos2">0</div>
+                            <div class="stat-label">Total Puestos</div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--verde-exito)">
+                            <div class="stat-header">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--verde-exito), var(--verde-exito-gradient));">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="puestosActivos">0</div>
+                            <div class="stat-label">Puestos Activos</div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--morado)">
+                            <div class="stat-header">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--morado), var(--morado-dark));">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="puestosOcupados">0</div>
+                            <div class="stat-label">Puestos Ocupados</div>
+                        </div>
+                    </div>
+
+                    <div class="toolbar">
+                        <div class="search-box">
+                            <i class="fas fa-search input-icon"></i>
+                            <input type="text" class="search-input" id="searchPuestos" placeholder="Buscar puestos...">
+                        </div>
+                        <div class="toolbar-actions">
+                            <button class="btn btn-secondary" onclick="cargarPuestos()">
+                                <i class="fas fa-sync-alt"></i>
+                                Actualizar
+                            </button>
+                        </div>
+                    </div>
+                  
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3 class="table-title">
+                                <i class="fas fa-list"></i>
+                                Listado de Puestos
+                            </h3>
+                        </div>
+                        <div class="loading" id="loadingPuestos">
+                            <div class="spinner"></div>
+                            <p>Cargando puestos...</p>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Nivel Jerárquico</th>
+                                    <th>Salario Mín.</th>
+                                    <th>Salario Máx.</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="puestosBody">
+                                <tr>
+                                    <td colspan="7" class="empty-state">
+                                        <i class="fas fa-briefcase"></i>
+                                        <h3>No hay puestos registrados</h3>
+                                        <p>Comienza agregando un nuevo puesto</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal" id="modalEmpleado">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="tituloModalEmpleado">
+                    <i class="fas fa-user-plus"></i>
+                    Nuevo Empleado
+                </h3>
+                <button class="modal-close" onclick="cerrarModalEmpleado()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formEmpleado" onsubmit="guardarEmpleado(event)">
+                    <input type="hidden" id="empleadoId">
+                    
+                    <h3 class="form-section-title"><i class="fas fa-user"></i> Información Personal</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Nombre <span class="required">*</span></label>
+                            <input type="text" class="form-input" id="empleadoNombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Apellido</label>
+                            <input type="text" class="form-input" id="empleadoApellido">
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Tipo Documento</label>
+                            <select class="form-select" id="empleadoTipoDocumento">
+                                <option value="">Seleccionar</option>
+                                <option value="DNI">DNI</option>
+                                <option value="CURP">CURP</option>
+                                <option value="RFC">RFC</option>
+                                <option value="PASAPORTE">Pasaporte</option>
+                                <option value="OTRO">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Número Documento</label>
+                            <input type="text" class="form-input" id="empleadoNumeroDocumento">
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">RFC</label>
+                            <input type="text" class="form-input" id="empleadoRfc" maxlength="13" placeholder="13 caracteres">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">CURP</label>
+                            <input type="text" class="form-input" id="empleadoCurp" maxlength="18" placeholder="18 caracteres">
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">NSS</label>
+                            <input type="text" class="form-input" id="empleadoNss" maxlength="11" placeholder="11 dígitos">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Fecha Nacimiento</label>
+                            <input type="date" class="form-input" id="empleadoFechaNacimiento">
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Género</label>
+                            <select class="form-select" id="empleadoGenero">
+                                <option value="">Seleccionar</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                                <option value="OTRO">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h3 class="form-section-title"><i class="fas fa-address-card"></i> Información de Contacto</h3>
+                    <div class="form-group full-width">
+                        <label class="form-label">Dirección</label>
+                        <input type="text" class="form-input" id="empleadoDireccion" placeholder="Calle, número, colonia">
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Código Postal</label>
+                            <input type="text" class="form-input" id="empleadoCp" maxlength="10">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Teléfono</label>
+                            <input type="tel" class="form-input" id="empleadoTelefono" placeholder="10 dígitos">
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-input" id="empleadoCorreo" placeholder="ejemplo@correo.com">
+                    </div>
+
+                    <h3 class="form-section-title"><i class="fas fa-briefcase"></i> Información Laboral</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Fecha Contratación <span class="required">*</span></label>
+                            <input type="date" class="form-input" id="empleadoFechaContratacion" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tipo Contrato</label>
+                            <select class="form-select" id="empleadoTipoContrato">
+                                <option value="">Seleccionar</option>
+                                <option value="INDEFINIDO">Indefinido</option>
+                                <option value="TEMPORAL">Temporal</option>
+                                <option value="PRACTICAS">Prácticas</option>
+                                <option value="HONORARIOS">Honorarios</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Puesto <span class="required">*</span></label>
+                            <select class="form-select" id="empleadoPuestoId" required>
+                                <option value="">Seleccionar puesto</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Departamento <span class="required">*</span></label>
+                            <select class="form-select" id="empleadoDepartamentoId" required>
+                                <option value="">Seleccionar departamento</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Salario Base</label>
+                            <input type="number" class="form-input" id="empleadoSalarioBase" step="0.01" min="0" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Jornada</label>
+                            <select class="form-select" id="empleadoJornada">
+                                <option value="COMPLETA">Completa</option>
+                                <option value="PARCIAL">Parcial</option>
+                                <option value="POR_HORAS">Por Horas</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModalEmpleado()">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button type="submit" form="formEmpleado" class="btn btn-success">
+                    <i class="fas fa-save"></i>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalDepartamento">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="tituloModalDepartamento">
+                    <i class="fas fa-building"></i>
+                    Nuevo Departamento
+                </h3>
+                <button class="modal-close" onclick="cerrarModalDepartamento()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formDepartamento" onsubmit="guardarDepartamento(event)">
+                    <input type="hidden" id="departamentoId">
+                    
+                    <div class="form-group">
+                        <label class="form-label">Código <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="departamentoCodigo" required placeholder="Ej: DEPT-001">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Nombre <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="departamentoNombre" required placeholder="Nombre del departamento">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-textarea" id="departamentoDescripcion" placeholder="Descripción del departamento (opcional)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Departamento Padre</label>
+                        <select class="form-select" id="departamentoPadreId">
+                            <option value="">Sin departamento padre</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModalDepartamento()">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button type="submit" form="formDepartamento" class="btn btn-success">
+                    <i class="fas fa-save"></i>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalPuesto">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="tituloModalPuesto">
+                    <i class="fas fa-briefcase"></i>
+                    Nuevo Puesto
+                </h3>
+                <button class="modal-close" onclick="cerrarModalPuesto()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formPuesto" onsubmit="guardarPuesto(event)">
+                    <input type="hidden" id="puestoId">
+                    
+                    <div class="form-group">
+                        <label class="form-label">Código <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="puestoCodigo" required placeholder="Ej: PUESTO-001">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Nombre <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="puestoNombre" required placeholder="Nombre del puesto">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-textarea" id="puestoDescripcion" placeholder="Descripción del puesto (opcional)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Nivel Jerárquico</label>
+                        <input type="number" class="form-input" id="puestoNivelJerarquico" min="1" placeholder="1 = Más alto">
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Salario Mínimo</label>
+                            <input type="number" class="form-input" id="puestoSalarioMinimo" step="0.01" min="0" placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Salario Máximo</label>
+                            <input type="number" class="form-input" id="puestoSalarioMaximo" step="0.01" min="0" placeholder="0.00">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModalPuesto()">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button type="submit" form="formPuesto" class="btn btn-success">
+                    <i class="fas fa-save"></i>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+const API_BASE = 'http://localhost:8082/api';
+let tabActual = 'empleados';
+
+document.addEventListener('DOMContentLoaded', function() {
+    cargarEmpleados();
+    showNotification('¡Bienvenido al módulo de Recursos Humanos!', 'success');
+});
+
+function switchTab(tabName) {
+    tabActual = tabName;
+    
+    document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.tab === tabName) {
+            btn.classList.add('active');
+        }
+    });
+    
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    document.getElementById(`tab-${tabName}`).classList.add('active');
+    
+    const btnAccion = document.getElementById('btnAccionPrincipal');
+    if (tabName === 'empleados') {
+        btnAccion.innerHTML = '<i class="fas fa-plus"></i> Nuevo Empleado';
+        btnAccion.onclick = () => mostrarModalEmpleado();
+    } else if (tabName === 'departamentos') {
+        btnAccion.innerHTML = '<i class="fas fa-plus"></i> Nuevo Departamento';
+        btnAccion.onclick = () => mostrarModalDepartamento();
+    } else if (tabName === 'puestos') {
+        btnAccion.innerHTML = '<i class="fas fa-plus"></i> Nuevo Puesto';
+        btnAccion.onclick = () => mostrarModalPuesto();
+    }
+    
+    if (tabName === 'empleados') cargarEmpleados();
+    if (tabName === 'departamentos') cargarDepartamentos();
+    if (tabName === 'puestos') cargarPuestos();
+}
+
+function mostrarModalSegunTab() {
+    if (tabActual === 'empleados') mostrarModalEmpleado();
+    else if (tabActual === 'departamentos') mostrarModalDepartamento();
+    else if (tabActual === 'puestos') mostrarModalPuesto();
+}
+
+async function cargarEmpleados() {
+    const loading = document.getElementById('loadingEmpleados');
+    const tbody = document.getElementById('empleadosBody');
+    
+    loading.classList.add('active');
+    
+    try {
+        const response = await fetch(`${API_BASE}/empleados/activos`);
+        const empleados = await response.json();
+        
+        if (empleados.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <h3>No hay empleados registrados</h3>
+                        <p>Comienza agregando un nuevo empleado</p>
+                    </td>
+                </tr>
+            `;
+        } else {
+            tbody.innerHTML = empleados.map(emp => `
+                <tr>
+                    <td><strong>${emp.codigoEmpleado || 'N/A'}</strong></td>
+                    <td>${emp.nombre} ${emp.apellido || ''}</td>
+                    <td>${emp.rfc || 'N/A'}</td>
+                    <td>${emp.puesto?.nombrePuesto || 'N/A'}</td>
+                    <td>${emp.departamento?.nombreDepartamento || 'N/A'}</td>
+                    <td><span class="badge badge-${emp.estado === 'ACTIVO' ? 'success' : 'warning'}">${emp.estado}</span></td>
+                    <td>
+                        <button class="btn btn-icon btn-warning" onclick="editarEmpleado(${emp.idEmpleado})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-icon btn-danger" onclick="darBajaEmpleado(${emp.idEmpleado})" title="Dar de Baja">
+                            <i class="fas fa-user-slash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        document.getElementById('totalEmpleados').textContent = empleados.length;
+        document.getElementById('badgeEmpleados').textContent = empleados.length;
+        
+        const mesActual = new Date().getMonth();
+        const añoActual = new Date().getFullYear();
+        const nuevos = empleados.filter(e => {
+            const fecha = new Date(e.fechaContratacion);
+            return fecha.getMonth() === mesActual && fecha.getFullYear() === añoActual;
+        }).length;
+        document.getElementById('empleadosNuevosMes').textContent = nuevos;
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al cargar empleados', 'error');
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="empty-state">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Error al cargar datos</h3>
+                    <p>Por favor, verifica que el servidor esté activo</p>
+                </td>
+            </tr>
+        `;
+    } finally {
+        loading.classList.remove('active');
+    }
+}
+
+async function mostrarModalEmpleado(id = null) {
+    document.getElementById('tituloModalEmpleado').innerHTML = id ? '<i class="fas fa-edit"></i> Editar Empleado' : '<i class="fas fa-user-plus"></i> Nuevo Empleado';
+    document.getElementById('formEmpleado').reset();
+    document.getElementById('empleadoId').value = id || '';
+    
+    await cargarPuestosSelect();
+    await cargarDepartamentosSelect();
+    
+    if (id) {
+        try {
+            const response = await fetch(`${API_BASE}/empleados/${id}`);
+            const empleado = await response.json();
+            
+            document.getElementById('empleadoNombre').value = empleado.nombre || '';
+            document.getElementById('empleadoApellido').value = empleado.apellido || '';
+            document.getElementById('empleadoTipoDocumento').value = empleado.tipoDocumento || '';
+            document.getElementById('empleadoNumeroDocumento').value = empleado.numeroDocumento || '';
+            document.getElementById('empleadoRfc').value = empleado.rfc || '';
+            document.getElementById('empleadoCurp').value = empleado.curp || '';
+            document.getElementById('empleadoNss').value = empleado.nss || '';
+            document.getElementById('empleadoFechaNacimiento').value = empleado.fechaNacimiento || '';
+            document.getElementById('empleadoGenero').value = empleado.genero || '';
+            document.getElementById('empleadoDireccion').value = empleado.direccion || '';
+            document.getElementById('empleadoCp').value = empleado.cp || '';
+            document.getElementById('empleadoTelefono').value = empleado.telefono || '';
+            document.getElementById('empleadoCorreo').value = empleado.correo || '';
+            document.getElementById('empleadoFechaContratacion').value = empleado.fechaContratacion || '';
+            document.getElementById('empleadoTipoContrato').value = empleado.tipoContrato || '';
+            document.getElementById('empleadoPuestoId').value = empleado.puesto?.idPuesto || '';
+            document.getElementById('empleadoDepartamentoId').value = empleado.departamento?.idDepartamento || '';
+            document.getElementById('empleadoSalarioBase').value = empleado.salarioBase || '';
+            document.getElementById('empleadoJornada').value = empleado.jornada || 'COMPLETA';
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Error al cargar empleado', 'error');
+        }
+    }
+    
+    document.getElementById('modalEmpleado').classList.add('active');
+}
+
+function cerrarModalEmpleado() {
+    document.getElementById('modalEmpleado').classList.remove('active');
+}
+
+async function guardarEmpleado(event) {
+    event.preventDefault();
+    
+    const id = document.getElementById('empleadoId').value;
+    const empleado = {
+        nombre: document.getElementById('empleadoNombre').value,
+        apellido: document.getElementById('empleadoApellido').value || null,
+        tipoDocumento: document.getElementById('empleadoTipoDocumento').value || null,
+        numeroDocumento: document.getElementById('empleadoNumeroDocumento').value || null,
+        rfc: document.getElementById('empleadoRfc').value || null,
+        curp: document.getElementById('empleadoCurp').value || null,
+        nss: document.getElementById('empleadoNss').value || null,
+        fechaNacimiento: document.getElementById('empleadoFechaNacimiento').value || null,
+        genero: document.getElementById('empleadoGenero').value || null,
+        direccion: document.getElementById('empleadoDireccion').value || null,
+        cp: document.getElementById('empleadoCp').value || null,
+        telefono: document.getElementById('empleadoTelefono').value || null,
+        correo: document.getElementById('empleadoCorreo').value || null,
+        fechaContratacion: document.getElementById('empleadoFechaContratacion').value,
+        tipoContrato: document.getElementById('empleadoTipoContrato').value || null,
+        puesto: { idPuesto: parseInt(document.getElementById('empleadoPuestoId').value) },
+        departamento: { idDepartamento: parseInt(document.getElementById('empleadoDepartamentoId').value) },
+        salarioBase: parseFloat(document.getElementById('empleadoSalarioBase').value) || null,
+        jornada: document.getElementById('empleadoJornada').value
+    };
+    
+    try {
+        const url = id ? `${API_BASE}/empleados/${id}` : `${API_BASE}/empleados`;
+        const method = id ? 'PUT' : 'POST';
+        
+        const response = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(empleado)
+        });
+        
+        if (response.ok) {
+            showNotification(`✅ Empleado ${id ? 'actualizado' : 'creado'} exitosamente`, 'success');
+            cerrarModalEmpleado();
+            cargarEmpleados();
+        } else {
+            const error = await response.text();
+            showNotification(error || 'Error al guardar empleado', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('❌ Error al guardar empleado', 'error');
+    }
+}
+
+async function editarEmpleado(id) {
+    await mostrarModalEmpleado(id);
+}
+
+async function darBajaEmpleado(id) {
+    if (!confirm('¿Estás seguro de dar de baja a este empleado?')) return;
+    
+    const fechaTermino = prompt('Fecha de término (YYYY-MM-DD):', new Date().toISOString().split('T')[0]);
+    if (!fechaTermino) return;
+    
+    try {
+        const response = await fetch(`${API_BASE}/empleados/${id}/dar-baja?fechaTermino=${fechaTermino}`, {
+            method: 'POST'
+        });
+        
+        if (response.ok) {
+            showNotification('✅ Empleado dado de baja exitosamente', 'success');
+            cargarEmpleados();
+        } else {
+            showNotification('❌ Error al dar de baja empleado', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('❌ Error al dar de baja empleado', 'error');
+    }
+}
+
+document.getElementById('searchEmpleados').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#empleadosBody tr');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? '' : 'none';
+    });
+});
+
+async function cargarDepartamentos() {
+    const loading = document.getElementById('loadingDepartamentos');
+    const tbody = document.getElementById('departamentosBody');
+    
+    loading.classList.add('active');
+    
+    try {
+        const response = await fetch(`${API_BASE}/departamentos`);
+        const departamentos = await response.json();
+        
+        if (departamentos.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="empty-state">
+                        <i class="fas fa-building"></i>
+                        <h3>No hay departamentos registrados</h3>
+                        <p>Comienza agregando un nuevo departamento</p>
+                    </td>
+                </tr>
+            `;
+        } else {
+            tbody.innerHTML = departamentos.map(dept => `
+                <tr>
+                    <td><strong>${dept.codigoDepartamento}</strong></td>
+                    <td>${dept.nombreDepartamento}</td>
+                    <td>${dept.departamentoPadre?.nombreDepartamento || 'N/A'}</td>
+                    <td>${dept.jefe ? `${dept.jefe.nombre} ${dept.jefe.apellido || ''}` : 'Sin asignar'}</td>
+                    <td><span class="badge badge-${dept.estado === 'ACTIVO' ? 'success' : 'warning'}">${dept.estado}</span></td>
+                    <td>
+                        <button class="btn btn-icon btn-warning" onclick="editarDepartamento(${dept.idDepartamento})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        const activos = departamentos.filter(d => d.estado === 'ACTIVO').length;
+        const conJefe = departamentos.filter(d => d.jefe !== null).length;
+        
+        document.getElementById('totalDepartamentos').textContent = departamentos.length;
+        document.getElementById('totalDepartamentos2').textContent = departamentos.length;
+        document.getElementById('badgeDepartamentos').textContent = departamentos.length;
+        document.getElementById('departamentosActivos').textContent = activos;
+        document.getElementById('departamentosConJefe').textContent = conJefe;
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al cargar departamentos', 'error');
+    } finally {
+        loading.classList.remove('active');
+    }
+}
+
+async function mostrarModalDepartamento(id = null) {
+    document.getElementById('tituloModalDepartamento').innerHTML = id ? '<i class="fas fa-edit"></i> Editar Departamento' : '<i class="fas fa-building"></i> Nuevo Departamento';
+    document.getElementById('formDepartamento').reset();
+    document.getElementById('departamentoId').value = id || '';
+    
+    await cargarDepartamentosPadreSelect();
+    
+    if (id) {
+        try {
+            const response = await fetch(`${API_BASE}/departamentos/${id}`);
+            const departamento = await response.json();
+            
+            document.getElementById('departamentoCodigo').value = departamento.codigoDepartamento;
+            document.getElementById('departamentoNombre').value = departamento.nombreDepartamento;
+            document.getElementById('departamentoDescripcion').value = departamento.descripcion || '';
+            document.getElementById('departamentoPadreId').value = departamento.departamentoPadre?.idDepartamento || '';
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Error al cargar departamento', 'error');
+        }
+    }
+    
+    document.getElementById('modalDepartamento').classList.add('active');
+}
+
+function cerrarModalDepartamento() {
+    document.getElementById('modalDepartamento').classList.remove('active');
+}
+
+async function guardarDepartamento(event) {
+    event.preventDefault();
+    
+    const id = document.getElementById('departamentoId').value;
+    const padreId = document.getElementById('departamentoPadreId').value;
+    
+    const departamento = {
+        codigoDepartamento: document.getElementById('departamentoCodigo').value,
+        nombreDepartamento: document.getElementById('departamentoNombre').value,
+        descripcion: document.getElementById('departamentoDescripcion').value || null,
+        departamentoPadre: padreId ? { idDepartamento: parseInt(padreId) } : null
+    };
+    
+    try {
+        const url = id ? `${API_BASE}/departamentos/${id}` : `${API_BASE}/departamentos`;
+        const method = id ? 'PUT' : 'POST';
+        
+        const response = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(departamento)
+        });
+        
+        if (response.ok) {
+            showNotification(`✅ Departamento ${id ? 'actualizado' : 'creado'} exitosamente`, 'success');
+            cerrarModalDepartamento();
+            cargarDepartamentos();
+        } else {
+            const error = await response.text();
+            showNotification(error || 'Error al guardar departamento', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('❌ Error al guardar departamento', 'error');
+    }
+}
+
+async function editarDepartamento(id) {
+    await mostrarModalDepartamento(id);
+}
+
+document.getElementById('searchDepartamentos').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#departamentosBody tr');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? '' : 'none';
+    });
+});
+
+async function cargarPuestos() {
+    const loading = document.getElementById('loadingPuestos');
+    const tbody = document.getElementById('puestosBody');
+    
+    loading.classList.add('active');
+    
+    try {
+        const response = await fetch(`${API_BASE}/puestos`);
+        const puestos = await response.json();
+        
+        if (puestos.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="empty-state">
+                        <i class="fas fa-briefcase"></i>
+                        <h3>No hay puestos registrados</h3>
+                        <p>Comienza agregando un nuevo puesto</p>
+                    </td>
+                </tr>
+            `;
+        } else {
+            tbody.innerHTML = puestos.map(puesto => `
+                <tr>
+                    <td><strong>${puesto.codigoPuesto}</strong></td>
+                    <td>${puesto.nombrePuesto}</td>
+                    <td>${puesto.nivelJerarquico || 'N/A'}</td>
+                    <td>${puesto.salarioMinimo ? parseFloat(puesto.salarioMinimo).toLocaleString('es-MX', {minimumFractionDigits: 2}) : 'N/A'}</td>
+                    <td>${puesto.salarioMaximo ? parseFloat(puesto.salarioMaximo).toLocaleString('es-MX', {minimumFractionDigits: 2}) : 'N/A'}</td>
+                    <td><span class="badge badge-${puesto.estado === 'ACTIVO' ? 'success' : 'warning'}">${puesto.estado}</span></td>
+                    <td>
+                        <button class="btn btn-icon btn-warning" onclick="editarPuesto(${puesto.idPuesto})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        const activos = puestos.filter(p => p.estado === 'ACTIVO').length;
+        
+        document.getElementById('totalPuestos').textContent = puestos.length;
+        document.getElementById('totalPuestos2').textContent = puestos.length;
+        document.getElementById('badgePuestos').textContent = puestos.length;
+        document.getElementById('puestosActivos').textContent = activos;
+        document.getElementById('puestosOcupados').textContent = 0;
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al cargar puestos', 'error');
+    } finally {
+        loading.classList.remove('active');
+    }
+}
+
+async function mostrarModalPuesto(id = null) {
+    document.getElementById('tituloModalPuesto').innerHTML = id ? '<i class="fas fa-edit"></i> Editar Puesto' : '<i class="fas fa-briefcase"></i> Nuevo Puesto';
+    document.getElementById('formPuesto').reset();
+    document.getElementById('puestoId').value = id || '';
+    
+    if (id) {
+        try {
+            const response = await fetch(`${API_BASE}/puestos/${id}`);
+            const puesto = await response.json();
+            
+            document.getElementById('puestoCodigo').value = puesto.codigoPuesto;
+            document.getElementById('puestoNombre').value = puesto.nombrePuesto;
+            document.getElementById('puestoDescripcion').value = puesto.descripcion || '';
+            document.getElementById('puestoNivelJerarquico').value = puesto.nivelJerarquico || '';
+            document.getElementById('puestoSalarioMinimo').value = puesto.salarioMinimo || '';
+            document.getElementById('puestoSalarioMaximo').value = puesto.salarioMaximo || '';
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Error al cargar puesto', 'error');
+        }
+    }
+    
+    document.getElementById('modalPuesto').classList.add('active');
+}
+
+function cerrarModalPuesto() {
+    document.getElementById('modalPuesto').classList.remove('active');
+}
+
+async function guardarPuesto(event) {
+    event.preventDefault();
+    
+    const id = document.getElementById('puestoId').value;
+    const puesto = {
+        codigoPuesto: document.getElementById('puestoCodigo').value,
+        nombrePuesto: document.getElementById('puestoNombre').value,
+        descripcion: document.getElementById('puestoDescripcion').value || null,
+        nivelJerarquico: parseInt(document.getElementById('puestoNivelJerarquico').value) || null,
+        salarioMinimo: parseFloat(document.getElementById('puestoSalarioMinimo').value) || null,
+        salarioMaximo: parseFloat(document.getElementById('puestoSalarioMaximo').value) || null
+    };
+    
+    try {
+        const url = id ? `${API_BASE}/puestos/${id}` : `${API_BASE}/puestos`;
+        const method = id ? 'PUT' : 'POST';
+        
+        const response = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(puesto)
+        });
+        
+        if (response.ok) {
+            showNotification(`✅ Puesto ${id ? 'actualizado' : 'creado'} exitosamente`, 'success');
+            cerrarModalPuesto();
+            cargarPuestos();
+        } else {
+            const error = await response.text();
+            showNotification(error || 'Error al guardar puesto', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('❌ Error al guardar puesto', 'error');
+    }
+}
+
+async function editarPuesto(id) {
+    await mostrarModalPuesto(id);
+}
+
+document.getElementById('searchPuestos').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#puestosBody tr');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? '' : 'none';
+    });
+});
+
+async function cargarPuestosSelect() {
+    try {
+        const response = await fetch(`${API_BASE}/puestos`);
+        const puestos = await response.json();
+        
+        const select = document.getElementById('empleadoPuestoId');
+        select.innerHTML = '<option value="">Seleccionar puesto</option>';
+        puestos.forEach(puesto => {
+            if (puesto.estado === 'ACTIVO') {
+                select.innerHTML += `<option value="${puesto.idPuesto}">${puesto.nombrePuesto}</option>`;
+            }
+        });
+    } catch (error) {
+        console.error('Error al cargar puestos:', error);
+    }
+}
+
+async function cargarDepartamentosSelect() {
+    try {
+        const response = await fetch(`${API_BASE}/departamentos`);
+        const departamentos = await response.json();
+        
+        const select = document.getElementById('empleadoDepartamentoId');
+        select.innerHTML = '<option value="">Seleccionar departamento</option>';
+        departamentos.forEach(dept => {
+            if (dept.estado === 'ACTIVO') {
+                select.innerHTML += `<option value="${dept.idDepartamento}">${dept.nombreDepartamento}</option>`;
+            }
+        });
+    } catch (error) {
+        console.error('Error al cargar departamentos:', error);
+    }
+}
+
+async function cargarDepartamentosPadreSelect() {
+    try {
+        const response = await fetch(`${API_BASE}/departamentos`);
+        const departamentos = await response.json();
+        
+        const select = document.getElementById('departamentoPadreId');
+        const idActual = document.getElementById('departamentoId').value;
+        select.innerHTML = '<option value="">Sin departamento padre</option>';
+        departamentos.forEach(dept => {
+            if (dept.estado === 'ACTIVO' && dept.idDepartamento != idActual) {
+                select.innerHTML += `<option value="${dept.idDepartamento}">${dept.nombreDepartamento}</option>`;
+            }
+        });
+    } catch (error) {
+        console.error('Error al cargar departamentos:', error);
+    }
+}
+
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('active');
+}
+
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    
+    if (window.innerWidth <= 768) {
+        if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+
+function cerrarSesion() {
+    if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+        showNotification('Cerrando sesión...', 'info');
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 1000);
+    }
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    let bgColor, icon;
+    
+    switch(type) {
+        case 'success':
+            bgColor = 'var(--verde-exito)';
+            icon = 'fa-check-circle';
+            break;
+        case 'error':
+            bgColor = 'var(--rojo-peligro)';
+            icon = 'fa-exclamation-circle';
+            break;
+        case 'warning':
+            bgColor = 'var(--amarillo-advertencia)';
+            icon = 'fa-exclamation-triangle';
+            break;
+        default:
+            bgColor = 'var(--azul-principal)';
+            icon = 'fa-info-circle';
+    }
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${bgColor};
+        color: ${type === 'warning' ? '#333' : 'white'};
+        padding: 18px 24px;
+        border-radius: 12px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideIn 0.4s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 500;
+        max-width: 350px;
+    `;
+    
+    notification.innerHTML = `
+        <i class="fas ${icon}" style="font-size: 20px;"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'fadeOut 0.4s ease';
+        setTimeout(() => notification.remove(), 400);
+    }, 3500);
+}
+
+const styleAnimations = document.createElement('style');
+styleAnimations.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+`;
+document.head.appendChild(styleAnimations);
+
+document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.classList.remove('active');
+        }
+    });
+});
+
+console.log('%c👥 Módulo de Recursos Humanos', 'color: #4a90e2; font-size: 20px; font-weight: bold;');
+console.log('%c✅ Sistema cargado', 'color: #28a745; font-size: 14px;');
+console.log('%c📋 Funcionalidades:', 'color: #333; font-size: 13px; font-weight: bold;');
+console.log('%c  • CRUD Empleados', 'color: #6c757d; font-size: 12px;');
+console.log('%c  • CRUD Departamentos', 'color: #6c757d; font-size: 12px;');
+console.log('%c  • CRUD Puestos', 'color: #6c757d; font-size: 12px;');
+console.log('%c  • Sistema de tabs', 'color: #6c757d; font-size: 12px;');
+console.log('%c  • Filtros en tiempo real', 'color: #6c757d; font-size: 12px;');
+    </script>
+</body>
+</html>
