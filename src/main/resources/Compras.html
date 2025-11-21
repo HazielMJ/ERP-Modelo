@@ -10,7 +10,6 @@
 </head>
 <body>
     <div class="main-container">
-        <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <h2><i class="fas fa-chart-line"></i> ERP System</h2>
@@ -149,7 +148,6 @@
                     </a>
                 </li>
                 <li>
-            <!-- Botón de cerrar sesión -->
             <div class="logout-section">
                 <button class="btn-logout" onclick="cerrarSesion()">
                     <i class="fas fa-sign-out-alt"></i>
@@ -160,10 +158,8 @@
             </ul>
         </aside>
 
-        <!-- ==================== MAIN CONTENT ==================== -->
         <div class="main-content">
             
-            <!-- ==================== HEADER ==================== -->
             <header class="page-header">
                 <div class="header-left">
                     <button class="mobile-menu-btn" onclick="toggleSidebar()">
@@ -186,7 +182,6 @@
                 </div>
             </header>
 
-            <!-- ==================== TABS NAVIGATION ==================== -->
             <div class="tabs-container">
                 <div class="tabs-nav">
                     <button class="tab-button active" onclick="cambiarTab('compras')" data-tab="compras">
@@ -202,11 +197,9 @@
                 </div>
             </div>
 
-            <!-- ==================== TAB 1: COMPRAS ==================== -->
             <div class="tab-content active" id="tab-compras">
                 <section class="content-section">
                     
-                    <!-- Stats Cards Compras -->
                     <div class="stats-grid">
                         <div class="stat-card" style="border-left-color: var(--azul-principal)">
                             <div class="stat-header">
@@ -249,7 +242,6 @@
                         </div>
                     </div>
 
-                    <!-- Toolbar Compras -->
                     <div class="toolbar">
                         <div class="search-box">
                             <i class="fas fa-search input-icon"></i>
@@ -270,7 +262,6 @@
                         </div>
                     </div>
 
-                    <!-- Tabla de Compras -->
                     <div class="table-container">
                         <div class="table-header">
                             <h3 class="table-title">
@@ -305,11 +296,9 @@
                 </section>
             </div>
 
-            <!-- ==================== TAB 2: PROVEEDORES ==================== -->
             <div class="tab-content" id="tab-proveedores">
                 <section class="content-section">
                     
-                    <!-- Stats Cards Proveedores -->
                     <div class="stats-grid">
                         <div class="stat-card" style="border-left-color: var(--azul-principal)">
                             <div class="stat-header">
@@ -352,7 +341,6 @@
                         </div>
                     </div>
 
-                    <!-- Toolbar Proveedores -->
                     <div class="toolbar">
                         <div class="search-box">
                             <i class="fas fa-search input-icon"></i>
@@ -375,7 +363,6 @@
                         </div>
                     </div>
 
-                    <!-- Tabla de Proveedores -->
                     <div class="table-container">
                         <div class="table-header">
                             <h3 class="table-title">
@@ -414,7 +401,6 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL: NUEVA/EDITAR COMPRA ==================== -->
     <div class="modal" id="modalCompra">
         <div class="modal-content">
             <div class="modal-header">
@@ -430,7 +416,6 @@
                 <form id="formCompra">
                     <input type="hidden" id="compraId">
                     
-                    <!-- Información General -->
                     <div class="form-grid">
                         <div class="form-group">
                             <label class="form-label">
@@ -496,7 +481,6 @@
                         </div>
                     </div>
 
-                    <!-- Sección de Productos -->
                     <div class="productos-section">
                         <div class="productos-header">
                             <h4 style="color: var(--azul-principal); font-size: 18px;">
@@ -519,11 +503,9 @@
                                 </tr>
                             </thead>
                             <tbody id="productosTableBody">
-                                <!-- Los productos se agregarán dinámicamente -->
                             </tbody>
                         </table>
 
-                        <!-- Totales -->
                         <div class="total-section">
                             <div class="total-row">
                                 <span>Subtotal:</span>
@@ -558,7 +540,6 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL: NUEVO/EDITAR PROVEEDOR ==================== -->
     <div class="modal" id="modalProveedor">
         <div class="modal-content" style="max-width: 700px;">
             <div class="modal-header">
@@ -673,7 +654,6 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL: VER DETALLES COMPRA ==================== -->
     <div class="modal" id="modalDetallesCompra">
         <div class="modal-content">
             <div class="modal-header">
@@ -686,7 +666,6 @@
                 </button>
             </div>
             <div class="modal-body" id="detallesCompraContent">
-                <!-- El contenido se cargará dinámicamente -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalDetallesCompra')">
@@ -697,7 +676,6 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL: VER DETALLES PROVEEDOR ==================== -->
     <div class="modal" id="modalDetallesProveedor">
         <div class="modal-content" style="max-width: 800px;">
             <div class="modal-header">
@@ -710,7 +688,6 @@
                 </button>
             </div>
             <div class="modal-body" id="detallesProveedorContent">
-                <!-- El contenido se cargará dinámicamente -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalDetallesProveedor')">
@@ -722,9 +699,7 @@
     </div>
 
 <script>
-// ==================== PARTE 1: VARIABLES, INICIALIZACIÓN Y CARGA DE DATOS ====================
 
-// ==================== VARIABLES GLOBALES ====================
 let compras = [];
 let proveedores = [];
 let productos = [];
@@ -732,7 +707,6 @@ let usuarioActual = null;
 let productoIndex = 0;
 let tabActual = 'compras';
 
-// ==================== INICIALIZACIÓN ====================
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🛒 Módulo de Compras - Iniciando...');
     
@@ -746,7 +720,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ Módulo cargado correctamente');
 });
 
-// ==================== CARGAR USUARIO ====================
 function cargarUsuario() {
     const usuarioStorage = localStorage.getItem('usuario');
     if (usuarioStorage) {
@@ -757,7 +730,6 @@ function cargarUsuario() {
     }
 }
 
-// ==================== INICIALIZAR EVENTOS ====================
 function inicializarEventos() {
     document.getElementById('searchCompras').addEventListener('input', filtrarCompras);
     document.getElementById('estadoFilterCompras').addEventListener('change', filtrarCompras);
@@ -772,7 +744,6 @@ function setFechaHoy() {
     document.getElementById('fechaCompra').value = hoy;
 }
 
-// ==================== SISTEMA DE TABS ====================
 function cambiarTab(nombreTab) {
     tabActual = nombreTab;
     
@@ -800,7 +771,6 @@ function cambiarTab(nombreTab) {
     console.log(`📑 Tab activo: ${nombreTab}`);
 }
 
-// ==================== CARGAR DATOS - PROVEEDORES ====================
 async function cargarProveedores() {
     try {
         const response = await fetch('/api/proveedores');
@@ -826,7 +796,6 @@ async function cargarProveedores() {
     }
 }
 
-// ==================== CARGAR DATOS - PRODUCTOS ====================
 async function cargarProductos() {
     try {
         const response = await fetch('/api/productos');
@@ -838,7 +807,6 @@ async function cargarProductos() {
     }
 }
 
-// ==================== CARGAR DATOS - COMPRAS ====================
 async function cargarCompras() {
     try {
         const response = await fetch('/api/compras');
@@ -854,7 +822,6 @@ async function cargarCompras() {
     }
 }
 
-// ==================== RENDERIZAR TABLA DE COMPRAS ====================
 function renderizarCompras(comprasData) {
     const tbody = document.getElementById('comprasTableBody');
     
@@ -896,7 +863,6 @@ function renderizarCompras(comprasData) {
     `).join('');
 }
 
-// ==================== RENDERIZAR TABLA DE PROVEEDORES ====================
 function renderizarProveedores(proveedoresData) {
     const tbody = document.getElementById('proveedoresTableBody');
     
@@ -943,7 +909,6 @@ function renderizarProveedores(proveedoresData) {
     `).join('');
 }
 
-// ==================== BADGES Y ESTADOS ====================
 function getBadgeEstado(estado) {
     const badges = {
         'PENDIENTE': '<span class="badge badge-warning"><i class="fas fa-clock"></i> Pendiente</span>',
@@ -972,7 +937,6 @@ function getEstadoProveedor(estado) {
     }
 }
 
-// ==================== ESTADÍSTICAS - COMPRAS ====================
 function actualizarEstadisticasCompras() {
     const total = compras.length;
     const pendientes = compras.filter(c => c.estado === 'PENDIENTE').length;
@@ -994,7 +958,6 @@ function actualizarEstadisticasCompras() {
     document.getElementById('badgeCompras').textContent = total;
 }
 
-// ==================== ESTADÍSTICAS - PROVEEDORES ====================
 function actualizarEstadisticasProveedores() {
     const total = proveedores.length;
     const activos = proveedores.filter(p => p.estado === 'ACTIVO').length;
@@ -1008,7 +971,6 @@ function actualizarEstadisticasProveedores() {
     document.getElementById('badgeProveedores').textContent = total;
 }
 
-// ==================== FILTROS - COMPRAS ====================
 function filtrarCompras() {
     const searchTerm = document.getElementById('searchCompras').value.toLowerCase();
     const estadoFilter = document.getElementById('estadoFilterCompras').value;
@@ -1026,7 +988,6 @@ function filtrarCompras() {
     renderizarCompras(comprasFiltradas);
 }
 
-// ==================== FILTROS - PROVEEDORES ====================
 function filtrarProveedores() {
     const searchTerm = document.getElementById('searchProveedores').value.toLowerCase();
     const estadoFilter = document.getElementById('estadoFilterProveedores').value;
@@ -1044,9 +1005,7 @@ function filtrarProveedores() {
     
     renderizarProveedores(proveedoresFiltrados);
 }
-// ==================== PARTE 2: MODALES Y GESTIÓN DE PRODUCTOS ====================
 
-// ==================== MODAL - NUEVA COMPRA ====================
 function abrirModalNuevaCompra() {
     document.getElementById('modalCompraTitle').innerHTML = '<i class="fas fa-plus-circle"></i> Nueva Orden de Compra';
     document.getElementById('formCompra').reset();
@@ -1058,7 +1017,6 @@ function abrirModalNuevaCompra() {
     document.getElementById('modalCompra').classList.add('active');
 }
 
-// ==================== MODAL - NUEVO PROVEEDOR ====================
 function abrirModalNuevoProveedor() {
     document.getElementById('modalProveedorTitle').innerHTML = '<i class="fas fa-plus-circle"></i> Nuevo Proveedor';
     document.getElementById('formProveedor').reset();
@@ -1067,12 +1025,10 @@ function abrirModalNuevoProveedor() {
     document.getElementById('modalProveedor').classList.add('active');
 }
 
-// ==================== CERRAR MODALES ====================
 function cerrarModal(modalId) {
     document.getElementById(modalId).classList.remove('active');
 }
 
-// ==================== GESTIÓN DE PRODUCTOS EN COMPRA ====================
 function agregarProducto() {
     if (productos.length === 0) {
         showNotification('No hay productos disponibles', 'warning');
@@ -1167,7 +1123,6 @@ function calcularTotales() {
     document.getElementById('totalDisplay').textContent = '$' + formatearNumero(total);
 }
 
-// ==================== GUARDAR COMPRA ====================
 async function guardarCompra() {
     if (!document.getElementById('fechaCompra').value) {
         showNotification('Seleccione la fecha de compra', 'error');
@@ -1260,7 +1215,6 @@ async function guardarCompra() {
     }
 }
 
-// ==================== GUARDAR PROVEEDOR ====================
 async function guardarProveedor() {
     if (!document.getElementById('nombreEmpresa').value.trim()) {
         showNotification('El nombre de la empresa es requerido', 'error');
@@ -1305,9 +1259,7 @@ async function guardarProveedor() {
     }
 }
 
-// ==================== PARTE 3: DETALLES, ACCIONES Y UTILIDADES ====================
 
-// ==================== VER DETALLES COMPRA ====================
 async function verDetallesCompra(idCompra) {
     try {
         const response = await fetch(`/api/compras/${idCompra}`);
@@ -1419,7 +1371,6 @@ async function verDetallesCompra(idCompra) {
     }
 }
 
-// ==================== VER DETALLES PROVEEDOR ====================
 async function verDetallesProveedor(idProveedor) {
     try {
         const response = await fetch(`/api/proveedores/${idProveedor}`);
@@ -1502,7 +1453,6 @@ async function verDetallesProveedor(idProveedor) {
     }
 }
 
-// ==================== EDITAR PROVEEDOR ====================
 async function editarProveedor(idProveedor) {
     try {
         const response = await fetch(`/api/proveedores/${idProveedor}`);
@@ -1528,7 +1478,6 @@ async function editarProveedor(idProveedor) {
     }
 }
 
-// ==================== RECIBIR COMPRA ====================
 async function recibirCompra(idCompra) {
     if (!confirm('¿Confirma que ha recibido esta compra? Se actualizará el inventario.')) {
         return;
@@ -1551,7 +1500,6 @@ async function recibirCompra(idCompra) {
     }
 }
 
-// ==================== ANULAR COMPRA ====================
 async function anularCompra(idCompra) {
     if (!confirm('⚠️ ¿Está seguro de anular esta compra? Esta acción no se puede deshacer.')) {
         return;
@@ -1574,7 +1522,6 @@ async function anularCompra(idCompra) {
     }
 }
 
-// ==================== DESACTIVAR PROVEEDOR ====================
 async function desactivarProveedor(idProveedor) {
     if (!confirm('¿Está seguro de desactivar este proveedor?')) {
         return;
@@ -1597,7 +1544,6 @@ async function desactivarProveedor(idProveedor) {
     }
 }
 
-// ==================== ACTIVAR PROVEEDOR ====================
 async function activarProveedor(idProveedor) {
     try {
         const proveedor = proveedores.find(p => p.idProveedor === idProveedor);
@@ -1623,7 +1569,6 @@ async function activarProveedor(idProveedor) {
     }
 }
 
-// ==================== SIDEBAR ====================
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.toggle('active');
@@ -1640,7 +1585,6 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// ==================== CERRAR SESIÓN ====================
 function cerrarSesion() {
     if (confirm('¿Está seguro que desea cerrar sesión?')) {
         showNotification('Cerrando sesión...', 'info');
@@ -1652,7 +1596,6 @@ function cerrarSesion() {
     }
 }
 
-// ==================== UTILIDADES ====================
 function formatearFecha(fecha) {
     if (!fecha) return 'N/A';
     const date = new Date(fecha);
@@ -1670,7 +1613,6 @@ function formatearNumero(numero) {
     });
 }
 
-// ==================== NOTIFICACIONES ====================
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     let bgColor, icon;
@@ -1723,7 +1665,6 @@ function showNotification(message, type = 'info') {
     }, 3500);
 }
 
-// ==================== ESTILOS DE ANIMACIÓN ====================
 const styleAnimations = document.createElement('style');
 styleAnimations.textContent = `
     @keyframes slideIn {
@@ -1737,7 +1678,6 @@ styleAnimations.textContent = `
 `;
 document.head.appendChild(styleAnimations);
 
-// ==================== CONSOLE LOG ====================
 console.log('%c🛒 Módulo de Compras', 'color: #4a90e2; font-size: 20px; font-weight: bold;');
 console.log('%c✅ Sistema cargado', 'color: #28a745; font-size: 14px;');
 console.log('%c📋 Funcionalidades:', 'color: #333; font-size: 13px; font-weight: bold;');
