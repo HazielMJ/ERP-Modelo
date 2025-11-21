@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema ERP - Logística</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="Logis.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-chart-line"></i> ERP System</h2>
+                <p>Sistema Integral de Gestión</p>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-section">
+                    <div class="nav-section-title">PRINCIPAL</div>
+                </li>
+                <li class="nav-item" data-modulo="dashboard">
+                    <a href="/dashboard" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="administracion">
+                    <div class="nav-section-title">ADMINISTRACIÓN</div>
+                </li>
+                <li class="nav-item" data-modulo="usuarios">
+                    <a href="/usuarios" class="nav-link">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="contabilidad">
+                    <a href="/contabilidad" class="nav-link">
+                        <i class="fas fa-calculator"></i>
+                        <span>Contabilidad</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="ventas">
+                    <div class="nav-section-title">VENTAS</div>
+                </li>
+                <li class="nav-item" data-modulo="Clientes">
+                    <a href="/Clientes" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="ventas">
+                    <a href="/ventas" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Ventas</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="facturacion">
+                    <a href="/facturacion" class="nav-link">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Facturación</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="punto-venta">
+                    <a href="/Punto de venta" class="nav-link">
+                        <i class="fas fa-cash-register"></i>
+                        <span>Punto de Venta</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="compras">
+                    <div class="nav-section-title">COMPRAS</div>
+                </li>
+                <li class="nav-item" data-modulo="proveedores">
+                    <a href="/proveedores" class="nav-link">
+                        <i class="fas fa-truck"></i>
+                        <span>Proveedores</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="Compras">
+                    <a href="/Compras" class="nav-link">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Compras</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="inventario">
+                    <div class="nav-section-title">INVENTARIO</div>
+                </li>
+                <li class="nav-item" data-modulo="Inventario">
+                    <a href="/Inventario" class="nav-link">
+                        <i class="fas fa-boxes"></i>
+                        <span>Inventario</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="almacenes">
+                    <a href="/Almacenes" class="nav-link">
+                        <i class="fas fa-warehouse"></i>
+                        <span>Almacenes</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="rrhh">
+                    <div class="nav-section-title">RECURSOS HUMANOS</div>
+                </li>
+                <li class="nav-item" data-modulo="rrhh">
+                    <a href="/rrhh" class="nav-link">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Empleados</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-modulo="nomina">
+                    <a href="/nomina" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Nómina</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="logistica">
+                    <div class="nav-section-title">LOGÍSTICA</div>
+                </li>
+                <li class="nav-item" data-modulo="logistica">
+                    <a href="/logistica" class="nav-link">
+                        <i class="fas fa-shipping-fast"></i>
+                        <span>Envíos</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="analisis">
+                    <div class="nav-section-title">ANÁLISIS</div>
+                </li>
+                <li class="nav-item" data-modulo="reportes">
+                    <a href="/reportes" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reportes</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section" data-seccion="sistema">
+                    <div class="nav-section-title">SISTEMA</div>
+                </li>
+                <li class="nav-item" data-modulo="configuracion">
+                    <a href="/configuracion" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Configuración</span>
+                    </a>
+                </li>
+                <li>
+            <!-- Botón de cerrar sesión -->
+            <div class="logout-section">
+                <button class="btn-logout" onclick="cerrarSesion()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </div>
+                </li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1><i class="fas fa-shipping-fast"></i> Logística y Envíos</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <div class="user-avatar">AD</div>
+                        <div>
+                            <div style="font-weight: 600; color: var(--gris-texto);">Admin User</div>
+                            <div style="font-size: 12px; color: var(--gris-texto-secundario);">Administrador</div>
+                        </div>
+                    </div>
+                    <button class="logout-btn" onclick="cerrarSesion()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Cerrar Sesión
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Estadísticas -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(45deg, var(--naranja-proceso), #e0650d);">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalEnvios">0</h3>
+                            <p>Envíos Totales</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(45deg, var(--morado-transito), #5936a8);">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="enviosEnTransito">0</h3>
+                            <p>En Tránsito</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(45deg, var(--verde-exito), var(--verde-exito-gradient));">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="enviosEntregados">0</h3>
+                            <p>Entregados</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(45deg, var(--amarillo-advertencia), #e0a800);">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="enviosPendientes">0</h3>
+                            <p>Pendientes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('envios')">
+                        <i class="fas fa-box"></i> Envíos
+                    </button>
+                    <button class="tab" onclick="switchTab('metodos')">
+                        <i class="fas fa-shipping-fast"></i> Métodos de Envío
+                    </button>
+                    <button class="tab" onclick="switchTab('transportistas')">
+                        <i class="fas fa-user-tie"></i> Transportistas
+                    </button>
+                    <button class="tab" onclick="switchTab('rutas')">
+                        <i class="fas fa-route"></i> Rutas
+                    </button>
+                </div>
+                <div id="tab-envios" class="tab-content active">
+                    <div class="action-bar">
+                        <div class="search-box">
+                            <input type="text" class="search-input" id="searchEnvios" placeholder="Buscar por número de guía, cliente...">
+                            <button class="btn btn-secondary" onclick="buscarEnvios()">
+                                <i class="fas fa-search"></i> Buscar
+                            </button>
+                        </div>
+                        <button class="btn btn-primary" onclick="mostrarModalEnvio()">
+                            <i class="fas fa-plus"></i> Nuevo Envío
+                        </button>
+                    </div>
+
+                    <!-- Filtros -->
+                    <div class="filter-bar">
+                        <select class="filter-select" id="filterEstadoEnvio" onchange="filtrarEnvios()">
+                            <option value="">Todos los estados</option>
+                            <option value="PENDIENTE">Pendiente</option>
+                            <option value="PREPARANDO">Preparando</option>
+                            <option value="EN_TRANSITO">En Tránsito</option>
+                            <option value="ENTREGADO">Entregado</option>
+                            <option value="CANCELADO">Cancelado</option>
+                            <option value="DEVUELTO">Devuelto</option>
+                        </select>
+                    </div>
+
+                    <div class="card">
+                        <div class="loading" id="loadingEnvios">
+                            <div class="spinner"></div>
+                            <p>Cargando envíos...</p>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>N° Guía</th>
+                                        <th>Cliente</th>
+                                        <th>Destino</th>
+                                        <th>Método</th>
+                                        <th>Estado</th>
+                                        <th>Fecha Creación</th>
+                                        <th>Costo</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="enviosBody">
+                                    <tr>
+                                        <td colspan="8">
+                                            <div class="empty-state">
+                                                <i class="fas fa-box-open"></i>
+                                                <h3>No hay envíos registrados</h3>
+                                                <p>Comienza creando un nuevo envío</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-metodos" class="tab-content">
+                    <div class="action-bar">
+                        <div class="search-box">
+                            <input type="text" class="search-input" id="searchMetodos" placeholder="Buscar métodos de envío...">
+                        </div>
+                        <button class="btn btn-primary" onclick="mostrarModalMetodo()">
+                            <i class="fas fa-plus"></i> Nuevo Método
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="loading" id="loadingMetodos">
+                            <div class="spinner"></div>
+                            <p>Cargando métodos de envío...</p>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Descripción</th>
+                                        <th>Costo Base</th>
+                                        <th>Costo por Km</th>
+                                        <th>Tiempo Estimado</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="metodosBody">
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="empty-state">
+                                                <i class="fas fa-shipping-fast"></i>
+                                                <h3>No hay métodos de envío registrados</h3>
+                                                <p>Comienza agregando un nuevo método</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-transportistas" class="tab-content">
+                    <div class="action-bar">
+                        <div class="search-box">
+                            <input type="text" class="search-input" id="searchTransportistas" placeholder="Buscar transportistas...">
+                        </div>
+                        <button class="btn btn-primary" onclick="mostrarModalTransportista()">
+                            <i class="fas fa-plus"></i> Nuevo Transportista
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="loading" id="loadingTransportistas">
+                            <div class="spinner"></div>
+                            <p>Cargando transportistas...</p>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Empresa</th>
+                                        <th>Teléfono</th>
+                                        <th>Email</th>
+                                        <th>Tipo Vehículo</th>
+                                        <th>Placa</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transportistasBody">
+                                    <tr>
+                                        <td colspan="8">
+                                            <div class="empty-state">
+                                                <i class="fas fa-user-tie"></i>
+                                                <h3>No hay transportistas registrados</h3>
+                                                <p>Comienza agregando un nuevo transportista</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-rutas" class="tab-content">
+                    <div class="action-bar">
+                        <div class="search-box">
+                            <input type="text" class="search-input" id="searchRutas" placeholder="Buscar rutas...">
+                        </div>
+                        <button class="btn btn-primary" onclick="mostrarModalRuta()">
+                            <i class="fas fa-plus"></i> Nueva Ruta
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="loading" id="loadingRutas">
+                            <div class="spinner"></div>
+                            <p>Cargando rutas...</p>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Origen</th>
+                                        <th>Destino</th>
+                                        <th>Distancia (Km)</th>
+                                        <th>Tiempo (Min)</th>
+                                        <th>Costo</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rutasBody">
+                                    <tr>
+                                        <td colspan="9">
+                                            <div class="empty-state">
+                                                <i class="fas fa-route"></i>
+                                                <h3>No hay rutas registradas</h3>
+                                                <p>Comienza agregando una nueva ruta</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="modal" id="modalEnvio">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-box"></i> <span id="tituloModalEnvio">Nuevo Envío</span></h2>
+                <button class="close-btn" onclick="cerrarModalEnvio()">&times;</button>
+            </div>
+            <form id="formEnvio" onsubmit="guardarEnvio(event)">
+                <input type="hidden" id="envioId">
+                
+                <h3 class="form-section-title"><i class="fas fa-user"></i> Información del Cliente</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Cliente *</label>
+                        <select id="envioClienteId" required>
+                            <option value="">Seleccionar cliente</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Venta (Opcional)</label>
+                        <select id="envioVentaId">
+                            <option value="">Sin venta asociada</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h3 class="form-section-title"><i class="fas fa-map-marker-alt"></i> Dirección de Entrega</h3>
+                <div class="form-group">
+                    <label>Dirección Completa *</label>
+                    <textarea id="envioDireccion" rows="2" required placeholder="Calle, número, colonia..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Ciudad *</label>
+                        <input type="text" id="envioCiudad" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Estado *</label>
+                        <input type="text" id="envioEstado" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Código Postal</label>
+                        <input type="text" id="envioCP" maxlength="10">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Teléfono de Contacto</label>
+                        <input type="tel" id="envioTelefono">
+                    </div>
+                    <div class="form-group">
+                        <label>Referencias</label>
+                        <input type="text" id="envioReferencias" placeholder="Ej: Casa azul, cerca del parque">
+                    </div>
+                </div>
+
+                <h3 class="form-section-title"><i class="fas fa-shipping-fast"></i> Detalles del Envío</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Método de Envío</label>
+                        <select id="envioMetodoId">
+                            <option value="">Seleccionar método</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Ruta</label>
+                        <select id="envioRutaId">
+                            <option value="">Seleccionar ruta</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fecha Estimada de Entrega</label>
+                        <input type="date" id="envioFechaEstimada">
+                    </div>
+                    <div class="form-group">
+                        <label>Peso (Kg)</label>
+                        <input type="number" id="envioPeso" step="0.01" min="0" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Costo de Envío</label>
+                        <input type="number" id="envioCosto" step="0.01" min="0" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Observaciones</label>
+                    <textarea id="envioObservaciones" rows="3" placeholder="Notas adicionales..."></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModalEnvio()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="modalMetodo">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-shipping-fast"></i> <span id="tituloModalMetodo">Nuevo Método de Envío</span></h2>
+                <button class="close-btn" onclick="cerrarModalMetodo()">&times;</button>
+            </div>
+            <form id="formMetodo" onsubmit="guardarMetodo(event)">
+                <input type="hidden" id="metodoId">
+                
+                <div class="form-group">
+                    <label>Nombre *</label>
+                    <input type="text" id="metodoNombre" required placeholder="Ej: Envío Express">
+                </div>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="metodoDescripcion" rows="2" placeholder="Descripción del método..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Costo Base</label>
+                        <input type="number" id="metodoCostoBase" step="0.01" min="0" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Costo por Km</label>
+                        <input type="number" id="metodoCostoPorKm" step="0.01" min="0" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tiempo Estimado</label>
+                    <input type="text" id="metodoTiempo" placeholder="Ej: 24-48 horas">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModalMetodo()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal" id="modalTransportista">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-tie"></i> <span id="tituloModalTransportista">Nuevo Transportista</span></h2>
+                <button class="close-btn" onclick="cerrarModalTransportista()">&times;</button>
+            </div>
+            <form id="formTransportista" onsubmit="guardarTransportista(event)">
+                <input type="hidden" id="transportistaId">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre *</label>
+                        <input type="text" id="transportistaNombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Empresa</label>
+                        <input type="text" id="transportistaEmpresa">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="transportistaTelefono">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="transportistaEmail">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo de Vehículo</label>
+                        <input type="text" id="transportistaTipoVehiculo" placeholder="Ej: Camioneta 3.5 ton">
+                    </div>
+                    <div class="form-group">
+                        <label>Placa del Vehículo</label>
+                        <input type="text" id="transportistaPlaca">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Licencia</label>
+                    <input type="text" id="transportistaLicencia">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModalTransportista()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="modalRuta">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-route"></i> <span id="tituloModalRuta">Nueva Ruta</span></h2>
+                <button class="close-btn" onclick="cerrarModalRuta()">&times;</button>
+            </div>
+            <form id="formRuta" onsubmit="guardarRuta(event)">
+                <input type="hidden" id="rutaId">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Código de Ruta</label>
+                        <input type="text" id="rutaCodigo" placeholder="Ej: R-001">
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre de Ruta</label>
+                        <input type="text" id="rutaNombre" placeholder="Ej: Ruta Centro">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Origen</label>
+                        <input type="text" id="rutaOrigen" placeholder="Ciudad/Zona de origen">
+                    </div>
+                    <div class="form-group">
+                        <label>Destino</label>
+                        <input type="text" id="rutaDestino" placeholder="Ciudad/Zona de destino">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Distancia (Km)</label>
+                        <input type="number" id="rutaDistancia" step="0.01" min="0" placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                        <label>Tiempo Estimado (Min)</label>
+                        <input type="number" id="rutaTiempo" min="0" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Costo Estimado</label>
+                        <input type="number" id="rutaCosto" step="0.01" min="0" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Referencias</label>
+                    <textarea id="rutaReferencias" rows="3" placeholder="Puntos de referencia, indicaciones..."></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="cerrarModalRuta()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="modalSeguimiento">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-map-marked-alt"></i> Seguimiento del Envío</h2>
+                <button class="close-btn" onclick="cerrarModalSeguimiento()">&times;</button>
+            </div>
+            <div id="contenidoSeguimiento">
+                <div class="loading active">
+                    <div class="spinner"></div>
+                    <p>Cargando seguimiento...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+const API_BASE = 'http://localhost:8082/api';
+
+document.addEventListener('DOMContentLoaded', function() {
+    inicializarSidebar();
+    inicializarEventListeners();
+    cargarEnvios();
+    actualizarEstadisticas();
+    showNotification('¡Bienvenido al módulo de Logística!', 'success');
+});
+
+function inicializarSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleBtn');
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+            const icon = this.querySelector('i');
+            if (sidebar.classList.contains('collapsed')) {
+                icon.classList.remove('fa-angle-left');
+                icon.classList.add('fa-angle-right');
+            } else {
+                icon.classList.remove('fa-angle-right');
+                icon.classList.add('fa-angle-left');
+            }
+        });
+    }
+}
+
+function inicializarEventListeners() {
+    // Búsquedas
+    const searchEnvios = document.getElementById('searchEnvios');
+    if (searchEnvios) searchEnvios.addEventListener('input', buscarEnvios);
+    
+    const searchMetodos = document.getElementById('searchMetodos');
+    if (searchMetodos) searchMetodos.addEventListener('input', buscarMetodos);
+    
+    const searchTransportistas = document.getElementById('searchTransportistas');
+    if (searchTransportistas) searchTransportistas.addEventListener('input', buscarTransportistas);
+    
+    const searchRutas = document.getElementById('searchRutas');
+    if (searchRutas) searchRutas.addEventListener('input', buscarRutas);
+    
+    // Cerrar modales al hacer clic fuera
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+    });
+}
+
+function switchTab(tabName) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    
+    event.target.closest('.tab').classList.add('active');
+    document.getElementById(`tab-${tabName}`).classList.add('active');
+
+    if (tabName === 'envios') cargarEnvios();
+    if (tabName === 'metodos') cargarMetodos();
+    if (tabName === 'transportistas') cargarTransportistas();
+    if (tabName === 'rutas') cargarRutas();
+}
+
+function cerrarSesion() {
+    if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+        showNotification('Cerrando sesión...', 'info');
+        setTimeout(() => {
+            window.location.href = '/login';
+        }, 1000);
+    }
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--azul-principal);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        z-index: 10000;
+        animation: slideInRight 0.3s ease;
+        max-width: 400px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    `;
+    
+    if (type === 'success') notification.style.background = '#28a745';
+    if (type === 'error') notification.style.background = '#dc3545';
+    if (type === 'warning') notification.style.background = '#ffc107';
+    
+    const icon = type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle';
+    notification.innerHTML = `<i class="fas fa-${icon}"></i> ${message}`;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => notification.remove(), 3000);
+}
+
+function formatearFecha(fecha) {
+    if (!fecha) return 'N/A';
+    const date = new Date(fecha);
+    return date.toLocaleDateString('es-MX', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+function formatearMoneda(valor) {
+    if (!valor) return '$0.00';
+    return '$' + parseFloat(valor).toLocaleString('es-MX', { 
+        minimumFractionDigits: 2, 
+        maximumFractionDigits: 2 
+    });
+}
+async function actualizarEstadisticas() {
+    try {
+        const response = await fetch(`${API_BASE}/envios/en-proceso`);
+        const enviosProceso = await response.json();
+        
+        document.getElementById('totalEnvios').textContent = enviosProceso.length || 0;
+        
+        const enTransito = enviosProceso.filter(e => e.estado === 'EN_TRANSITO').length;
+        document.getElementById('enviosEnTransito').textContent = enTransito;
+        
+        const pendientes = enviosProceso.filter(e => e.estado === 'PENDIENTE').length;
+        document.getElementById('enviosPendientes').textContent = pendientes;
+        
+        const entregados = enviosProceso.filter(e => e.estado === 'ENTREGADO').length;
+        document.getElementById('enviosEntregados').textContent = entregados;
+        
+    } catch (error) {
+        console.error('Error al actualizar estadísticas:', error);
+    }
+}
+
+async function cargarEnvios() {
+    const loading = document.getElementById('loadingEnvios');
+    const tbody = document.getElementById('enviosBody');
+    
+    loading.classList.add('active');
+    
+    try {
+        const response = await fetch(`${API_BASE}/envios/en-proceso`);
+        const envios = await response.json();
+        
+        if (envios.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8">
+                        <div class="empty-state">
+                            <i class="fas fa-box-open"></i>
+                            <h3>No hay envíos registrados</h3>
+                            <p>Comienza creando un nuevo envío</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        } else {
+            tbody.innerHTML = envios.map(envio => `
+                <tr>
+                    <td><strong>${envio.numeroGuia}</strong></td>
+                    <td>${envio.cliente?.nombre || 'N/A'}</td>
+                    <td>${envio.ciudad || 'N/A'}, ${envio.estadoDestino || ''}</td>
+                    <td>${envio.metodoEnvio?.nombre || 'N/A'}</td>
+                    <td>${getBadgeEstadoEnvio(envio.estado)}</td>
+                    <td>${formatearFecha(envio.fechaCreacion)}</td>
+                    <td>${formatearMoneda(envio.costoEnvio)}</td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm" onclick="verSeguimiento(${envio.idEnvio})" title="Ver seguimiento">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </button>
+                        <button class="btn btn-warning btn-sm" onclick="actualizarEstadoEnvio(${envio.idEnvio})" title="Actualizar estado">
+                            <i class="fas fa-sync"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm" onclick="editarEnvio(${envio.idEnvio})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        actualizarEstadisticas();
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al cargar envíos', 'error');
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8">
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error al cargar datos</h3>
+                        <p>Por favor, verifica que el servidor esté activo</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+    } finally {
+        loading.classList.remove('active');
+    }
+}
+
+function getBadgeEstadoEnvio(estado) {
+    const badges = {
+        'PENDIENTE': '<span class="badge badge-warning">Pendiente</span>',
+        'PREPARANDO': '<span class="badge badge-proceso">Preparando</span>',
+        'EN_TRANSITO': '<span class="badge badge-transito">En Tránsito</span>',
+        'ENTREGADO': '<span class="badge badge-success">Entregado</span>',
+        'CANCELADO': '<span class="badge badge-danger">Cancelado</span>',
+        'DEVUELTO': '<span class="badge badge-danger">Devuelto</span>'
+    };
+    return badges[estado] || `<span class="badge badge-info">${estado}</span>`;
+}
+
+async function mostrarModalEnvio(id = null) {
+    document.getElementById('tituloModalEnvio').textContent = id ? 'Editar Envío' : 'Nuevo Envío';
+    document.getElementById('formEnvio').reset();
+    document.getElementById('envioId').value = id || '';
+    
+    await cargarClientesSelect();
+    await cargarMetodosSelect();
+    await cargarRutasSelect();
+    
+    if (id) {
+        try {
+            const response = await fetch(`${API_BASE}/envios/${id}`);
+            const envio = await response.json();
+            
+            document.getElementById('envioClienteId').value = envio.cliente?.idCliente || '';
+            document.getElementById('envioVentaId').value = envio.venta?.idVenta || '';
+            document.getElementById('envioDireccion').value = envio.direccionEntrega || '';
+            document.getElementById('envioCiudad').value = envio.ciudad || '';
+            document.getElementById('envioEstado').value = envio.estadoDestino || '';
+            document.getElementById('envioCP').value = envio.codigoPostal || '';
+            document.getElementById('envioTelefono').value = envio.telefonoContacto || '';
+            document.getElementById('envioReferencias').value = envio.referenciaDireccion || '';
+            document.getElementById('envioMetodoId').value = envio.metodoEnvio?.idMetodoEnvio || '';
+            document.getElementById('envioRutaId').value = envio.ruta?.idRuta || '';
+            document.getElementById('envioFechaEstimada').value = envio.fechaEstimadaEntrega || '';
+            document.getElementById('envioPeso').value = envio.pesoKg || '';
+            document.getElementById('envioCosto').value = envio.costoEnvio || '';
+            document.getElementById('envioObservaciones').value = envio.observaciones || '';
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Error al cargar envío', 'error');
+        }
+    }
+    
+    document.getElementById('modalEnvio').classList.add('active');
+}
+
+function cerrarModalEnvio() {
+    document.getElementById('modalEnvio').classList.remove('active');
+}
+
+async function guardarEnvio(event) {
+    event.preventDefault();
+    
+    const id = document.getElementById('envioId').value;
+    const ventaId = document.getElementById('envioVentaId').value;
+    
+    const envio = {
+        cliente: { idCliente: parseInt(document.getElementById('envioClienteId').value) },
+        venta: ventaId ? { idVenta: parseInt(ventaId) } : null,
+        direccionEntrega: document.getElementById('envioDireccion').value,
+        ciudad: document.getElementById('envioCiudad').value,
+        estadoDestino: document.getElementById('envioEstado').value,
+        codigoPostal: document.getElementById('envioCP').value || null,
+        telefonoContacto: document.getElementById('envioTelefono').value || null,
+        referenciaDireccion: document.getElementById('envioReferencias').value || null,
+        metodoEnvio: document.getElementById('envioMetodoId').value ? 
+            { idMetodoEnvio: parseInt(document.getElementById('envioMetodoId').value) } : null,
+        ruta: document.getElementById('envioRutaId').value ? 
+            { idRuta: parseInt(document.getElementById('envioRutaId').value) } : null,
+        fechaEstimadaEntrega: document.getElementById('envioFechaEstimada').value || null,
+        pesoKg: parseFloat(document.getElementById('envioPeso').value) || null,
+        costoEnvio: parseFloat(document.getElementById('envioCosto').value) || null,
+        observaciones: document.getElementById('envioObservaciones').value || null
+    };
+    
+    try {
+        const url = id ? `${API_BASE}/envios/${id}` : `${API_BASE}/envios`;
+        const method = id ? 'PUT' : 'POST';
+        
+        const response = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(envio)
+        });
+        
+        if (response.ok) {
+            showNotification(`Envío ${id ? 'actualizado' : 'creado'} exitosamente`, 'success');
+            cerrarModalEnvio();
+            cargarEnvios();
+        } else {
+            const error = await response.text();
+            showNotification(error || 'Error al guardar envío', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al guardar envío', 'error');
+    }
+}
+
+async function editarEnvio(id) {
+    await mostrarModalEnvio(id);
+}
+
+async function actualizarEstadoEnvio(id) {
+    const estados = ['PENDIENTE', 'PREPARANDO', 'EN_TRANSITO', 'ENTREGADO', 'CANCELADO', 'DEVUELTO'];
+    const estadoActual = prompt('Selecciona el nuevo estado:\n\n' + estados.join('\n'));
+    
+    if (!estadoActual || !estados.includes(estadoActual.toUpperCase())) {
+        showNotification('Estado no válido', 'warning');
+        return;
+    }
+    
+    const descripcion = prompt('Descripción del cambio de estado:');
+    if (!descripcion) return;
+    
+    try {
+        const response = await fetch(`${API_BASE}/envios/${id}/actualizar-estado`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                estado: estadoActual.toUpperCase(),
+                descripcion: descripcion
+            })
+        });
+        
+        if (response.ok) {
+            showNotification('Estado actualizado exitosamente', 'success');
+            cargarEnvios();
+        } else {
+            showNotification('Error al actualizar estado', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al actualizar estado', 'error');
+    }
+}
+
+async function verSeguimiento(envioId) {
+    document.getElementById('modalSeguimiento').classList.add('active');
+    const contenido = document.getElementById('contenidoSeguimiento');
+    contenido.innerHTML = '<div class="loading active"><div class="spinner"></div><p>Cargando seguimiento...</p></div>';
+    
+    try {
+        const response = await fetch(`${API_BASE}/envios/${envioId}/seguimiento`);
+        const seguimientos = await response.json();
+        
+        if (seguimientos.length === 0) {
+            contenido.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>No hay seguimiento disponible</h3>
+                    <p>Aún no se ha registrado seguimiento para este envío</p>
+                </div>
+            `;
+        } else {
+            contenido.innerHTML = `
+                <div class="timeline">
+                    ${seguimientos.map(seg => `
+                        <div class="timeline-item">
+                            <div class="timeline-icon" style="border-color: ${getColorEstado(seg.estadoEnvio)}; color: ${getColorEstado(seg.estadoEnvio)};">
+                                <i class="fas ${getIconoEstado(seg.estadoEnvio)}"></i>
+                            </div>
+                            <div class="timeline-content" style="border-left-color: ${getColorEstado(seg.estadoEnvio)};">
+                                <div class="timeline-date">${formatearFecha(seg.fechaHora)}</div>
+                                <div class="timeline-title">${seg.estadoEnvio}</div>
+                                <div class="timeline-description">${seg.descripcion || 'Sin descripción'}</div>
+                                ${seg.ubicacionActual ? `<div class="timeline-description"><i class="fas fa-map-marker-alt"></i> ${seg.ubicacionActual}</div>` : ''}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        contenido.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Error al cargar seguimiento</h3>
+                <p>Por favor, intenta nuevamente</p>
+            </div>
+        `;
+    }
+}
+
+function cerrarModalSeguimiento() {
+    document.getElementById('modalSeguimiento').classList.remove('active');
+}
+
+function getColorEstado(estado) {
+    const colores = {
+        'PENDIENTE': '#ffc107',
+        'PREPARANDO': '#fd7e14',
+        'EN_TRANSITO': '#6f42c1',
+        'ENTREGADO': '#28a745',
+        'RETRASADO': '#dc3545',
+        'INCIDENTE': '#dc3545'
+    };
+    return colores[estado] || '#4a90e2';
+}
+
+function getIconoEstado(estado) {
+    const iconos = {
+        'PENDIENTE': 'fa-clock',
+        'PREPARANDO': 'fa-box',
+        'EN_TRANSITO': 'fa-truck',
+        'ENTREGADO': 'fa-check-circle',
+        'RETRASADO': 'fa-exclamation-triangle',
+        'INCIDENTE': 'fa-exclamation-circle'
+    };
+    return iconos[estado] || 'fa-info-circle';
+}
+
+function buscarEnvios() {
+    const searchTerm = document.getElementById('searchEnvios').value.toLowerCase();
+    const rows = document.querySelectorAll('#enviosBody tr');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? '' : 'none';
+    });
+}
+
+function filtrarEnvios() {
+    const estadoFiltro = document.getElementById('filterEstadoEnvio').value;
+    const rows = document.querySelectorAll('#enviosBody tr');
+    
+    rows.forEach(row => {
+        if (!estadoFiltro) {
+            row.style.display = '';
+        } else {
+            const texto = row.textContent;
+            row.style.display = texto.includes(estadoFiltro) ? '' : 'none';
+        }
+    });
+}
+
+async function cargarMetodos() {
+    const loading = document.getElementById('loadingMetodos');
+    const tbody = document.getElementById('metodosBody');
+    
+    loading.classList.add('active');
+    
+    try {
+        const response = await fetch(`${API_BASE}/metodos-envio`);
+        const metodos = await response.json();
+        
+        if (metodos.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7">
+                        <div class="empty-state">
+                            <i class="fas fa-shipping-fast"></i>
+                            <h3>No hay métodos de envío registrados</h3>
+                            <p>Comienza agregando un nuevo método</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        } else {
+            tbody.innerHTML = metodos.map(metodo => `
+                <tr>
+                    <td><strong>${metodo.nombre}</strong></td>
+                    <td>${metodo.descripcion || 'N/A'}</td>
+                    <td>${formatearMoneda(metodo.costoBase)}</td>
+                    <td>${formatearMoneda(metodo.costoPorKm)}</td>
+                    <td>${metodo.tiempoEstimado || 'N/A'}</td>
+                    <td><span class="badge badge-${metodo.estado === 'ACTIVO' ? 'success' : 'warning'}">${metodo.estado}</span></td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm" onclick="editarMetodo(${metodo.idMetodoEnvio})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al cargar métodos de envío', 'error');
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error al cargar datos</h3>
+                        <p>Por favor, verifica que el servidor esté activo</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+    } finally {
+        loading.classList.remove('active');
+    }
+}
+
+async function mostrarModalMetodo(id = null) {
+    document.getElementById('tituloModalMetodo').textContent = id ? 'Editar Método de Envío' : 'Nuevo Método de Envío';
+    document.getElementById('formMetodo').reset();
+    document.getElementById('metodoId').value = id || '';
+    
+    if (id) {
+        try {
+            const response = await fetch(`${API_BASE}/metodos-envio/${id}`);
+            const metodo = await response.json();
+            
+            document.getElementById('metodoNombre').value = metodo.nombre;
+            document.getElementById('metodoDescripcion').value = metodo.descripcion || '';
+            document.getElementById('metodoCostoBase').value = metodo.costoBase || '';
+            document.getElementById('metodoCostoPorKm').value = metodo.costoPorKm || '';
+            document.getElementById('metodoTiempo').value = metodo.tiempoEstimado || '';
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Error al cargar método', 'error');
+        }
+    }
+    
+    document.getElementById('modalMetodo').classList.add('active');
+}
+
+function cerrarModalMetodo() {
+    document.getElementById('modalMetodo').classList.remove('active');
+}
+
+async function guardarMetodo(event) {
+    event.preventDefault();
+    
+    const id = document.getElementById('metodoId').value;
+    const metodo = {
+        nombre: document.getElementById('metodoNombre').value,
+        descripcion: document.getElementById('metodoDescripcion').value || null,
+        costoBase: parseFloat(document.getElementById('metodoCostoBase').value) || null,
+        costoPorKm: parseFloat(document.getElementById('metodoCostoPorKm').value) || null,
+        tiempoEstimado: document.getElementById('metodoTiempo').value || null
+    };
+    
+    try {
+        const url = id ? `${API_BASE}/metodos-envio/${id}` : `${API_BASE}/metodos-envio`;
+        const method = id ? 'PUT' : 'POST';
+        
+        const response = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(metodo)
+        });
+        
+        if (response.ok) {
+            showNotification(`Método ${id ? 'actualizado' : 'creado'} exitosamente`, 'success');
+            cerrarModalMetodo();
+            cargarMetodos();
+        } else {
+            const error = await response.text();
+            showNotification(error || 'Error al guardar método', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al guardar método', 'error');
+    }
+}
+
+async function editarMetodo(id) {
+    await mostrarModalMetodo(id);
+}
+
+function buscarMetodos() {
+    const searchTerm = document.getElementById('searchMetodos').value.toLowerCase();
+    const rows = document.querySelectorAll('#metodosBody tr');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? '' : 'none';
+    });
+}
+
+async function cargarTransportistas() {
+    const loading = document.getElementById('loadingTransportistas');
+    const tbody = document.getElementById('transportistasBody');
+    
+    loading.classList.add('active');
+    
+    try {
+        const response = await fetch(`${API_BASE}/transportistas/activos`);
+        const transportistas = await response.json();
+        
+        if (transportistas.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8">
+                        <div class="empty-state">
+                            <i class="fas fa-user-tie"></i>
+                            <h3>No hay transportistas registrados</h3>
+                            <p>Comienza agregando un nuevo transportista</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        } else {
+            tbody.innerHTML = transportistas.map(trans => `
+                <tr>
+                    <td><strong>${trans.nombre}</strong></td>
+                    <td>${trans.empresa || 'N/A'}</td>
+                    <td>${trans.telefono || 'N/A'}</td>
+                    <td>${trans.email || 'N/A'}</td>
+                    <td>${trans.tipoVehiculo || 'N/A'}</td>
+                    <td>${trans.placaVehiculo || 'N/A'}</td>
+                    <td><span class="badge badge-${trans.estado === 'ACTIVO' ? 'success' : 'warning'}">${trans.estado}</span></td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm" onclick="editarTransportista(${trans.idTransportista})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al cargar transportistas', 'error');
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8">
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error al cargar datos</h3>
+                        <p>Por favor, verifica que el servidor esté activo</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+    } finally {
+        loading.classList.remove('active');
+    }
+}
+
+async function mostrarModalTransportista(id = null) {
+    document.getElementById('tituloModalTransportista').textContent = id ? 'Editar Transportista' : 'Nuevo Transportista';
+    document.getElementById('formTransportista').reset();
+    document.getElementById('transportistaId').value = id || '';
+    
+    if (id) {
+        try {
+            const response = await fetch(`${API_BASE}/transportistas/${id}`);
+            const trans = await response.json();
+            
+            document.getElementById('transportistaNombre').value = trans.nombre;
+            document.getElementById('transportistaEmpresa').value = trans.empresa || '';
+            document.getElementById('transportistaTelefono').value = trans.telefono || '';
+            document.getElementById('transportistaEmail').value = trans.email || '';
+            document.getElementById('transportistaTipoVehiculo').value = trans.tipoVehiculo || '';
+            document.getElementById('transportistaPlaca').value = trans.placaVehiculo || '';
+            document.getElementById('transportistaLicencia').value = trans.licencia || '';
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Error al cargar transportista', 'error');
+        }
+    }
+    
+    document.getElementById('modalTransportista').classList.add('active');
+}
+
+function cerrarModalTransportista() {
+    document.getElementById('modalTransportista').classList.remove('active');
+}
+
+async function guardarTransportista(event) {
+    event.preventDefault();
+    
+    const id = document.getElementById('transportistaId').value;
+    const transportista = {
+        nombre: document.getElementById('transportistaNombre').value,
+        empresa: document.getElementById('transportistaEmpresa').value || null,
+        telefono: document.getElementById('transportistaTelefono').value || null,
+        email: document.getElementById('transportistaEmail').value || null,
+        tipoVehiculo: document.getElementById('transportistaTipoVehiculo').value || null,
+        placaVehiculo: document.getElementById('transportistaPlaca').value || null,
+        licencia: document.getElementById('transportistaLicencia').value || null
+    };
+    
+    try {
+        const url = id ? `${API_BASE}/transportistas/${id}` : `${API_BASE}/transportistas`;
+        const method = id ? 'PUT' : 'POST';
+        
+        const response = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(transportista)
+        });
+        
+        if (response.ok) {
+            showNotification(`Transportista ${id ? 'actualizado' : 'creado'} exitosamente`, 'success');
+            cerrarModalTransportista();
+            cargarTransportistas();
+        } else {
+            const error = await response.text();
+            showNotification(error || 'Error al guardar transportista', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al guardar transportista', 'error');
+    }
+}
+
+async function editarTransportista(id) {
+    await mostrarModalTransportista(id);
+}
+
+function buscarTransportistas() {
+    const searchTerm = document.getElementById('searchTransportistas').value.toLowerCase();
+    const rows = document.querySelectorAll('#transportistasBody tr');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? '' : 'none';
+    });
+}
+
+async function cargarRutas() {
+    const loading = document.getElementById('loadingRutas');
+    const tbody = document.getElementById('rutasBody');
+    
+    loading.classList.add('active');
+    
+    try {
+        const response = await fetch(`${API_BASE}/rutas/activas`);
+        const rutas = await response.json();
+        
+        if (rutas.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="9">
+                        <div class="empty-state">
+                            <i class="fas fa-route"></i>
+                            <h3>No hay rutas registradas</h3>
+                            <p>Comienza agregando una nueva ruta</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        } else {
+            tbody.innerHTML = rutas.map(ruta => `
+                <tr>
+                    <td><strong>${ruta.codigoRuta || 'N/A'}</strong></td>
+                    <td>${ruta.nombreRuta || 'N/A'}</td>
+                    <td>${ruta.origen || 'N/A'}</td>
+                    <td>${ruta.destino || 'N/A'}</td>
+                    <td>${ruta.distanciaKm ? parseFloat(ruta.distanciaKm).toFixed(2) : 'N/A'}</td>
+                    <td>${ruta.tiempoEstimadoMin || 'N/A'}</td>
+                    <td>${formatearMoneda(ruta.costoEstimado)}</td>
+                    <td><span class="badge badge-${ruta.estado === 'ACTIVA' ? 'success' : 'warning'}">${ruta.estado}</span></td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm" onclick="editarRuta(${ruta.idRuta})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al cargar rutas', 'error');
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="9">
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error al cargar datos</h3>
+                        <p>Por favor, verifica que el servidor esté activo</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+    } finally {
+        loading.classList.remove('active');
+    }
+}
+
+async function mostrarModalRuta(id = null) {
+    document.getElementById('tituloModalRuta').textContent = id ? 'Editar Ruta' : 'Nueva Ruta';
+    document.getElementById('formRuta').reset();
+    document.getElementById('rutaId').value = id || '';
+    
+    if (id) {
+        try {
+            const response = await fetch(`${API_BASE}/rutas/${id}`);
+            const ruta = await response.json();
+            
+            document.getElementById('rutaCodigo').value = ruta.codigoRuta || '';
+            document.getElementById('rutaNombre').value = ruta.nombreRuta || '';
+            document.getElementById('rutaOrigen').value = ruta.origen || '';
+            document.getElementById('rutaDestino').value = ruta.destino || '';
+            document.getElementById('rutaDistancia').value = ruta.distanciaKm || '';
+            document.getElementById('rutaTiempo').value = ruta.tiempoEstimadoMin || '';
+            document.getElementById('rutaCosto').value = ruta.costoEstimado || '';
+            document.getElementById('rutaReferencias').value = ruta.referencias || '';
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Error al cargar ruta', 'error');
+        }
+    }
+    
+    document.getElementById('modalRuta').classList.add('active');
+}
+
+function cerrarModalRuta() {
+    document.getElementById('modalRuta').classList.remove('active');
+}
+
+async function guardarRuta(event) {
+    event.preventDefault();
+    
+    const id = document.getElementById('rutaId').value;
+    const ruta = {
+        codigoRuta: document.getElementById('rutaCodigo').value || null,
+        nombreRuta: document.getElementById('rutaNombre').value || null,
+        origen: document.getElementById('rutaOrigen').value || null,
+        destino: document.getElementById('rutaDestino').value || null,
+        distanciaKm: parseFloat(document.getElementById('rutaDistancia').value) || null,
+        tiempoEstimadoMin: parseInt(document.getElementById('rutaTiempo').value) || null,
+        costoEstimado: parseFloat(document.getElementById('rutaCosto').value) || null,
+        referencias: document.getElementById('rutaReferencias').value || null
+    };
+    
+    try {
+        const url = id ? `${API_BASE}/rutas/${id}` : `${API_BASE}/rutas`;
+        const method = id ? 'PUT' : 'POST';
+        
+        const response = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(ruta)
+        });
+        
+        if (response.ok) {
+            showNotification(`Ruta ${id ? 'actualizada' : 'creada'} exitosamente`, 'success');
+            cerrarModalRuta();
+            cargarRutas();
+        } else {
+            const error = await response.text();
+            showNotification(error || 'Error al guardar ruta', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al guardar ruta', 'error');
+    }
+}
+
+async function editarRuta(id) {
+    await mostrarModalRuta(id);
+}
+
+function buscarRutas() {
+    const searchTerm = document.getElementById('searchRutas').value.toLowerCase();
+    const rows = document.querySelectorAll('#rutasBody tr');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? '' : 'none';
+    });
+}
+
+async function cargarClientesSelect() {
+    try {
+        const response = await fetch(`${API_BASE}/clientes`);
+        const clientes = await response.json();
+        
+        const select = document.getElementById('envioClienteId');
+        select.innerHTML = '<option value="">Seleccionar cliente</option>';
+        clientes.forEach(cliente => {
+            select.innerHTML += `<option value="${cliente.idCliente}">${cliente.nombre}</option>`;
+        });
+    } catch (error) {
+        console.error('Error al cargar clientes:', error);
+        showNotification('Error al cargar lista de clientes', 'warning');
+    }
+}
+
+async function cargarMetodosSelect() {
+    try {
+        const response = await fetch(`${API_BASE}/metodos-envio/activos`);
+        const metodos = await response.json();
+        
+        const select = document.getElementById('envioMetodoId');
+        select.innerHTML = '<option value="">Seleccionar método</option>';
+        metodos.forEach(metodo => {
+            select.innerHTML += `<option value="${metodo.idMetodoEnvio}">${metodo.nombre}</option>`;
+        });
+    } catch (error) {
+        console.error('Error al cargar métodos:', error);
+        showNotification('Error al cargar métodos de envío', 'warning');
+    }
+}
+
+async function cargarRutasSelect() {
+    try {
+        const response = await fetch(`${API_BASE}/rutas/activas`);
+        const rutas = await response.json();
+        
+        const select = document.getElementById('envioRutaId');
+        select.innerHTML = '<option value="">Seleccionar ruta</option>';
+        rutas.forEach(ruta => {
+            select.innerHTML += `<option value="${ruta.idRuta}">${ruta.nombreRuta || ruta.codigoRuta}</option>`;
+        });
+    } catch (error) {
+        console.error('Error al cargar rutas:', error);
+        showNotification('Error al cargar rutas', 'warning');
+    }
+}
+const styleAnimations = document.createElement('style');
+styleAnimations.textContent = `
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+`;
+document.head.appendChild(styleAnimations);
+</script>
+</body>
+</html>
