@@ -1,0 +1,2899 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Administrativo - Sistema ERP</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="Contabilidad.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Cargando datos...</p>
+    </div>
+
+    <div class="main-container">
+        <!-- ==================== SIDEBAR ==================== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-chart-line"></i> ERP System</h2>
+                <p>Sistema Integral de Gestión</p>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-section">
+                    <div class="nav-section-title">PRINCIPAL</div>
+                </li>
+                <li class="nav-item">
+                    <a href="/dashboard" class="nav-link">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section">
+                    <div class="nav-section-title">ADMINISTRACIÓN</div>
+                </li>
+                <li class="nav-item">
+                    <a href="/usuarios" class="nav-link">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-calculator"></i>
+                        <span>Módulo Administrativo</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section">
+                    <div class="nav-section-title">VENTAS</div>
+                </li>
+                <li class="nav-item">
+                    <a href="/clientes" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/ventas" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Ventas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/punto-venta" class="nav-link">
+                        <i class="fas fa-cash-register"></i>
+                        <span>Punto de Venta</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section">
+                    <div class="nav-section-title">COMPRAS</div>
+                </li>
+                <li class="nav-item">
+                    <a href="/proveedores" class="nav-link">
+                        <i class="fas fa-truck"></i>
+                        <span>Proveedores</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/compras" class="nav-link">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Compras</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section">
+                    <div class="nav-section-title">INVENTARIO</div>
+                </li>
+                <li class="nav-item">
+                    <a href="/inventario" class="nav-link">
+                        <i class="fas fa-boxes"></i>
+                        <span>Inventario</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/almacenes" class="nav-link">
+                        <i class="fas fa-warehouse"></i>
+                        <span>Almacenes</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section">
+                    <div class="nav-section-title">RECURSOS HUMANOS</div>
+                </li>
+                <li class="nav-item">
+                    <a href="/rrhh" class="nav-link">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Empleados</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section">
+                    <div class="nav-section-title">ANÁLISIS</div>
+                </li>
+                <li class="nav-item">
+                    <a href="/reportes" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reportes</span>
+                    </a>
+                </li>
+                
+                <li class="nav-section">
+                    <div class="nav-section-title">SISTEMA</div>
+                </li>
+                <li class="nav-item">
+                    <a href="/configuracion" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Configuración</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="logout-section">
+                <button class="btn-logout" onclick="cerrarSesion()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <div class="main-content">
+            
+            <!-- ==================== HEADER ==================== -->
+            <header class="page-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1>
+                            <i class="fas fa-briefcase"></i> 
+                            <span id="headerTitle">Módulo Administrativo</span>
+                        </h1>
+                        <div class="breadcrumb">
+                            <a href="/dashboard"><i class="fas fa-home"></i> Inicio</a>
+                            <span>/</span>
+                            <span id="breadcrumbModule">Administración</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="btn btn-primary" id="btnAccionPrincipal" onclick="abrirModal('modalAsiento')">
+                        <i class="fas fa-plus"></i>
+                        Nuevo Registro
+                    </button>
+                </div>
+            </header>
+
+            <!-- ==================== TABS NAVIGATION ==================== -->
+            <div class="tabs-container">
+                <div class="tabs-nav">
+                    <button class="tab-button active" onclick="cambiarModulo('contabilidad')" data-tab="contabilidad">
+                        <i class="fas fa-calculator"></i>
+                        <span>Contabilidad</span>
+                        <span class="tab-badge" id="badgeContabilidad">0</span>
+                    </button>
+                    <button class="tab-button" onclick="cambiarModulo('nomina')" data-tab="nomina">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Nómina</span>
+                        <span class="tab-badge" id="badgeNomina">0</span>
+                    </button>
+                    <button class="tab-button" onclick="cambiarModulo('facturacion')" data-tab="facturacion">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Facturación</span>
+                        <span class="tab-badge" id="badgeFacturacion">0</span>
+                    </button>
+                    <button class="tab-button" onclick="cambiarModulo('impuestos')" data-tab="impuestos">
+                        <i class="fas fa-percent"></i>
+                        <span>Impuestos</span>
+                        <span class="tab-badge" id="badgeImpuestos">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ==================== TAB 1: CONTABILIDAD ==================== -->
+            <div class="tab-content active" id="tab-contabilidad">
+                <section class="content-section">
+                    
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card" style="border-left-color: var(--azul-principal)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="totalAsientos">0</div>
+                                    <div class="stat-label">Asientos Contables</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--azul-principal), var(--azul-principal-gradient));">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--verde-exito)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="asientosContabilizados">0</div>
+                                    <div class="stat-label">Contabilizados</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--verde-exito), var(--verde-exito-gradient));">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--amarillo-advertencia)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="asientosBorradores">0</div>
+                                    <div class="stat-label">Borradores</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--amarillo-advertencia), var(--amarillo-advertencia-dark));">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--morado)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="balanceTotal">$0.00</div>
+                                    <div class="stat-label">Balance Total</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--morado), var(--morado-dark));">
+                                    <i class="fas fa-balance-scale"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub-tabs -->
+                    <div class="subtabs-nav">
+                        <button class="btn btn-sm btn-primary" onclick="cambiarSubTab('contabilidad', 'asientos')" id="subTabAsientos">
+                            <i class="fas fa-book"></i> Asientos
+                        </button>
+                        <button class="btn btn-sm btn-secondary" onclick="cambiarSubTab('contabilidad', 'detalles')" id="subTabDetalles">
+                            <i class="fas fa-list"></i> Detalle Contable
+                        </button>
+                    </div>
+
+                    <!-- Sub-Tab: Asientos -->
+                    <div id="subtab-asientos" class="subtab-content">
+                        <!-- Toolbar -->
+                        <div class="toolbar">
+                            <div class="search-box">
+                                <i class="fas fa-search input-icon"></i>
+                                <input type="text" class="search-input" id="searchAsientos" placeholder="Buscar por número, descripción...">
+                            </div>
+                            <div class="toolbar-actions">
+                                <select class="filter-select" id="estadoFilterAsientos">
+                                    <option value="">Todos los estados</option>
+                                    <option value="BORRADOR">Borrador</option>
+                                    <option value="CONTABILIZADO">Contabilizado</option>
+                                    <option value="ANULADO">Anulado</option>
+                                </select>
+                                <button class="btn btn-secondary" onclick="cargarAsientos()">
+                                    <i class="fas fa-sync-alt"></i> Actualizar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Cards Grid -->
+                        <div class="card-grid" id="asientosGrid">
+                            <div class="empty-state">
+                                <i class="fas fa-book"></i>
+                                <h3>No hay asientos registrados</h3>
+                                <p>Comienza creando tu primer asiento contable</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub-Tab: Detalles -->
+                    <div id="subtab-detalles" class="subtab-content" style="display: none;">
+                        <div class="toolbar">
+                            <div class="search-box">
+                                <i class="fas fa-search input-icon"></i>
+                                <input type="text" class="search-input" id="searchDetalles" placeholder="Buscar por cuenta...">
+                            </div>
+                            <div class="toolbar-actions">
+                                <button class="btn btn-secondary" onclick="cargarDetalles()">
+                                    <i class="fas fa-sync-alt"></i> Actualizar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-grid" id="detallesGrid">
+                            <div class="empty-state">
+                                <i class="fas fa-list"></i>
+                                <h3>No hay movimientos registrados</h3>
+                                <p>Agrega movimientos a tus asientos contables</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+
+<!-- ==================== TAB 2: NÓMINA ==================== -->
+            <div class="tab-content" id="tab-nomina">
+                <section class="content-section">
+                    
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card" style="border-left-color: var(--azul-principal)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="totalNominas">0</div>
+                                    <div class="stat-label">Total Nóminas</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--azul-principal), var(--azul-principal-gradient));">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--verde-exito)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="nominasPagadas">0</div>
+                                    <div class="stat-label">Pagadas</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--verde-exito), var(--verde-exito-gradient));">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--amarillo-advertencia)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="nominasPendientes">0</div>
+                                    <div class="stat-label">Pendientes</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--amarillo-advertencia), var(--amarillo-advertencia-dark));">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--morado)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="totalNominaMes">$0.00</div>
+                                    <div class="stat-label">Total del Mes</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--morado), var(--morado-dark));">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub-tabs -->
+                    <div class="subtabs-nav">
+                        <button class="btn btn-sm btn-primary" onclick="cambiarSubTab('nomina', 'nominas')" id="subTabNominas">
+                            <i class="fas fa-money-bill"></i> Nóminas
+                        </button>
+                        <button class="btn btn-sm btn-secondary" onclick="cambiarSubTab('nomina', 'detalleNomina')" id="subTabDetalleNomina">
+                            <i class="fas fa-list-ol"></i> Detalle Nómina
+                        </button>
+                    </div>
+
+                    <!-- Sub-Tab: Nóminas -->
+                    <div id="subtab-nominas" class="subtab-content">
+                        <div class="toolbar">
+                            <div class="search-box">
+                                <i class="fas fa-search input-icon"></i>
+                                <input type="text" class="search-input" id="searchNominas" placeholder="Buscar por periodo, empleado...">
+                            </div>
+                            <div class="toolbar-actions">
+                                <select class="filter-select" id="estadoFilterNominas">
+                                    <option value="">Todos los estados</option>
+                                    <option value="PENDIENTE">Pendiente</option>
+                                    <option value="PAGADA">Pagada</option>
+                                    <option value="ANULADA">Anulada</option>
+                                </select>
+                                <button class="btn btn-secondary" onclick="cargarNominas()">
+                                    <i class="fas fa-sync-alt"></i> Actualizar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-grid" id="nominasGrid">
+                            <div class="empty-state">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <h3>No hay nóminas registradas</h3>
+                                <p>Comienza creando tu primera nómina</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub-Tab: Detalle Nómina -->
+                    <div id="subtab-detalleNomina" class="subtab-content" style="display: none;">
+                        <div class="toolbar">
+                            <div class="search-box">
+                                <i class="fas fa-search input-icon"></i>
+                                <input type="text" class="search-input" id="searchDetalleNomina" placeholder="Buscar por concepto...">
+                            </div>
+                            <div class="toolbar-actions">
+                                <button class="btn btn-secondary" onclick="cargarDetalleNomina()">
+                                    <i class="fas fa-sync-alt"></i> Actualizar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-grid" id="detalleNominaGrid">
+                            <div class="empty-state">
+                                <i class="fas fa-list-ol"></i>
+                                <h3>No hay conceptos registrados</h3>
+                                <p>Agrega conceptos a las nóminas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+
+            <!-- ==================== TAB 3: FACTURACIÓN ==================== -->
+            <div class="tab-content" id="tab-facturacion">
+                <section class="content-section">
+                    
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card" style="border-left-color: var(--azul-principal)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="totalFacturas">0</div>
+                                    <div class="stat-label">Total de Facturas</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--azul-principal), var(--azul-principal-gradient));">
+                                    <i class="fas fa-file-invoice"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--amarillo-advertencia)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="facturasPendientes">0</div>
+                                    <div class="stat-label">Pendientes</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--amarillo-advertencia), var(--amarillo-advertencia-dark));">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--verde-exito)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="facturasPagadas">0</div>
+                                    <div class="stat-label">Pagadas</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--verde-exito), var(--verde-exito-gradient));">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--morado)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="montoFacturasMes">$0.00</div>
+                                    <div class="stat-label">Monto del Mes</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--morado), var(--morado-dark));">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toolbar">
+                        <div class="search-box">
+                            <i class="fas fa-search input-icon"></i>
+                            <input type="text" class="search-input" id="searchFacturas" placeholder="Buscar por número, cliente, UUID...">
+                        </div>
+                        <div class="toolbar-actions">
+                            <select class="filter-select" id="estadoFilterFacturas">
+                                <option value="">Todos los estados</option>
+                                <option value="PENDIENTE">Pendiente</option>
+                                <option value="PAGADA">Pagada</option>
+                                <option value="VENCIDA">Vencida</option>
+                                <option value="ANULADA">Anulada</option>
+                            </select>
+                            <button class="btn btn-secondary" onclick="cargarFacturas()">
+                                <i class="fas fa-sync-alt"></i> Actualizar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-grid" id="facturasGrid">
+                        <div class="empty-state">
+                            <i class="fas fa-file-invoice"></i>
+                            <h3>No hay facturas registradas</h3>
+                            <p>Comienza creando tu primera factura</p>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+
+            <!-- ==================== TAB 4: IMPUESTOS ==================== -->
+            <div class="tab-content" id="tab-impuestos">
+                <section class="content-section">
+                    
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card" style="border-left-color: var(--azul-principal)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="totalImpuestos">0</div>
+                                    <div class="stat-label">Total de Impuestos</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--azul-principal), var(--azul-principal-gradient));">
+                                    <i class="fas fa-percent"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--verde-exito)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="impuestosActivos">0</div>
+                                    <div class="stat-label">Activos</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--verde-exito), var(--verde-exito-gradient));">
+                                    <i class="fas fa-toggle-on"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--rojo-peligro)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="impuestosInactivos">0</div>
+                                    <div class="stat-label">Inactivos</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--rojo-peligro), var(--rojo-peligro-dark));">
+                                    <i class="fas fa-toggle-off"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="border-left-color: var(--morado)">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="tasaPromedio">0%</div>
+                                    <div class="stat-label">Tasa Promedio</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--morado), var(--morado-dark));">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toolbar">
+                        <div class="search-box">
+                            <i class="fas fa-search input-icon"></i>
+                            <input type="text" class="search-input" id="searchImpuestos" placeholder="Buscar por nombre o tipo...">
+                        </div>
+                        <div class="toolbar-actions">
+                            <select class="filter-select" id="tipoFilterImpuestos">
+                                <option value="">Todos los tipos</option>
+                                <option value="IVA">IVA</option>
+                                <option value="ISR">ISR</option>
+                                <option value="IEPS">IEPS</option>
+                                <option value="OTRO">OTRO</option>
+                            </select>
+                            <select class="filter-select" id="estadoFilterImpuestos">
+                                <option value="">Todos los estados</option>
+                                <option value="ACTIVO">Activo</option>
+                                <option value="INACTIVO">Inactivo</option>
+                            </select>
+                            <button class="btn btn-secondary" onclick="cargarImpuestos()">
+                                <i class="fas fa-sync-alt"></i> Actualizar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-grid" id="impuestosGrid">
+                        <div class="empty-state">
+                            <i class="fas fa-percent"></i>
+                            <h3>No hay impuestos registrados</h3>
+                            <p>Comienza creando tu primer impuesto</p>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+<!-- ==================== MODALES ==================== -->
+
+    <!-- MODAL: Asiento Contable -->
+    <div class="modal" id="modalAsiento">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-plus-circle"></i> Nuevo Asiento Contable
+                </h3>
+                <button class="modal-close" onclick="cerrarModal('modalAsiento')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formAsiento">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-calendar"></i> Fecha Asiento <span class="required">*</span>
+                            </label>
+                            <input type="date" class="form-input" id="fechaAsiento" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-hashtag"></i> Número Asiento <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" id="numeroAsiento" placeholder="AS-0001" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-calendar-alt"></i> Periodo Contable
+                            </label>
+                            <input type="text" class="form-input" id="periodoContable" placeholder="YYYY-MM">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-flag"></i> Estado
+                            </label>
+                            <select class="form-select" id="estadoAsiento">
+                                <option value="BORRADOR">Borrador</option>
+                                <option value="CONTABILIZADO">Contabilizado</option>
+                                <option value="ANULADO">Anulado</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                <i class="fas fa-comment"></i> Descripción
+                            </label>
+                            <textarea class="form-textarea" id="descripcionAsiento" placeholder="Descripción del asiento..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalAsiento')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-success" onclick="guardarAsiento()">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="modalDetalle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-plus-circle"></i> Nuevo Movimiento
+                </h3>
+                <button class="modal-close" onclick="cerrarModal('modalDetalle')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formDetalle">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-book"></i> ID Asiento <span class="required">*</span>
+                            </label>
+                            <input type="number" class="form-input" id="idAsientoDetalle" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-list-ol"></i> Cuenta Contable
+                            </label>
+                            <input type="text" class="form-input" id="cuentaContable" placeholder="1101">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-arrow-up"></i> Debe
+                            </label>
+                            <input type="number" class="form-input" id="debe" step="0.01" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-arrow-down"></i> Haber
+                            </label>
+                            <input type="number" class="form-input" id="haber" step="0.01" value="0">
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                <i class="fas fa-comment"></i> Descripción
+                            </label>
+                            <input type="text" class="form-input" id="descripcionLinea" placeholder="Detalle del movimiento">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalDetalle')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-success" onclick="guardarDetalle()">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="modalNomina">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-plus-circle"></i> Nueva Nómina
+                </h3>
+                <button class="modal-close" onclick="cerrarModal('modalNomina')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formNomina">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-user"></i> ID Empleado <span class="required">*</span>
+                            </label>
+                            <input type="number" class="form-input" id="idEmpleado" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-calendar-alt"></i> Periodo <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" id="periodoNomina" placeholder="YYYY-MM" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-calendar"></i> Fecha Inicio
+                            </label>
+                            <input type="date" class="form-input" id="fechaInicioNomina">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-calendar"></i> Fecha Fin
+                            </label>
+                            <input type="date" class="form-input" id="fechaFinNomina">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-calendar-check"></i> Fecha Pago
+                            </label>
+                            <input type="date" class="form-input" id="fechaPagoNomina">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-calendar-day"></i> Días Trabajados
+                            </label>
+                            <input type="number" class="form-input" id="diasTrabajados" step="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-dollar-sign"></i> Salario Diario
+                            </label>
+                            <input type="number" class="form-input" id="salarioDiario" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-list-alt"></i> Tipo Nómina
+                            </label>
+                            <select class="form-select" id="tipoNomina">
+                                <option value="Mensual">Mensual</option>
+                                <option value="Quincenal">Quincenal</option>
+                                <option value="Semanal">Semanal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-flag"></i> Estado
+                            </label>
+                            <select class="form-select" id="estadoNomina">
+                                <option value="PENDIENTE">Pendiente</option>
+                                <option value="PAGADA">Pagada</option>
+                                <option value="ANULADA">Anulada</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                <i class="fas fa-comment"></i> Observaciones
+                            </label>
+                            <textarea class="form-textarea" id="observacionesNomina" placeholder="Notas adicionales..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalNomina')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-success" onclick="guardarNomina()">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalDetalleNomina">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-plus-circle"></i> Nuevo Concepto
+                </h3>
+                <button class="modal-close" onclick="cerrarModal('modalDetalleNomina')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formDetalleNomina">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-hashtag"></i> ID Nómina <span class="required">*</span>
+                            </label>
+                            <input type="number" class="form-input" id="idNominaDetalle" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-tags"></i> Tipo <span class="required">*</span>
+                            </label>
+                            <select class="form-select" id="tipoConcepto" required>
+                                <option value="PERCEPCION">Percepción</option>
+                                <option value="DEDUCCION">Deducción</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-file-alt"></i> Concepto <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" id="conceptoNomina" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-key"></i> Clave SAT
+                            </label>
+                            <input type="text" class="form-input" id="claveSat" maxlength="10">
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                <i class="fas fa-dollar-sign"></i> Monto <span class="required">*</span>
+                            </label>
+                            <input type="number" class="form-input" id="montoConcepto" step="0.01" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalDetalleNomina')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-success" onclick="guardarDetalleNomina()">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalFactura">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-plus-circle"></i> Nueva Factura
+                </h3>
+                <button class="modal-close" onclick="cerrarModal('modalFactura')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formFactura">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-hashtag"></i> Número Factura <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" id="numeroFactura" placeholder="F-0001" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-layer-group"></i> Serie
+                            </label>
+                            <input type="text" class="form-input" id="serieFactura" placeholder="A">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-list-ol"></i> Folio
+                            </label>
+                            <input type="number" class="form-input" id="folioFactura">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-calendar"></i> Fecha Emisión
+                            </label>
+                            <input type="date" class="form-input" id="fechaEmision">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-user"></i> ID Cliente <span class="required">*</span>
+                            </label>
+                            <input type="number" class="form-input" id="idClienteFactura" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-shopping-cart"></i> ID Venta
+                            </label>
+                            <input type="number" class="form-input" id="idVentaFactura">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-coins"></i> Subtotal <span class="required">*</span>
+                            </label>
+                            <input type="number" class="form-input" id="subtotalFactura" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-percent"></i> Impuestos
+                            </label>
+                            <input type="number" class="form-input" id="impuestosFactura" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-tags"></i> Descuentos
+                            </label>
+                            <input type="number" class="form-input" id="descuentosFactura" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-equals"></i> Total
+                            </label>
+                            <input type="number" class="form-input" id="totalFactura" step="0.01" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-flag"></i> Estado
+                            </label>
+                            <select class="form-select" id="estadoFactura">
+                                <option value="PENDIENTE">Pendiente</option>
+                                <option value="PAGADA">Pagada</option>
+                                <option value="VENCIDA">Vencida</option>
+                                <option value="ANULADA">Anulada</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-credit-card"></i> Forma Pago
+                            </label>
+                            <select class="form-select" id="formaPagoFactura">
+                                <option value="EFECTIVO">Efectivo</option>
+                                <option value="TARJETA">Tarjeta</option>
+                                <option value="TRANSFERENCIA">Transferencia</option>
+                                <option value="MIXTO">Mixto</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                <i class="fas fa-fingerprint"></i> UUID Fiscal
+                            </label>
+                            <input type="text" class="form-input" id="uuidFiscal" placeholder="UUID-XXXX-XXXX">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalFactura')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-success" onclick="guardarFactura()">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Impuesto -->
+    <div class="modal" id="modalImpuesto">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-plus-circle"></i> Nuevo Impuesto
+                </h3>
+                <button class="modal-close" onclick="cerrarModal('modalImpuesto')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formImpuesto">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-file-signature"></i> Nombre <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" id="nombreImpuesto" required placeholder="IVA General">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-tags"></i> Tipo <span class="required">*</span>
+                            </label>
+                            <select class="form-select" id="tipoImpuesto" required>
+                                <option value="IVA">IVA</option>
+                                <option value="ISR">ISR</option>
+                                <option value="IEPS">IEPS</option>
+                                <option value="OTRO">OTRO</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-percentage"></i> Tasa (%) <span class="required">*</span>
+                            </label>
+                            <input type="number" class="form-input" id="tasaImpuesto" step="0.01" min="0" required placeholder="16.00">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-toggle-on"></i> Estado
+                            </label>
+                            <select class="form-select" id="estadoImpuesto">
+                                <option value="ACTIVO">Activo</option>
+                                <option value="INACTIVO">Inactivo</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                <i class="fas fa-comment"></i> Descripción
+                            </label>
+                            <textarea class="form-textarea" id="descripcionImpuesto" placeholder="Descripción del impuesto..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalImpuesto')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-success" onclick="guardarImpuesto()">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+<!-- JavaScript del Módulo -->
+    <script>
+
+const API_BASE_URL = 'http://localhost:8082/api';
+
+// Variables Globales
+let moduloActual = 'contabilidad';
+let subTabActual = {
+    contabilidad: 'asientos',
+    nomina: 'nominas'
+};
+
+// Datos en memoria
+let asientos = [];
+let detalles = [];
+let nominas = [];
+let detalleNomina = [];
+let facturas = [];
+let impuestos = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Módulo Administrativo - Iniciando...');
+    mostrarLoading(true);
+    cargarTodosLosDatos();
+    configurarEventos();
+    configurarEventosModales();
+    console.log('✅ Módulo cargado correctamente');
+});
+
+function configurarEventos() {
+    // Eventos de búsqueda
+    document.getElementById('searchAsientos')?.addEventListener('input', filtrarAsientos);
+    document.getElementById('searchDetalles')?.addEventListener('input', filtrarDetalles);
+    document.getElementById('searchNominas')?.addEventListener('input', filtrarNominas);
+    document.getElementById('searchDetalleNomina')?.addEventListener('input', filtrarDetalleNomina);
+    document.getElementById('searchFacturas')?.addEventListener('input', filtrarFacturas);
+    document.getElementById('searchImpuestos')?.addEventListener('input', filtrarImpuestos);
+    
+    // Eventos de filtros
+    document.getElementById('estadoFilterAsientos')?.addEventListener('change', filtrarAsientos);
+    document.getElementById('estadoFilterNominas')?.addEventListener('change', filtrarNominas);
+    document.getElementById('estadoFilterFacturas')?.addEventListener('change', filtrarFacturas);
+    document.getElementById('tipoFilterImpuestos')?.addEventListener('change', filtrarImpuestos);
+    document.getElementById('estadoFilterImpuestos')?.addEventListener('change', filtrarImpuestos);
+}
+
+function configurarEventosModales() {
+    const modales = ['modalAsiento', 'modalDetalle', 'modalNomina', 'modalDetalleNomina', 'modalFactura', 'modalImpuesto'];
+    
+    modales.forEach(modalId => {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    cerrarModal(modalId);
+                }
+            });
+        }
+    });
+    
+    // Cerrar modal con ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modalActivo = document.querySelector('.modal.active');
+            if (modalActivo) {
+                cerrarModal(modalActivo.id);
+            }
+        }
+    });
+}
+
+function mostrarLoading(show) {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) {
+        overlay.style.display = show ? 'flex' : 'none';
+    }
+}
+
+function obtenerValor(obj, ...keys) {
+    for (let key of keys) {
+        if (obj && obj[key] !== undefined && obj[key] !== null) {
+            return obj[key];
+        }
+    }
+    return null;
+}
+
+async function cargarTodosLosDatos() {
+    try {
+        await Promise.all([
+            cargarAsientos(),
+            cargarDetalles(),
+            cargarNominas(),
+            cargarDetalleNomina(),
+            cargarFacturas(),
+            cargarImpuestos()
+        ]);
+        mostrarLoading(false);
+        showNotification('✅ Datos cargados correctamente', 'success');
+    } catch (error) {
+        mostrarLoading(false);
+        console.error('Error cargando datos:', error);
+        showNotification('❌ Error al cargar algunos datos', 'error');
+    }
+}
+
+async function cargarAsientos() {
+    try {
+        console.log('📥 Cargando asientos...');
+        const response = await fetch(`${API_BASE_URL}/contabilidad`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        asientos = await response.json();
+        console.log('✅ Asientos cargados:', asientos);
+        
+        renderizarAsientos(asientos);
+        actualizarEstadisticasContabilidad();
+        document.getElementById('badgeContabilidad').textContent = asientos.length;
+        
+        return asientos;
+    } catch (error) {
+        console.error('❌ Error al cargar asientos:', error);
+        showNotification('Error al cargar asientos contables', 'error');
+        asientos = [];
+        renderizarAsientos(asientos);
+        actualizarEstadisticasContabilidad();
+        return [];
+    }
+}
+
+async function cargarDetalles() {
+    try {
+        console.log('📥 Cargando detalles contables...');
+        const response = await fetch(`${API_BASE_URL}/detallecontable`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        detalles = await response.json();
+        console.log('✅ Detalles cargados:', detalles);
+        
+        renderizarDetalles(detalles);
+        return detalles;
+    } catch (error) {
+        console.error('❌ Error al cargar detalles:', error);
+        showNotification('Error al cargar movimientos contables', 'error');
+        detalles = [];
+        renderizarDetalles(detalles);
+        return [];
+    }
+}
+
+async function cargarNominas() {
+    try {
+        console.log('📥 Cargando nóminas...');
+        const response = await fetch(`${API_BASE_URL}/nomina`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        nominas = await response.json();
+        console.log('✅ Nóminas cargadas:', nominas);
+        
+        renderizarNominas(nominas);
+        actualizarEstadisticasNomina();
+        document.getElementById('badgeNomina').textContent = nominas.length;
+        
+        return nominas;
+    } catch (error) {
+        console.error('❌ Error al cargar nóminas:', error);
+        showNotification('Error al cargar nóminas', 'error');
+        nominas = [];
+        renderizarNominas(nominas);
+        actualizarEstadisticasNomina();
+        return [];
+    }
+}
+
+async function cargarDetalleNomina() {
+    try {
+        console.log('📥 Cargando detalle de nómina...');
+        const response = await fetch(`${API_BASE_URL}/detallenomina`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        detalleNomina = await response.json();
+        console.log('✅ Detalle de nómina cargado:', detalleNomina);
+        
+        renderizarDetalleNomina(detalleNomina);
+        return detalleNomina;
+    } catch (error) {
+        console.error('❌ Error al cargar detalle de nómina:', error);
+        showNotification('Error al cargar conceptos de nómina', 'error');
+        detalleNomina = [];
+        renderizarDetalleNomina(detalleNomina);
+        return [];
+    }
+}
+
+async function cargarFacturas() {
+    try {
+        console.log('📥 Cargando facturas...');
+        const response = await fetch(`${API_BASE_URL}/factura`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        facturas = await response.json();
+        console.log('✅ Facturas cargadas:', facturas);
+        
+        renderizarFacturas(facturas);
+        actualizarEstadisticasFacturas();
+        document.getElementById('badgeFacturacion').textContent = facturas.length;
+        
+        return facturas;
+    } catch (error) {
+        console.error('❌ Error al cargar facturas:', error);
+        showNotification('Error al cargar facturas', 'error');
+        facturas = [];
+        renderizarFacturas(facturas);
+        actualizarEstadisticasFacturas();
+        return [];
+    }
+}
+
+async function cargarImpuestos() {
+    try {
+        console.log('📥 Cargando impuestos...');
+        const response = await fetch(`${API_BASE_URL}/impuesto`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        impuestos = await response.json();
+        console.log('✅ Impuestos cargados:', impuestos);
+        
+        renderizarImpuestos(impuestos);
+        actualizarEstadisticasImpuestos();
+        document.getElementById('badgeImpuestos').textContent = impuestos.length;
+        
+        return impuestos;
+    } catch (error) {
+        console.error('❌ Error al cargar impuestos:', error);
+        showNotification('Error al cargar impuestos', 'error');
+        impuestos = [];
+        renderizarImpuestos(impuestos);
+        actualizarEstadisticasImpuestos();
+        return [];
+    }
+}
+
+// ==================== GUARDAR DATOS ====================
+async function guardarAsiento() {
+    const datos = {
+        fechaAsiento: document.getElementById('fechaAsiento').value,
+        numeroAsiento: document.getElementById('numeroAsiento').value,
+        periodoContable: document.getElementById('periodoContable').value || null,
+        estado: document.getElementById('estadoAsiento').value,
+        descripcion: document.getElementById('descripcionAsiento').value || null,
+        totalDebe: 0,
+        totalHaber: 0
+    };
+    
+    if (!datos.fechaAsiento || !datos.numeroAsiento) {
+        showNotification('❌ Complete los campos requeridos', 'error');
+        return;
+    }
+    
+    try {
+        console.log('💾 Guardando asiento:', datos);
+        const response = await fetch(`${API_BASE_URL}/contabilidad`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Error ${response.status}: ${errorText}`);
+        }
+        
+        const resultado = await response.json();
+        console.log('✅ Asiento guardado:', resultado);
+        
+        showNotification('✅ Asiento guardado exitosamente', 'success');
+        cerrarModal('modalAsiento');
+        await cargarAsientos();
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showNotification('❌ Error al guardar el asiento: ' + error.message, 'error');
+    }
+}
+
+async function guardarDetalle() {
+    const debe = parseFloat(document.getElementById('debe').value) || 0;
+    const haber = parseFloat(document.getElementById('haber').value) || 0;
+    const idAsiento = parseInt(document.getElementById('idAsientoDetalle').value);
+    
+    if (!idAsiento) {
+        showNotification('❌ Ingrese el ID del asiento', 'error');
+        return;
+    }
+    
+    if (debe > 0 && haber > 0) {
+        showNotification('❌ Solo puede ingresar un valor en Debe o Haber', 'error');
+        return;
+    }
+    
+    if (debe === 0 && haber === 0) {
+        showNotification('❌ Debe ingresar un valor en Debe o Haber', 'error');
+        return;
+    }
+    
+    const datos = {
+        asiento: { idAsiento: idAsiento },
+        numeroLinea: 1,
+        cuentaContable: document.getElementById('cuentaContable').value,
+        descripcionLinea: document.getElementById('descripcionLinea').value || null,
+        debe: debe,
+        haber: haber
+    };
+    
+    try {
+        console.log('💾 Guardando movimiento:', datos);
+        const response = await fetch(`${API_BASE_URL}/detallecontable`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Error ${response.status}: ${errorText}`);
+        }
+        
+        const resultado = await response.json();
+        console.log('✅ Movimiento guardado:', resultado);
+        
+        showNotification('✅ Movimiento guardado exitosamente', 'success');
+        cerrarModal('modalDetalle');
+        await cargarDetalles();
+        setTimeout(() => verificarBalanceAsiento(idAsiento), 500);
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showNotification('❌ Error al guardar el movimiento: ' + error.message, 'error');
+    }
+}
+
+async function guardarNomina() {
+    const idEmpleado = parseInt(document.getElementById('idEmpleado').value);
+    
+    if (!idEmpleado) {
+        showNotification('❌ Ingrese el ID del empleado', 'error');
+        return;
+    }
+    
+    const datos = {
+        empleado: { idEmpleado: idEmpleado },
+        periodoNomina: document.getElementById('periodoNomina').value,
+        fechaInicio: document.getElementById('fechaInicioNomina').value || null,
+        fechaFin: document.getElementById('fechaFinNomina').value || null,
+        fechaPago: document.getElementById('fechaPagoNomina').value || null,
+        diasTrabajados: parseInt(document.getElementById('diasTrabajados').value) || 0,
+        salarioDiario: parseFloat(document.getElementById('salarioDiario').value) || 0,
+        tipoNomina: document.getElementById('tipoNomina').value,
+        estado: document.getElementById('estadoNomina').value,
+        totalPercepciones: 0,
+        totalDeducciones: 0,
+        totalNeto: 0
+    };
+    
+    try {
+        console.log('💾 Guardando nómina:', datos);
+        const response = await fetch(`${API_BASE_URL}/nomina`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Error ${response.status}: ${errorText}`);
+        }
+        
+        const resultado = await response.json();
+        console.log('✅ Nómina guardada:', resultado);
+        
+        showNotification('✅ Nómina guardada exitosamente', 'success');
+        cerrarModal('modalNomina');
+        await cargarNominas();
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showNotification('❌ Error al guardar la nómina: ' + error.message, 'error');
+    }
+}
+
+async function guardarDetalleNomina() {
+    const idNomina = parseInt(document.getElementById('idNominaDetalle').value);
+    
+    if (!idNomina) {
+        showNotification('❌ Ingrese el ID de la nómina', 'error');
+        return;
+    }
+    
+    const datos = {
+        nomina: { idNomina: idNomina },
+        tipo: document.getElementById('tipoConcepto').value,
+        concepto: document.getElementById('conceptoNomina').value,
+        claveSat: document.getElementById('claveSat').value || null,
+        monto: parseFloat(document.getElementById('montoConcepto').value) || 0
+    };
+    
+    try {
+        console.log('💾 Guardando concepto:', datos);
+        const response = await fetch(`${API_BASE_URL}/detallenomina`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Error ${response.status}: ${errorText}`);
+        }
+        
+        const resultado = await response.json();
+        console.log('✅ Concepto guardado:', resultado);
+        
+        showNotification('✅ Concepto guardado exitosamente', 'success');
+        cerrarModal('modalDetalleNomina');
+        await cargarDetalleNomina();
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showNotification('❌ Error al guardar el concepto: ' + error.message, 'error');
+    }
+}
+
+async function guardarFactura() {
+    const idCliente = parseInt(document.getElementById('idClienteFactura').value);
+    
+    if (!idCliente) {
+        showNotification('❌ Ingrese el ID del cliente', 'error');
+        return;
+    }
+    
+    const datos = {
+        numeroFactura: document.getElementById('numeroFactura').value,
+        serie: document.getElementById('serieFactura').value || null,
+        folio: parseInt(document.getElementById('folioFactura').value) || null,
+        fechaEmision: document.getElementById('fechaEmision').value,
+        fechaVencimiento: document.getElementById('fechaEmision').value,
+        cliente: { idCliente: idCliente },
+        subtotal: parseFloat(document.getElementById('subtotalFactura').value) || 0,
+        impuestos: parseFloat(document.getElementById('impuestosFactura').value) || 0,
+        descuentos: parseFloat(document.getElementById('descuentosFactura').value) || 0,
+        total: parseFloat(document.getElementById('totalFactura').value) || 0,
+        estado: document.getElementById('estadoFactura').value,
+        formaPago: document.getElementById('formaPagoFactura').value,
+        uuidFiscal: document.getElementById('uuidFiscal').value || null
+    };
+    
+    try {
+        console.log('💾 Guardando factura:', datos);
+        const response = await fetch(`${API_BASE_URL}/factura`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Error ${response.status}: ${errorText}`);
+        }
+        
+        const resultado = await response.json();
+        console.log('✅ Factura guardada:', resultado);
+        
+        showNotification('✅ Factura guardada exitosamente', 'success');
+        cerrarModal('modalFactura');
+        await cargarFacturas();
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showNotification('❌ Error al guardar la factura: ' + error.message, 'error');
+    }
+}
+
+async function guardarImpuesto() {
+    const datos = {
+        nombre: document.getElementById('nombreImpuesto').value,
+        tipo: document.getElementById('tipoImpuesto').value,
+        tasa: parseFloat(document.getElementById('tasaImpuesto').value) || 0,
+        estado: document.getElementById('estadoImpuesto').value,
+        descripcion: document.getElementById('descripcionImpuesto').value || null
+    };
+    
+    if (!datos.nombre || !datos.tipo) {
+        showNotification('❌ Complete los campos requeridos', 'error');
+        return;
+    }
+    
+    try {
+        console.log('💾 Guardando impuesto:', datos);
+        const response = await fetch(`${API_BASE_URL}/impuesto`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Error ${response.status}: ${errorText}`);
+        }
+        
+        const resultado = await response.json();
+        console.log('✅ Impuesto guardado:', resultado);
+        
+        showNotification('✅ Impuesto guardado exitosamente', 'success');
+        cerrarModal('modalImpuesto');
+        await cargarImpuestos();
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showNotification('❌ Error al guardar el impuesto: ' + error.message, 'error');
+    }
+}
+
+async function eliminarAsiento(id) {
+    if (!confirm('¿Está seguro de eliminar este asiento contable?')) return;
+    
+    try {
+        console.log('🗑️ Eliminando asiento:', id);
+        const response = await fetch(`${API_BASE_URL}/contabilidad/${id}`, { 
+            method: 'DELETE' 
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}`);
+        }
+        
+        showNotification('✅ Asiento eliminado exitosamente', 'success');
+        await cargarAsientos();
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showNotification('❌ Error al eliminar el asiento', 'error');
+    }
+}
+
+async function eliminarDetalle(id) {
+    if (!confirm('¿Está seguro de eliminar este movimiento?')) return;
+    
+    try {
+        console.log('🗑️ Eliminando detalle:', id);
+        const response = await fetch(`${API_BASE_URL}/detallecontable/${id}`, { 
+            method: 'DELETE' 
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}`);
+        }
+        
+        showNotification('✅ Movimiento eliminado exitosamente', 'success');
+        await cargarDetalles();
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showNotification('❌ Error al eliminar el movimiento', 'error');
+    }
+}
+
+async function eliminarNomina(id) {
+    if (!confirm('¿Está seguro de eliminar esta nómina?')) return;
+    
+    try {
+        console.log('🗑️ Eliminando nómina:', id);
+        const response = await fetch(`${API_BASE_URL}/nomina/${id}`, { 
+            method: 'DELETE' 
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}`);
+        }
+        
+        showNotification('✅ Nómina eliminada exitosamente', 'success');
+        await cargarNominas();
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showNotification('❌ Error al eliminar la nómina', 'error');
+    }
+}
+
+async function eliminarDetalleNomina(id) {
+    if (!confirm('¿Está seguro de eliminar este concepto?')) return;
+    
+    try {
+        console.log('🗑️ Eliminando concepto:', id);
+        const response = await fetch(`${API_BASE_URL}/detallenomina/${id}`, { 
+            method: 'DELETE' 
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}`);
+        }
+        
+        showNotification('✅ Concepto eliminado exitosamente', 'success');
+        await cargarDetalleNomina();
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showNotification('❌ Error al eliminar el concepto', 'error');
+    }
+}
+
+async function eliminarFactura(id) {
+    if (!confirm('¿Está seguro de eliminar esta factura?')) return;
+    
+    try {
+        console.log('🗑️ Eliminando factura:', id);
+        const response = await fetch(`${API_BASE_URL}/factura/${id}`, { 
+            method: 'DELETE' 
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}`);
+        }
+        
+        showNotification('✅ Factura eliminada exitosamente', 'success');
+        await cargarFacturas();
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showNotification('❌ Error al eliminar la factura', 'error');
+    }
+}
+
+async function eliminarImpuesto(id) {
+    if (!confirm('¿Está seguro de eliminar este impuesto?')) return;
+    
+    try {
+        console.log('🗑️ Eliminando impuesto:', id);
+        const response = await fetch(`${API_BASE_URL}/impuesto/${id}`, { 
+            method: 'DELETE' 
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}`);
+        }
+        
+        showNotification('✅ Impuesto eliminado exitosamente', 'success');
+        await cargarImpuestos();
+    } catch (error) {
+        console.error('❌ Error:', error);
+        showNotification('❌ Error al eliminar el impuesto', 'error');
+    }
+}
+function cambiarModulo(modulo) {
+    moduloActual = modulo;
+    
+    // Actualizar tabs
+    document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === modulo);
+    });
+    
+    // Mostrar contenido del tab
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    document.getElementById(`tab-${modulo}`).classList.add('active');
+    
+    // Actualizar header y botón
+    actualizarHeader(modulo);
+    actualizarBotonAccion(modulo);
+    
+    console.log(`📂 Módulo activo: ${modulo}`);
+}
+
+function cambiarSubTab(modulo, subtab) {
+    subTabActual[modulo] = subtab;
+    
+    const btnIds = {
+        contabilidad: ['subTabAsientos', 'subTabDetalles'],
+        nomina: ['subTabNominas', 'subTabDetalleNomina']
+    };
+    
+    if (btnIds[modulo]) {
+        // Actualizar botones
+        btnIds[modulo].forEach(btnId => {
+            const btn = document.getElementById(btnId);
+            if (btn) {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-secondary');
+            }
+        });
+        
+        const activeBtn = document.getElementById(
+            modulo === 'contabilidad' 
+                ? (subtab === 'asientos' ? 'subTabAsientos' : 'subTabDetalles')
+                : (subtab === 'nominas' ? 'subTabNominas' : 'subTabDetalleNomina')
+        );
+        
+        if (activeBtn) {
+            activeBtn.classList.remove('btn-secondary');
+            activeBtn.classList.add('btn-primary');
+        }
+    }
+    
+    // Mostrar contenido del subtab
+    document.querySelectorAll('.subtab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    const subtabElement = document.getElementById(`subtab-${subtab}`);
+    if (subtabElement) {
+        subtabElement.style.display = 'block';
+    }
+    
+    actualizarBotonAccion(modulo, subtab);
+}
+
+function actualizarHeader(modulo) {
+    const headers = {
+        contabilidad: { icon: 'calculator', title: 'Contabilidad', breadcrumb: 'Contabilidad' },
+        nomina: { icon: 'money-bill-wave', title: 'Nómina', breadcrumb: 'Nómina' },
+        facturacion: { icon: 'file-invoice', title: 'Facturación', breadcrumb: 'Facturación' },
+        impuestos: { icon: 'percent', title: 'Impuestos', breadcrumb: 'Impuestos' }
+    };
+    
+    const config = headers[modulo];
+    const headerTitle = document.querySelector('#headerTitle');
+    if (headerTitle && headerTitle.parentElement) {
+        headerTitle.parentElement.innerHTML = `
+            <i class="fas fa-${config.icon}"></i> 
+            <span id="headerTitle">${config.title}</span>
+        `;
+    }
+    
+    const breadcrumb = document.getElementById('breadcrumbModule');
+    if (breadcrumb) {
+        breadcrumb.textContent = config.breadcrumb;
+    }
+}
+
+function actualizarBotonAccion(modulo, subtab = null) {
+    const btn = document.getElementById('btnAccionPrincipal');
+    if (!btn) return;
+    
+    const acciones = {
+        contabilidad: {
+            asientos: { icon: 'plus', text: 'Nuevo Asiento', action: () => abrirModal('modalAsiento') },
+            detalles: { icon: 'plus', text: 'Nuevo Movimiento', action: () => abrirModal('modalDetalle') }
+        },
+        nomina: {
+            nominas: { icon: 'plus', text: 'Nueva Nómina', action: () => abrirModal('modalNomina') },
+            detalleNomina: { icon: 'plus', text: 'Nuevo Concepto', action: () => abrirModal('modalDetalleNomina') }
+        },
+        facturacion: { icon: 'plus', text: 'Nueva Factura', action: () => abrirModal('modalFactura') },
+        impuestos: { icon: 'plus', text: 'Nuevo Impuesto', action: () => abrirModal('modalImpuesto') }
+    };
+    
+    let config;
+    if (subtab && acciones[modulo] && acciones[modulo][subtab]) {
+        config = acciones[modulo][subtab];
+    } else if (acciones[modulo] && acciones[modulo].icon) {
+        config = acciones[modulo];
+    } else if (acciones[modulo] && subTabActual[modulo]) {
+        config = acciones[modulo][subTabActual[modulo]];
+    } else {
+        config = { icon: 'plus', text: 'Nuevo Registro', action: () => {} };
+    }
+    
+    btn.innerHTML = `<i class="fas fa-${config.icon}"></i> ${config.text}`;
+    btn.onclick = config.action;
+}
+function abrirModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    
+    modal.classList.add('active');
+    
+    // Resetear formulario
+    const form = modal.querySelector('form');
+    if (form) form.reset();
+    
+    // Configuraciones especiales
+    if (modalId === 'modalAsiento') {
+        const fecha = document.getElementById('fechaAsiento');
+        if (fecha) {
+            fecha.value = new Date().toISOString().split('T')[0];
+        }
+    }
+    
+    if (modalId === 'modalFactura') {
+        const fechaEmision = document.getElementById('fechaEmision');
+        if (fechaEmision) {
+            fechaEmision.value = new Date().toISOString().split('T')[0];
+        }
+        setTimeout(() => configurarCalculosFactura(), 100);
+    }
+    
+    if (modalId === 'modalNomina') {
+        const fechaPago = document.getElementById('fechaPagoNomina');
+        if (fechaPago) {
+            fechaPago.value = new Date().toISOString().split('T')[0];
+        }
+    }
+}
+
+function cerrarModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+function verDetalleAsiento(id) {
+    const asiento = asientos.find(a => 
+        (a.idAsiento === id) || (a.id_asiento === id)
+    );
+    
+    if (!asiento) {
+        showNotification('❌ Asiento no encontrado', 'error');
+        return;
+    }
+    
+    const numeroAsiento = obtenerValor(asiento, 'numeroAsiento', 'numero_asiento');
+    const descripcion = obtenerValor(asiento, 'descripcion') || 'Sin descripción';
+    const totalDebe = obtenerValor(asiento, 'totalDebe', 'total_debe') || 0;
+    const totalHaber = obtenerValor(asiento, 'totalHaber', 'total_haber') || 0;
+    const estado = obtenerValor(asiento, 'estado') || 'N/A';
+    
+    showNotification(
+        `📊 Asiento: ${numeroAsiento}\n` +
+        `Descripción: ${descripcion}\n` +
+        `Debe: $${formatearNumero(totalDebe)}\n` +
+        `Haber: $${formatearNumero(totalHaber)}\n` +
+        `Estado: ${estado}`, 
+        'info'
+    );
+}
+
+function verDetalleNominaCompleta(id) {
+    const nomina = nominas.find(n => 
+        (n.idNomina === id) || (n.id_nomina === id)
+    );
+    
+    if (!nomina) {
+        showNotification('❌ Nómina no encontrada', 'error');
+        return;
+    }
+    
+    const periodo = obtenerValor(nomina, 'periodoNomina', 'periodo_nomina');
+    const totalNeto = obtenerValor(nomina, 'totalNeto', 'total_neto') || 0;
+    const percepciones = obtenerValor(nomina, 'totalPercepciones', 'total_percepciones') || 0;
+    const deducciones = obtenerValor(nomina, 'totalDeducciones', 'total_deducciones') || 0;
+    const estado = obtenerValor(nomina, 'estado') || 'N/A';
+    
+    showNotification(
+        `💰 Nómina: ${periodo}\n` +
+        `Percepciones: $${formatearNumero(percepciones)}\n` +
+        `Deducciones: $${formatearNumero(deducciones)}\n` +
+        `Total Neto: $${formatearNumero(totalNeto)}\n` +
+        `Estado: ${estado}`, 
+        'info'
+    );
+}
+
+function verDetalleFactura(id) {
+    const factura = facturas.find(f => 
+        (f.idFactura === id) || (f.id_factura === id)
+    );
+    
+    if (!factura) {
+        showNotification('❌ Factura no encontrada', 'error');
+        return;
+    }
+    
+    const numeroFactura = obtenerValor(factura, 'numeroFactura', 'numero_factura');
+    const total = obtenerValor(factura, 'total') || 0;
+    const subtotal = obtenerValor(factura, 'subtotal') || 0;
+    const impuestos = obtenerValor(factura, 'impuestos') || 0;
+    const estado = obtenerValor(factura, 'estado') || 'N/A';
+    
+    showNotification(
+        `📄 Factura: ${numeroFactura}\n` +
+        `Subtotal: $${formatearNumero(subtotal)}\n` +
+        `Impuestos: $${formatearNumero(impuestos)}\n` +
+        `Total: $${formatearNumero(total)}\n` +
+        `Estado: ${estado}`, 
+        'info'
+    );
+}
+
+function editarImpuesto(id) {
+    const impuesto = impuestos.find(i => 
+        (i.idImpuesto === id) || (i.id_impuesto === id)
+    );
+    
+    if (!impuesto) {
+        showNotification('❌ Impuesto no encontrado', 'error');
+        return;
+    }
+    
+    document.getElementById('nombreImpuesto').value = obtenerValor(impuesto, 'nombre') || '';
+    document.getElementById('tipoImpuesto').value = obtenerValor(impuesto, 'tipo') || '';
+    document.getElementById('tasaImpuesto').value = obtenerValor(impuesto, 'tasa') || 0;
+    document.getElementById('estadoImpuesto').value = obtenerValor(impuesto, 'estado') || 'ACTIVO';
+    document.getElementById('descripcionImpuesto').value = obtenerValor(impuesto, 'descripcion') || '';
+    
+    abrirModal('modalImpuesto');
+}
+
+function configurarCalculosFactura() {
+    const subtotal = document.getElementById('subtotalFactura');
+    const impuestos = document.getElementById('impuestosFactura');
+    const descuentos = document.getElementById('descuentosFactura');
+    const total = document.getElementById('totalFactura');
+    
+    if (!subtotal || !impuestos || !descuentos || !total) return;
+    
+    function calcularFactura() {
+        const sub = parseFloat(subtotal.value) || 0;
+        const desc = parseFloat(descuentos.value) || 0;
+        
+
+        const imp = sub * 0.16;
+        impuestos.value = imp.toFixed(2);
+        
+  
+        const totalFinal = sub + imp - desc;
+        total.value = totalFinal.toFixed(2);
+        
+    
+        if (desc > sub) {
+            descuentos.value = sub.toFixed(2);
+            showNotification('⚠️ El descuento no puede ser mayor al subtotal', 'warning');
+        }
+    }
+    
+    subtotal.addEventListener('input', calcularFactura);
+    descuentos.addEventListener('input', calcularFactura);
+    
+    impuestos.addEventListener('input', function() {
+        const sub = parseFloat(subtotal.value) || 0;
+        const imp = parseFloat(impuestos.value) || 0;
+        const desc = parseFloat(descuentos.value) || 0;
+        total.value = (sub + imp - desc).toFixed(2);
+    });
+}
+
+function verificarBalanceAsiento(idAsiento) {
+    const detallesDelAsiento = detalles.filter(d => {
+        const idAsientoDetalle = obtenerValor(d, 'idAsiento', 'id_asiento');
+        // Si es objeto anidado
+        if (d.asiento) {
+            const idAsientoObj = obtenerValor(d.asiento, 'idAsiento', 'id_asiento');
+            return idAsientoObj === idAsiento;
+        }
+        return idAsientoDetalle === idAsiento;
+    });
+    
+    const totalDebe = detallesDelAsiento.reduce((sum, d) => {
+        return sum + parseFloat(obtenerValor(d, 'debe') || 0);
+    }, 0);
+    
+    const totalHaber = detallesDelAsiento.reduce((sum, d) => {
+        return sum + parseFloat(obtenerValor(d, 'haber') || 0);
+    }, 0);
+    
+    const diferencia = Math.abs(totalDebe - totalHaber);
+    
+    if (diferencia > 0.01) {
+        showNotification(
+            `⚠️ Asiento #${idAsiento} desbalanceado:\n` +
+            `Debe: $${formatearNumero(totalDebe)}\n` +
+            `Haber: $${formatearNumero(totalHaber)}\n` +
+            `Diferencia: $${formatearNumero(diferencia)}`,
+            'warning'
+        );
+    } else {
+        showNotification(
+            `✅ Asiento #${idAsiento} balanceado correctamente\n` +
+            `Debe = Haber = $${formatearNumero(totalDebe)}`,
+            'success'
+        );
+    }
+}
+
+function renderizarAsientos(data) {
+    const grid = document.getElementById('asientosGrid');
+    if (!grid) return;
+    
+    if (!data || data.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+                <i class="fas fa-book"></i>
+                <h3>No hay asientos registrados</h3>
+                <p>Comienza creando tu primer asiento contable</p>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = data.map(a => {
+        const id = obtenerValor(a, 'idAsiento', 'id_asiento');
+        const numeroAsiento = obtenerValor(a, 'numeroAsiento', 'numero_asiento');
+        const descripcion = obtenerValor(a, 'descripcion') || 'Sin descripción';
+        const fechaAsiento = obtenerValor(a, 'fechaAsiento', 'fecha_asiento');
+        const totalDebe = obtenerValor(a, 'totalDebe', 'total_debe') || 0;
+        const totalHaber = obtenerValor(a, 'totalHaber', 'total_haber') || 0;
+        const periodoContable = obtenerValor(a, 'periodoContable', 'periodo_contable') || 'N/A';
+        const estado = obtenerValor(a, 'estado') || 'BORRADOR';
+        
+        const estadoColor = {
+            'BORRADOR': 'var(--amarillo-advertencia)',
+            'CONTABILIZADO': 'var(--verde-exito)',
+            'ANULADO': 'var(--rojo-peligro)'
+        }[estado] || 'var(--azul-principal)';
+        
+        const estadoIcon = {
+            'BORRADOR': 'fa-pencil-alt',
+            'CONTABILIZADO': 'fa-check-circle',
+            'ANULADO': 'fa-ban'
+        }[estado] || 'fa-book';
+        
+        return `
+            <div class="item-card" style="border-left-color: ${estadoColor}">
+                <div class="card-header">
+                    <div style="flex: 1;">
+                        <div class="card-title">${descripcion}</div>
+                        <div class="card-subtitle"><i class="fas fa-hashtag"></i> ${numeroAsiento}</div>
+                    </div>
+                    <div class="card-icon" style="background: linear-gradient(135deg, ${estadoColor}, ${estadoColor}dd);">
+                        <i class="fas ${estadoIcon}"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-calendar"></i> Fecha</span>
+                        <span class="card-detail-value">${formatearFecha(fechaAsiento)}</span>
+                    </div>
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-arrow-up"></i> Debe</span>
+                        <span class="card-detail-value" style="color: var(--verde-exito)">$${formatearNumero(totalDebe)}</span>
+                    </div>
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-arrow-down"></i> Haber</span>
+                        <span class="card-detail-value" style="color: var(--rojo-peligro)">$${formatearNumero(totalHaber)}</span>
+                    </div>
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-calendar-alt"></i> Periodo</span>
+                        <span class="card-detail-value">${periodoContable}</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    ${getBadgeEstado(estado)}
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-icon btn-sm btn-primary" onclick="verDetalleAsiento(${id})" title="Ver detalles">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-icon btn-sm btn-danger" onclick="eliminarAsiento(${id})" title="Eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderizarDetalles(data) {
+    const grid = document.getElementById('detallesGrid');
+    if (!grid) return;
+    
+    if (!data || data.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+                <i class="fas fa-list"></i>
+                <h3>No hay movimientos registrados</h3>
+                <p>Agrega movimientos a tus asientos contables</p>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = data.map(d => {
+        const id = obtenerValor(d, 'idDetalle', 'id_detalle');
+        const cuentaContable = obtenerValor(d, 'cuentaContable', 'cuenta_contable') || 'N/A';
+        const numeroLinea = obtenerValor(d, 'numeroLinea', 'numero_linea') || 1;
+        const debe = obtenerValor(d, 'debe') || 0;
+        const haber = obtenerValor(d, 'haber') || 0;
+        const descripcionLinea = obtenerValor(d, 'descripcionLinea', 'descripcion_linea') || 'N/A';
+        
+        // Obtener ID del asiento
+        let idAsiento = obtenerValor(d, 'idAsiento', 'id_asiento');
+        if (!idAsiento && d.asiento) {
+            idAsiento = obtenerValor(d.asiento, 'idAsiento', 'id_asiento');
+        }
+        
+        return `
+            <div class="item-card" style="border-left-color: var(--azul-principal)">
+                <div class="card-header">
+                    <div style="flex: 1;">
+                        <div class="card-title">Cuenta: ${cuentaContable}</div>
+                        <div class="card-subtitle"><i class="fas fa-book"></i> Asiento #${idAsiento || 'N/A'}</div>
+                    </div>
+                    <div class="card-icon" style="background: linear-gradient(135deg, var(--azul-principal), var(--azul-principal-gradient));">
+                        <i class="fas fa-list-ul"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-sort-numeric-down"></i> Línea</span>
+                        <span class="card-detail-value">${numeroLinea}</span>
+                    </div>
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-arrow-up"></i> Debe</span>
+                        <span class="card-detail-value" style="color: var(--verde-exito)">$${formatearNumero(debe)}</span>
+                    </div>
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-arrow-down"></i> Haber</span>
+                        <span class="card-detail-value" style="color: var(--rojo-peligro)">$${formatearNumero(haber)}</span>
+                    </div>
+                    <div class="card-detail" style="grid-column: 1/-1;">
+                        <span class="card-detail-label"><i class="fas fa-comment"></i> Descripción</span>
+                        <span class="card-detail-value">${descripcionLinea}</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span style="font-size: 12px; color: var(--gris-texto-secundario);">ID: #${id}</span>
+                    <button class="btn btn-icon btn-sm btn-danger" onclick="eliminarDetalle(${id})" title="Eliminar">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderizarNominas(data) {
+    const grid = document.getElementById('nominasGrid');
+    if (!grid) return;
+    
+    if (!data || data.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+                <i class="fas fa-money-bill-wave"></i>
+                <h3>No hay nóminas registradas</h3>
+                <p>Comienza creando tu primera nómina</p>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = data.map(n => {
+        const id = obtenerValor(n, 'idNomina', 'id_nomina');
+        const periodoNomina = obtenerValor(n, 'periodoNomina', 'periodo_nomina');
+        const fechaPago = obtenerValor(n, 'fechaPago', 'fecha_pago');
+        const diasTrabajados = obtenerValor(n, 'diasTrabajados', 'dias_trabajados') || 0;
+        const totalPercepciones = obtenerValor(n, 'totalPercepciones', 'total_percepciones') || 0;
+        const totalDeducciones = obtenerValor(n, 'totalDeducciones', 'total_deducciones') || 0;
+        const totalNeto = obtenerValor(n, 'totalNeto', 'total_neto') || 0;
+        const estado = obtenerValor(n, 'estado') || 'PENDIENTE';
+        
+      
+        let idEmpleado = obtenerValor(n, 'idEmpleado', 'id_empleado');
+        if (!idEmpleado && n.empleado) {
+            idEmpleado = obtenerValor(n.empleado, 'idEmpleado', 'id_empleado');
+        }
+        
+        const estadoColor = {
+            'PENDIENTE': 'var(--amarillo-advertencia)',
+            'PAGADA': 'var(--verde-exito)',
+            'ANULADA': 'var(--rojo-peligro)'
+        }[estado] || 'var(--azul-principal)';
+        
+        return `
+            <div class="item-card" style="border-left-color: ${estadoColor}">
+                <div class="card-header">
+                    <div style="flex: 1;">
+                        <div class="card-title">Empleado #${idEmpleado || 'N/A'}</div>
+                        <div class="card-subtitle"><i class="fas fa-calendar-alt"></i> Periodo: ${periodoNomina}</div>
+                    </div>
+                    <div class="card-icon" style="background: linear-gradient(135deg, ${estadoColor}, ${estadoColor}dd);">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-calendar-check"></i> Fecha Pago</span>
+                        <span class="card-detail-value">${formatearFecha(fechaPago)}</span>
+                    </div>
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-calendar-day"></i> Días</span>
+                        <span class="card-detail-value">${diasTrabajados} días</span>
+                    </div>
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-plus-circle"></i> Percepciones</span>
+                        <span class="card-detail-value" style="color: var(--verde-exito)">$${formatearNumero(totalPercepciones)}</span>
+                    </div>
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-minus-circle"></i> Deducciones</span>
+                        <span class="card-detail-value" style="color: var(--rojo-peligro)">$${formatearNumero(totalDeducciones)}</span>
+                    </div>
+                    <div class="card-detail" style="background: var(--gris-suave-3); padding: 10px; border-radius: 8px; margin-top: 8px;">
+                        <span class="card-detail-label"><i class="fas fa-money-bill-wave"></i> Neto</span>
+                        <span class="card-detail-value" style="color: var(--verde-exito); font-size: 18px;">$${formatearNumero(totalNeto)}</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    ${getBadgeEstado(estado)}
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-icon btn-sm btn-primary" onclick="verDetalleNominaCompleta(${id})" title="Ver detalles">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-icon btn-sm btn-danger" onclick="eliminarNomina(${id})" title="Eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderizarDetalleNomina(data) {
+    const grid = document.getElementById('detalleNominaGrid');
+    if (!grid) return;
+    
+    if (!data || data.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+                <i class="fas fa-list-ol"></i>
+                <h3>No hay conceptos registrados</h3>
+                <p>Agrega conceptos a las nóminas</p>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = data.map(d => {
+        const id = obtenerValor(d, 'idDetalleNomina', 'id_detalle_nomina');
+        const tipo = obtenerValor(d, 'tipo') || 'PERCEPCION';
+        const concepto = obtenerValor(d, 'concepto') || 'N/A';
+        const claveSat = obtenerValor(d, 'claveSat', 'clave_sat') || 'N/A';
+        const monto = obtenerValor(d, 'monto') || 0;
+        
+        // Obtener ID de nómina
+        let idNomina = obtenerValor(d, 'idNomina', 'id_nomina');
+        if (!idNomina && d.nomina) {
+            idNomina = obtenerValor(d.nomina, 'idNomina', 'id_nomina');
+        }
+        
+        const esPercepcion = tipo === 'PERCEPCION';
+        const color = esPercepcion ? 'var(--verde-exito)' : 'var(--amarillo-advertencia)';
+        
+        return `
+            <div class="item-card" style="border-left-color: ${color}">
+                <div class="card-header">
+                    <div style="flex: 1;">
+                        <div class="card-title">${concepto}</div>
+                        <div class="card-subtitle"><i class="fas fa-money-bill"></i> Nómina #${idNomina || 'N/A'}</div>
+                    </div>
+                    <div class="card-icon" style="background: linear-gradient(135deg, ${color}, ${color}dd);">
+                        <i class="fas ${esPercepcion ? 'fa-plus-circle' : 'fa-minus-circle'}"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-tags"></i> Tipo</span>
+                        <span class="badge ${esPercepcion ? 'badge-success' : 'badge-warning'}">${tipo}</span>
+                    </div>
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-key"></i> Clave SAT</span>
+                        <span class="card-detail-value">${claveSat}</span>
+                    </div>
+                    <div class="card-detail" style="background: var(--gris-suave-3); padding: 10px; border-radius: 8px; margin-top: 8px;">
+                        <span class="card-detail-label"><i class="fas fa-dollar-sign"></i> Monto</span>
+                        <span class="card-detail-value" style="color: ${color}; font-size: 18px;">$${formatearNumero(monto)}</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span style="font-size: 12px; color: var(--gris-texto-secundario);">ID: #${id}</span>
+                    <button class="btn btn-icon btn-sm btn-danger" onclick="eliminarDetalleNomina(${id})" title="Eliminar">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderizarFacturas(data) {
+    const grid = document.getElementById('facturasGrid');
+    if (!grid) return;
+    
+    if (!data || data.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+                <i class="fas fa-file-invoice"></i>
+                <h3>No hay facturas registradas</h3>
+                <p>Comienza creando tu primera factura</p>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = data.map(f => {
+        const id = obtenerValor(f, 'idFactura', 'id_factura');
+        const numeroFactura = obtenerValor(f, 'numeroFactura', 'numero_factura');
+        const serie = obtenerValor(f, 'serie') || 'N/A';
+        const folio = obtenerValor(f, 'folio') || 'N/A';
+        const fechaEmision = obtenerValor(f, 'fechaEmision', 'fecha_emision');
+        const subtotal = obtenerValor(f, 'subtotal') || 0;
+        const impuestos = obtenerValor(f, 'impuestos') || 0;
+        const total = obtenerValor(f, 'total') || 0;
+        const estado = obtenerValor(f, 'estado') || 'PENDIENTE';
+        
+        let idCliente = obtenerValor(f, 'idCliente', 'id_cliente');
+        if (!idCliente && f.cliente) {
+            idCliente = obtenerValor(f.cliente, 'idCliente', 'id_cliente');
+        }
+        
+        const estadoColor = {
+            'PENDIENTE': 'var(--amarillo-advertencia)',
+            'PAGADA': 'var(--verde-exito)',
+            'VENCIDA': 'var(--rojo-peligro)',
+            'ANULADA': 'var(--gris-texto-secundario)'
+        }[estado] || 'var(--azul-principal)';
+        
+        return `
+            <div class="item-card" style="border-left-color: ${estadoColor}">
+                <div class="card-header">
+                    <div style="flex: 1;">
+                        <div class="card-title">${numeroFactura}</div>
+                        <div class="card-subtitle">
+                            <i class="fas fa-layer-group"></i> Serie: ${serie} | 
+                            <i class="fas fa-list-ol"></i> Folio: ${folio}
+                        </div>
+                    </div>
+                    <div class="card-icon" style="background: linear-gradient(135deg, ${estadoColor}, ${estadoColor}dd);">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-calendar"></i> Emisión</span>
+                        <span class="card-detail-value">${formatearFecha(fechaEmision)}</span>
+                    </div>
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-user"></i> Cliente</span>
+                        <span class="card-detail-value">#${idCliente || 'N/A'}</span>
+                    </div>
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-coins"></i> Subtotal</span>
+                        <span class="card-detail-value">$${formatearNumero(subtotal)}</span>
+                    </div>
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-percent"></i> Impuestos</span>
+                        <span class="card-detail-value">$${formatearNumero(impuestos)}</span>
+                    </div>
+                    <div class="card-detail" style="background: var(--gris-suave-3); padding: 10px; border-radius: 8px; margin-top: 8px;">
+                        <span class="card-detail-label"><i class="fas fa-dollar-sign"></i> Total</span>
+                        <span class="card-detail-value" style="color: var(--verde-exito); font-size: 18px;">$${formatearNumero(total)}</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    ${getBadgeEstado(estado)}
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-icon btn-sm btn-primary" onclick="verDetalleFactura(${id})" title="Ver detalles">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-icon btn-sm btn-danger" onclick="eliminarFactura(${id})" title="Eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderizarImpuestos(data) {
+    const grid = document.getElementById('impuestosGrid');
+    if (!grid) return;
+    
+    if (!data || data.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+                <i class="fas fa-percent"></i>
+                <h3>No hay impuestos registrados</h3>
+                <p>Comienza creando tu primer impuesto</p>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = data.map(i => {
+        const id = obtenerValor(i, 'idImpuesto', 'id_impuesto');
+        const nombre = obtenerValor(i, 'nombre') || 'N/A';
+        const tipo = obtenerValor(i, 'tipo') || 'OTRO';
+        const tasa = obtenerValor(i, 'tasa') || 0;
+        const descripcion = obtenerValor(i, 'descripcion') || 'Sin descripción';
+        const estado = obtenerValor(i, 'estado') || 'ACTIVO';
+        
+        const esActivo = estado === 'ACTIVO';
+        const color = esActivo ? 'var(--verde-exito)' : 'var(--gris-texto-secundario)';
+        
+        const tipoColors = {
+            'IVA': 'var(--azul-principal)',
+            'ISR': 'var(--morado)',
+            'IEPS': 'var(--naranja)',
+            'OTRO': 'var(--cyan)'
+        };
+        
+        return `
+            <div class="item-card" style="border-left-color: ${color}">
+                <div class="card-header">
+                    <div style="flex: 1;">
+                        <div class="card-title">${nombre}</div>
+                        <div class="card-subtitle"><i class="fas fa-tags"></i> ${tipo}</div>
+                    </div>
+                    <div class="card-icon" style="background: linear-gradient(135deg, ${tipoColors[tipo] || 'var(--azul-principal)'}, ${tipoColors[tipo] || 'var(--azul-principal)'}dd);">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-detail">
+                        <span class="card-detail-label"><i class="fas fa-percentage"></i> Tasa</span>
+                        <span class="card-detail-value" style="font-size: 24px; color: var(--azul-principal);">${formatearNumero(tasa)}%</span>
+                    </div>
+                    <div class="card-detail" style="grid-column: 1/-1;">
+                        <span class="card-detail-label"><i class="fas fa-comment"></i> Descripción</span>
+                        <span class="card-detail-value">${descripcion}</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    ${esActivo ? '<span class="badge badge-success"><i class="fas fa-toggle-on"></i> Activo</span>' : '<span class="badge badge-danger"><i class="fas fa-toggle-off"></i> Inactivo</span>'}
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-icon btn-sm btn-warning" onclick="editarImpuesto(${id})" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-icon btn-sm btn-danger" onclick="eliminarImpuesto(${id})" title="Eliminar">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function actualizarEstadisticasContabilidad() {
+    const total = asientos.length;
+    const contabilizados = asientos.filter(a => obtenerValor(a, 'estado') === 'CONTABILIZADO').length;
+    const borradores = asientos.filter(a => obtenerValor(a, 'estado') === 'BORRADOR').length;
+    
+    const balance = asientos.reduce((sum, a) => {
+        const debe = parseFloat(obtenerValor(a, 'totalDebe', 'total_debe') || 0);
+        const haber = parseFloat(obtenerValor(a, 'totalHaber', 'total_haber') || 0);
+        return sum + (debe - haber);
+    }, 0);
+    
+    document.getElementById('totalAsientos').textContent = total;
+    document.getElementById('asientosContabilizados').textContent = contabilizados;
+    document.getElementById('asientosBorradores').textContent = borradores;
+    document.getElementById('balanceTotal').textContent = '$' + formatearNumero(Math.abs(balance));
+}
+
+function actualizarEstadisticasNomina() {
+    const total = nominas.length;
+    const pagadas = nominas.filter(n => obtenerValor(n, 'estado') === 'PAGADA').length;
+    const pendientes = nominas.filter(n => obtenerValor(n, 'estado') === 'PENDIENTE').length;
+    
+    const mesActual = new Date().getMonth();
+    const anioActual = new Date().getFullYear();
+    
+    const totalMes = nominas
+        .filter(n => {
+            const fechaPago = obtenerValor(n, 'fechaPago', 'fecha_pago');
+            if (!fechaPago) return false;
+            const fecha = new Date(fechaPago);
+            return fecha.getMonth() === mesActual && fecha.getFullYear() === anioActual;
+        })
+        .reduce((sum, n) => {
+            const totalNeto = parseFloat(obtenerValor(n, 'totalNeto', 'total_neto') || 0);
+            return sum + totalNeto;
+        }, 0);
+    
+    document.getElementById('totalNominas').textContent = total;
+    document.getElementById('nominasPagadas').textContent = pagadas;
+    document.getElementById('nominasPendientes').textContent = pendientes;
+    document.getElementById('totalNominaMes').textContent = '$' + formatearNumero(totalMes);
+}
+
+function actualizarEstadisticasFacturas() {
+    const total = facturas.length;
+    const pendientes = facturas.filter(f => obtenerValor(f, 'estado') === 'PENDIENTE').length;
+    const pagadas = facturas.filter(f => obtenerValor(f, 'estado') === 'PAGADA').length;
+    
+    const mesActual = new Date().getMonth();
+    const anioActual = new Date().getFullYear();
+    
+    const montoMes = facturas
+        .filter(f => {
+            const fechaEmision = obtenerValor(f, 'fechaEmision', 'fecha_emision');
+            if (!fechaEmision) return false;
+            const fecha = new Date(fechaEmision);
+            return fecha.getMonth() === mesActual && fecha.getFullYear() === anioActual;
+        })
+        .reduce((sum, f) => {
+            const total = parseFloat(obtenerValor(f, 'total') || 0);
+            return sum + total;
+        }, 0);
+    
+    document.getElementById('totalFacturas').textContent = total;
+    document.getElementById('facturasPendientes').textContent = pendientes;
+    document.getElementById('facturasPagadas').textContent = pagadas;
+    document.getElementById('montoFacturasMes').textContent = '$' + formatearNumero(montoMes);
+}
+
+function actualizarEstadisticasImpuestos() {
+    const total = impuestos.length;
+    const activos = impuestos.filter(i => obtenerValor(i, 'estado') === 'ACTIVO').length;
+    const inactivos = impuestos.filter(i => obtenerValor(i, 'estado') === 'INACTIVO').length;
+    
+    const tasas = impuestos
+        .map(i => parseFloat(obtenerValor(i, 'tasa') || 0))
+        .filter(t => t > 0);
+    
+    const promedio = tasas.length ? tasas.reduce((a, b) => a + b, 0) / tasas.length : 0;
+    
+    document.getElementById('totalImpuestos').textContent = total;
+    document.getElementById('impuestosActivos').textContent = activos;
+    document.getElementById('impuestosInactivos').textContent = inactivos;
+    document.getElementById('tasaPromedio').textContent = formatearNumero(promedio) + '%';
+}
+
+
+function filtrarAsientos() {
+    const search = document.getElementById('searchAsientos')?.value.toLowerCase() || '';
+    const estado = document.getElementById('estadoFilterAsientos')?.value || '';
+    
+    const filtrados = asientos.filter(a => {
+        const numeroAsiento = (obtenerValor(a, 'numeroAsiento', 'numero_asiento') || '').toLowerCase();
+        const descripcion = (obtenerValor(a, 'descripcion') || '').toLowerCase();
+        const estadoAsiento = obtenerValor(a, 'estado') || '';
+        
+        const matchSearch = !search || numeroAsiento.includes(search) || descripcion.includes(search);
+        const matchEstado = !estado || estadoAsiento === estado;
+        
+        return matchSearch && matchEstado;
+    });
+    
+    console.log(`🔍 Filtrados ${filtrados.length} asientos de ${asientos.length}`);
+    renderizarAsientos(filtrados);
+}
+
+function filtrarDetalles() {
+    const search = document.getElementById('searchDetalles')?.value.toLowerCase() || '';
+    
+    const filtrados = detalles.filter(d => {
+        const cuentaContable = (obtenerValor(d, 'cuentaContable', 'cuenta_contable') || '').toLowerCase();
+        const descripcionLinea = (obtenerValor(d, 'descripcionLinea', 'descripcion_linea') || '').toLowerCase();
+        
+        return !search || cuentaContable.includes(search) || descripcionLinea.includes(search);
+    });
+    
+    console.log(`🔍 Filtrados ${filtrados.length} detalles de ${detalles.length}`);
+    renderizarDetalles(filtrados);
+}
+
+function filtrarNominas() {
+    const search = document.getElementById('searchNominas')?.value.toLowerCase() || '';
+    const estado = document.getElementById('estadoFilterNominas')?.value || '';
+    
+    const filtrados = nominas.filter(n => {
+        const periodoNomina = (obtenerValor(n, 'periodoNomina', 'periodo_nomina') || '').toLowerCase();
+        const estadoNomina = obtenerValor(n, 'estado') || '';
+        
+        // Obtener ID del empleado
+        let idEmpleado = obtenerValor(n, 'idEmpleado', 'id_empleado');
+        if (!idEmpleado && n.empleado) {
+            idEmpleado = obtenerValor(n.empleado, 'idEmpleado', 'id_empleado');
+        }
+        const idEmpleadoStr = String(idEmpleado || '');
+        
+        const matchSearch = !search || periodoNomina.includes(search) || idEmpleadoStr.includes(search);
+        const matchEstado = !estado || estadoNomina === estado;
+        
+        return matchSearch && matchEstado;
+    });
+    
+    console.log(`🔍 Filtrados ${filtrados.length} nóminas de ${nominas.length}`);
+    renderizarNominas(filtrados);
+}
+
+function filtrarDetalleNomina() {
+    const search = document.getElementById('searchDetalleNomina')?.value.toLowerCase() || '';
+    
+    const filtrados = detalleNomina.filter(d => {
+        const concepto = (obtenerValor(d, 'concepto') || '').toLowerCase();
+        const tipo = (obtenerValor(d, 'tipo') || '').toLowerCase();
+        
+        return !search || concepto.includes(search) || tipo.includes(search);
+    });
+    
+    console.log(`🔍 Filtrados ${filtrados.length} conceptos de ${detalleNomina.length}`);
+    renderizarDetalleNomina(filtrados);
+}
+
+function filtrarFacturas() {
+    const search = document.getElementById('searchFacturas')?.value.toLowerCase() || '';
+    const estado = document.getElementById('estadoFilterFacturas')?.value || '';
+    
+    const filtrados = facturas.filter(f => {
+        const numeroFactura = (obtenerValor(f, 'numeroFactura', 'numero_factura') || '').toLowerCase();
+        const uuidFiscal = (obtenerValor(f, 'uuidFiscal', 'uuid_fiscal') || '').toLowerCase();
+        const estadoFactura = obtenerValor(f, 'estado') || '';
+        
+        // Obtener ID del cliente
+        let idCliente = obtenerValor(f, 'idCliente', 'id_cliente');
+        if (!idCliente && f.cliente) {
+            idCliente = obtenerValor(f.cliente, 'idCliente', 'id_cliente');
+        }
+        const idClienteStr = String(idCliente || '');
+        
+        const matchSearch = !search || 
+            numeroFactura.includes(search) || 
+            uuidFiscal.includes(search) || 
+            idClienteStr.includes(search);
+        const matchEstado = !estado || estadoFactura === estado;
+        
+        return matchSearch && matchEstado;
+    });
+    
+    console.log(`🔍 Filtrados ${filtrados.length} facturas de ${facturas.length}`);
+    renderizarFacturas(filtrados);
+}
+
+function filtrarImpuestos() {
+    const search = document.getElementById('searchImpuestos')?.value.toLowerCase() || '';
+    const tipo = document.getElementById('tipoFilterImpuestos')?.value || '';
+    const estado = document.getElementById('estadoFilterImpuestos')?.value || '';
+    
+    const filtrados = impuestos.filter(i => {
+        const nombre = (obtenerValor(i, 'nombre') || '').toLowerCase();
+        const tipoImpuesto = obtenerValor(i, 'tipo') || '';
+        const estadoImpuesto = obtenerValor(i, 'estado') || '';
+        
+        const matchSearch = !search || nombre.includes(search) || tipoImpuesto.toLowerCase().includes(search);
+        const matchTipo = !tipo || tipoImpuesto === tipo;
+        const matchEstado = !estado || estadoImpuesto === estado;
+        
+        return matchSearch && matchTipo && matchEstado;
+    });
+    
+    console.log(`🔍 Filtrados ${filtrados.length} impuestos de ${impuestos.length}`);
+    renderizarImpuestos(filtrados);
+}
+
+
+function formatearFecha(fecha) {
+    if (!fecha) return 'N/A';
+    try {
+        const date = new Date(fecha);
+        if (isNaN(date.getTime())) return 'N/A';
+        
+        return date.toLocaleDateString('es-MX', { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        });
+    } catch (error) {
+        console.error('Error al formatear fecha:', error);
+        return 'N/A';
+    }
+}
+
+function formatearNumero(numero) {
+    try {
+        const num = parseFloat(numero);
+        if (isNaN(num)) return '0.00';
+        
+        return num.toLocaleString('es-MX', { 
+            minimumFractionDigits: 2, 
+            maximumFractionDigits: 2 
+        });
+    } catch (error) {
+        console.error('Error al formatear número:', error);
+        return '0.00';
+    }
+}
+
+function getBadgeEstado(estado) {
+    const badges = {
+        'BORRADOR': '<span class="badge badge-warning"><i class="fas fa-pencil-alt"></i> Borrador</span>',
+        'CONTABILIZADO': '<span class="badge badge-success"><i class="fas fa-check-circle"></i> Contabilizado</span>',
+        'ANULADO': '<span class="badge badge-danger"><i class="fas fa-ban"></i> Anulado</span>',
+        'PENDIENTE': '<span class="badge badge-warning"><i class="fas fa-clock"></i> Pendiente</span>',
+        'PAGADA': '<span class="badge badge-success"><i class="fas fa-check-circle"></i> Pagada</span>',
+        'VENCIDA': '<span class="badge badge-danger"><i class="fas fa-exclamation-circle"></i> Vencida</span>',
+        'ACTIVO': '<span class="badge badge-success"><i class="fas fa-toggle-on"></i> Activo</span>',
+        'INACTIVO': '<span class="badge badge-danger"><i class="fas fa-toggle-off"></i> Inactivo</span>',
+        'ANULADA': '<span class="badge badge-danger"><i class="fas fa-ban"></i> Anulada</span>'
+    };
+    return badges[estado] || `<span class="badge badge-secondary">${estado}</span>`;
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    let bgColor, icon;
+    
+    switch(type) {
+        case 'success':
+            bgColor = 'var(--verde-exito)';
+            icon = 'fa-check-circle';
+            break;
+        case 'error':
+            bgColor = 'var(--rojo-peligro)';
+            icon = 'fa-exclamation-circle';
+            break;
+        case 'warning':
+            bgColor = 'var(--amarillo-advertencia)';
+            icon = 'fa-exclamation-triangle';
+            break;
+        default:
+            bgColor = 'var(--azul-principal)';
+            icon = 'fa-info-circle';
+    }
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${bgColor};
+        color: ${type === 'warning' ? '#333' : 'white'};
+        padding: 18px 24px;
+        border-radius: 12px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideIn 0.4s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 500;
+        max-width: 400px;
+        white-space: pre-line;
+        font-size: 14px;
+    `;
+    
+    notification.innerHTML = `
+        <i class="fas ${icon}" style="font-size: 20px;"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'fadeOut 0.4s ease';
+        setTimeout(() => notification.remove(), 400);
+    }, 4000);
+}
+
+
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+        sidebar.classList.toggle('active');
+    }
+}
+
+// Cerrar sidebar al hacer clic fuera
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    
+    if (window.innerWidth <= 768) {
+        if (sidebar && menuBtn && !sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+
+
+function cerrarSesion() {
+    if (confirm('¿Está seguro que desea cerrar sesión?')) {
+        showNotification('Cerrando sesión...', 'info');
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 1000);
+    }
+}
+
+
+const styleAnimations = document.createElement('style');
+styleAnimations.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+`;
+document.head.appendChild(styleAnimations);
+
+
+console.log('%c🚀 Módulo Administrativo ERP', 'color: #4a90e2; font-size: 20px; font-weight: bold;');
+console.log('%c✅ Sistema cargado', 'color: #28a745; font-size: 14px;');
+console.log('%c📋 Módulos disponibles:', 'color: #333; font-size: 13px; font-weight: bold;');
+console.log('%c  • Contabilidad', 'color: #6c757d; font-size: 12px;');
+console.log('%c  • Nómina', 'color: #6c757d; font-size: 12px;');
+console.log('%c  • Facturación', 'color: #6c757d; font-size: 12px;');
+console.log('%c  • Impuestos', 'color: #6c757d; font-size: 12px;');
+
+    </script>
+</body>
+</html>
