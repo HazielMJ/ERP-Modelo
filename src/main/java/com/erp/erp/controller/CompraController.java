@@ -57,6 +57,7 @@ public class CompraController {
         return ResponseEntity.ok(compraService.obtenerCompraPorId(id));
     }
     
+    // ⭐ NUEVO: Endpoint para listar TODAS las compras
     @GetMapping
     public ResponseEntity<List<Compra>> obtenerTodasLasCompras() {
         return ResponseEntity.ok(compraService.obtenerTodasLasCompras());
