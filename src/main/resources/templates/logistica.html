@@ -10,154 +10,131 @@
 <body>
     <div class="container">
         <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h2><i class="fas fa-chart-line"></i> ERP System</h2>
-                <p>Sistema Integral de Gestión</p>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-section">
-                    <div class="nav-section-title">PRINCIPAL</div>
-                </li>
-                <li class="nav-item" data-modulo="dashboard">
-                    <a href="/dashboard" class="nav-link active">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="administracion">
-                    <div class="nav-section-title">ADMINISTRACIÓN</div>
-                </li>
-                <li class="nav-item" data-modulo="usuarios">
-                    <a href="/usuarios" class="nav-link">
-                        <i class="fas fa-user-shield"></i>
-                        <span>Usuarios</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="contabilidad">
-                    <a href="/contabilidad" class="nav-link">
-                        <i class="fas fa-calculator"></i>
-                        <span>Contabilidad</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="ventas">
-                    <div class="nav-section-title">VENTAS</div>
-                </li>
-                <li class="nav-item" data-modulo="Clientes">
-                    <a href="/Clientes" class="nav-link">
-                        <i class="fas fa-users"></i>
-                        <span>Clientes</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="ventas">
-                    <a href="/ventas" class="nav-link">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span>Ventas</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="facturacion">
-                    <a href="/facturacion" class="nav-link">
-                        <i class="fas fa-file-invoice"></i>
-                        <span>Facturación</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="punto-venta">
-                    <a href="/Punto de venta" class="nav-link">
-                        <i class="fas fa-cash-register"></i>
-                        <span>Punto de Venta</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="compras">
-                    <div class="nav-section-title">COMPRAS</div>
-                </li>
-                <li class="nav-item" data-modulo="proveedores">
-                    <a href="/proveedores" class="nav-link">
-                        <i class="fas fa-truck"></i>
-                        <span>Proveedores</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="Compras">
-                    <a href="/Compras" class="nav-link">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span>Compras</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="inventario">
-                    <div class="nav-section-title">INVENTARIO</div>
-                </li>
-                <li class="nav-item" data-modulo="Inventario">
-                    <a href="/Inventario" class="nav-link">
-                        <i class="fas fa-boxes"></i>
-                        <span>Inventario</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="almacenes">
-                    <a href="/Almacenes" class="nav-link">
-                        <i class="fas fa-warehouse"></i>
-                        <span>Almacenes</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="rrhh">
-                    <div class="nav-section-title">RECURSOS HUMANOS</div>
-                </li>
-                <li class="nav-item" data-modulo="rrhh">
-                    <a href="/rrhh" class="nav-link">
-                        <i class="fas fa-user-tie"></i>
-                        <span>Empleados</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="nomina">
-                    <a href="/nomina" class="nav-link">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <span>Nómina</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="logistica">
-                    <div class="nav-section-title">LOGÍSTICA</div>
-                </li>
-                <li class="nav-item" data-modulo="logistica">
-                    <a href="/logistica" class="nav-link">
-                        <i class="fas fa-shipping-fast"></i>
-                        <span>Envíos</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="analisis">
-                    <div class="nav-section-title">ANÁLISIS</div>
-                </li>
-                <li class="nav-item" data-modulo="reportes">
-                    <a href="/reportes" class="nav-link">
-                        <i class="fas fa-chart-bar"></i>
-                        <span>Reportes</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="sistema">
-                    <div class="nav-section-title">SISTEMA</div>
-                </li>
-                <li class="nav-item" data-modulo="configuracion">
-                    <a href="/configuracion" class="nav-link">
-                        <i class="fas fa-cog"></i>
-                        <span>Configuración</span>
-                    </a>
-                </li>
-                <li>
-            <!-- Botón de cerrar sesión -->
-            <div class="logout-section">
-                <button class="btn-logout" onclick="cerrarSesion()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Cerrar Sesión</span>
-                </button>
-            </div>
-                </li>
-            </ul>
-        </aside>
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2><i class="fas fa-chart-line"></i> ERP System</h2>
+        <p>Sistema Integral de Gestión</p>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-section">
+            <div class="nav-section-title">PRINCIPAL</div>
+        </li>
+        <li class="nav-item" data-modulo="dashboard">
+            <a href="/dashboard" class="nav-link active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="administracion">
+            <div class="nav-section-title">ADMINISTRACIÓN</div>
+        </li>
+        <li class="nav-item" data-modulo="contabilidad">
+            <a href="/Contabilidad" class="nav-link">
+                <i class="fas fa-calculator"></i>
+                <span>Contabilidad</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="ventas">
+            <div class="nav-section-title">VENTAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Clientes">
+            <a href="/Clientes" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="ventas">
+            <a href="/ventas" class="nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Ventas</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="punto-venta">
+            <a href="/Punto de venta" class="nav-link">
+                <i class="fas fa-cash-register"></i>
+                <span>Punto de Venta</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="compras">
+            <div class="nav-section-title">COMPRAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Compras">
+            <a href="/Compras" class="nav-link">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Compras</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="inventario">
+            <div class="nav-section-title">INVENTARIO</div>
+        </li>
+        <li class="nav-item" data-modulo="Inventario">
+            <a href="/Inventario" class="nav-link">
+                <i class="fas fa-boxes"></i>
+                <span>Inventario</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="almacenes">
+            <a href="/Almacenes" class="nav-link">
+                <i class="fas fa-warehouse"></i>
+                <span>Almacenes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="rrhh">
+            <div class="nav-section-title">RECURSOS HUMANOS</div>
+        </li>
+        <li class="nav-item" data-modulo="rrhh">
+            <a href="/rrhh" class="nav-link">
+                <i class="fas fa-user-tie"></i>
+                <span>Empleados</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="logistica">
+            <div class="nav-section-title">LOGÍSTICA</div>
+        </li>
+        <li class="nav-item" data-modulo="logistica">
+            <a href="/logistica" class="nav-link">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Envíos</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="analisis">
+            <div class="nav-section-title">ANÁLISIS</div>
+        </li>
+        <li class="nav-item" data-modulo="reportes">
+            <a href="/reportes" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="sistema">
+            <div class="nav-section-title">SISTEMA</div>
+        </li>
+        <li class="nav-item" data-modulo="configuracion">
+            <a href="/configuracion" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </a>
+        </li>
+        <li>
+        <!-- Botón de cerrar sesión -->
+        <div class="logout-section">
+            <button class="btn-logout" onclick="cerrarSesion()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+        </li>
+    </ul>
+</aside>
+
         <main class="main-content">
             <!-- Header -->
             <header class="header">
@@ -181,7 +158,7 @@
 
             <!-- Content Area -->
             <div class="content-area">
-                <!-- Estadísticas -->
+                <!-- EstadÃ­sticas -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon" style="background: linear-gradient(45deg, var(--naranja-proceso), #e0650d);">
@@ -198,7 +175,7 @@
                         </div>
                         <div class="stat-content">
                             <h3 id="enviosEnTransito">0</h3>
-                            <p>En Tránsito</p>
+                            <p>En Transito</p>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -221,12 +198,13 @@
                     </div>
                 </div>
 
+                <!-- Tabs -->
                 <div class="tabs">
                     <button class="tab active" onclick="switchTab('envios')">
-                        <i class="fas fa-box"></i> Envíos
+                        <i class="fas fa-box"></i> Envío
                     </button>
                     <button class="tab" onclick="switchTab('metodos')">
-                        <i class="fas fa-shipping-fast"></i> Métodos de Envío
+                        <i class="fas fa-shipping-fast"></i> Metodos de Envío
                     </button>
                     <button class="tab" onclick="switchTab('transportistas')">
                         <i class="fas fa-user-tie"></i> Transportistas
@@ -238,13 +216,13 @@
                 <div id="tab-envios" class="tab-content active">
                     <div class="action-bar">
                         <div class="search-box">
-                            <input type="text" class="search-input" id="searchEnvios" placeholder="Buscar por número de guía, cliente...">
+                            <input type="text" class="search-input" id="searchEnvios" placeholder="Buscar por número de guia, cliente...">
                             <button class="btn btn-secondary" onclick="buscarEnvios()">
                                 <i class="fas fa-search"></i> Buscar
                             </button>
                         </div>
                         <button class="btn btn-primary" onclick="mostrarModalEnvio()">
-                            <i class="fas fa-plus"></i> Nuevo Envío
+                            <i class="fas fa-plus"></i> Nuevo Envíos
                         </button>
                     </div>
 
@@ -285,7 +263,7 @@
                                         <td colspan="8">
                                             <div class="empty-state">
                                                 <i class="fas fa-box-open"></i>
-                                                <h3>No hay envíos registrados</h3>
+                                                <h3>No hay envióss registrados</h3>
                                                 <p>Comienza creando un nuevo envío</p>
                                             </div>
                                         </td>
@@ -295,11 +273,10 @@
                         </div>
                     </div>
                 </div>
-
                 <div id="tab-metodos" class="tab-content">
                     <div class="action-bar">
                         <div class="search-box">
-                            <input type="text" class="search-input" id="searchMetodos" placeholder="Buscar métodos de envío...">
+                            <input type="text" class="search-input" id="searchMetodos" placeholder="Buscar mÃ©todos de envÃ­o...">
                         </div>
                         <button class="btn btn-primary" onclick="mostrarModalMetodo()">
                             <i class="fas fa-plus"></i> Nuevo Método
@@ -309,7 +286,7 @@
                     <div class="card">
                         <div class="loading" id="loadingMetodos">
                             <div class="spinner"></div>
-                            <p>Cargando métodos de envío...</p>
+                            <p>Cargando metodos de envío...</p>
                         </div>
                         <div class="table-container">
                             <table>
@@ -329,7 +306,7 @@
                                         <td colspan="7">
                                             <div class="empty-state">
                                                 <i class="fas fa-shipping-fast"></i>
-                                                <h3>No hay métodos de envío registrados</h3>
+                                              <h3>No hay métodos de envío registrados</h3>
                                                 <p>Comienza agregando un nuevo método</p>
                                             </div>
                                         </td>
@@ -359,7 +336,7 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Nombre</th>
+                                       <th>Nombre</th>
                                         <th>Empresa</th>
                                         <th>Teléfono</th>
                                         <th>Email</th>
@@ -384,6 +361,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div id="tab-rutas" class="tab-content">
                     <div class="action-bar">
                         <div class="search-box">
@@ -478,7 +456,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Teléfono de Contacto</label>
+                        <label>Telefono de Contacto</label>
                         <input type="tel" id="envioTelefono">
                     </div>
                     <div class="form-group">
@@ -487,12 +465,12 @@
                     </div>
                 </div>
 
-                <h3 class="form-section-title"><i class="fas fa-shipping-fast"></i> Detalles del Envío</h3>
+                <h3 class="form-section-title"><i class="fas fa-shipping-fast"></i> Detalles del Enví­o</h3>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Método de Envío</label>
+                        <label>Metodo de Envío</label>
                         <select id="envioMetodoId">
-                            <option value="">Seleccionar método</option>
+                            <option value="">Seleccionar metodo</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -512,7 +490,7 @@
                         <input type="number" id="envioPeso" step="0.01" min="0" placeholder="0.00">
                     </div>
                     <div class="form-group">
-                        <label>Costo de Envío</label>
+                        <label>Costo de Enví­o</label>
                         <input type="number" id="envioCosto" step="0.01" min="0" placeholder="0.00">
                     </div>
                 </div>
@@ -536,7 +514,7 @@
     <div class="modal" id="modalMetodo">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-shipping-fast"></i> <span id="tituloModalMetodo">Nuevo Método de Envío</span></h2>
+                <h2><i class="fas fa-shipping-fast"></i> <span id="tituloModalMetodo">Nuevo Metodo de Envi­o</span></h2>
                 <button class="close-btn" onclick="cerrarModalMetodo()">&times;</button>
             </div>
             <form id="formMetodo" onsubmit="guardarMetodo(event)">
@@ -544,11 +522,11 @@
                 
                 <div class="form-group">
                     <label>Nombre *</label>
-                    <input type="text" id="metodoNombre" required placeholder="Ej: Envío Express">
+                    <input type="text" id="metodoNombre" required placeholder="Ej: EnvÃ­o Express">
                 </div>
                 <div class="form-group">
                     <label>Descripción</label>
-                    <textarea id="metodoDescripcion" rows="2" placeholder="Descripción del método..."></textarea>
+                    <textarea id="metodoDescripcion" rows="2" placeholder="DescripciÃ³n del mÃ©todo..."></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
@@ -713,9 +691,14 @@ const API_BASE = 'http://localhost:8082/api';
 document.addEventListener('DOMContentLoaded', function() {
     inicializarSidebar();
     inicializarEventListeners();
-    cargarEnvios();
-    actualizarEstadisticas();
-    showNotification('¡Bienvenido al módulo de Logística!', 'success');
+    
+    verificarConexion().then(conectado => {
+        if (conectado) {
+            cargarEnvios();
+            actualizarEstadisticas();
+            showNotification('¡Bienvenido al modulo de Logística!', 'success');
+        }
+    });
 });
 
 function inicializarSidebar() {
@@ -738,7 +721,7 @@ function inicializarSidebar() {
 }
 
 function inicializarEventListeners() {
-    // Búsquedas
+    // BÃºsquedas
     const searchEnvios = document.getElementById('searchEnvios');
     if (searchEnvios) searchEnvios.addEventListener('input', buscarEnvios);
     
@@ -775,7 +758,7 @@ function switchTab(tabName) {
 }
 
 function cerrarSesion() {
-    if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+    if (confirm('Estas seguro que deseas cerrar sesión')) {
         showNotification('Cerrando sesión...', 'info');
         setTimeout(() => {
             window.location.href = '/login';
@@ -832,24 +815,33 @@ function formatearMoneda(valor) {
         maximumFractionDigits: 2 
     });
 }
+
 async function actualizarEstadisticas() {
     try {
-        const response = await fetch(`${API_BASE}/envios/en-proceso`);
-        const enviosProceso = await response.json();
+        // CAMBIO: Usa el endpoint correcto
+        const response = await fetch(`${API_BASE}/envios`);
         
-        document.getElementById('totalEnvios').textContent = enviosProceso.length || 0;
+        if (!response.ok) {
+            console.warn('No se pudieron cargar las estadísticas');
+            return;
+        }
         
-        const enTransito = enviosProceso.filter(e => e.estado === 'EN_TRANSITO').length;
+        const envios = await response.json();
+        
+        document.getElementById('totalEnvios').textContent = envios.length || 0;
+        
+        const enTransito = envios.filter(e => e.estado === 'EN_TRANSITO').length;
         document.getElementById('enviosEnTransito').textContent = enTransito;
         
-        const pendientes = enviosProceso.filter(e => e.estado === 'PENDIENTE').length;
+        const pendientes = envios.filter(e => e.estado === 'PENDIENTE' || e.estado === 'PREPARANDO').length;
         document.getElementById('enviosPendientes').textContent = pendientes;
         
-        const entregados = enviosProceso.filter(e => e.estado === 'ENTREGADO').length;
+        const entregados = envios.filter(e => e.estado === 'ENTREGADO').length;
         document.getElementById('enviosEntregados').textContent = entregados;
         
     } catch (error) {
         console.error('Error al actualizar estadísticas:', error);
+        // No mostramos notificaciÃ³n para no molestar al usuario
     }
 }
 
@@ -860,8 +852,15 @@ async function cargarEnvios() {
     loading.classList.add('active');
     
     try {
-        const response = await fetch(`${API_BASE}/envios/en-proceso`);
+        const response = await fetch(`${API_BASE}/envios`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const envios = await response.json();
+        
+        console.log('Envíos cargados:', envios);
         
         if (envios.length === 0) {
             tbody.innerHTML = `
@@ -878,11 +877,20 @@ async function cargarEnvios() {
         } else {
             tbody.innerHTML = envios.map(envio => `
                 <tr>
-                    <td><strong>${envio.numeroGuia}</strong></td>
-                    <td>${envio.cliente?.nombre || 'N/A'}</td>
+                    <td><strong>${envio.numeroGuia || 'Sin guía'}</strong></td>
+                    <td>${envio.cliente?.nombreRazonSocial || 'N/A'}</td>
                     <td>${envio.ciudad || 'N/A'}, ${envio.estadoDestino || ''}</td>
                     <td>${envio.metodoEnvio?.nombre || 'N/A'}</td>
-                    <td>${getBadgeEstadoEnvio(envio.estado)}</td>
+                  <td>
+    <select class="estado-select" onchange="cambiarEstadoRapido(${envio.idEnvio}, this.value)" data-estado-actual="${envio.estado || 'PENDIENTE'}">
+        <option value="PENDIENTE" ${(envio.estado === 'PENDIENTE' || !envio.estado) ? 'selected' : ''}>⏳ Pendiente</option>
+        <option value="PREPARANDO" ${envio.estado === 'PREPARANDO' ? 'selected' : ''}>📦 Preparando</option>
+        <option value="EN_TRANSITO" ${envio.estado === 'EN_TRANSITO' ? 'selected' : ''}>🚚 En Tránsito</option>
+        <option value="ENTREGADO" ${envio.estado === 'ENTREGADO' ? 'selected' : ''}>✅ Entregado</option>
+        <option value="CANCELADO" ${envio.estado === 'CANCELADO' ? 'selected' : ''}>❌ Cancelado</option>
+        <option value="DEVUELTO" ${envio.estado === 'DEVUELTO' ? 'selected' : ''}>↩️ Devuelto</option>
+    </select>
+</td>
                     <td>${formatearFecha(envio.fechaCreacion)}</td>
                     <td>${formatearMoneda(envio.costoEnvio)}</td>
                     <td>
@@ -902,15 +910,16 @@ async function cargarEnvios() {
         
         actualizarEstadisticas();
     } catch (error) {
-        console.error('Error:', error);
-        showNotification('Error al cargar envíos', 'error');
+        console.error('Error completo:', error);
+        showNotification('Error al cargar envíos: ' + error.message, 'error');
         tbody.innerHTML = `
             <tr>
                 <td colspan="8">
                     <div class="empty-state">
                         <i class="fas fa-exclamation-triangle"></i>
                         <h3>Error al cargar datos</h3>
-                        <p>Por favor, verifica que el servidor esté activo</p>
+                        <p>${error.message}</p>
+                        <p>Verifica que el servidor en http://localhost:8082</p>
                     </div>
                 </td>
             </tr>
@@ -919,12 +928,11 @@ async function cargarEnvios() {
         loading.classList.remove('active');
     }
 }
-
 function getBadgeEstadoEnvio(estado) {
     const badges = {
         'PENDIENTE': '<span class="badge badge-warning">Pendiente</span>',
         'PREPARANDO': '<span class="badge badge-proceso">Preparando</span>',
-        'EN_TRANSITO': '<span class="badge badge-transito">En Tránsito</span>',
+        'EN TRANSITO': '<span class="badge badge-transito">En transito</span>',
         'ENTREGADO': '<span class="badge badge-success">Entregado</span>',
         'CANCELADO': '<span class="badge badge-danger">Cancelado</span>',
         'DEVUELTO': '<span class="badge badge-danger">Devuelto</span>'
@@ -933,7 +941,7 @@ function getBadgeEstadoEnvio(estado) {
 }
 
 async function mostrarModalEnvio(id = null) {
-    document.getElementById('tituloModalEnvio').textContent = id ? 'Editar Envío' : 'Nuevo Envío';
+    document.getElementById('tituloModalEnvio').textContent = id ? 'Editar EnvÃ­o' : 'Nuevo EnvÃ­o';
     document.getElementById('formEnvio').reset();
     document.getElementById('envioId').value = id || '';
     
@@ -1025,13 +1033,49 @@ async function guardarEnvio(event) {
 async function editarEnvio(id) {
     await mostrarModalEnvio(id);
 }
-
+// Función para cambiar estado rápidamente desde el select
+async function cambiarEstadoRapido(idEnvio, nuevoEstado) {
+    const select = event.target;
+    const estadoAnterior = select.dataset.estadoActual;
+    
+    if (nuevoEstado === estadoAnterior) return;
+    
+    select.disabled = true;
+    select.style.opacity = '0.6';
+    
+    try {
+        const response = await fetch(`${API_BASE}/envios/${idEnvio}/actualizar-estado`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                estado: nuevoEstado,
+                descripcion: `Estado actualizado desde la interfaz a ${nuevoEstado}`
+            })
+        });
+        
+        if (response.ok) {
+            showNotification(`Estado actualizado a ${nuevoEstado}`, 'success');
+            select.dataset.estadoActual = nuevoEstado;
+            actualizarEstadisticas();
+        } else {
+            showNotification('Error al actualizar estado', 'error');
+            select.value = estadoAnterior;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al actualizar estado', 'error');
+        select.value = estadoAnterior;
+    } finally {
+        select.disabled = false;
+        select.style.opacity = '1';
+    }
+}
 async function actualizarEstadoEnvio(id) {
-    const estados = ['PENDIENTE', 'PREPARANDO', 'EN_TRANSITO', 'ENTREGADO', 'CANCELADO', 'DEVUELTO'];
+    const estados = ['PENDIENTE', 'PREPARANDO', 'EN TRANSITO', 'ENTREGADO', 'CANCELADO', 'DEVUELTO'];
     const estadoActual = prompt('Selecciona el nuevo estado:\n\n' + estados.join('\n'));
     
     if (!estadoActual || !estados.includes(estadoActual.toUpperCase())) {
-        showNotification('Estado no válido', 'warning');
+        showNotification('Estado no valido', 'warning');
         return;
     }
     
@@ -1074,7 +1118,7 @@ async function verSeguimiento(envioId) {
                 <div class="empty-state">
                     <i class="fas fa-map-marked-alt"></i>
                     <h3>No hay seguimiento disponible</h3>
-                    <p>Aún no se ha registrado seguimiento para este envío</p>
+                    <p>No se ha registrado seguimiento para este envío</p>
                 </div>
             `;
         } else {
@@ -1088,7 +1132,7 @@ async function verSeguimiento(envioId) {
                             <div class="timeline-content" style="border-left-color: ${getColorEstado(seg.estadoEnvio)};">
                                 <div class="timeline-date">${formatearFecha(seg.fechaHora)}</div>
                                 <div class="timeline-title">${seg.estadoEnvio}</div>
-                                <div class="timeline-description">${seg.descripcion || 'Sin descripción'}</div>
+                                <div class="timeline-description">${seg.descripcion || 'Sin descripciÃ³n'}</div>
                                 ${seg.ubicacionActual ? `<div class="timeline-description"><i class="fas fa-map-marker-alt"></i> ${seg.ubicacionActual}</div>` : ''}
                             </div>
                         </div>
@@ -1151,11 +1195,27 @@ function filtrarEnvios() {
     const rows = document.querySelectorAll('#enviosBody tr');
     
     rows.forEach(row => {
+        // Si la fila es el empty-state, la dejamos siempre visible
+        if (row.querySelector('.empty-state')) {
+            row.style.display = '';
+            return;
+        }
+        
         if (!estadoFiltro) {
+            // Si no hay filtro, mostrar todas las filas
             row.style.display = '';
         } else {
-            const texto = row.textContent;
-            row.style.display = texto.includes(estadoFiltro) ? '' : 'none';
+            // Buscar el select de estado en esta fila
+            const selectEstado = row.querySelector('.estado-select');
+            
+            if (selectEstado) {
+                const estadoActual = selectEstado.value;
+                // Mostrar solo si coincide con el filtro
+                row.style.display = estadoActual === estadoFiltro ? '' : 'none';
+            } else {
+                // Si no hay select, ocultar la fila
+                row.style.display = 'none';
+            }
         }
     });
 }
@@ -1168,7 +1228,14 @@ async function cargarMetodos() {
     
     try {
         const response = await fetch(`${API_BASE}/metodos-envio`);
+        
+        // AGREGADO: Verifica si la respuesta es correcta
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const metodos = await response.json();
+        console.log('Metodos cargados:', metodos);
         
         if (metodos.length === 0) {
             tbody.innerHTML = `
@@ -1176,7 +1243,7 @@ async function cargarMetodos() {
                     <td colspan="7">
                         <div class="empty-state">
                             <i class="fas fa-shipping-fast"></i>
-                            <h3>No hay métodos de envío registrados</h3>
+                            <h3>No hay metodos de envíos registrados</h3>
                             <p>Comienza agregando un nuevo método</p>
                         </div>
                     </td>
@@ -1190,7 +1257,7 @@ async function cargarMetodos() {
                     <td>${formatearMoneda(metodo.costoBase)}</td>
                     <td>${formatearMoneda(metodo.costoPorKm)}</td>
                     <td>${metodo.tiempoEstimado || 'N/A'}</td>
-                    <td><span class="badge badge-${metodo.estado === 'ACTIVO' ? 'success' : 'warning'}">${metodo.estado}</span></td>
+                    <td><span class="badge badge-${metodo.estado === 'ACTIVO' ? 'success' : 'warning'}">${metodo.estado || 'ACTIVO'}</span></td>
                     <td>
                         <button class="btn btn-secondary btn-sm" onclick="editarMetodo(${metodo.idMetodoEnvio})">
                             <i class="fas fa-edit"></i>
@@ -1200,15 +1267,16 @@ async function cargarMetodos() {
             `).join('');
         }
     } catch (error) {
-        console.error('Error:', error);
-        showNotification('Error al cargar métodos de envío', 'error');
+        console.error('Error completo:', error);
+        showNotification('Error al cargar mÃ©todos: ' + error.message, 'error');
         tbody.innerHTML = `
             <tr>
                 <td colspan="7">
                     <div class="empty-state">
                         <i class="fas fa-exclamation-triangle"></i>
                         <h3>Error al cargar datos</h3>
-                        <p>Por favor, verifica que el servidor esté activo</p>
+                        <p>${error.message}</p>
+                        <p>Verifica que el servidor estÃ© activo</p>
                     </div>
                 </td>
             </tr>
@@ -1217,9 +1285,8 @@ async function cargarMetodos() {
         loading.classList.remove('active');
     }
 }
-
 async function mostrarModalMetodo(id = null) {
-    document.getElementById('tituloModalMetodo').textContent = id ? 'Editar Método de Envío' : 'Nuevo Método de Envío';
+    document.getElementById('tituloModalMetodo').textContent = id ? 'Editar Metodo de Envió' : 'Nuevo Metodo de Envío';
     document.getElementById('formMetodo').reset();
     document.getElementById('metodoId').value = id || '';
     
@@ -1235,7 +1302,7 @@ async function mostrarModalMetodo(id = null) {
             document.getElementById('metodoTiempo').value = metodo.tiempoEstimado || '';
         } catch (error) {
             console.error('Error:', error);
-            showNotification('Error al cargar método', 'error');
+            showNotification('Error al cargar metodo', 'error');
         }
     }
     
@@ -1269,16 +1336,16 @@ async function guardarMetodo(event) {
         });
         
         if (response.ok) {
-            showNotification(`Método ${id ? 'actualizado' : 'creado'} exitosamente`, 'success');
+            showNotification(`MÃ©todo ${id ? 'actualizado' : 'creado'} exitosamente`, 'success');
             cerrarModalMetodo();
             cargarMetodos();
         } else {
             const error = await response.text();
-            showNotification(error || 'Error al guardar método', 'error');
+            showNotification(error || 'Error al guardar mÃ©todo', 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        showNotification('Error al guardar método', 'error');
+        showNotification('Error al guardar mÃ©todo', 'error');
     }
 }
 
@@ -1345,7 +1412,7 @@ async function cargarTransportistas() {
                     <div class="empty-state">
                         <i class="fas fa-exclamation-triangle"></i>
                         <h3>Error al cargar datos</h3>
-                        <p>Por favor, verifica que el servidor esté activo</p>
+                        <p>Por favor, verifica que el servidor estÃ© activo</p>
                     </div>
                 </td>
             </tr>
@@ -1487,7 +1554,7 @@ async function cargarRutas() {
                     <div class="empty-state">
                         <i class="fas fa-exclamation-triangle"></i>
                         <h3>Error al cargar datos</h3>
-                        <p>Por favor, verifica que el servidor esté activo</p>
+                        <p>Por favor, verifica que el servidor estÃ© activo</p>
                     </div>
                 </td>
             </tr>
@@ -1583,17 +1650,65 @@ function buscarRutas() {
 
 async function cargarClientesSelect() {
     try {
-        const response = await fetch(`${API_BASE}/clientes`);
+        console.log('🔄 Cargando clientes desde:', `${API_BASE}/clientes/activos`);
+        
+        const response = await fetch(`${API_BASE}/clientes/activos`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
         const clientes = await response.json();
+        
+        console.log('✅ Respuesta recibida:', clientes);
+        console.log('📊 Total clientes:', clientes.length);
+        
+        if (clientes.length > 0) {
+            console.log('🔍 Estructura primer cliente:', clientes[0]);
+            console.log('🔑 Campos disponibles:', Object.keys(clientes[0]));
+        }
         
         const select = document.getElementById('envioClienteId');
         select.innerHTML = '<option value="">Seleccionar cliente</option>';
-        clientes.forEach(cliente => {
-            select.innerHTML += `<option value="${cliente.idCliente}">${cliente.nombre}</option>`;
+        
+        if (!Array.isArray(clientes) || clientes.length === 0) {
+            select.innerHTML += '<option value="" disabled>No hay clientes activos</option>';
+            showNotification('No hay clientes activos registrados', 'warning');
+            return;
+        }
+        
+        clientes.forEach((cliente, index) => {
+            const nombre = cliente.nombreRazonSocial || 'Sin nombre';
+            const id = cliente.idCliente;
+            const rfc = cliente.rfc || '';
+            
+            console.log(`Cliente ${index + 1}:`, {
+                id: id,
+                nombre: nombre,
+                rfc: rfc
+            });
+            
+            const textoOpcion = rfc ? `${nombre} (${rfc})` : nombre;
+            
+            if (id && nombre !== 'Sin nombre') {
+                select.innerHTML += `<option value="${id}">${textoOpcion}</option>`;
+            }
         });
+        
+        const totalOpciones = select.children.length - 1;
+        console.log(`✅ Select poblado con ${totalOpciones} clientes`);
+        
+        if (totalOpciones > 0) {
+            showNotification(`${totalOpciones} clientes cargados correctamente`, 'success');
+        }
+        
     } catch (error) {
-        console.error('Error al cargar clientes:', error);
-        showNotification('Error al cargar lista de clientes', 'warning');
+        console.error('❌ Error al cargar clientes:', error);
+        
+        const select = document.getElementById('envioClienteId');
+        select.innerHTML = '<option value="">Error al cargar clientes</option>';
+        
+        showNotification('Error al cargar clientes: ' + error.message, 'error');
     }
 }
 
@@ -1603,13 +1718,13 @@ async function cargarMetodosSelect() {
         const metodos = await response.json();
         
         const select = document.getElementById('envioMetodoId');
-        select.innerHTML = '<option value="">Seleccionar método</option>';
+        select.innerHTML = '<option value="">Seleccionar metodo</option>';
         metodos.forEach(metodo => {
             select.innerHTML += `<option value="${metodo.idMetodoEnvio}">${metodo.nombre}</option>`;
         });
     } catch (error) {
-        console.error('Error al cargar métodos:', error);
-        showNotification('Error al cargar métodos de envío', 'warning');
+        console.error('Error al cargar metodos:', error);
+        showNotification('Error al cargar metodos de enví­o', 'warning');
     }
 }
 
@@ -1628,6 +1743,7 @@ async function cargarRutasSelect() {
         showNotification('Error al cargar rutas', 'warning');
     }
 }
+
 const styleAnimations = document.createElement('style');
 styleAnimations.textContent = `
     @keyframes slideInRight {
@@ -1636,6 +1752,19 @@ styleAnimations.textContent = `
     }
 `;
 document.head.appendChild(styleAnimations);
+document.addEventListener('DOMContentLoaded', function() {
+    inicializarSidebar();
+    inicializarEventListeners();
+    
+    // AGREGADO: Verifica conexiÃ³n primero
+    verificarConexion().then(conectado => {
+        if (conectado) {
+            cargarEnvios();
+            actualizarEstadisticas();
+            showNotification('Â¡Bienvenido al mÃ³dulo de LogÃ­stica!', 'success');
+        }
+    });
+});
 </script>
 </body>
 </html>
