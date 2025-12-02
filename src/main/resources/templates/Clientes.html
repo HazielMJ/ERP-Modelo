@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clientes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="stylesheet" href="Clientes.css">
+   
+</head>
+<body>
+    <div class="main-container">
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2><i class="fas fa-chart-line"></i> ERP System</h2>
+        <p>Sistema Integral de Gestión</p>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-section">
+            <div class="nav-section-title">PRINCIPAL</div>
+        </li>
+        <li class="nav-item" data-modulo="dashboard">
+            <a href="/dashboard" class="nav-link active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="administracion">
+            <div class="nav-section-title">ADMINISTRACIÓN</div>
+        </li>
+        <li class="nav-item" data-modulo="contabilidad">
+            <a href="/Contabilidad" class="nav-link">
+                <i class="fas fa-calculator"></i>
+                <span>Contabilidad</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="ventas">
+            <div class="nav-section-title">VENTAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Clientes">
+            <a href="/Clientes" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="ventas">
+            <a href="/ventas" class="nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Ventas</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="punto-venta">
+            <a href="/Punto de venta" class="nav-link">
+                <i class="fas fa-cash-register"></i>
+                <span>Punto de Venta</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="compras">
+            <div class="nav-section-title">COMPRAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Compras">
+            <a href="/Compras" class="nav-link">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Compras</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="inventario">
+            <div class="nav-section-title">INVENTARIO</div>
+        </li>
+        <li class="nav-item" data-modulo="Inventario">
+            <a href="/Inventario" class="nav-link">
+                <i class="fas fa-boxes"></i>
+                <span>Inventario</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="almacenes">
+            <a href="/Almacenes" class="nav-link">
+                <i class="fas fa-warehouse"></i>
+                <span>Almacenes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="rrhh">
+            <div class="nav-section-title">RECURSOS HUMANOS</div>
+        </li>
+        <li class="nav-item" data-modulo="rrhh">
+            <a href="/rrhh" class="nav-link">
+                <i class="fas fa-user-tie"></i>
+                <span>Empleados</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="logistica">
+            <div class="nav-section-title">LOGÍSTICA</div>
+        </li>
+        <li class="nav-item" data-modulo="logistica">
+            <a href="/logistica" class="nav-link">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Envíos</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="analisis">
+            <div class="nav-section-title">ANÁLISIS</div>
+        </li>
+        <li class="nav-item" data-modulo="reportes">
+            <a href="/reportes" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="sistema">
+            <div class="nav-section-title">SISTEMA</div>
+        </li>
+        <li class="nav-item" data-modulo="configuracion">
+            <a href="/configuracion" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </a>
+        </li>
+        <li>
+        <!-- Botón de cerrar sesión -->
+        <div class="logout-section">
+            <button class="btn-logout" onclick="cerrarSesion()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+        </li>
+    </ul>
+</aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <h1><i class="fas fa-users"></i> Gestión de Clientes</h1>
+            </div>
+
+            <!-- CONTENT SECTION -->
+            <div class="content-section">
+                <!-- STATISTICS CARDS -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="totalClientes">12</div>
+                                <div class="stat-label">Total Clientes</div>
+                            </div>
+                            <div class="stat-icon" style="background: linear-gradient(135deg, var(--azul-principal), var(--azul-principal-gradient));">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="clientesActivos">10</div>
+                                <div class="stat-label">Clientes Activos</div>
+                            </div>
+                            <div class="stat-icon" style="background: linear-gradient(135deg, var(--verde-exito), var(--verde-exito-gradient));">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="limiteTotal">$0</div>
+                                <div class="stat-label">Límite Total</div>
+                            </div>
+                            <div class="stat-icon" style="background: linear-gradient(135deg, var(--amarillo-advertencia), var(--amarillo-advertencia-dark));">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="saldoTotal">$0</div>
+                                <div class="stat-label">Saldo Total</div>
+                            </div>
+                            <div class="stat-icon" style="background: linear-gradient(135deg, var(--morado), var(--morado-dark));">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TOOLBAR -->
+                <div class="toolbar">
+                    <div class="search-box">
+                        <i class="fas fa-search input-icon"></i>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Buscar cliente por nombre, RFC, teléfono...">
+                    </div>
+                    
+                    <select class="filter-select" id="filterEstado">
+                        <option value="">Todos los estados</option>
+                        <option value="ACTIVO">Activos</option>
+                        <option value="INACTIVO">Inactivos</option>
+                    </select>
+                    
+                    <select class="filter-select" id="filterTipo">
+                        <option value="">Todos los tipos</option>
+                        <option value="NATURAL">Persona Natural</option>
+                        <option value="JURIDICA">Persona Jurídica</option>
+                    </select>
+                    
+                    <button class="btn btn-primary" onclick="abrirModal()">
+                        <i class="fas fa-plus"></i> Nuevo Cliente
+                    </button>
+                </div>
+
+                <!-- TABLE -->
+                <div class="table-container">
+                    <table class="table" id="tablaClientes">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tipo</th>
+                                <th>Nombre/Razón Social</th>
+                                <th>RFC</th>
+                                <th>Teléfono</th>
+                                <th>Email</th>
+                                <th>Límite Crédito</th>
+                                <th>Saldo Actual</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTabla">
+                            <!-- Los datos se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL PARA AGREGAR/EDITAR CLIENTE -->
+    <div class="modal" id="modalCliente">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">
+                    <i class="fas fa-user-plus"></i> Nuevo Cliente
+                </h3>
+                <button class="modal-close" onclick="cerrarModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formCliente">
+                    <input type="hidden" id="clienteId">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Tipo de Cliente <span class="required">*</span>
+                            </label>
+                            <select class="form-select" id="tipoCliente" required>
+                                <option value="NATURAL">Persona Natural</option>
+                                <option value="JURIDICA">Persona Jurídica</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                RFC
+                            </label>
+                            <input type="text" class="form-input" id="rfc" maxlength="13" placeholder="Ej: XAXX010101000">
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                Nombre/Razón Social <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" id="nombreRazonSocial" required placeholder="Nombre completo o razón social">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                Teléfono
+                            </label>
+                            <input type="text" class="form-input" id="telefono" maxlength="20" placeholder="Ej: 5551234567">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                Email
+                            </label>
+                            <input type="email" class="form-input" id="email" maxlength="150" placeholder="correo@ejemplo.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                Límite de Crédito
+                            </label>
+                            <input type="number" class="form-input" id="limiteCredito" step="0.01" min="0" value="0.00" placeholder="0.00">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                Saldo Actual
+                            </label>
+                            <input type="number" class="form-input" id="saldoActual" step="0.01" min="0" value="0.00" placeholder="0.00">
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                Dirección
+                            </label>
+                            <textarea class="form-textarea" id="direccion" placeholder="Dirección completa del cliente"></textarea>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                Observaciones
+                            </label>
+                            <textarea class="form-textarea" id="observaciones" placeholder="Notas o comentarios adicionales"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                Estado
+                            </label>
+                            <select class="form-select" id="estado">
+                                <option value="ACTIVO">Activo</option>
+                                <option value="INACTIVO">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="cerrarModal()">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="btn btn-success" onclick="guardarCliente()">
+                    <i class="fas fa-save"></i> Guardar Cliente
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// URL base de la API - ajusta según tu entorno
+const API_BASE_URL = 'http://localhost:8082/api/clientes';
+
+let clientes = [];
+let clienteEditando = null;
+
+// Cargar datos al iniciar
+window.onload = function() {
+    cargarClientes();
+    actualizarEstadisticas();
+};
+
+// Función para formatear moneda
+function formatearMoneda(valor) {
+    return new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN'
+    }).format(valor);
+}
+
+// Cargar clientes desde la API
+async function cargarClientes() {
+    try {
+        const response = await fetch(API_BASE_URL);
+        if (!response.ok) {
+            throw new Error('Error al cargar clientes: ' + response.statusText);
+        }
+        clientes = await response.json();
+        mostrarClientes();
+        actualizarEstadisticas();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al cargar los clientes: ' + error.message);
+    }
+}
+
+// Mostrar clientes en la tabla
+function mostrarClientes() {
+    const tbody = document.getElementById('cuerpoTabla');
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const filterEstado = document.getElementById('filterEstado').value;
+    const filterTipo = document.getElementById('filterTipo').value;
+
+    // Filtrar clientes
+    let clientesFiltrados = clientes.filter(cliente => {
+        const matchSearch = cliente.nombreRazonSocial.toLowerCase().includes(searchTerm) ||
+                          (cliente.rfc && cliente.rfc.toLowerCase().includes(searchTerm)) ||
+                          (cliente.telefono && cliente.telefono.includes(searchTerm)) ||
+                          (cliente.email && cliente.email.toLowerCase().includes(searchTerm));
+        
+        const matchEstado = !filterEstado || cliente.estado === filterEstado;
+        const matchTipo = !filterTipo || cliente.tipoCliente === filterTipo;
+
+        return matchSearch && matchEstado && matchTipo;
+    });
+
+    tbody.innerHTML = '';
+
+    if (clientesFiltrados.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="10" style="text-align: center; padding: 40px; color: var(--gris-texto-secundario);">
+                    <i class="fas fa-inbox" style="font-size: 50px; margin-bottom: 15px; opacity: 0.3;"></i>
+                    <br>No se encontraron clientes
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    clientesFiltrados.forEach(cliente => {
+        const tr = document.createElement('tr');
+        
+        const tipoBadge = cliente.tipoCliente === 'NATURAL' 
+            ? '<span class="badge badge-info"><i class="fas fa-user"></i> Natural</span>'
+            : '<span class="badge badge-warning"><i class="fas fa-building"></i> Jurídica</span>';
+        
+        const estadoBadge = cliente.estado === 'ACTIVO'
+            ? '<span class="badge badge-success"><i class="fas fa-check-circle"></i> Activo</span>'
+            : '<span class="badge badge-danger"><i class="fas fa-times-circle"></i> Inactivo</span>';
+
+        tr.innerHTML = `
+            <td><strong>#${cliente.idCliente}</strong></td>
+            <td>${tipoBadge}</td>
+            <td><strong>${cliente.nombreRazonSocial}</strong></td>
+            <td>${cliente.rfc || '-'}</td>
+            <td>${cliente.telefono || '-'}</td>
+            <td>${cliente.email || '-'}</td>
+            <td><strong>${formatearMoneda(cliente.limiteCredito)}</strong></td>
+            <td><strong style="color: var(--morado);">${formatearMoneda(cliente.saldoActual)}</strong></td>
+            <td>${estadoBadge}</td>
+            <td>
+                <button class="btn btn-sm btn-primary" onclick="editarCliente(${cliente.idCliente})" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" onclick="eliminarCliente(${cliente.idCliente})" title="Eliminar">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// Actualizar estadísticas
+function actualizarEstadisticas() {
+    const total = clientes.length;
+    const activos = clientes.filter(c => c.estado === 'ACTIVO').length;
+    const limiteTotal = clientes.reduce((sum, c) => sum + parseFloat(c.limiteCredito), 0);
+    const saldoTotal = clientes.reduce((sum, c) => sum + parseFloat(c.saldoActual), 0);
+
+    document.getElementById('totalClientes').textContent = total;
+    document.getElementById('clientesActivos').textContent = activos;
+    document.getElementById('limiteTotal').textContent = formatearMoneda(limiteTotal);
+    document.getElementById('saldoTotal').textContent = formatearMoneda(saldoTotal);
+}
+
+// Abrir modal
+function abrirModal(id = null) {
+    const modal = document.getElementById('modalCliente');
+    const modalTitle = document.getElementById('modalTitle');
+    
+    if (id) {
+        clienteEditando = clientes.find(c => c.idCliente === id);
+        modalTitle.innerHTML = '<i class="fas fa-user-edit"></i> Editar Cliente';
+        
+        // Llenar formulario con datos del cliente
+        document.getElementById('clienteId').value = clienteEditando.idCliente;
+        document.getElementById('tipoCliente').value = clienteEditando.tipoCliente;
+        document.getElementById('nombreRazonSocial').value = clienteEditando.nombreRazonSocial;
+        document.getElementById('rfc').value = clienteEditando.rfc || '';
+        document.getElementById('telefono').value = clienteEditando.telefono || '';
+        document.getElementById('email').value = clienteEditando.email || '';
+        document.getElementById('direccion').value = clienteEditando.direccion || '';
+        document.getElementById('limiteCredito').value = clienteEditando.limiteCredito;
+        document.getElementById('saldoActual').value = clienteEditando.saldoActual;
+        document.getElementById('observaciones').value = clienteEditando.observaciones || '';
+        document.getElementById('estado').value = clienteEditando.estado;
+    } else {
+        clienteEditando = null;
+        modalTitle.innerHTML = '<i class="fas fa-user-plus"></i> Nuevo Cliente';
+        document.getElementById('formCliente').reset();
+        document.getElementById('clienteId').value = '';
+    }
+    
+    modal.classList.add('active');
+}
+
+// Cerrar modal
+function cerrarModal() {
+    const modal = document.getElementById('modalCliente');
+    modal.classList.remove('active');
+    document.getElementById('formCliente').reset();
+    clienteEditando = null;
+}
+
+// Guardar cliente
+async function guardarCliente() {
+    const form = document.getElementById('formCliente');
+    
+    if (!form.checkValidity()) {
+        alert('Por favor complete todos los campos obligatorios');
+        return;
+    }
+
+    const clienteId = document.getElementById('clienteId').value;
+    const clienteData = {
+        tipoCliente: document.getElementById('tipoCliente').value,
+        nombreRazonSocial: document.getElementById('nombreRazonSocial').value,
+        rfc: document.getElementById('rfc').value,
+        telefono: document.getElementById('telefono').value,
+        email: document.getElementById('email').value,
+        direccion: document.getElementById('direccion').value,
+        limiteCredito: parseFloat(document.getElementById('limiteCredito').value) || 0,
+        saldoActual: parseFloat(document.getElementById('saldoActual').value) || 0,
+        observaciones: document.getElementById('observaciones').value,
+        estado: document.getElementById('estado').value
+    };
+
+    try {
+        if (clienteId) {
+            // Editar cliente existente
+            const response = await fetch(`${API_BASE_URL}/${clienteId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(clienteData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al actualizar cliente: ' + response.statusText);
+            }
+
+            alert('Cliente actualizado exitosamente');
+        } else {
+            // Crear nuevo cliente
+            const response = await fetch(API_BASE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(clienteData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al crear cliente: ' + response.statusText);
+            }
+
+            alert('Cliente creado exitosamente');
+        }
+
+        cerrarModal();
+        await cargarClientes(); // Recargar datos desde la API
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al guardar el cliente: ' + error.message);
+    }
+}
+
+// Editar cliente
+function editarCliente(id) {
+    abrirModal(id);
+}
+
+// Eliminar cliente
+async function eliminarCliente(id) {
+    if (confirm('¿Está seguro de eliminar este cliente?')) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/${id}/desactivar`, {
+                method: 'PUT'
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al eliminar cliente: ' + response.statusText);
+            }
+
+            alert('Cliente eliminado exitosamente');
+            await cargarClientes(); // Recargar datos desde la API
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error al eliminar el cliente: ' + error.message);
+        }
+    }
+}
+
+// Event listeners para filtros y búsqueda
+document.getElementById('searchInput').addEventListener('input', mostrarClientes);
+document.getElementById('filterEstado').addEventListener('change', mostrarClientes);
+document.getElementById('filterTipo').addEventListener('change', mostrarClientes);
+
+// Cerrar modal al hacer clic fuera
+document.getElementById('modalCliente').addEventListener('click', function(e) {
+    if (e.target === this) {
+        cerrarModal();
+    }
+});
+    </script>
+</body>
+</html>
