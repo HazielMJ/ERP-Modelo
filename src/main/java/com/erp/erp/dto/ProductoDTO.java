@@ -1,4 +1,4 @@
-ackage com.erp.erp.dto;
+Package com.erp.erp.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
