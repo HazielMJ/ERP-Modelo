@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Perfil - Sistema ERP</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/ConfigStyle.css">
+</head>
+<body>
+    <div class="main-container">
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2><i class="fas fa-chart-line"></i> ERP System</h2>
+        <p>Sistema Integral de Gestión</p>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-section">
+            <div class="nav-section-title">PRINCIPAL</div>
+        </li>
+        <li class="nav-item" data-modulo="dashboard">
+            <a href="/dashboard" class="nav-link active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="administracion">
+            <div class="nav-section-title">ADMINISTRACIÓN</div>
+        </li>
+        <li class="nav-item" data-modulo="contabilidad">
+            <a href="/Contabilidad" class="nav-link">
+                <i class="fas fa-calculator"></i>
+                <span>Contabilidad</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="ventas">
+            <div class="nav-section-title">VENTAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Clientes">
+            <a href="/Clientes" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="ventas">
+            <a href="/ventas" class="nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Ventas</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="punto-venta">
+            <a href="/Punto de venta" class="nav-link">
+                <i class="fas fa-cash-register"></i>
+                <span>Punto de Venta</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="compras">
+            <div class="nav-section-title">COMPRAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Compras">
+            <a href="/Compras" class="nav-link">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Compras</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="inventario">
+            <div class="nav-section-title">INVENTARIO</div>
+        </li>
+        <li class="nav-item" data-modulo="Inventario">
+            <a href="/Inventario" class="nav-link">
+                <i class="fas fa-boxes"></i>
+                <span>Inventario</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="almacenes">
+            <a href="/Almacenes" class="nav-link">
+                <i class="fas fa-warehouse"></i>
+                <span>Almacenes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="rrhh">
+            <div class="nav-section-title">RECURSOS HUMANOS</div>
+        </li>
+        <li class="nav-item" data-modulo="rrhh">
+            <a href="/rrhh" class="nav-link">
+                <i class="fas fa-user-tie"></i>
+                <span>Empleados</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="logistica">
+            <div class="nav-section-title">LOGÍSTICA</div>
+        </li>
+        <li class="nav-item" data-modulo="logistica">
+            <a href="/logistica" class="nav-link">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Envíos</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="analisis">
+            <div class="nav-section-title">ANÁLISIS</div>
+        </li>
+        <li class="nav-item" data-modulo="reportes">
+            <a href="/reportes" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="sistema">
+            <div class="nav-section-title">SISTEMA</div>
+        </li>
+        <li class="nav-item" data-modulo="configuracion">
+            <a href="/configuracion" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </a>
+        </li>
+        <li>
+        <div class="logout-section">
+            <button class="btn-logout" onclick="cerrarSesion()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+        </li>
+    </ul>
+</aside>
+
+        <div class="main-content">
+            <header class="page-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1><i class="fas fa-user-cog"></i> Mi Perfil</h1>
+                        <div class="breadcrumb">
+                            <a href="/dashboard"><i class="fas fa-home"></i> Inicio</a>
+                            <span>/</span>
+                            <span>Configuración de Perfil</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <a href="/dashboard" class="btn-back">
+                        <i class="fas fa-arrow-left"></i>
+                        Volver al Dashboard
+                    </a>
+                </div>
+            </header>
+
+            <div id="loadingSpinner" class="loading-spinner" style="display: flex; justify-content: center; align-items: center; padding: 100px 0;">
+                <div style="text-align: center;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 48px; color: var(--azul-principal); margin-bottom: 15px;"></i>
+                    <p style="color: var(--gris-texto-secundario); font-size: 16px;">Cargando información...</p>
+                </div>
+            </div>
+
+            <div class="config-container" id="configContainer" style="display: none;">
+                <div class="config-card">
+                    <form id="perfilForm">
+                        <div class="profile-section">
+                            <h2 class="section-title">
+                                <i class="fas fa-user"></i>
+                                Información Personal
+                            </h2>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="nombre">
+                                        <i class="fas fa-signature"></i>
+                                        Nombre Completo
+                                    </label>
+                                    <input type="text" id="nombre" name="nombre" class="form-input" placeholder="Ingresa tu nombre completo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="email">
+                                        <i class="fas fa-envelope"></i>
+                                        Correo Electrónico
+                                    </label>
+                                    <input type="email" id="email" name="email" class="form-input" placeholder="tu@email.com" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-toggle-on"></i>
+                                        Estado de la Cuenta
+                                    </label>
+                                    <div class="switch-container">
+                                        <span class="status-indicator" id="statusIndicator">
+                                            <span class="status-dot"></span>
+                                            <span id="statusText">Cuenta Activa</span>
+                                        </span>
+                                        <label class="switch">
+                                            <input type="checkbox" id="activo" name="activo">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section" id="empleadoSection" style="display: none;">
+                            <h2 class="section-title">
+                                <i class="fas fa-id-badge"></i>
+                                Información Laboral
+                            </h2>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-hashtag"></i>
+                                        Código de Empleado
+                                    </label>
+                                    <div class="info-display" id="codigoEmpleado">-</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-user-tag"></i>
+                                        Rol en el Sistema
+                                    </label>
+                                    <div class="info-display rol-badge" id="rol">-</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-building"></i>
+                                        Departamento
+                                    </label>
+                                    <div class="info-display" id="departamento">-</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-briefcase"></i>
+                                        Puesto
+                                    </label>
+                                    <div class="info-display" id="puesto">-</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-section">
+                            <h2 class="section-title">
+                                <i class="fas fa-lock"></i>
+                                Cambiar Contraseña
+                            </h2>
+                            
+                            <div class="alert alert-info" style="background: rgba(74,144,226,0.1); border-left-color: var(--azul-principal); color: var(--gris-texto); margin-bottom: 20px;">
+                                <i class="fas fa-info-circle" style="color: var(--azul-principal);"></i>
+                                <div>
+                                    <strong>Información:</strong>
+                                    <p>Deja estos campos vacíos si no deseas cambiar tu contraseña actual.</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="currentPassword">
+                                    <i class="fas fa-lock"></i>
+                                    Contraseña Actual
+                                </label>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" id="currentPassword" name="currentPassword" class="form-input" placeholder="Ingresa tu contraseña actual">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="newPassword">
+                                        <i class="fas fa-key"></i>
+                                        Nueva Contraseña
+                                    </label>
+                                    <div class="input-with-icon">
+                                        <i class="fas fa-key"></i>
+                                        <input type="password" id="newPassword" name="newPassword" class="form-input" placeholder="Mínimo 6 caracteres">
+                                    </div>
+                                    <small style="font-size: 12px; color: var(--gris-texto-secundario); margin-top: 5px; display: block;">
+                                        Mínimo 6 caracteres
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="confirmPassword">
+                                        <i class="fas fa-check-circle"></i>
+                                        Confirmar Nueva Contraseña
+                                    </label>
+                                    <div class="input-with-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                        <input type="password" id="confirmPassword" class="form-input" placeholder="Repite la nueva contraseña">
+                                    </div>
+                                    <small id="passwordMatch" style="font-size: 12px; margin-top: 5px; display: none;"></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="metadata">
+                            <h3>
+                                <i class="fas fa-info-circle"></i> 
+                                Información de la Cuenta
+                            </h3>
+                            <div class="metadata-grid">
+                                <div class="metadata-item">
+                                    <span class="metadata-label">
+                                        <i class="fas fa-id-badge"></i>
+                                        ID de Usuario:
+                                    </span>
+                                    <span class="metadata-value" id="usuarioId">#-</span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">
+                                        <i class="fas fa-calendar-plus"></i>
+                                        Fecha de Creación:
+                                    </span>
+                                    <span class="metadata-value" id="fechaCreacion">-</span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">
+                                        <i class="fas fa-calendar-check"></i>
+                                        Última Actualización:
+                                    </span>
+                                    <span class="metadata-value" id="fechaActualizacion">-</span>
+                                </div>
+                                <div class="metadata-item">
+                                    <span class="metadata-label">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        Último Cierre de Sesión:
+                                    </span>
+                                    <span class="metadata-value" id="logout">Nunca</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button type="button" class="btn btn-danger" onclick="desactivarCuenta()">
+                                <i class="fas fa-user-slash"></i>
+                                Desactivar Mi Cuenta
+                            </button>
+                            <a href="/dashboard" class="btn btn-secondary">
+                                <i class="fas fa-times"></i>
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <style>
+        .info-display {
+            padding: 12px 16px;
+            background: var(--gris-suave-2);
+            border: 2px solid var(--gris-suave);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gris-texto);
+        }
+
+        .rol-badge {
+            background: linear-gradient(135deg, rgba(74,144,226,0.15), rgba(74,144,226,0.05));
+            border-color: var(--azul-principal);
+            color: var(--azul-principal);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .alert-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .alert-info i {
+            font-size: 22px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .alert-info strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 15px;
+        }
+
+        .alert-info p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    </style>
+
+    <script>
+        let perfilData = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarPerfil();
+            
+            document.getElementById('activo').addEventListener('change', function() {
+                updateAccountStatus(this.checked);
+            });
+
+            document.getElementById('newPassword').addEventListener('input', validatePasswords);
+            document.getElementById('confirmPassword').addEventListener('input', validatePasswords);
+
+            document.getElementById('perfilForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                guardarCambios();
+            });
+        });
+
+        function cargarPerfil() {
+            fetch('http://localhost:8082/api/usuarios/perfil', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('No autorizado');
+                }
+                return response.json();
+            })
+            .then(data => {
+                perfilData = data;
+                llenarFormulario(data);
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('configContainer').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('❌ Error al cargar el perfil. Redirigiendo al login...', 'error');
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 2000);
+            });
+        }
+
+        function llenarFormulario(data) {
+            document.getElementById('nombre').value = data.nombre || '';
+            document.getElementById('email').value = data.email || '';
+            document.getElementById('activo').checked = data.activo || false;
+            
+            updateAccountStatus(data.activo);
+            
+            document.getElementById('usuarioId').textContent = '#' + (data.id || '-');
+            document.getElementById('fechaCreacion').textContent = formatearFecha(data.fechaCreacion);
+            document.getElementById('fechaActualizacion').textContent = formatearFecha(data.fechaActualizacion);
+            document.getElementById('logout').textContent = data.logout ? formatearFecha(data.logout) : 'Nunca';
+            
+            if (data.idEmpleado) {
+                document.getElementById('empleadoSection').style.display = 'block';
+                document.getElementById('codigoEmpleado').textContent = data.codigoEmpleado || 'Sin código';
+                document.getElementById('rol').textContent = data.rol || 'EMPLEADO';
+                document.getElementById('departamento').textContent = data.departamento || 'Sin departamento';
+                document.getElementById('puesto').textContent = data.puesto || 'Sin puesto';
+            }
+        }
+
+        function formatearFecha(fecha) {
+            if (!fecha) return '-';
+            try {
+                const date = new Date(fecha);
+                return date.toLocaleString('es-MX', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch (e) {
+                return '-';
+            }
+        }
+
+        function updateAccountStatus(isActive) {
+            const statusIndicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            if (isActive) {
+                statusIndicator.className = 'status-indicator status-active';
+                statusText.textContent = 'Cuenta Activa';
+            } else {
+                statusIndicator.className = 'status-indicator status-inactive';
+                statusText.textContent = 'Cuenta Inactiva';
+            }
+        }
+
+        function validatePasswords() {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const confirmInput = document.getElementById('confirmPassword');
+            const matchText = document.getElementById('passwordMatch');
+
+            if (newPassword && confirmPassword) {
+                if (newPassword === confirmPassword) {
+                    confirmInput.style.borderColor = 'var(--verde-exito)';
+                    matchText.style.display = 'block';
+                    matchText.style.color = 'var(--verde-exito)';
+                    matchText.innerHTML = '<i class="fas fa-check-circle"></i> Las contraseñas coinciden';
+                } else {
+                    confirmInput.style.borderColor = 'var(--rojo-peligro)';
+                    matchText.style.display = 'block';
+                    matchText.style.color = 'var(--rojo-peligro)';
+                    matchText.innerHTML = '<i class="fas fa-times-circle"></i> Las contraseñas no coinciden';
+                }
+            } else {
+                confirmInput.style.borderColor = '#e9ecef';
+                matchText.style.display = 'none';
+            }
+        }
+
+        function guardarCambios() {
+            const formData = {
+                nombre: document.getElementById('nombre').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                activo: document.getElementById('activo').checked,
+                cambiarPassword: false,
+                currentPassword: document.getElementById('currentPassword').value,
+                newPassword: document.getElementById('newPassword').value,
+                confirmPassword: document.getElementById('confirmPassword').value
+            };
+
+            if (!formData.nombre || !formData.email) {
+                showNotification('❌ Por favor completa todos los campos requeridos.', 'error');
+                return;
+            }
+
+            if (formData.newPassword) {
+                if (!formData.currentPassword) {
+                    showNotification('❌ Debes ingresar tu contraseña actual para cambiarla.', 'error');
+                    return;
+                }
+                if (formData.newPassword !== formData.confirmPassword) {
+                    showNotification('❌ Las contraseñas nuevas no coinciden.', 'error');
+                    return;
+                }
+                if (formData.newPassword.length < 6) {
+                    showNotification('❌ La contraseña debe tener al menos 6 caracteres.', 'error');
+                    return;
+                }
+            }
+
+            const btnSubmit = document.querySelector('.btn-primary');
+            const originalText = btnSubmit.innerHTML;
+            btnSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+            btnSubmit.disabled = true;
+
+            fetch('/api/usuarios/perfil', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error(err.mensaje || 'Error al actualizar el perfil');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                showNotification('✅ Perfil actualizado exitosamente', 'success');
+                
+                document.getElementById('currentPassword').value = '';
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+                document.getElementById('passwordMatch').style.display = 'none';
+                
+                setTimeout(() => {
+                    cargarPerfil();
+                }, 1500);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('❌ ' + error.message, 'error');
+            })
+            .finally(() => {
+                btnSubmit.innerHTML = originalText;
+                btnSubmit.disabled = false;
+            });
+        }
+
+        function desactivarCuenta() {
+            if (!confirm('⚠️ ADVERTENCIA: Esta acción desactivará tu cuenta.\n\n¿Estás seguro de que deseas continuar?')) {
+                return;
+            }
+            
+            const confirmacion = prompt('Para confirmar, escribe "DESACTIVAR" (sin comillas):');
+            
+            if (confirmacion !== 'DESACTIVAR') {
+                showNotification('ℹ️ Desactivación cancelada.', 'info');
+                return;
+            }
+
+            fetch('/api/usuarios/perfil', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al desactivar la cuenta');
+                }
+                return response.json();
+            })
+            .then(data => {
+                showNotification('✅ Cuenta desactivada. Redirigiendo...', 'success');
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 2000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('❌ ' + error.message, 'error');
+            });
+        }
+
+        function cerrarSesion() {
+            if (!confirm('¿Está seguro que desea cerrar sesión?')) {
+                return;
+            }
+            
+            showNotification('Cerrando sesión...', 'info');
+            
+            fetch('/api/usuarios/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            })
+            .then(() => {
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 1000);
+            })
+            .catch(() => {
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 1000);
+            });
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            let bgColor, icon;
+            
+            switch(type) {
+                case 'success':
+                    bgColor = 'var(--verde-exito)';
+                    icon = 'fa-check-circle';
+                    break;
+                case 'error':
+                    bgColor = 'var(--rojo-peligro)';
+                    icon = 'fa-exclamation-circle';
+                    break;
+                case 'warning':
+                    bgColor = 'var(--amarillo-advertencia)';
+                    icon = 'fa-exclamation-triangle';
+                    break;
+                default:
+                    bgColor = 'var(--azul-principal)';
+                    icon = 'fa-info-circle';
+            }
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${bgColor};
+                color: ${type === 'warning' ? '#333' : 'white'};
+                padding: 18px 24px;
+                border-radius: 12px;
+                box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: slideIn 0.4s ease;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-weight: 500;
+                max-width: 400px;
+                font-size: 14px;
+            `;
+            
+            notification.innerHTML = `
+                <i class="fas ${icon}" style="font-size: 20px;"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.4s ease';
+                setTimeout(() => notification.remove(), 400);
+            }, 4000);
+        }
+
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateX(0); }
+                to { opacity: 0; transform: translateX(100px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
