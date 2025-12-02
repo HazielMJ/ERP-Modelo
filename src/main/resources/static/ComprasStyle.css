@@ -1,4 +1,4 @@
-  * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -1352,4 +1352,3 @@ body {
 .text-success { color: var(--verde-exito); }
 .text-danger { color: var(--rojo-peligro); }
 .text-muted { color: var(--gris-texto-secundario); }
-    
