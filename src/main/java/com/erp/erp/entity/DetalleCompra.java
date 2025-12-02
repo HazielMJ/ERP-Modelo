@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import lombok.*;
 
 @Entity
-@Table(name = "DetalleCompra")
+@Table(name = "Detalle_Compra")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,6 +17,7 @@ public class DetalleCompra {
     @Column(name = "id_detalle")
     private Integer idDetalle;
     
+    // ⭐ CAMBIO PRINCIPAL: Agregamos @JsonBackReference
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "id_compra", nullable = false)
