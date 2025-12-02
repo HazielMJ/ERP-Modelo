@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login ERP</title>
+    <link rel="stylesheet" href="LoginStyle.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-section">
+            <div class="logo">ERP</div>
+            <h3>Iniciar Sesión</h3>
+        </div>
+        
+        <div id="error" class="error"></div>
+        <div id="success" class="success"></div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" placeholder="tu@email.com" required autocomplete="email">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+                    <button type="button" class="password-toggle" id="passwordToggle">👁️</button>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-primary" id="loginBtn">
+                <span id="loginText">Ingresar</span>
+            </button>
+        </form>
+        
+        <div class="forgot-password">
+            <a href="#" onclick="alert('Funcionalidad próximamente disponible')">¿Olvidaste tu contraseña?</a>
+        </div>
+    </div>
+
+    <script>
+        // Configuración de la API
+        const API_URL = 'http://localhost:8082/api';
+        
+        // Toggle para mostrar/ocultar contraseña
+        document.getElementById('passwordToggle').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = this;
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.textContent = '👁️';
+            }
+        });
+        
+        // Limpiar mensajes al escribir
+        document.getElementById('email').addEventListener('input', clearMessages);
+        document.getElementById('password').addEventListener('input', clearMessages);
+        
+        function clearMessages() {
+            document.getElementById('error').classList.remove('show');
+            document.getElementById('success').classList.remove('show');
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+        }
+        
+        function showSuccess(message) {
+            const successDiv = document.getElementById('success');
+            successDiv.textContent = message;
+            successDiv.classList.add('show');
+        }
+        
+        function setLoading(isLoading) {
+            const loginBtn = document.getElementById('loginBtn');
+            const loginText = document.getElementById('loginText');
+            
+            if (isLoading) {
+                loginBtn.disabled = true;
+                loginText.innerHTML = '<span class="loading"></span>Ingresando...';
+            } else {
+                loginBtn.disabled = false;
+                loginText.textContent = 'Ingresar';
+            }
+        }
+        
+        // Manejar el envío del formulario
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            clearMessages();
+            
+            // Validaciones básicas
+            if (!email) {
+                showError('Por favor ingresa tu correo electrónico');
+                document.getElementById('email').focus();
+                return;
+            }
+            
+            if (!password) {
+                showError('Por favor ingresa tu contraseña');
+                document.getElementById('password').focus();
+                return;
+            }
+            
+            // Validar formato de email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('Por favor ingresa un correo electrónico válido');
+                document.getElementById('email').focus();
+                return;
+            }
+            
+            setLoading(true);
+            
+            try {
+                // Realizar petición al API
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Login exitoso
+                    showSuccess('¡Bienvenido ' + data.nombre + '!');
+                    
+                    // ✅ GUARDAR TODOS LOS DATOS DEL USUARIO EN LOCALSTORAGE (INCLUYENDO ROL)
+                    localStorage.setItem('usuario', JSON.stringify({
+                        id: data.id,
+                        nombre: data.nombre,
+                        email: data.email,
+                        activo: data.activo,
+                        cambiarPassword: data.cambiarPassword,
+                        rol: data.rol || 'EMPLEADO',                    // ✅ NUEVO: Rol del usuario
+                        idEmpleado: data.idEmpleado || null,            // ✅ NUEVO: ID del empleado
+                        nombreEmpleado: data.nombreEmpleado || data.nombre,  // ✅ NUEVO: Nombre completo
+                        codigoEmpleado: data.codigoEmpleado || null,    // ✅ NUEVO: Código del empleado
+                        loginTime: new Date().toISOString()
+                    }));
+                    
+                    // ✅ LOG PARA DEBUGGING (opcional - puedes quitarlo después)
+                    console.log('Usuario autenticado:', {
+                        nombre: data.nombre,
+                        rol: data.rol,
+                        empleado: data.nombreEmpleado
+                    });
+                    
+                    // Redirigir después de 1.5 segundos
+                    setTimeout(() => {
+                        // Si necesita cambiar contraseña, redirigir a página de cambio
+                        if (data.cambiarPassword) {
+                            window.location.href = '/cambiar-password';
+                        } else {
+                            window.location.href = '/dashboard';
+                        }
+                    }, 1500);
+                } else {
+                    // Error de autenticación
+                    showError(data.error || 'Credenciales inválidas');
+                    document.getElementById('password').value = '';
+                    document.getElementById('password').focus();
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error de conexión. Verifica que el servidor esté activo.');
+            } finally {
+                setLoading(false);
+            }
+        });
+        
+        // Enfocar el campo de email al cargar
+        window.addEventListener('load', function() {
+            document.getElementById('email').focus();
+        });
+        
+        // Permitir Enter para enviar
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.tagName !== 'BUTTON') {
+                document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+</html>
