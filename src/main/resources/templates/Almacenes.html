@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Almacenes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Almacenes.css">
+       
+</head>
+<body>
+    <div class="main-container">
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2><i class="fas fa-chart-line"></i> ERP System</h2>
+        <p>Sistema Integral de Gestión</p>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-section">
+            <div class="nav-section-title">PRINCIPAL</div>
+        </li>
+        <li class="nav-item" data-modulo="dashboard">
+            <a href="/dashboard" class="nav-link active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="administracion">
+            <div class="nav-section-title">ADMINISTRACIÓN</div>
+        </li>
+        <li class="nav-item" data-modulo="contabilidad">
+            <a href="/Contabilidad" class="nav-link">
+                <i class="fas fa-calculator"></i>
+                <span>Contabilidad</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="ventas">
+            <div class="nav-section-title">VENTAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Clientes">
+            <a href="/Clientes" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="ventas">
+            <a href="/ventas" class="nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Ventas</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="punto-venta">
+            <a href="/Punto de venta" class="nav-link">
+                <i class="fas fa-cash-register"></i>
+                <span>Punto de Venta</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="compras">
+            <div class="nav-section-title">COMPRAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Compras">
+            <a href="/Compras" class="nav-link">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Compras</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="inventario">
+            <div class="nav-section-title">INVENTARIO</div>
+        </li>
+        <li class="nav-item" data-modulo="Inventario">
+            <a href="/Inventario" class="nav-link">
+                <i class="fas fa-boxes"></i>
+                <span>Inventario</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="almacenes">
+            <a href="/Almacenes" class="nav-link">
+                <i class="fas fa-warehouse"></i>
+                <span>Almacenes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="rrhh">
+            <div class="nav-section-title">RECURSOS HUMANOS</div>
+        </li>
+        <li class="nav-item" data-modulo="rrhh">
+            <a href="/rrhh" class="nav-link">
+                <i class="fas fa-user-tie"></i>
+                <span>Empleados</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="logistica">
+            <div class="nav-section-title">LOGÍSTICA</div>
+        </li>
+        <li class="nav-item" data-modulo="logistica">
+            <a href="/logistica" class="nav-link">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Envíos</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="analisis">
+            <div class="nav-section-title">ANÁLISIS</div>
+        </li>
+        <li class="nav-item" data-modulo="reportes">
+            <a href="/reportes" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="sistema">
+            <div class="nav-section-title">SISTEMA</div>
+        </li>
+        <li class="nav-item" data-modulo="configuracion">
+            <a href="/configuracion" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </a>
+        </li>
+        <li>
+        <!-- Botón de cerrar sesión -->
+        <div class="logout-section">
+            <button class="btn-logout" onclick="cerrarSesion()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+        </li>
+    </ul>
+</aside>
+        
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- PAGE HEADER -->
+            <header class="page-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1><i class="fas fa-warehouse"></i> Gestión de Almacenes</h1>
+                        <div class="breadcrumb">
+                            <a href="#"><i class="fas fa-home"></i> Inicio</a>
+                            <span>/</span>
+                            <span>Almacenes</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENT SECTION -->
+            <section class="content-section">
+                <!-- STATS CARDS -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="totalAlmacenes">0</div>
+                                <div class="stat-label">Total Almacenes</div>
+                            </div>
+                            <div class="stat-icon blue">
+                                <i class="fas fa-warehouse"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="almacenesActivos">0</div>
+                                <div class="stat-label">Almacenes Activos</div>
+                            </div>
+                            <div class="stat-icon green">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="capacidadTotal">0</div>
+                                <div class="stat-label">Capacidad Total</div>
+                            </div>
+                            <div class="stat-icon orange">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-value" id="espacioUtilizado">0%</div>
+                                <div class="stat-label">Espacio Utilizado</div>
+                            </div>
+                            <div class="stat-icon purple">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TOOLBAR -->
+                <div class="toolbar">
+                    <div class="search-box">
+                        <i class="fas fa-search input-icon"></i>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Buscar almacén por código, nombre o ubicación...">
+                    </div>
+                    <select class="filter-select" id="filterEstado">
+                        <option value="">Todos los estados</option>
+                        <option value="ACTIVO">Activo</option>
+                        <option value="INACTIVO">Inactivo</option>
+                    </select>
+                    <div class="toolbar-actions">
+                        <button class="btn btn-primary" onclick="openModal()">
+                            <i class="fas fa-plus"></i>
+                            Nuevo Almacén
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="fas fa-file-excel"></i>
+                            Exportar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TABLE -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3 class="table-title">
+                            <i class="fas fa-list"></i>
+                            Lista de Almacenes
+                        </h3>
+                    </div>
+                    <table class="table" id="almacenesTable">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Ubicación</th>
+                                <th>Capacidad</th>
+                                <th>Espacio Utilizado</th>
+                                <th>Uso (%)</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="almacenesBody">
+                            <!-- Data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="almacenModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">
+                    <i class="fas fa-warehouse"></i>
+                    Nuevo Almacén
+                </h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="almacenForm">
+                    <input type="hidden" id="almacenId">
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-barcode"></i>
+                            Código del Almacén <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-input" id="codigoAlmacen" required placeholder="Ej: ALM-001">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-warehouse"></i>
+                            Nombre del Almacén <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-input" id="nombreAlmacen" required placeholder="Ej: Almacén Principal">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Ubicación
+                        </label>
+                        <input type="text" class="form-input" id="ubicacion" placeholder="Ej: Calle Principal #123, Zona Industrial">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-box"></i>
+                            Capacidad Total <span class="required">*</span>
+                        </label>
+                        <input type="number" class="form-input" id="capacidadTotal" required placeholder="Ej: 10000" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-boxes"></i>
+                            Espacio Utilizado
+                        </label>
+                        <input type="number" class="form-input" id="espacioUtilizado" placeholder="Ej: 2500" min="0" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-toggle-on"></i>
+                            Estado <span class="required">*</span>
+                        </label>
+                        <select class="form-select" id="estado" required>
+                            <option value="ACTIVO">Activo</option>
+                            <option value="INACTIVO">Inactivo</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button class="btn btn-primary" onclick="saveAlmacen()">
+                    <i class="fas fa-save"></i>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+// URL base de la API - ajusta según tu entorno
+const API_BASE_URL = 'http://localhost:8082/api/almacenes';
+
+let almacenes = [];
+let currentFilter = '';
+let currentEstado = '';
+let editingId = null;
+
+// Initialize
+async function init() {
+    await cargarAlmacenes();
+    setupEventListeners();
+}
+
+// Cargar almacenes desde la API
+async function cargarAlmacenes() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/activos`);
+        if (!response.ok) {
+            throw new Error('Error al cargar almacenes: ' + response.statusText);
+        }
+        almacenes = await response.json();
+        updateStats();
+        renderTable();
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al cargar los almacenes: ' + error.message, 'error');
+    }
+}
+
+function setupEventListeners() {
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        currentFilter = e.target.value.toLowerCase();
+        renderTable();
+    });
+
+    document.getElementById('filterEstado').addEventListener('change', (e) => {
+        currentEstado = e.target.value;
+        renderTable();
+    });
+}
+
+function updateStats() {
+    const activos = almacenes.filter(a => a.estado === 'ACTIVO').length;
+    const totalCapacidad = almacenes.reduce((sum, a) => sum + (a.capacidadTotal || 0), 0);
+    const totalUtilizado = almacenes.reduce((sum, a) => sum + (a.espacioUtilizado || 0), 0);
+    const porcentajeUso = totalCapacidad > 0 ? ((totalUtilizado / totalCapacidad) * 100).toFixed(1) : 0;
+
+    document.getElementById('totalAlmacenes').textContent = almacenes.length;
+    document.getElementById('almacenesActivos').textContent = activos;
+    document.getElementById('capacidadTotal').textContent = totalCapacidad.toLocaleString();
+    document.getElementById('espacioUtilizado').textContent = porcentajeUso + '%';
+}
+
+function renderTable() {
+    const tbody = document.getElementById('almacenesBody');
+    let filteredData = almacenes;
+
+    // Apply search filter
+    if (currentFilter) {
+        filteredData = filteredData.filter(a => 
+            a.codigoAlmacen.toLowerCase().includes(currentFilter) ||
+            a.nombreAlmacen.toLowerCase().includes(currentFilter) ||
+            (a.ubicacion && a.ubicacion.toLowerCase().includes(currentFilter))
+        );
+    }
+
+    // Apply estado filter
+    if (currentEstado) {
+        filteredData = filteredData.filter(a => a.estado === currentEstado);
+    }
+
+    if (filteredData.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" style="text-align: center; padding: 40px;">
+                    <i class="fas fa-inbox" style="font-size: 48px; opacity: 0.3; margin-bottom: 10px;"></i>
+                    <p style="color: var(--gris-texto-secundario); font-size: 14px;"><strong>No se encontraron almacenes</strong></p>
+                    <p style="color: var(--gris-texto-secundario); font-size: 12px;">Intenta con otros filtros de búsqueda</p>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    tbody.innerHTML = filteredData.map(almacen => {
+        const capacidad = almacen.capacidadTotal || 0;
+        const utilizado = almacen.espacioUtilizado || 0;
+        const porcentajeUso = capacidad > 0 ? (utilizado / capacidad * 100).toFixed(1) : 0;
+        let progressClass = 'low';
+        if (porcentajeUso > 70) progressClass = 'high';
+        else if (porcentajeUso > 40) progressClass = 'medium';
+
+        return `
+            <tr>
+                <td><strong>${almacen.codigoAlmacen}</strong></td>
+                <td><strong>${almacen.nombreAlmacen}</strong></td>
+                <td><i class="fas fa-map-marker-alt" style="color: var(--azul-principal);"></i> ${almacen.ubicacion || 'Sin ubicación'}</td>
+                <td><strong>${capacidad.toLocaleString()}</strong> unidades</td>
+                <td><strong style="color: var(--morado);">${utilizado.toLocaleString()}</strong> unidades</td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="progress-container" style="flex: 1;">
+                            <div class="progress-bar ${progressClass}" style="width: ${porcentajeUso}%"></div>
+                        </div>
+                        <span style="font-weight: 600; min-width: 45px;">${porcentajeUso}%</span>
+                    </div>
+                </td>
+                <td>
+                    <span class="badge ${almacen.estado === 'ACTIVO' ? 'badge-success' : 'badge-danger'}">
+                        <i class="fas ${almacen.estado === 'ACTIVO' ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                        ${almacen.estado}
+                    </span>
+                </td>
+                <td>
+                    <button class="btn btn-primary btn-sm btn-icon" onclick="editAlmacen(${almacen.idAlmacen})" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-warning btn-sm btn-icon" onclick="viewAlmacen(${almacen.idAlmacen})" title="Ver detalles">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function openModal(title = 'Nuevo Almacén') {
+    document.getElementById('modalTitle').innerHTML = `<i class="fas fa-warehouse"></i> ${title}`;
+    document.getElementById('almacenModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('almacenModal').classList.remove('active');
+    document.getElementById('almacenForm').reset();
+    editingId = null;
+    document.body.style.overflow = 'auto';
+}
+
+async function saveAlmacen() {
+    const form = document.getElementById('almacenForm');
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    const almacenData = {
+        codigoAlmacen: document.getElementById('codigoAlmacen').value,
+        nombreAlmacen: document.getElementById('nombreAlmacen').value,
+        ubicacion: document.getElementById('ubicacion').value,
+        capacidadTotal: parseInt(document.getElementById('capacidadTotal').value) || 0,
+        espacioUtilizado: parseInt(document.getElementById('espacioUtilizado').value) || 0,
+        estado: document.getElementById('estado').value
+    };
+
+    try {
+        if (editingId) {
+            // Update existing almacén
+            const response = await fetch(`${API_BASE_URL}/${editingId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(almacenData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al actualizar almacén: ' + response.statusText);
+            }
+
+            showNotification('✅ Almacén actualizado exitosamente', 'success');
+        } else {
+            // Create new almacén
+            const response = await fetch(API_BASE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(almacenData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al crear almacén: ' + response.statusText);
+            }
+
+            showNotification('✅ Almacén creado exitosamente', 'success');
+        }
+
+        await cargarAlmacenes(); // Recargar datos desde la API
+        closeModal();
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al guardar el almacén: ' + error.message, 'error');
+    }
+}
+
+async function editAlmacen(id) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/${id}`);
+        if (!response.ok) {
+            throw new Error('Error al cargar almacén: ' + response.statusText);
+        }
+        
+        const almacen = await response.json();
+        if (!almacen) return;
+
+        editingId = id;
+        document.getElementById('codigoAlmacen').value = almacen.codigoAlmacen;
+        document.getElementById('nombreAlmacen').value = almacen.nombreAlmacen;
+        document.getElementById('ubicacion').value = almacen.ubicacion || '';
+        document.getElementById('capacidadTotal').value = almacen.capacidadTotal || 0;
+        document.getElementById('espacioUtilizado').value = almacen.espacioUtilizado || 0;
+        document.getElementById('estado').value = almacen.estado;
+
+        openModal('Editar Almacén');
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al cargar el almacén: ' + error.message, 'error');
+    }
+}
+
+async function viewAlmacen(id) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/${id}`);
+        if (!response.ok) {
+            throw new Error('Error al cargar almacén: ' + response.statusText);
+        }
+        
+        const almacen = await response.json();
+        if (!almacen) return;
+
+        const capacidad = almacen.capacidadTotal || 0;
+        const utilizado = almacen.espacioUtilizado || 0;
+        const porcentaje = capacidad > 0 ? (utilizado / capacidad * 100).toFixed(1) : 0;
+        const disponible = capacidad - utilizado;
+
+        showNotification(`
+📦 ${almacen.nombreAlmacen}
+━━━━━━━━━━━━━━━━━━━━
+🏷️ Código: ${almacen.codigoAlmacen}
+📍 ${almacen.ubicacion || 'Sin ubicación'}
+📊 Capacidad: ${capacidad.toLocaleString()} unidades
+✅ Utilizado: ${utilizado.toLocaleString()} unidades
+📈 Disponible: ${disponible.toLocaleString()} unidades
+⚡ Uso: ${porcentaje}%
+🔵 Estado: ${almacen.estado}
+        `, 'info');
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al cargar los detalles del almacén: ' + error.message, 'error');
+    }
+}
+
+// Close modal when clicking outside
+document.getElementById('almacenModal').addEventListener('click', (e) => {
+    if (e.target.id === 'almacenModal') {
+        closeModal();
+    }
+});
+
+// Toggle sidebar
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('active');
+}
+
+// Cerrar sesión
+function cerrarSesion() {
+    if (confirm('¿Está seguro que desea cerrar sesión?')) {
+        showNotification('Cerrando sesión...', 'info');
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 1000);
+    }
+}
+
+// Sistema de notificaciones
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    let bgColor, icon;
+    
+    switch(type) {
+        case 'success':
+            bgColor = 'var(--verde-exito)';
+            icon = 'fa-check-circle';
+            break;
+        case 'error':
+            bgColor = 'var(--rojo-peligro)';
+            icon = 'fa-exclamation-circle';
+            break;
+        case 'warning':
+            bgColor = 'var(--amarillo-advertencia)';
+            icon = 'fa-exclamation-triangle';
+            break;
+        default:
+            bgColor = 'var(--azul-principal)';
+            icon = 'fa-info-circle';
+    }
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${bgColor};
+        color: ${type === 'warning' ? '#333' : 'white'};
+        padding: 18px 24px;
+        border-radius: 12px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideIn 0.4s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 500;
+        max-width: 400px;
+        white-space: pre-line;
+    `;
+    
+    notification.innerHTML = `
+        <i class="fas ${icon}" style="font-size: 20px;"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'fadeOut 0.4s ease';
+        setTimeout(() => notification.remove(), 400);
+    }, 4000);
+}
+
+// Animaciones
+const styleAnimations = document.createElement('style');
+styleAnimations.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+`;
+document.head.appendChild(styleAnimations);
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    init();
+});
+
+console.log('📦 Módulo de Almacenes - Sistema cargado correctamente');
+    </script>
+</body>
+</html>

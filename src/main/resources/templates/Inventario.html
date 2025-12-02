@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="stylesheet" href="Inventario.css">
+     
+</head>
+<body>
+    <div class="main-container">
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2><i class="fas fa-chart-line"></i> ERP System</h2>
+        <p>Sistema Integral de Gestión</p>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-section">
+            <div class="nav-section-title">PRINCIPAL</div>
+        </li>
+        <li class="nav-item" data-modulo="dashboard">
+            <a href="/dashboard" class="nav-link active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="administracion">
+            <div class="nav-section-title">ADMINISTRACIÓN</div>
+        </li>
+        <li class="nav-item" data-modulo="contabilidad">
+            <a href="/Contabilidad" class="nav-link">
+                <i class="fas fa-calculator"></i>
+                <span>Contabilidad</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="ventas">
+            <div class="nav-section-title">VENTAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Clientes">
+            <a href="/Clientes" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="ventas">
+            <a href="/ventas" class="nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Ventas</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="punto-venta">
+            <a href="/Punto de venta" class="nav-link">
+                <i class="fas fa-cash-register"></i>
+                <span>Punto de Venta</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="compras">
+            <div class="nav-section-title">COMPRAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Compras">
+            <a href="/Compras" class="nav-link">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Compras</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="inventario">
+            <div class="nav-section-title">INVENTARIO</div>
+        </li>
+        <li class="nav-item" data-modulo="Inventario">
+            <a href="/Inventario" class="nav-link">
+                <i class="fas fa-boxes"></i>
+                <span>Inventario</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="almacenes">
+            <a href="/Almacenes" class="nav-link">
+                <i class="fas fa-warehouse"></i>
+                <span>Almacenes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="rrhh">
+            <div class="nav-section-title">RECURSOS HUMANOS</div>
+        </li>
+        <li class="nav-item" data-modulo="rrhh">
+            <a href="/rrhh" class="nav-link">
+                <i class="fas fa-user-tie"></i>
+                <span>Empleados</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="logistica">
+            <div class="nav-section-title">LOGÍSTICA</div>
+        </li>
+        <li class="nav-item" data-modulo="logistica">
+            <a href="/logistica" class="nav-link">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Envíos</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="analisis">
+            <div class="nav-section-title">ANÁLISIS</div>
+        </li>
+        <li class="nav-item" data-modulo="reportes">
+            <a href="/reportes" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="sistema">
+            <div class="nav-section-title">SISTEMA</div>
+        </li>
+        <li class="nav-item" data-modulo="configuracion">
+            <a href="/configuracion" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </a>
+        </li>
+        <li>
+        <!-- Botón de cerrar sesión -->
+        <div class="logout-section">
+            <button class="btn-logout" onclick="cerrarSesion()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+        </li>
+    </ul>
+</aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <h1><i class="fas fa-boxes"></i> Gestión de Inventario</h1>
+            </div>
+
+            <!-- TABS -->
+            <div class="tabs-container">
+                <div class="tabs">
+                    <button class="tab-button active" onclick="cambiarTab('inventario')">
+                        <i class="fas fa-boxes"></i> Inventario
+                    </button>
+                    <button class="tab-button" onclick="cambiarTab('categorias')">
+                        <i class="fas fa-folder-tree"></i> Categorías
+                    </button>
+                </div>
+            </div>
+
+            <!-- TAB: INVENTARIO -->
+            <div id="tab-inventario" class="tab-content active">
+                <div class="content-section">
+                    <!-- STATISTICS CARDS -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="totalProductos">0</div>
+                                    <div class="stat-label">Total Productos</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--azul-principal), var(--azul-principal-gradient));">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="stockTotal">0</div>
+                                    <div class="stat-label">Stock Total</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--verde-exito), var(--verde-exito-gradient));">
+                                    <i class="fas fa-cubes"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="stockBajo">0</div>
+                                    <div class="stat-label">Stock Bajo</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--naranja), var(--naranja-dark));">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="stockReservado">0</div>
+                                    <div class="stat-label">Stock Reservado</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--morado), var(--morado-dark));">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TOOLBAR -->
+                    <div class="toolbar">
+                        <div class="search-box">
+                            <i class="fas fa-search input-icon"></i>
+                            <input type="text" class="search-input" id="searchInputInventario" placeholder="Buscar por producto, código o almacén...">
+                        </div>
+                        
+                        <select class="filter-select" id="filterAlmacen">
+                            <option value="">Todos los almacenes</option>
+                        </select>
+                        
+                        <button class="btn btn-primary" onclick="abrirModalMovimiento()">
+                            <i class="fas fa-plus"></i> Registrar Movimiento
+                        </button>
+                        
+                        <button class="btn btn-success" onclick="abrirModalAjuste()">
+                            <i class="fas fa-sliders-h"></i> Ajustar Stock
+                        </button>
+                    </div>
+
+                    <!-- INVENTORY TABLE -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-list"></i> Inventario Actual</h3>
+                            <button class="btn btn-sm btn-secondary" onclick="cargarInventario()">
+                                <i class="fas fa-sync-alt"></i> Actualizar
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="inventarioTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Producto</th>
+                                        <th>Código</th>
+                                        <th>Almacén</th>
+                                        <th>Stock Actual</th>
+                                        <th>Stock Reservado</th>
+                                        <th>Stock Disponible</th>
+                                        <th>Ubicación</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inventarioTableBody">
+                                    <tr>
+                                        <td colspan="10" style="text-align: center; padding: 40px;">
+                                            <i class="fas fa-spinner fa-spin" style="font-size: 32px; color: var(--azul-principal);"></i>
+                                            <p style="margin-top: 10px;">Cargando inventario...</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: CATEGORÍAS -->
+            <div id="tab-categorias" class="tab-content">
+                <div class="content-section">
+                    <!-- STATISTICS CARDS -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="totalCategorias">15</div>
+                                    <div class="stat-label">Total Categorías</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--azul-principal), var(--azul-principal-gradient));">
+                                    <i class="fas fa-folder-tree"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="categoriasActivas">12</div>
+                                    <div class="stat-label">Categorías Activas</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--verde-exito), var(--verde-exito-gradient));">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="categoriasPrincipales">8</div>
+                                    <div class="stat-label">Principales</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--morado), var(--morado-dark));">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <div>
+                                    <div class="stat-value" id="subcategorias">7</div>
+                                    <div class="stat-label">Subcategorías</div>
+                                </div>
+                                <div class="stat-icon" style="background: linear-gradient(135deg, var(--naranja), var(--naranja-dark));">
+                                    <i class="fas fa-sitemap"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TOOLBAR -->
+                    <div class="toolbar">
+                        <div class="search-box">
+                            <i class="fas fa-search input-icon"></i>
+                            <input type="text" class="search-input" id="searchInputCategorias" placeholder="Buscar categoría por código o nombre...">
+                        </div>
+                        
+                        <select class="filter-select" id="filterEstado">
+                            <option value="">Todos los estados</option>
+                            <option value="ACTIVA">Activas</option>
+                            <option value="INACTIVA">Inactivas</option>
+                        </select>
+                        
+                        <select class="filter-select" id="filterTipo">
+                            <option value="">Todos los tipos</option>
+                            <option value="principal">Principales</option>
+                            <option value="subcategoria">Subcategorías</option>
+                        </select>
+                        
+                        <button class="btn btn-primary" onclick="abrirModalCategoria()">
+                            <i class="fas fa-plus"></i> Nueva Categoría
+                        </button>
+                        
+                        <button class="btn btn-secondary" onclick="cargarCategorias()">
+                            <i class="fas fa-sync-alt"></i> Actualizar
+                        </button>
+                    </div>
+
+                    <!-- CARD GRID -->
+                    <div class="card-grid" id="categoriasGrid">
+                        <!-- Las categorías se cargarán dinámicamente -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL PARA MOVIMIENTO DE INVENTARIO -->
+    <div class="modal" id="modalMovimiento">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-exchange-alt"></i> Registrar Movimiento de Inventario
+                </h3>
+                <button class="modal-close" onclick="cerrarModalMovimiento()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formMovimiento">
+                    <div class="form-group">
+                        <label class="form-label">
+                            Tipo de Movimiento <span class="required">*</span>
+                        </label>
+                        <select class="form-select" id="tipoMovimiento" required onchange="cambiarTipoMovimiento()">
+                            <option value="">Seleccione...</option>
+                            <option value="entrada">Entrada de Stock</option>
+                            <option value="salida">Salida de Stock</option>
+                            <option value="transferencia">Transferencia entre Almacenes</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            Producto <span class="required">*</span>
+                        </label>
+                        <select class="form-select" id="productoMovimiento" required>
+                            <option value="">Seleccione un producto...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="grupoAlmacenOrigen" style="display: none;">
+                        <label class="form-label">
+                            Almacén Origen <span class="required">*</span>
+                        </label>
+                        <select class="form-select" id="almacenOrigen">
+                            <option value="">Seleccione...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="grupoAlmacenDestino">
+                        <label class="form-label">
+                            Almacén <span class="required">*</span>
+                        </label>
+                        <select class="form-select" id="almacenDestino" required>
+                            <option value="">Seleccione...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            Cantidad <span class="required">*</span>
+                        </label>
+                        <input type="number" class="form-input" id="cantidadMovimiento" required min="1" placeholder="Ingrese la cantidad">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Observaciones</label>
+                        <textarea class="form-textarea" id="observacionesMovimiento" placeholder="Descripción del movimiento..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="cerrarModalMovimiento()">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="btn btn-success" onclick="guardarMovimiento()">
+                    <i class="fas fa-save"></i> Registrar Movimiento
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA AJUSTE DE STOCK -->
+    <div class="modal" id="modalAjuste">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-sliders-h"></i> Ajustar Stock Manualmente
+                </h3>
+                <button class="modal-close" onclick="cerrarModalAjuste()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formAjuste">
+                    <div class="form-group">
+                        <label class="form-label">
+                            Producto <span class="required">*</span>
+                        </label>
+                        <select class="form-select" id="productoAjuste" required onchange="cargarStockActual()">
+                            <option value="">Seleccione un producto...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            Almacén <span class="required">*</span>
+                        </label>
+                        <select class="form-select" id="almacenAjuste" required onchange="cargarStockActual()">
+                            <option value="">Seleccione...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Stock Actual</label>
+                        <input type="text" class="form-input" id="stockActualInfo" readonly placeholder="Seleccione producto y almacén">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            Nuevo Stock <span class="required">*</span>
+                        </label>
+                        <input type="number" class="form-input" id="nuevoStock" required min="0" placeholder="Ingrese el nuevo stock">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            Motivo del Ajuste <span class="required">*</span>
+                        </label>
+                        <textarea class="form-textarea" id="motivoAjuste" required placeholder="Ej: Inventario físico, pérdida, daño, etc."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="cerrarModalAjuste()">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="btn btn-success" onclick="guardarAjuste()">
+                    <i class="fas fa-save"></i> Guardar Ajuste
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA DETALLES DE INVENTARIO -->
+    <div class="modal" id="modalDetalles">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-info-circle"></i> Detalles de Inventario
+                </h3>
+                <button class="modal-close" onclick="cerrarModalDetalles()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="detallesInventarioBody">
+                <!-- Se carga dinámicamente -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="cerrarModalDetalles()">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA AGREGAR/EDITAR CATEGORÍA -->
+    <div class="modal" id="modalCategoria">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalCategoriaTitle">
+                    <i class="fas fa-folder-plus"></i> Nueva Categoría
+                </h3>
+                <button class="modal-close" onclick="cerrarModalCategoria()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formCategoria">
+                    <input type="hidden" id="categoriaId">
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-barcode"></i>
+                            Código de Categoría <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-input" id="codigoCategoria" required maxlength="50" placeholder="Ej: CAT-001">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-tag"></i>
+                            Nombre de Categoría <span class="required">*</span>
+                        </label>
+                        <input type="text" class="form-input" id="nombreCategoria" required maxlength="100" placeholder="Nombre de la categoría">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-level-up-alt"></i>
+                            Categoría Padre
+                        </label>
+                        <select class="form-select" id="categoriaPadre">
+                            <option value="">Sin categoría padre (Principal)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-align-left"></i>
+                            Descripción
+                        </label>
+                        <textarea class="form-textarea" id="descripcionCategoria" placeholder="Descripción detallada de la categoría"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-toggle-on"></i>
+                            Estado
+                        </label>
+                        <select class="form-select" id="estadoCategoria">
+                            <option value="ACTIVA">Activa</option>
+                            <option value="INACTIVA">Inactiva</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="cerrarModalCategoria()">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="btn btn-success" onclick="guardarCategoria()">
+                    <i class="fas fa-save"></i> Guardar Categoría
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
+    <script>
+// Configuración de la API
+const API_BASE_URL = 'http://localhost:8082/api';
+
+// Variables globales
+let inventarioData = [];
+let productosData = [];
+let almacenesData = [];
+let categorias = [];
+let categoriaEditando = null;
+let categoriasReales = new Map(); // Map para categorías únicas de productos
+let categoriasManuales = []; // Categorías creadas manualmente
+
+// Sincronizar categorías desde productos
+function sincronizarCategoriasDesdeProductos() {
+    // Extraer categorías únicas de los productos
+    const categoriasDeProductos = new Map();
+    
+    productosData.forEach(producto => {
+        if (producto.categoria) {
+            const categoriaId = producto.categoria.idCategoria;
+            if (!categoriasDeProductos.has(categoriaId)) {
+                categoriasDeProductos.set(categoriaId, {
+                    id: categoriaId,
+                    codigo: producto.categoria.codigoCategoria || `CAT-${categoriaId}`,
+                    nombre: producto.categoria.nombreCategoria,
+                    descripcion: producto.categoria.descripcion || `Categoría ${producto.categoria.nombreCategoria}`,
+                    padre_id: null,
+                    estado: 'ACTIVA',
+                    fecha_creacion: new Date().toISOString().split('T')[0],
+                    origen: 'producto' // Marcar que viene de un producto
+                });
+            }
+        }
+    });
+    
+    // Combinar con categorías manuales (las creadas manualmente tienen prioridad)
+    const categoriasManualesMap = new Map(
+        categoriasManuales.map(cat => [cat.id, cat])
+    );
+    
+    // Actualizar array de categorías
+    categorias = [
+        ...Array.from(categoriasManualesMap.values()),
+        ...Array.from(categoriasDeProductos.values()).filter(
+            cat => !categoriasManualesMap.has(cat.id)
+        )
+    ];
+    
+    categoriasReales = categoriasDeProductos;
+}
+
+// Cargar datos al iniciar
+window.onload = function() {
+    cargarProductos();
+    cargarAlmacenes();
+    cargarInventario();
+    cargarCategorias();
+    actualizarEstadisticasCategorias();
+    inicializarEventos();
+    console.log('✅ Sistema de Inventario cargado');
+};
+
+// ==================== FUNCIONES DE TABS ====================
+
+function cambiarTab(tabName) {
+    // Ocultar todos los tabs
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Desactivar todos los botones
+    document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Activar el tab seleccionado
+    document.getElementById('tab-' + tabName).classList.add('active');
+    event.target.classList.add('active');
+}
+
+// ==================== FUNCIONES DE EVENTOS ====================
+
+function inicializarEventos() {
+    const searchInventario = document.getElementById('searchInputInventario');
+    const filterAlmacen = document.getElementById('filterAlmacen');
+    const searchCategorias = document.getElementById('searchInputCategorias');
+    const filterEstado = document.getElementById('filterEstado');
+    const filterTipo = document.getElementById('filterTipo');
+
+    if (searchInventario) searchInventario.addEventListener('input', renderizarInventario);
+    if (filterAlmacen) filterAlmacen.addEventListener('change', renderizarInventario);
+    if (searchCategorias) searchCategorias.addEventListener('input', cargarCategorias);
+    if (filterEstado) filterEstado.addEventListener('change', cargarCategorias);
+    if (filterTipo) filterTipo.addEventListener('change', cargarCategorias);
+    
+    // Cerrar modales al hacer clic fuera
+    ['modalMovimiento', 'modalAjuste', 'modalDetalles', 'modalCategoria'].forEach(modalId => {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        }
+    });
+}
+
+// ==================== FUNCIONES DE CARGA DE DATOS - INVENTARIO ====================
+
+async function cargarInventario() {
+    try {
+        mostrarCargando();
+        
+        const response = await fetch(`${API_BASE_URL}/almacenes/activos`);
+        if (!response.ok) throw new Error('Error al cargar almacenes');
+        
+        const almacenes = await response.json();
+        inventarioData = [];
+        
+        for (const almacen of almacenes) {
+            const invResponse = await fetch(`${API_BASE_URL}/inventario/almacen/${almacen.idAlmacen}`);
+            if (invResponse.ok) {
+                const inventarios = await invResponse.json();
+                inventarioData.push(...inventarios);
+            }
+        }
+        
+        renderizarInventario();
+        actualizarEstadisticas();
+    } catch (error) {
+        console.error('Error al cargar inventario:', error);
+        mostrarError('Error al cargar el inventario. Verifique que el servidor esté corriendo en el puerto 8082.');
+    }
+}
+
+async function cargarProductos() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/productos`);
+        if (!response.ok) throw new Error('Error al cargar productos');
+        
+        productosData = await response.json();
+        llenarSelectProductos();
+    } catch (error) {
+        console.error('Error al cargar productos:', error);
+    }
+}
+
+async function cargarAlmacenes() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/almacenes/activos`);
+        if (!response.ok) throw new Error('Error al cargar almacenes');
+        
+        almacenesData = await response.json();
+        llenarSelectAlmacenes();
+    } catch (error) {
+        console.error('Error al cargar almacenes:', error);
+    }
+}
+
+// ==================== FUNCIONES DE RENDERIZADO - INVENTARIO ====================
+
+function renderizarInventario() {
+    const tbody = document.getElementById('inventarioTableBody');
+    if (!tbody) return;
+
+    const searchInput = document.getElementById('searchInputInventario');
+    const filterAlmacenSelect = document.getElementById('filterAlmacen');
+    
+    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+    const filterAlmacen = filterAlmacenSelect ? filterAlmacenSelect.value : '';
+
+    let inventarioFiltrado = inventarioData.filter(inv => {
+        const matchSearch = inv.producto.nombreProducto.toLowerCase().includes(searchTerm) ||
+                          inv.producto.codigoProducto.toLowerCase().includes(searchTerm) ||
+                          inv.almacen.nombreAlmacen.toLowerCase().includes(searchTerm);
+        
+        const matchAlmacen = !filterAlmacen || inv.almacen.idAlmacen == filterAlmacen;
+
+        return matchSearch && matchAlmacen;
+    });
+
+    if (inventarioFiltrado.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="10" style="text-align: center; padding: 40px;">
+                    <i class="fas fa-box-open" style="font-size: 48px; color: var(--gris-texto-secundario); margin-bottom: 10px; display: block;"></i>
+                    <p>No se encontraron registros de inventario</p>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    tbody.innerHTML = inventarioFiltrado.map(inv => {
+        const stockDisponible = inv.stockActual - inv.stockReservado;
+        const stockMinimo = inv.producto.stockMinimo || 0;
+        const esBajoStock = inv.stockActual <= stockMinimo;
+        
+        let estadoBadge = '';
+        if (esBajoStock) {
+            estadoBadge = '<span class="badge badge-danger"><i class="fas fa-exclamation-triangle"></i> Crítico</span>';
+        } else if (inv.stockActual <= stockMinimo * 1.5) {
+            estadoBadge = '<span class="badge badge-warning"><i class="fas fa-exclamation-circle"></i> Bajo</span>';
+        } else {
+            estadoBadge = '<span class="badge badge-success"><i class="fas fa-check-circle"></i> Normal</span>';
+        }
+
+        return `
+            <tr>
+                <td>${inv.idInventario}</td>
+                <td><strong>${inv.producto.nombreProducto}</strong></td>
+                <td><code>${inv.producto.codigoProducto}</code></td>
+                <td>${inv.almacen.nombreAlmacen}</td>
+                <td><strong>${inv.stockActual}</strong></td>
+                <td>${inv.stockReservado}</td>
+                <td><strong style="color: ${stockDisponible > 0 ? 'var(--verde-exito)' : 'var(--rojo-peligro)'};">${stockDisponible}</strong></td>
+                <td>${inv.ubicacionEstante || 'N/A'}</td>
+                <td>${estadoBadge}</td>
+                <td>
+                    <div style="display: flex; gap: 5px;">
+                        <button class="btn btn-sm btn-primary" onclick="verDetalles(${inv.idInventario})" title="Ver detalles">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-sm btn-success" onclick="abrirModalAjusteRapido(${inv.producto.idProducto}, ${inv.almacen.idAlmacen})" title="Ajustar stock">
+                            <i class="fas fa-sliders-h"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function actualizarEstadisticas() {
+    // Calcular productos únicos
+    const productosUnicos = new Set(inventarioData.map(inv => inv.producto.idProducto)).size;
+    
+    // Calcular stock total (suma de todo el stock actual)
+    const stockTotal = inventarioData.reduce((sum, inv) => sum + inv.stockActual, 0);
+    
+    // Calcular stock reservado total
+    const stockReservadoTotal = inventarioData.reduce((sum, inv) => sum + inv.stockReservado, 0);
+    
+    // Calcular productos con stock bajo
+    // Un producto está en stock bajo si su stock actual <= stock mínimo
+    const stockBajoCount = inventarioData.filter(inv => {
+        const stockMinimo = inv.producto.stockMinimo || 0;
+        return inv.stockActual <= stockMinimo && inv.stockActual > 0;
+    }).length;
+
+    // Actualizar valores en el DOM con animación
+    animarValor('totalProductos', productosUnicos);
+    animarValor('stockTotal', stockTotal);
+    animarValor('stockBajo', stockBajoCount);
+    animarValor('stockReservado', stockReservadoTotal);
+    
+    // Cambiar color de la tarjeta de stock bajo según la cantidad
+    const stockBajoCard = document.getElementById('stockBajo')?.closest('.stat-card');
+    if (stockBajoCard) {
+        if (stockBajoCount > 5) {
+            stockBajoCard.style.borderLeft = '4px solid var(--rojo-peligro)';
+        } else if (stockBajoCount > 0) {
+            stockBajoCard.style.borderLeft = '4px solid var(--amarillo-advertencia)';
+        } else {
+            stockBajoCard.style.borderLeft = '4px solid var(--verde-exito)';
+        }
+    }
+}
+
+// Función para animar cambios en los valores
+function animarValor(elementId, valorFinal) {
+    const elemento = document.getElementById(elementId);
+    if (!elemento) return;
+    
+    const valorActual = parseInt(elemento.textContent) || 0;
+    
+    if (valorActual === valorFinal) {
+        elemento.textContent = valorFinal;
+        return;
+    }
+    
+    const diferencia = valorFinal - valorActual;
+    const pasos = 20;
+    const incremento = diferencia / pasos;
+    let paso = 0;
+    
+    const intervalo = setInterval(() => {
+        paso++;
+        const nuevoValor = Math.round(valorActual + (incremento * paso));
+        elemento.textContent = nuevoValor;
+        
+        if (paso >= pasos) {
+            clearInterval(intervalo);
+            elemento.textContent = valorFinal;
+        }
+    }, 30);
+}
+
+// ==================== FUNCIONES DE SELECT ====================
+
+function llenarSelectProductos() {
+    const selects = ['productoMovimiento', 'productoAjuste'];
+    selects.forEach(selectId => {
+        const select = document.getElementById(selectId);
+        if (!select) return;
+        
+        select.innerHTML = '<option value="">Seleccione un producto...</option>';
+        productosData.forEach(prod => {
+            select.innerHTML += `<option value="${prod.idProducto}">${prod.codigoProducto} - ${prod.nombreProducto}</option>`;
+        });
+    });
+}
+
+function llenarSelectAlmacenes() {
+    const selects = ['filterAlmacen', 'almacenOrigen', 'almacenDestino', 'almacenAjuste'];
+    selects.forEach(selectId => {
+        const select = document.getElementById(selectId);
+        if (!select) return;
+        
+        const esFilter = selectId === 'filterAlmacen';
+        select.innerHTML = esFilter ? '<option value="">Todos los almacenes</option>' : '<option value="">Seleccione...</option>';
+        almacenesData.forEach(alm => {
+            select.innerHTML += `<option value="${alm.idAlmacen}">${alm.nombreAlmacen}</option>`;
+        });
+    });
+}
+
+// ==================== MODAL MOVIMIENTO ====================
+
+function abrirModalMovimiento() {
+    const modal = document.getElementById('modalMovimiento');
+    const form = document.getElementById('formMovimiento');
+    
+    if (modal) modal.classList.add('active');
+    if (form) form.reset();
+    cambiarTipoMovimiento();
+}
+
+function cerrarModalMovimiento() {
+    const modal = document.getElementById('modalMovimiento');
+    if (modal) modal.classList.remove('active');
+}
+
+function cambiarTipoMovimiento() {
+    const tipoSelect = document.getElementById('tipoMovimiento');
+    const grupoOrigen = document.getElementById('grupoAlmacenOrigen');
+    const grupoDestino = document.getElementById('grupoAlmacenDestino');
+    
+    if (!tipoSelect || !grupoOrigen || !grupoDestino) return;
+    
+    const tipo = tipoSelect.value;
+    const labelDestino = grupoDestino.querySelector('label');
+    const almacenOrigen = document.getElementById('almacenOrigen');
+
+    if (tipo === 'transferencia') {
+        grupoOrigen.style.display = 'block';
+        grupoDestino.style.display = 'block';
+        if (labelDestino) labelDestino.innerHTML = 'Almacén Destino <span class="required">*</span>';
+        if (almacenOrigen) almacenOrigen.required = true;
+    } else if (tipo === 'entrada') {
+        grupoOrigen.style.display = 'none';
+        grupoDestino.style.display = 'block';
+        if (labelDestino) labelDestino.innerHTML = 'Almacén <span class="required">*</span>';
+        if (almacenOrigen) almacenOrigen.required = false;
+    } else if (tipo === 'salida') {
+        grupoOrigen.style.display = 'none';
+        grupoDestino.style.display = 'block';
+        if (labelDestino) labelDestino.innerHTML = 'Almacén <span class="required">*</span>';
+        if (almacenOrigen) almacenOrigen.required = false;
+    } else {
+        grupoOrigen.style.display = 'none';
+        grupoDestino.style.display = 'none';
+    }
+}
+
+async function guardarMovimiento() {
+    const form = document.getElementById('formMovimiento');
+    if (!form || !form.checkValidity()) {
+        showNotification('Por favor complete todos los campos obligatorios', 'error');
+        return;
+    }
+
+    const tipo = document.getElementById('tipoMovimiento').value;
+    const productoId = document.getElementById('productoMovimiento').value;
+    const cantidad = document.getElementById('cantidadMovimiento').value;
+    const observaciones = document.getElementById('observacionesMovimiento').value;
+
+    try {
+        let url = '';
+        let params = new URLSearchParams({
+            productoId: productoId,
+            cantidad: cantidad
+        });
+
+        if (tipo === 'entrada') {
+            const almacenId = document.getElementById('almacenDestino').value;
+            params.append('almacenId', almacenId);
+            url = `${API_BASE_URL}/inventario/aumentar-stock?${params}`;
+        } else if (tipo === 'salida') {
+            const almacenId = document.getElementById('almacenDestino').value;
+            params.append('almacenId', almacenId);
+            url = `${API_BASE_URL}/inventario/descontar-stock?${params}`;
+        } else if (tipo === 'transferencia') {
+            const origenId = document.getElementById('almacenOrigen').value;
+            const destinoId = document.getElementById('almacenDestino').value;
+            
+            if (origenId === destinoId) {
+                showNotification('Los almacenes de origen y destino deben ser diferentes', 'error');
+                return;
+            }
+            
+            params.append('almacenOrigenId', origenId);
+            params.append('almacenDestinoId', destinoId);
+            url = `${API_BASE_URL}/inventario/transferir?${params}`;
+        }
+
+        const response = await fetch(url, { method: 'POST' });
+        const result = await response.json();
+
+        if (result.success) {
+            showNotification('✅ Movimiento registrado exitosamente', 'success');
+            cerrarModalMovimiento();
+            cargarInventario();
+        } else {
+            showNotification('Error: ' + result.message, 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al registrar el movimiento', 'error');
+    }
+}
+
+// ==================== MODAL AJUSTE ====================
+
+function abrirModalAjuste() {
+    const modal = document.getElementById('modalAjuste');
+    const form = document.getElementById('formAjuste');
+    const stockInfo = document.getElementById('stockActualInfo');
+    
+    if (modal) modal.classList.add('active');
+    if (form) form.reset();
+    if (stockInfo) stockInfo.value = '';
+}
+
+function abrirModalAjusteRapido(productoId, almacenId) {
+    abrirModalAjuste();
+    
+    const productoSelect = document.getElementById('productoAjuste');
+    const almacenSelect = document.getElementById('almacenAjuste');
+    
+    if (productoSelect) productoSelect.value = productoId;
+    if (almacenSelect) almacenSelect.value = almacenId;
+    
+    cargarStockActual();
+}
+
+function cerrarModalAjuste() {
+    const modal = document.getElementById('modalAjuste');
+    if (modal) modal.classList.remove('active');
+}
+
+async function cargarStockActual() {
+    const productoSelect = document.getElementById('productoAjuste');
+    const almacenSelect = document.getElementById('almacenAjuste');
+    const stockInfo = document.getElementById('stockActualInfo');
+    
+    if (!productoSelect || !almacenSelect || !stockInfo) return;
+    
+    const productoId = productoSelect.value;
+    const almacenId = almacenSelect.value;
+
+    if (!productoId || !almacenId) {
+        stockInfo.value = '';
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/inventario/producto/${productoId}/almacen/${almacenId}`);
+        const data = await response.json();
+        
+        if (data.stockActual !== undefined) {
+            stockInfo.value = `${data.stockActual} unidades (Disponible: ${data.stockDisponible})`;
+        } else {
+            stockInfo.value = '0 unidades (nuevo registro)';
+        }
+    } catch (error) {
+        console.error('Error al cargar stock:', error);
+        stockInfo.value = '0 unidades (nuevo registro)';
+    }
+}
+
+async function guardarAjuste() {
+    const form = document.getElementById('formAjuste');
+    if (!form || !form.checkValidity()) {
+        showNotification('Por favor complete todos los campos obligatorios', 'error');
+        return;
+    }
+
+    const productoId = document.getElementById('productoAjuste').value;
+    const almacenId = document.getElementById('almacenAjuste').value;
+    const nuevoStock = document.getElementById('nuevoStock').value;
+    const motivo = document.getElementById('motivoAjuste').value;
+
+    if (nuevoStock < 0) {
+        showNotification('El stock no puede ser negativo', 'error');
+        return;
+    }
+
+    try {
+        const params = new URLSearchParams({
+            productoId: productoId,
+            almacenId: almacenId,
+            nuevoStock: nuevoStock,
+            observacion: motivo
+        });
+
+        const response = await fetch(`${API_BASE_URL}/inventario/ajustar?${params}`, {
+            method: 'POST'
+        });
+        const result = await response.json();
+
+        if (result.success) {
+            showNotification('✅ Stock ajustado exitosamente', 'success');
+            cerrarModalAjuste();
+            cargarInventario();
+        } else {
+            showNotification('Error: ' + result.message, 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al ajustar el stock', 'error');
+    }
+}
+
+// ==================== MODAL DETALLES ====================
+
+async function verDetalles(inventarioId) {
+    const inv = inventarioData.find(i => i.idInventario === inventarioId);
+    if (!inv) return;
+
+    const modal = document.getElementById('modalDetalles');
+    const body = document.getElementById('detallesInventarioBody');
+    
+    if (!modal || !body) return;
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/inventario/movimientos/${inv.producto.idProducto}`);
+        const movimientos = await response.json();
+
+        const ultimosMovimientos = movimientos.slice(0, 5).map(mov => `
+            <tr>
+                <td>${new Date(mov.fechaMovimiento).toLocaleDateString('es-MX')}</td>
+                <td><span class="badge badge-${mov.tipoMovimiento === 'ENTRADA' ? 'success' : mov.tipoMovimiento === 'SALIDA' ? 'danger' : 'info'}">${mov.tipoMovimiento}</span></td>
+                <td>${mov.cantidad}</td>
+                <td>${mov.observaciones || 'N/A'}</td>
+            </tr>
+        `).join('');
+
+        body.innerHTML = `
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div>
+                    <h4 style="margin-bottom: 10px;"><i class="fas fa-box"></i> Información del Producto</h4>
+                    <p><strong>Nombre:</strong> ${inv.producto.nombreProducto}</p>
+                    <p><strong>Código:</strong> ${inv.producto.codigoProducto}</p>
+                    <p><strong>Categoría:</strong> ${inv.producto.categoria?.nombreCategoria || 'N/A'}</p>
+                    <p><strong>Stock Mínimo:</strong> ${inv.producto.stockMinimo || 0}</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 10px;"><i class="fas fa-warehouse"></i> Información del Almacén</h4>
+                    <p><strong>Almacén:</strong> ${inv.almacen.nombreAlmacen}</p>
+                    <p><strong>Ubicación:</strong> ${inv.ubicacionEstante || 'No especificada'}</p>
+                    <p><strong>Última Actualización:</strong> ${inv.fechaUltimoMovimiento ? new Date(inv.fechaUltimoMovimiento).toLocaleString('es-MX') : 'N/A'}</p>
+                </div>
+            </div>
+            
+            <div style="background: var(--gris-suave-3); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <h4 style="margin-bottom: 10px;"><i class="fas fa-chart-bar"></i> Estado del Stock</h4>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold; color: var(--azul-principal);">${inv.stockActual}</div>
+                        <div style="font-size: 12px; color: var(--gris-texto-secundario);">Stock Actual</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold; color: var(--naranja);">${inv.stockReservado}</div>
+                        <div style="font-size: 12px; color: var(--gris-texto-secundario);">Stock Reservado</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold; color: var(--verde-exito);">${inv.stockActual - inv.stockReservado}</div>
+                        <div style="font-size: 12px; color: var(--gris-texto-secundario);">Stock Disponible</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h4 style="margin-bottom: 10px;"><i class="fas fa-history"></i> Últimos Movimientos</h4>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Cantidad</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${ultimosMovimientos || '<tr><td colspan="4" style="text-align: center;">No hay movimientos registrados</td></tr>'}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    } catch (error) {
+        console.error('Error al cargar movimientos:', error);
+        body.innerHTML = '<p style="text-align: center; padding: 20px;">Error al cargar los detalles</p>';
+    }
+
+    modal.classList.add('active');
+}
+
+function cerrarModalDetalles() {
+    const modal = document.getElementById('modalDetalles');
+    if (modal) modal.classList.remove('active');
+}
+
+// ==================== FUNCIONES DE CATEGORÍAS ====================
+
+function getNombrePadre(padreId) {
+    if (!padreId) return null;
+    const padre = categorias.find(c => c.id === padreId);
+    return padre ? padre.nombre : null;
+}
+
+function cargarCategorias() {
+    const grid = document.getElementById('categoriasGrid');
+    if (!grid) return;
+
+    const searchInput = document.getElementById('searchInputCategorias');
+    const filterEstadoSelect = document.getElementById('filterEstado');
+    const filterTipoSelect = document.getElementById('filterTipo');
+    
+    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+    const filterEstado = filterEstadoSelect ? filterEstadoSelect.value : '';
+    const filterTipo = filterTipoSelect ? filterTipoSelect.value : '';
+
+    let categoriasFiltradas = categorias.filter(categoria => {
+        const matchSearch = categoria.nombre.toLowerCase().includes(searchTerm) ||
+                          categoria.codigo.toLowerCase().includes(searchTerm);
+        const matchEstado = !filterEstado || categoria.estado === filterEstado;
+        const esPrincipal = !categoria.padre_id;
+        const matchTipo = !filterTipo || 
+                        (filterTipo === 'principal' && esPrincipal) ||
+                        (filterTipo === 'subcategoria' && !esPrincipal);
+        return matchSearch && matchEstado && matchTipo;
+    });
+
+    grid.innerHTML = '';
+
+    if (categoriasFiltradas.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+                <i class="fas fa-folder-open"></i>
+                <h3>No se encontraron categorías</h3>
+                <p>Intenta ajustar los filtros de búsqueda</p>
+            </div>
+        `;
+        return;
+    }
+
+    categoriasFiltradas.forEach(categoria => {
+        const card = document.createElement('div');
+        const esPrincipal = !categoria.padre_id;
+        const nombrePadre = getNombrePadre(categoria.padre_id);
+        
+        card.className = `category-card ${esPrincipal ? 'principal' : 'subcategoria'}`;
+        
+        const estadoBadge = categoria.estado === 'ACTIVA'
+            ? '<span class="badge badge-success"><i class="fas fa-check-circle"></i> Activa</span>'
+            : '<span class="badge badge-danger"><i class="fas fa-times-circle"></i> Inactiva</span>';
+        
+        const tipoBadge = esPrincipal
+            ? '<span class="badge badge-info"><i class="fas fa-layer-group"></i> Principal</span>'
+            : '<span class="badge badge-purple"><i class="fas fa-sitemap"></i> Subcategoría</span>';
+
+        const iconColor = esPrincipal 
+            ? 'background: linear-gradient(135deg, var(--azul-principal), var(--azul-principal-gradient));'
+            : 'background: linear-gradient(135deg, var(--morado), var(--morado-dark));';
+
+        card.innerHTML = `
+            <div class="category-header">
+                <div style="flex: 1;">
+                    <div class="category-title">${categoria.nombre}</div>
+                    <div class="category-code"><i class="fas fa-barcode"></i> ${categoria.codigo}</div>
+                </div>
+                <div class="category-icon" style="${iconColor}">
+                    <i class="fas ${esPrincipal ? 'fa-folder' : 'fa-folder-open'}"></i>
+                </div>
+            </div>
+            <div class="category-body">
+                <p class="category-description">${categoria.descripcion || 'Sin descripción'}</p>
+                
+                ${nombrePadre ? `
+                    <div class="meta-item" style="background: var(--gris-suave-3); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                        <i class="fas fa-level-up-alt"></i>
+                        <span><strong>Categoría padre:</strong> ${nombrePadre}</span>
+                    </div>
+                ` : ''}
+                
+                <div class="category-meta">
+                    ${tipoBadge}
+                    ${estadoBadge}
+                </div>
+                
+                <div class="meta-item" style="margin-top: 10px;">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Creada: ${formatearFecha(categoria.fecha_creacion)}</span>
+                </div>
+            </div>
+            <div class="category-footer">
+                <div style="display: flex; gap: 7px;">
+                    <button class="btn btn-sm btn-primary" onclick="editarCategoria(${categoria.id})" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="eliminarCategoria(${categoria.id})" title="Eliminar">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <span style="font-size: 9.8px; color: var(--gris-texto-secundario); font-weight: 600;">
+                    ID: #${categoria.id}
+                </span>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function formatearFecha(fecha) {
+    const date = new Date(fecha);
+    return date.toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function actualizarEstadisticasCategorias() {
+    const total = categorias.length;
+    const activas = categorias.filter(c => c.estado === 'ACTIVA').length;
+    const principales = categorias.filter(c => !c.padre_id).length;
+    const subcategorias = categorias.filter(c => c.padre_id).length;
+
+    const totalEl = document.getElementById('totalCategorias');
+    const activasEl = document.getElementById('categoriasActivas');
+    const principalesEl = document.getElementById('categoriasPrincipales');
+    const subcategoriasEl = document.getElementById('subcategorias');
+
+    if (totalEl) totalEl.textContent = total;
+    if (activasEl) activasEl.textContent = activas;
+    if (principalesEl) principalesEl.textContent = principales;
+    if (subcategoriasEl) subcategoriasEl.textContent = subcategorias;
+}
+
+function cargarCategoriasSelect() {
+    const select = document.getElementById('categoriaPadre');
+    if (!select) return;
+    
+    const categoriasActivas = categorias.filter(c => c.estado === 'ACTIVA');
+    
+    select.innerHTML = '<option value="">Sin categoría padre (Principal)</option>';
+    
+    categoriasActivas.forEach(categoria => {
+        if (!categoria.padre_id) {
+            const option = document.createElement('option');
+            option.value = categoria.id;
+            option.textContent = `${categoria.codigo} - ${categoria.nombre}`;
+            select.appendChild(option);
+        }
+    });
+}
+
+function abrirModalCategoria(id = null) {
+    const modal = document.getElementById('modalCategoria');
+    const modalTitle = document.getElementById('modalCategoriaTitle');
+    const form = document.getElementById('formCategoria');
+    
+    if (!modal) return;
+    
+    cargarCategoriasSelect();
+    
+    if (id) {
+        categoriaEditando = categorias.find(c => c.id === id);
+        if (modalTitle) modalTitle.innerHTML = '<i class="fas fa-folder-open"></i> Editar Categoría';
+        
+        const categoriaIdInput = document.getElementById('categoriaId');
+        const codigoInput = document.getElementById('codigoCategoria');
+        const nombreInput = document.getElementById('nombreCategoria');
+        const padreSelect = document.getElementById('categoriaPadre');
+        const descripcionInput = document.getElementById('descripcionCategoria');
+        const estadoSelect = document.getElementById('estadoCategoria');
+        
+        if (categoriaIdInput) categoriaIdInput.value = categoriaEditando.id;
+        if (codigoInput) codigoInput.value = categoriaEditando.codigo;
+        if (nombreInput) nombreInput.value = categoriaEditando.nombre;
+        if (padreSelect) padreSelect.value = categoriaEditando.padre_id || '';
+        if (descripcionInput) descripcionInput.value = categoriaEditando.descripcion || '';
+        if (estadoSelect) estadoSelect.value = categoriaEditando.estado;
+    } else {
+        categoriaEditando = null;
+        if (modalTitle) modalTitle.innerHTML = '<i class="fas fa-folder-plus"></i> Nueva Categoría';
+        if (form) form.reset();
+        const categoriaIdInput = document.getElementById('categoriaId');
+        if (categoriaIdInput) categoriaIdInput.value = '';
+    }
+    
+    modal.classList.add('active');
+}
+
+function cerrarModalCategoria() {
+    const modal = document.getElementById('modalCategoria');
+    const form = document.getElementById('formCategoria');
+    
+    if (modal) modal.classList.remove('active');
+    if (form) form.reset();
+    categoriaEditando = null;
+}
+
+function guardarCategoria() {
+    const form = document.getElementById('formCategoria');
+    
+    if (!form || !form.checkValidity()) {
+        showNotification('Por favor complete todos los campos obligatorios', 'error');
+        return;
+    }
+
+    const codigo = document.getElementById('codigoCategoria').value;
+    const categoriaId = document.getElementById('categoriaId').value;
+
+    const codigoExiste = categorias.some(c => 
+        c.codigo.toLowerCase() === codigo.toLowerCase() && 
+        c.id !== parseInt(categoriaId || 0)
+    );
+
+    if (codigoExiste) {
+        showNotification('El código de categoría ya existe', 'error');
+        return;
+    }
+
+    const padreValue = document.getElementById('categoriaPadre').value;
+    const categoriaData = {
+        codigo: codigo,
+        nombre: document.getElementById('nombreCategoria').value,
+        padre_id: padreValue ? parseInt(padreValue) : null,
+        descripcion: document.getElementById('descripcionCategoria').value,
+        estado: document.getElementById('estadoCategoria').value,
+        fecha_creacion: new Date().toISOString().split('T')[0]
+    };
+
+    if (categoriaId) {
+        const index = categorias.findIndex(c => c.id === parseInt(categoriaId));
+        if (index !== -1) {
+            categorias[index] = { ...categorias[index], ...categoriaData };
+            showNotification('✅ Categoría actualizada exitosamente', 'success');
+        }
+    } else {
+        const nuevoId = categorias.length > 0 ? Math.max(...categorias.map(c => c.id)) + 1 : 1;
+        categorias.push({ id: nuevoId, ...categoriaData });
+        showNotification('✅ Categoría creada exitosamente', 'success');
+    }
+
+    cerrarModalCategoria();
+    cargarCategorias();
+    actualizarEstadisticasCategorias();
+}
+
+function editarCategoria(id) {
+    abrirModalCategoria(id);
+}
+
+function eliminarCategoria(id) {
+    const tieneSubcategorias = categorias.some(c => c.padre_id === id);
+    
+    if (tieneSubcategorias) {
+        showNotification('No se puede eliminar esta categoría porque tiene subcategorías asociadas', 'error');
+        return;
+    }
+
+    if (confirm('¿Está seguro de eliminar esta categoría?')) {
+        categorias = categorias.filter(c => c.id !== id);
+        cargarCategorias();
+        actualizarEstadisticasCategorias();
+        showNotification('✅ Categoría eliminada exitosamente', 'success');
+    }
+}
+
+// ==================== FUNCIONES AUXILIARES ====================
+
+function mostrarCargando() {
+    const tbody = document.getElementById('inventarioTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="10" style="text-align: center; padding: 40px;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 32px; color: var(--azul-principal);"></i>
+                <p style="margin-top: 10px;">Cargando inventario...</p>
+            </td>
+        </tr>
+    `;
+}
+
+function mostrarError(mensaje) {
+    const tbody = document.getElementById('inventarioTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="10" style="text-align: center; padding: 40px;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 48px; color: var(--rojo-peligro); margin-bottom: 10px; display: block;"></i>
+                <p style="color: var(--rojo-peligro);">${mensaje}</p>
+                <button class="btn btn-primary" onclick="cargarInventario()" style="margin-top: 15px;">
+                    <i class="fas fa-redo"></i> Reintentar
+                </button>
+            </td>
+        </tr>
+    `;
+}
+
+function cerrarSesion() {
+    if (confirm('¿Está seguro de cerrar sesión?')) {
+        showNotification('Cerrando sesión...', 'info');
+        setTimeout(() => window.location.href = '/login', 1000);
+    }
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    let bgColor, icon;
+    
+    switch(type) {
+        case 'success':
+            bgColor = 'var(--verde-exito)';
+            icon = 'fa-check-circle';
+            break;
+        case 'error':
+            bgColor = 'var(--rojo-peligro)';
+            icon = 'fa-exclamation-circle';
+            break;
+        case 'warning':
+            bgColor = 'var(--amarillo-advertencia)';
+            icon = 'fa-exclamation-triangle';
+            break;
+        default:
+            bgColor = 'var(--azul-principal)';
+            icon = 'fa-info-circle';
+    }
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${bgColor};
+        color: ${type === 'warning' ? '#333' : 'white'};
+        padding: 18px 24px;
+        border-radius: 12px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideIn 0.4s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 500;
+        max-width: 350px;
+    `;
+    
+    notification.innerHTML = `
+        <i class="fas ${icon}" style="font-size: 20px;"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'fadeOut 0.4s ease';
+        setTimeout(() => notification.remove(), 400);
+    }, 3500);
+}
+
+// Cerrar modal con escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.active').forEach(modal => {
+            modal.classList.remove('active');
+        });
+    }
+});
+
+// Animaciones
+const styleAnimations = document.createElement('style');
+styleAnimations.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+`;
+document.head.appendChild(styleAnimations);
+
+// Console log de inicio
+console.log('%c📦 Sistema de Gestión de Inventario', 'color: #4a90e2; font-size: 20px; font-weight: bold;');
+console.log('%c✅ Sistema cargado correctamente', 'color: #28a745; font-size: 14px;');
+console.log('%c📋 Funcionalidades:', 'color: #333; font-size: 13px; font-weight: bold;');
+console.log('%c  • Gestión de inventario y stock', 'color: #6c757d; font-size: 12px;');
+console.log('%c  • Movimientos de inventario', 'color: #6c757d; font-size: 12px;');
+console.log('%c  • Gestión de categorías', 'color: #6c757d; font-size: 12px;');
+console.log('%c  • Estadísticas en tiempo real', 'color: #6c757d; font-size: 12px;')
+    </script>
+</body>
+</html>
