@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas - Sistema POS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Ventas.css">
+    
+</head>
+<body>
+    <div class="main-container">
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2><i class="fas fa-chart-line"></i> ERP System</h2>
+        <p>Sistema Integral de Gestión</p>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-section">
+            <div class="nav-section-title">PRINCIPAL</div>
+        </li>
+        <li class="nav-item" data-modulo="dashboard">
+            <a href="/dashboard" class="nav-link active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="administracion">
+            <div class="nav-section-title">ADMINISTRACIÓN</div>
+        </li>
+        <li class="nav-item" data-modulo="contabilidad">
+            <a href="/Contabilidad" class="nav-link">
+                <i class="fas fa-calculator"></i>
+                <span>Contabilidad</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="ventas">
+            <div class="nav-section-title">VENTAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Clientes">
+            <a href="/Clientes" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="ventas">
+            <a href="/ventas" class="nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Ventas</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="punto-venta">
+            <a href="/Punto de venta" class="nav-link">
+                <i class="fas fa-cash-register"></i>
+                <span>Punto de Venta</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="compras">
+            <div class="nav-section-title">COMPRAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Compras">
+            <a href="/Compras" class="nav-link">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Compras</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="inventario">
+            <div class="nav-section-title">INVENTARIO</div>
+        </li>
+        <li class="nav-item" data-modulo="Inventario">
+            <a href="/Inventario" class="nav-link">
+                <i class="fas fa-boxes"></i>
+                <span>Inventario</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="almacenes">
+            <a href="/Almacenes" class="nav-link">
+                <i class="fas fa-warehouse"></i>
+                <span>Almacenes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="rrhh">
+            <div class="nav-section-title">RECURSOS HUMANOS</div>
+        </li>
+        <li class="nav-item" data-modulo="rrhh">
+            <a href="/rrhh" class="nav-link">
+                <i class="fas fa-user-tie"></i>
+                <span>Empleados</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="logistica">
+            <div class="nav-section-title">LOGÍSTICA</div>
+        </li>
+        <li class="nav-item" data-modulo="logistica">
+            <a href="/logistica" class="nav-link">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Envíos</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="analisis">
+            <div class="nav-section-title">ANÁLISIS</div>
+        </li>
+        <li class="nav-item" data-modulo="reportes">
+            <a href="/reportes" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="sistema">
+            <div class="nav-section-title">SISTEMA</div>
+        </li>
+        <li class="nav-item" data-modulo="configuracion">
+            <a href="/configuracion" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </a>
+        </li>
+        <li>
+        <!-- Botón de cerrar sesión -->
+        <div class="logout-section">
+            <button class="btn-logout" onclick="cerrarSesion()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+        </li>
+    </ul>
+</aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- HEADER -->
+            <header class="page-header">
+                <div class="header-left">
+                    <h1><i class="fas fa-receipt"></i> Ventas</h1>
+                    <div class="breadcrumb">
+                        <span><i class="fas fa-home"></i> Inicio</span>
+                        <span><i class="fas fa-chevron-right"></i></span>
+                        <span>Ventas</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CONTENIDO -->
+            <div class="ventas-container">
+                <!-- FILTROS -->
+                <div class="filtros-section">
+                    <div class="filtros-grid">
+                        <div class="filtro-group">
+                            <label class="filtro-label"><i class="fas fa-search"></i> Buscar</label>
+                            <input type="text" id="searchVenta" class="filtro-input" placeholder="N° venta, cliente...">
+                        </div>
+                        <div class="filtro-group">
+                            <label class="filtro-label"><i class="fas fa-calendar"></i> Fecha Desde</label>
+                            <input type="date" id="fechaDesde" class="filtro-input">
+                        </div>
+                        <div class="filtro-group">
+                            <label class="filtro-label"><i class="fas fa-calendar"></i> Fecha Hasta</label>
+                            <input type="date" id="fechaHasta" class="filtro-input">
+                        </div>
+                        <div class="filtro-group">
+                            <label class="filtro-label"><i class="fas fa-tag"></i> Estado</label>
+                            <select id="filtroEstado" class="filtro-select">
+                                <option value="">Todos</option>
+                                <option value="PAGADA">Pagada</option>
+                                <option value="PENDIENTE">Pendiente</option>
+                                <option value="ANULADA">Anulada</option>
+                            </select>
+                        </div>
+                        <div class="filtro-group">
+                            <label class="filtro-label"><i class="fas fa-credit-card"></i> Tipo Pago</label>
+                            <select id="filtroTipoPago" class="filtro-select">
+                                <option value="">Todos</option>
+                                <option value="EFECTIVO">Efectivo</option>
+                                <option value="TARJETA">Tarjeta</option>
+                                <option value="TRANSFERENCIA">Transferencia</option>
+                                <option value="CREDITO">Crédito</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filtros-actions">
+                        <button class="btn-filtro btn-limpiar" onclick="limpiarFiltros()">
+                            <i class="fas fa-eraser"></i> Limpiar
+                        </button>
+                        <button class="btn-filtro btn-buscar" onclick="buscarVentas()">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ESTADÍSTICAS -->
+                <div class="estadisticas-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon ventas">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-label">Total Ventas</div>
+                            <div class="stat-value" id="statTotalVentas">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon ingresos">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-label">Ingresos</div>
+                            <div class="stat-value" id="statIngresos">$0.00</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon promedio">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-label">Ticket Promedio</div>
+                            <div class="stat-value" id="statPromedio">$0.00</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon anuladas">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-label">Anuladas</div>
+                            <div class="stat-value" id="statAnuladas">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABLA DE VENTAS -->
+                <div class="ventas-table-container">
+                    <div class="table-header">
+                        <div class="table-title">
+                            <i class="fas fa-list"></i> Listado de Ventas
+                        </div>
+                        <div class="table-actions">
+                            <button class="btn-action btn-exportar" onclick="exportarVentas()">
+                                <i class="fas fa-file-excel"></i> Exportar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="ventas-table">
+                            <thead>
+                                <tr>
+                                    <th>N° Venta</th>
+                                    <th>Fecha</th>
+                                    <th>Cliente</th>
+                                    <th>Usuario</th>
+                                    <th>Subtotal</th>
+                                    <th>IVA</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                    <th>Pago</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ventasTableBody">
+                                <!-- Se llenará con JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-footer">
+                        <div class="table-info" id="tableInfo">
+                            Mostrando 0 de 0 ventas
+                        </div>
+                        <div class="pagination" id="paginationControls">
+                            <!-- Se llenará con JavaScript -->
+                        </div>
+                        <!-- MODAL DETALLE VENTA -->
+<div class="modal" id="modalDetalleVenta">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title">
+                <i class="fas fa-file-invoice"></i> Detalle de Venta
+            </div>
+            <button class="modal-close" onclick="cerrarModal('modalDetalleVenta')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="detalle-venta-header">
+                <div class="detalle-info">
+                    <div class="detalle-label">Número de Venta</div>
+                    <div class="detalle-value" id="detalleNumero">-</div>
+                </div>
+                <div class="detalle-info">
+                    <div class="detalle-label">Fecha y Hora</div>
+                    <div class="detalle-value" id="detalleFecha">-</div>
+                </div>
+                <div class="detalle-info">
+                    <div class="detalle-label">Cliente</div>
+                    <div class="detalle-value" id="detalleCliente">-</div>
+                </div>
+                <div class="detalle-info">
+                    <div class="detalle-label">Usuario</div>
+                    <div class="detalle-value" id="detalleUsuario">-</div>
+                </div>
+                <div class="detalle-info">
+                    <div class="detalle-label">Estado</div>
+                    <div class="detalle-value" id="detalleEstado">-</div>
+                </div>
+                <div class="detalle-info">
+                    <div class="detalle-label">Método de Pago</div>
+                    <div class="detalle-value" id="detalleTipoPago">-</div>
+                </div>
+            </div>
+
+            <div class="detalle-productos">
+                <h3><i class="fas fa-box"></i> Productos</h3>
+                <div id="detalleProductosList">
+                    <!-- Se llenará con JavaScript -->
+                </div>
+            </div>
+
+            <div class="detalle-totales">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span id="detalleSubtotal">$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>IVA (16%):</span>
+                    <span id="detalleIva">$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>Descuento:</span>
+                    <span id="detalleDescuento">$0.00</span>
+                </div>
+                <div class="total-row final">
+                    <span>Total:</span>
+                    <span id="detalleTotal">$0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // ==================== VARIABLES GLOBALES ====================
+    const API_BASE_URL = 'http://localhost:8082/api';
+    let ventas = [];
+    let ventasFiltradas = [];
+    let paginaActual = 1;
+    const ventasPorPagina = 10;
+
+    // ==================== INICIALIZACIÓN ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('📊 Vista de Ventas - Iniciando...');
+        establecerFechasPorDefecto();
+        cargarVentas();
+    });
+
+    // ==================== ESTABLECER FECHAS POR DEFECTO ====================
+    function establecerFechasPorDefecto() {
+        const hoy = new Date();
+        const primerDiaMes = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+        
+        document.getElementById('fechaDesde').valueAsDate = primerDiaMes;
+        document.getElementById('fechaHasta').valueAsDate = hoy;
+    }
+
+    // ==================== CARGAR VENTAS ====================
+    async function cargarVentas() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/ventas`);
+            if (!response.ok) throw new Error('Error al cargar ventas');
+            
+            ventas = await response.json();
+            ventasFiltradas = [...ventas];
+            
+            actualizarEstadisticas();
+            renderizarVentas();
+            actualizarPaginacion();
+            
+            console.log(`✅ ${ventas.length} ventas cargadas`);
+        } catch (error) {
+            console.error('❌ Error al cargar ventas:', error);
+            showNotification('Error al cargar ventas', 'error');
+        }
+    }
+
+    // ==================== BUSCAR Y FILTRAR VENTAS ====================
+    function buscarVentas() {
+        const searchTerm = document.getElementById('searchVenta').value.toLowerCase();
+        const fechaDesde = document.getElementById('fechaDesde').value;
+        const fechaHasta = document.getElementById('fechaHasta').value;
+        const estado = document.getElementById('filtroEstado').value;
+        const tipoPago = document.getElementById('filtroTipoPago').value;
+
+        ventasFiltradas = ventas.filter(venta => {
+            // Filtro de búsqueda
+            const coincideBusqueda = !searchTerm || 
+                venta.numeroVenta.toLowerCase().includes(searchTerm) ||
+                venta.cliente.nombreRazonSocial.toLowerCase().includes(searchTerm);
+
+            // Filtro de fecha
+            const fechaVenta = new Date(venta.fechaVenta).toISOString().split('T')[0];
+            const coincideFechaDesde = !fechaDesde || fechaVenta >= fechaDesde;
+            const coincideFechaHasta = !fechaHasta || fechaVenta <= fechaHasta;
+
+            // Filtro de estado
+            const coincideEstado = !estado || venta.estado === estado;
+
+            // Filtro de tipo de pago
+            const coincideTipoPago = !tipoPago || venta.tipoPago === tipoPago;
+
+            return coincideBusqueda && coincideFechaDesde && coincideFechaHasta && 
+                   coincideEstado && coincideTipoPago;
+        });
+
+        paginaActual = 1;
+        actualizarEstadisticas();
+        renderizarVentas();
+        actualizarPaginacion();
+        
+        showNotification(`${ventasFiltradas.length} ventas encontradas`, 'info');
+    }
+
+    function limpiarFiltros() {
+        document.getElementById('searchVenta').value = '';
+        document.getElementById('filtroEstado').value = '';
+        document.getElementById('filtroTipoPago').value = '';
+        establecerFechasPorDefecto();
+        
+        ventasFiltradas = [...ventas];
+        paginaActual = 1;
+        actualizarEstadisticas();
+        renderizarVentas();
+        actualizarPaginacion();
+        
+        showNotification('Filtros limpiados', 'info');
+    }
+
+    // ==================== ACTUALIZAR ESTADÍSTICAS ====================
+    function actualizarEstadisticas() {
+        const totalVentas = ventasFiltradas.filter(v => v.estado !== 'ANULADA').length;
+        const ingresos = ventasFiltradas
+            .filter(v => v.estado === 'PAGADA')
+            .reduce((sum, v) => sum + v.totalVenta, 0);
+        const promedio = totalVentas > 0 ? ingresos / totalVentas : 0;
+        const anuladas = ventasFiltradas.filter(v => v.estado === 'ANULADA').length;
+
+        document.getElementById('statTotalVentas').textContent = totalVentas;
+        document.getElementById('statIngresos').textContent = '$' + formatearNumero(ingresos);
+        document.getElementById('statPromedio').textContent = '$' + formatearNumero(promedio);
+        document.getElementById('statAnuladas').textContent = anuladas;
+    }
+
+    // ==================== RENDERIZAR VENTAS ====================
+    function renderizarVentas() {
+        const tbody = document.getElementById('ventasTableBody');
+        const inicio = (paginaActual - 1) * ventasPorPagina;
+        const fin = inicio + ventasPorPagina;
+        const ventasPagina = ventasFiltradas.slice(inicio, fin);
+
+        if (ventasPagina.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="10">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>No se encontraron ventas</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        tbody.innerHTML = ventasPagina.map(venta => {
+            const fecha = new Date(venta.fechaVenta);
+            const fechaFormato = fecha.toLocaleDateString('es-MX', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+            const horaFormato = fecha.toLocaleTimeString('es-MX', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            const estadoBadge = `badge-${venta.estado.toLowerCase()}`;
+            const tipoPagoBadge = `badge-${venta.tipoPago.toLowerCase()}`;
+
+            return `
+                <tr>
+                    <td><strong>${venta.numeroVenta}</strong></td>
+                    <td>${fechaFormato} ${horaFormato}</td>
+                    <td>${venta.cliente.nombreRazonSocial}</td>
+                    <td>${venta.usuario?.nombre || 'Usuario'}</td>
+                    <td>$${formatearNumero(venta.subtotal)}</td>
+                    <td>$${formatearNumero(venta.impuestos)}</td>
+                    <td><strong>$${formatearNumero(venta.totalVenta)}</strong></td>
+                    <td><span class="badge ${estadoBadge}">${venta.estado}</span></td>
+                    <td><span class="badge ${tipoPagoBadge}">${venta.tipoPago}</span></td>
+                    <td>
+                        <div class="actions-cell">
+                            <button class="btn-table btn-ver" onclick="verDetalleVenta(${venta.idVenta})" title="Ver Detalle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-table btn-imprimir" onclick="imprimirVenta(${venta.idVenta})" title="Imprimir">
+                                <i class="fas fa-print"></i>
+                            </button>
+                            ${venta.estado !== 'ANULADA' ? `
+                            <button class="btn-table btn-anular" onclick="anularVenta(${venta.idVenta})" title="Anular">
+                                <i class="fas fa-ban"></i>
+                            </button>
+                            ` : ''}
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+
+        // Actualizar info de tabla
+        const totalMostrado = Math.min(fin, ventasFiltradas.length);
+        document.getElementById('tableInfo').textContent = 
+            `Mostrando ${inicio + 1}-${totalMostrado} de ${ventasFiltradas.length} ventas`;
+    }
+
+    // ==================== PAGINACIÓN ====================
+    function actualizarPaginacion() {
+        const totalPaginas = Math.ceil(ventasFiltradas.length / ventasPorPagina);
+        const container = document.getElementById('paginationControls');
+
+        let html = `
+            <button class="pagination-btn" onclick="cambiarPagina(${paginaActual - 1})" 
+                    ${paginaActual === 1 ? 'disabled' : ''}>
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        `;
+
+        for (let i = 1; i <= totalPaginas; i++) {
+            if (i === 1 || i === totalPaginas || (i >= paginaActual - 1 && i <= paginaActual + 1)) {
+                html += `
+                    <button class="pagination-btn ${i === paginaActual ? 'active' : ''}" 
+                            onclick="cambiarPagina(${i})">
+                        ${i}
+                    </button>
+                `;
+            } else if (i === paginaActual - 2 || i === paginaActual + 2) {
+                html += `<span style="padding: 0 5px;">...</span>`;
+            }
+        }
+
+        html += `
+            <button class="pagination-btn" onclick="cambiarPagina(${paginaActual + 1})" 
+                    ${paginaActual === totalPaginas || totalPaginas === 0 ? 'disabled' : ''}>
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        `;
+
+        container.innerHTML = html;
+    }
+
+    function cambiarPagina(pagina) {
+        const totalPaginas = Math.ceil(ventasFiltradas.length / ventasPorPagina);
+        if (pagina < 1 || pagina > totalPaginas) return;
+        
+        paginaActual = pagina;
+        renderizarVentas();
+        actualizarPaginacion();
+    }
+
+    // ==================== VER DETALLE VENTA ====================
+    async function verDetalleVenta(ventaId) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/ventas/${ventaId}`);
+            if (!response.ok) throw new Error('Error al cargar detalle');
+            
+            const venta = await response.json();
+            
+            const fecha = new Date(venta.fechaVenta);
+            const fechaFormato = fecha.toLocaleDateString('es-MX', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            document.getElementById('detalleNumero').textContent = venta.numeroVenta;
+            document.getElementById('detalleFecha').textContent = fechaFormato;
+            document.getElementById('detalleCliente').textContent = venta.cliente.nombreRazonSocial;
+            document.getElementById('detalleUsuario').textContent = venta.usuario?.nombre || 'Usuario';
+            document.getElementById('detalleEstado').innerHTML = 
+                `<span class="badge badge-${venta.estado.toLowerCase()}">${venta.estado}</span>`;
+            document.getElementById('detalleTipoPago').innerHTML = 
+                `<span class="badge badge-${venta.tipoPago.toLowerCase()}">${venta.tipoPago}</span>`;
+
+            // Productos
+            const productosHTML = venta.detalles.map(detalle => `
+                <div class="producto-item">
+                    <div class="producto-info">
+                        <div class="producto-nombre">${detalle.producto.nombreProducto}</div>
+                        <div class="producto-detalles">
+                            ${detalle.cantidad} × $${formatearNumero(detalle.precioUnitario)}
+                            ${detalle.descuento > 0 ? ` - Desc: $${formatearNumero(detalle.descuento)}` : ''}
+                        </div>
+                    </div>
+                    <div class="producto-total">$${formatearNumero(detalle.total)}</div>
+                </div>
+            `).join('');
+            document.getElementById('detalleProductosList').innerHTML = productosHTML;
+
+            // Totales
+            document.getElementById('detalleSubtotal').textContent = '$' + formatearNumero(venta.subtotal);
+            document.getElementById('detalleIva').textContent = '$' + formatearNumero(venta.impuestos);
+            document.getElementById('detalleDescuento').textContent = '$' + formatearNumero(venta.descuento);
+            document.getElementById('detalleTotal').textContent = '$' + formatearNumero(venta.totalVenta);
+
+            document.getElementById('modalDetalleVenta').classList.add('active');
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Error al cargar detalle de venta', 'error');
+        }
+    }
+
+    // ==================== IMPRIMIR VENTA ====================
+    function imprimirVenta(ventaId) {
+        showNotification('Imprimiendo venta...', 'info');
+        // Aquí podrías implementar la lógica de impresión
+    }
+
+    // ==================== ANULAR VENTA ====================
+    async function anularVenta(ventaId) {
+        if (!confirm('¿Está seguro de anular esta venta? Esta acción no se puede deshacer.')) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/ventas/${ventaId}/anular`, {
+                method: 'PUT'
+            });
+
+            if (!response.ok) throw new Error('Error al anular venta');
+
+            showNotification('Venta anulada exitosamente', 'success');
+            cargarVentas();
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Error al anular venta', 'error');
+        }
+    }
+
+    // ==================== EXPORTAR VENTAS ====================
+    function exportarVentas() {
+        showNotification('Exportando ventas a Excel...', 'info');
+        // Aquí podrías implementar la lógica de exportación
+    }
+
+    // ==================== UTILIDADES ====================
+    function formatearNumero(numero) {
+        return parseFloat(numero).toLocaleString('es-MX', { 
+            minimumFractionDigits: 2, 
+            maximumFractionDigits: 2 
+        });
+    }
+
+    function cerrarModal(modalId) {
+        document.getElementById(modalId).classList.remove('active');
+    }
+
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        let bgColor, icon;
+        
+        switch(type) {
+            case 'success':
+                bgColor = 'var(--verde-exito)';
+                icon = 'fa-check-circle';
+                break;
+            case 'error':
+                bgColor = 'var(--rojo-peligro)';
+                icon = 'fa-exclamation-circle';
+                break;
+            case 'warning':
+                bgColor = 'var(--amarillo-advertencia)';
+                icon = 'fa-exclamation-triangle';
+                break;
+            default:
+                bgColor = 'var(--azul-principal)';
+                icon = 'fa-info-circle';
+        }
+        
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${bgColor};
+            color: ${type === 'warning' ? '#333' : 'white'};
+            padding: 18px 24px;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+            z-index: 10000;
+            animation: slideIn 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            max-width: 350px;
+        `;
+        
+        notification.innerHTML = `
+            <i class="fas ${icon}" style="font-size: 20px;"></i>
+            <span>${message}</span>
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'fadeOut 0.4s ease';
+            setTimeout(() => notification.remove(), 400);
+        }, 3500);
+    }
+
+    // Estilos de animación
+    const styleAnimations = document.createElement('style');
+    styleAnimations.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    `;
+    document.head.appendChild(styleAnimations);
+
+    console.log('%c📊 Vista de Ventas', 'color: #4a90e2; font-size: 20px; font-weight: bold;');
+    console.log('%c✅ Sistema cargado', 'color: #28a745; font-size: 14px;');
+</script>
+</body>
+</html>
