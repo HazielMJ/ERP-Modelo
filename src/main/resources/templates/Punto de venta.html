@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto de Venta - Sistema ERP</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="PDV.css">
+</head>
+<body>
+    <div class="main-container">
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2><i class="fas fa-chart-line"></i> ERP System</h2>
+        <p>Sistema Integral de Gestión</p>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-section">
+            <div class="nav-section-title">PRINCIPAL</div>
+        </li>
+        <li class="nav-item" data-modulo="dashboard">
+            <a href="/dashboard" class="nav-link active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="administracion">
+            <div class="nav-section-title">ADMINISTRACIÓN</div>
+        </li>
+        <li class="nav-item" data-modulo="contabilidad">
+            <a href="/Contabilidad" class="nav-link">
+                <i class="fas fa-calculator"></i>
+                <span>Contabilidad</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="ventas">
+            <div class="nav-section-title">VENTAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Clientes">
+            <a href="/Clientes" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="ventas">
+            <a href="/ventas" class="nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Ventas</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="punto-venta">
+            <a href="/Punto de venta" class="nav-link">
+                <i class="fas fa-cash-register"></i>
+                <span>Punto de Venta</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="compras">
+            <div class="nav-section-title">COMPRAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Compras">
+            <a href="/Compras" class="nav-link">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Compras</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="inventario">
+            <div class="nav-section-title">INVENTARIO</div>
+        </li>
+        <li class="nav-item" data-modulo="Inventario">
+            <a href="/Inventario" class="nav-link">
+                <i class="fas fa-boxes"></i>
+                <span>Inventario</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="almacenes">
+            <a href="/Almacenes" class="nav-link">
+                <i class="fas fa-warehouse"></i>
+                <span>Almacenes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="rrhh">
+            <div class="nav-section-title">RECURSOS HUMANOS</div>
+        </li>
+        <li class="nav-item" data-modulo="rrhh">
+            <a href="/rrhh" class="nav-link">
+                <i class="fas fa-user-tie"></i>
+                <span>Empleados</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="logistica">
+            <div class="nav-section-title">LOGÍSTICA</div>
+        </li>
+        <li class="nav-item" data-modulo="logistica">
+            <a href="/logistica" class="nav-link">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Envíos</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="analisis">
+            <div class="nav-section-title">ANÁLISIS</div>
+        </li>
+        <li class="nav-item" data-modulo="reportes">
+            <a href="/reportes" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="sistema">
+            <div class="nav-section-title">SISTEMA</div>
+        </li>
+        <li class="nav-item" data-modulo="configuracion">
+            <a href="/configuracion" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </a>
+        </li>
+        <li>
+        <!-- Botón de cerrar sesión -->
+        <div class="logout-section">
+            <button class="btn-logout" onclick="cerrarSesion()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+        </li>
+    </ul>
+</aside>
+
+        <!-- ==================== MAIN CONTENT ==================== -->
+        <div class="main-content">
+            
+            <!-- ==================== HEADER ==================== -->
+            <header class="page-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1><i class="fas fa-cash-register"></i> Punto de Venta</h1>
+                        <div class="breadcrumb">
+                            <a href="/dashboard"><i class="fas fa-home"></i> Inicio</a>
+                            <span>/</span>
+                            <span>Punto de Venta</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="btn btn-primary" id="btnGestionCaja" onclick="abrirModalAperturaCaja()">
+                        <i class="fas fa-cash-register"></i>
+                        Abrir Caja
+                    </button>
+                </div>
+            </header>
+
+            <!-- ==================== CONTENIDO PUNTO DE VENTA ==================== -->
+            <div class="pdv-container">
+                
+                <!-- SECCIÓN IZQUIERDA - PRODUCTOS -->
+                <div class="productos-section">
+                    
+                    <!-- Buscador y Filtros -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" 
+                                   class="search-input" 
+                                   id="searchProducto" 
+                                   placeholder="Buscar producto por nombre o código de barras..."
+                                   autocomplete="off">
+                        </div>
+                        
+                        <div class="categorias-filtro" id="categoriasFiltro">
+                            <button class="categoria-btn active" onclick="filtrarPorCategoria(null)">
+                                <i class="fas fa-th"></i>
+                                Todas
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Grid de Productos -->
+                    <div class="productos-grid-container">
+                        <div class="productos-grid" id="productosGrid">
+                            <div class="ticket-empty">
+                                <i class="fas fa-box-open"></i>
+                                <p>Cargando productos...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- SECCIÓN DERECHA - TICKET -->
+                <div class="ticket-section">
+                    
+                    <!-- Info de Cliente y Caja -->
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="info-card-title">
+                                <i class="fas fa-user"></i>
+                                Cliente
+                            </div>
+                            <div class="info-card-content">
+                                <span id="clienteNombre">Cliente General</span>
+                                <button class="change-btn" onclick="abrirModalCliente()">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-card-title">
+                                <i class="fas fa-cash-register"></i>
+                                Caja
+                            </div>
+                            <div class="info-card-content">
+                                <span id="cajaInfo">Sin Apertura</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ticket Container -->
+                    <div class="ticket-container">
+                        <div class="ticket-header">
+                            <div class="ticket-numero" id="ticketNumero">
+                                <i class="fas fa-receipt"></i> TICKET #0001
+                            </div>
+                            <div class="ticket-fecha" id="ticketFecha">
+                                <i class="fas fa-clock"></i> 01/01/2025 10:30 AM
+                            </div>
+                        </div>
+
+                        <div class="ticket-items" id="ticketItems">
+                            <div class="ticket-empty">
+                                <i class="fas fa-shopping-cart"></i>
+                                <p>No hay productos en el carrito</p>
+                                <p style="font-size: 12px; margin-top: 10px;">Selecciona productos para comenzar</p>
+                            </div>
+                        </div>
+
+                        <div class="ticket-totales">
+                            <div class="total-row subtotal">
+                                <span>Subtotal:</span>
+                                <strong id="subtotalDisplay">$0.00</strong>
+                            </div>
+                            <div class="total-row subtotal">
+                                <span>IVA (16%):</span>
+                                <strong id="ivaDisplay">$0.00</strong>
+                            </div>
+                            <div class="total-row subtotal">
+                                <span>Descuento:</span>
+                                <strong id="descuentoDisplay">$0.00</strong>
+                            </div>
+                            <div class="total-row final">
+                                <span>TOTAL:</span>
+                                <strong id="totalDisplay">$0.00</strong>
+                            </div>
+                        </div>
+
+                        <div class="ticket-actions">
+                            <button class="btn btn-cancelar" onclick="cancelarVenta()">
+                                <i class="fas fa-times"></i>
+                                Cancelar
+                            </button>
+                            <button class="btn btn-cobrar" onclick="abrirModalCobro()" id="btnCobrar" disabled>
+                                <i class="fas fa-hand-holding-usd"></i>
+                                Cobrar
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: SELECCIONAR CLIENTE ==================== -->
+    <div class="modal" id="modalCliente">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-user"></i>
+                    Seleccionar Cliente
+                </h3>
+                <button class="modal-close" onclick="cerrarModal('modalCliente')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Buscar Cliente</label>
+                    <input type="text" class="form-input" id="searchCliente" placeholder="Buscar por nombre o RFC...">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Selecciona un Cliente</label>
+                    <select class="form-select" id="selectCliente" size="8" style="height: 200px;">
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalCliente')">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="seleccionarCliente()">
+                    <i class="fas fa-check"></i>
+                    Seleccionar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: COBRO ==================== -->
+    <div class="modal" id="modalCobro">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    Procesar Cobro
+                </h3>
+                <button class="modal-close" onclick="cerrarModal('modalCobro')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <!-- Método de Pago -->
+                <div class="form-group">
+                    <label class="form-label">Método de Pago</label>
+                    <div class="metodos-pago">
+                        <button class="metodo-btn active" onclick="seleccionarMetodoPago('EFECTIVO')">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Efectivo
+                        </button>
+                        <button class="metodo-btn" onclick="seleccionarMetodoPago('TARJETA')">
+                            <i class="fas fa-credit-card"></i>
+                            Tarjeta
+                        </button>
+                        <button class="metodo-btn" onclick="seleccionarMetodoPago('TRANSFERENCIA')">
+                            <i class="fas fa-exchange-alt"></i>
+                            Transferencia
+                        </button>
+                        <button class="metodo-btn" onclick="seleccionarMetodoPago('CREDITO')">
+                            <i class="fas fa-clock"></i>
+                            Crédito
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Monto Recibido -->
+                <div class="form-group" id="montoRecibidoGroup">
+                    <label class="form-label">
+                        <i class="fas fa-dollar-sign"></i>
+                        Monto Recibido
+                    </label>
+                    <input type="number" 
+                           class="form-input" 
+                           id="montoRecibido" 
+                           placeholder="0.00" 
+                           step="0.01" 
+                           min="0"
+                           oninput="calcularCambio()">
+                </div>
+
+                <!-- Resumen -->
+                <div class="resumen-pago">
+                    <div class="resumen-row">
+                        <span>Total a Cobrar:</span>
+                        <strong id="totalCobro">$0.00</strong>
+                    </div>
+                    <div class="resumen-row">
+                        <span>Monto Recibido:</span>
+                        <strong id="montoRecibidoDisplay">$0.00</strong>
+                    </div>
+                    <div class="resumen-row cambio">
+                        <span>Cambio:</span>
+                        <strong id="cambioDisplay">$0.00</strong>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalCobro')">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button type="button" class="btn btn-success" onclick="procesarVenta()" id="btnProcesarVenta">
+                    <i class="fas fa-check-circle"></i>
+                    Procesar Venta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: APERTURA DE CAJA ==================== -->
+    <div class="modal" id="modalAperturaCaja">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-cash-register"></i>
+                    Apertura de Caja
+                </h3>
+                <button class="modal-close" onclick="cerrarModal('modalAperturaCaja')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-cash-register"></i>
+                        Seleccionar Caja
+                    </label>
+                    <select class="form-select" id="selectCaja">
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-dollar-sign"></i>
+                        Saldo Inicial
+                    </label>
+                    <input type="number" 
+                           class="form-input" 
+                           id="saldoInicial" 
+                           placeholder="0.00" 
+                           step="0.01" 
+                           min="0">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-comment"></i>
+                        Observaciones
+                    </label>
+                    <textarea class="form-input" 
+                              id="observacionesApertura" 
+                              rows="3" 
+                              placeholder="Notas adicionales..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalAperturaCaja')">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button type="button" class="btn btn-success" onclick="abrirCaja()">
+                    <i class="fas fa-check-circle"></i>
+                    Abrir Caja
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: CONFIRMACIÓN VENTA ==================== -->
+    <div class="modal" id="modalConfirmacion">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-check-circle"></i>
+                    Venta Procesada Exitosamente
+                </h3>
+                <button class="modal-close" onclick="cerrarModal('modalConfirmacion')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; padding: 20px;">
+                    <i class="fas fa-check-circle" style="font-size: 80px; color: var(--verde-exito); margin-bottom: 20px;"></i>
+                    <h2 style="color: var(--verde-exito); margin-bottom: 15px;">¡Venta Registrada!</h2>
+                    <p style="font-size: 16px; color: var(--gris-texto-secundario); margin-bottom: 20px;">
+                        La venta se ha procesado correctamente
+                    </p>
+                    <div style="background: var(--gris-suave-3); padding: 20px; border-radius: 12px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Número de Venta:</span>
+                            <strong id="ventaNumeroConfirm">VENTA-0001</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Total:</span>
+                            <strong style="color: var(--verde-exito); font-size: 20px;" id="ventaTotalConfirm">$0.00</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Cambio:</span>
+                            <strong style="color: var(--azul-principal);" id="ventaCambioConfirm">$0.00</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="imprimirTicket()">
+                    <i class="fas fa-print"></i>
+                    Imprimir Ticket
+                </button>
+                <button type="button" class="btn btn-primary" onclick="nuevaVenta()">
+                    <i class="fas fa-plus"></i>
+                    Nueva Venta
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+// ==================== VARIABLES GLOBALES ====================
+let productos = [];
+let categorias = [];
+let clientes = [];
+let cajas = [];
+let carrito = [];
+let usuarioActual = null;
+let clienteSeleccionado = null;
+let cajaAbierta = null;
+let aperturaActual = null;
+let metodoPagoSeleccionado = 'EFECTIVO';
+
+// ==================== CONFIGURACIÓN API ====================
+const API_BASE_URL = 'http://localhost:8082/api';
+
+// ==================== INICIALIZACIÓN ====================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🛒 Punto de Venta - Iniciando...');
+    
+    cargarUsuario();
+    cargarCategorias();
+    cargarProductos();
+    cargarClientes();
+    cargarCajas();
+    inicializarEventos();
+    actualizarTicketNumero();
+    actualizarFechaHora();
+    
+    // En lugar de forzar cierre, cargar caja existente si hay una
+    cargarCajaExistente();
+    
+    console.log('✅ Punto de Venta cargado');
+});
+
+// ==================== CARGAR USUARIO ====================
+function cargarUsuario() {
+    const usuarioStorage = localStorage.getItem('usuario');
+    if (usuarioStorage) {
+        usuarioActual = JSON.parse(usuarioStorage);
+        console.log('👤 Usuario:', usuarioActual.nombre);
+    } else {
+        console.warn('⚠️ No hay usuario en sesión');
+        usuarioActual = { id: 1, nombre: 'Usuario Demo' };
+    }
+}
+
+// ==================== CARGAR CAJA EXISTENTE ====================
+async function cargarCajaExistente() {
+    try {
+        console.log('🔍 Buscando caja abierta existente...');
+        
+        const response = await fetch(`${API_BASE_URL}/apertura-caja/usuario/${usuarioActual?.id || 1}/abierta`);
+        
+        if (response.status === 200) {
+            // Hay caja abierta - cargarla
+            aperturaActual = await response.json();
+            cajaAbierta = aperturaActual.caja;
+            
+            console.log('✅ Caja existente encontrada:', aperturaActual.idApertura);
+            
+            actualizarUICajaAbierta();
+            showNotification(`Caja "${cajaAbierta.nombreCaja}" ya estaba abierta`, 'info');
+            
+        } else if (response.status === 404) {
+            // No hay caja abierta - estado normal
+            console.log('✅ No hay caja abierta');
+            limpiarEstadoCaja();
+        } else {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        
+    } catch (error) {
+        console.error('❌ Error al verificar caja existente:', error);
+        limpiarEstadoCaja();
+    }
+}
+
+// ==================== INICIALIZAR EVENTOS ====================
+function inicializarEventos() {
+    document.getElementById('searchProducto').addEventListener('input', buscarProductos);
+    document.getElementById('searchCliente').addEventListener('input', filtrarClientes);
+    document.getElementById('montoRecibido').addEventListener('input', calcularCambio);
+    
+    let codigoBarras = '';
+    let tiempoUltimaLectura = Date.now();
+    
+    document.addEventListener('keypress', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+            return;
+        }
+        
+        const ahora = Date.now();
+        if (ahora - tiempoUltimaLectura > 100) {
+            codigoBarras = '';
+        }
+        tiempoUltimaLectura = ahora;
+        
+        if (e.key === 'Enter') {
+            if (codigoBarras.length > 0) {
+                buscarProductoPorCodigo(codigoBarras);
+                codigoBarras = '';
+            }
+        } else {
+            codigoBarras += e.key;
+        }
+    });
+    
+    console.log('🎯 Eventos inicializados');
+}
+
+// ==================== CARGAR DATOS ====================
+async function cargarCategorias() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/categorias`);
+        categorias = await response.json();
+        
+        const container = document.getElementById('categoriasFiltro');
+        categorias.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = 'categoria-btn';
+            btn.onclick = () => filtrarPorCategoria(cat.idCategoria);
+            btn.innerHTML = `<i class="fas fa-tag"></i> ${cat.nombreCategoria}`;
+            container.appendChild(btn);
+        });
+        
+        console.log(`✅ ${categorias.length} categorías cargadas`);
+    } catch (error) {
+        console.error('❌ Error al cargar categorías:', error);
+    }
+}
+
+async function cargarProductos() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/productos/con-stock`);
+        if (!response.ok) throw new Error('Error al cargar productos');
+        
+        productos = await response.json();
+        renderizarProductos(productos);
+        console.log(`✅ ${productos.length} productos cargados con stock`);
+    } catch (error) {
+        console.error('❌ Error al cargar productos:', error);
+        showNotification('Error al cargar productos', 'error');
+    }
+}
+
+async function cargarClientes() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/clientes`);
+        clientes = await response.json();
+        
+        clienteSeleccionado = clientes.find(c => c.idCliente === 1) || clientes[0];
+        if (clienteSeleccionado) {
+            document.getElementById('clienteNombre').textContent = clienteSeleccionado.nombreRazonSocial;
+        }
+        
+        console.log(`✅ ${clientes.length} clientes cargados`);
+    } catch (error) {
+        console.error('❌ Error al cargar clientes:', error);
+    }
+}
+
+async function cargarCajas() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/cajas`);
+        cajas = await response.json();
+        
+        const select = document.getElementById('selectCaja');
+        select.innerHTML = '<option value="">Seleccione una caja</option>';
+        
+        cajas.forEach(caja => {
+            const option = document.createElement('option');
+            option.value = caja.idCaja;
+            option.textContent = `${caja.numeroCaja} - ${caja.nombreCaja}`;
+            select.appendChild(option);
+        });
+        
+        console.log(`✅ ${cajas.length} cajas cargadas`);
+    } catch (error) {
+        console.error('❌ Error al cargar cajas:', error);
+    }
+}
+
+// ==================== RENDERIZAR PRODUCTOS ====================
+function renderizarProductos(productosData) {
+    const grid = document.getElementById('productosGrid');
+    
+    if (productosData.length === 0) {
+        grid.innerHTML = `
+            <div class="ticket-empty">
+                <i class="fas fa-box-open"></i>
+                <p>No hay productos disponibles</p>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = productosData.map(producto => {
+        const stockDisponible = producto.stockDisponible || 0;
+        
+        let stockClass = 'stock-normal';
+        let stockTexto = `Stock: ${stockDisponible}`;
+        
+        if (stockDisponible === 0) {
+            stockClass = 'stock-critico';
+            stockTexto = 'Sin Stock';
+        } else if (stockDisponible <= (producto.stockMinimo || 0)) {
+            stockClass = 'stock-critico';
+        } else if (stockDisponible <= (producto.puntoReorden || 0)) {
+            stockClass = 'stock-bajo';
+        }
+        
+        const precioFormateado = parseFloat(producto.precioVenta || 0).toLocaleString('es-MX', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+        
+        return `
+            <div class="producto-card" onclick="agregarAlCarrito(${producto.idProducto})" 
+                 ${stockDisponible === 0 ? 'style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                <div class="producto-icon">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div class="producto-nombre">${producto.nombreProducto}</div>
+                <div class="producto-codigo">${producto.codigoProducto}</div>
+                <div class="producto-precio">$${precioFormateado}</div>
+                <div class="producto-stock ${stockClass}">${stockTexto}</div>
+            </div>
+        `;
+    }).join('');
+}
+
+// ==================== BUSCAR Y FILTRAR PRODUCTOS ====================
+function buscarProductos() {
+    const searchTerm = document.getElementById('searchProducto').value.toLowerCase();
+    
+    const productosFiltrados = productos.filter(p => 
+        p.nombreProducto.toLowerCase().includes(searchTerm) ||
+        p.codigoProducto.toLowerCase().includes(searchTerm) ||
+        (p.codigoBarras && p.codigoBarras.toLowerCase().includes(searchTerm))
+    );
+    
+    renderizarProductos(productosFiltrados);
+}
+
+function buscarProductoPorCodigo(codigo) {
+    const producto = productos.find(p => 
+        p.codigoBarras === codigo || p.codigoProducto === codigo
+    );
+    
+    if (producto) {
+        agregarAlCarrito(producto.idProducto);
+    } else {
+        showNotification('Producto no encontrado', 'warning');
+    }
+}
+
+function filtrarPorCategoria(categoriaId) {
+    document.querySelectorAll('.categoria-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    const clickedBtn = event?.target?.closest('.categoria-btn');
+    if (clickedBtn) {
+        clickedBtn.classList.add('active');
+    }
+    
+    if (categoriaId === null) {
+        renderizarProductos(productos);
+    } else {
+        const productosFiltrados = productos.filter(p => 
+            p.categoria?.idCategoria === categoriaId
+        );
+        renderizarProductos(productosFiltrados);
+    }
+}
+
+// ==================== CARRITO ====================
+function agregarAlCarrito(productoId) {
+    // Validar que haya caja abierta
+    if (!aperturaActual) {
+        showNotification('Debe abrir una caja antes de realizar ventas', 'warning');
+        abrirModalAperturaCaja(); // Abrir modal automáticamente
+        return;
+    }
+    
+    const producto = productos.find(p => p.idProducto === productoId);
+    if (!producto) return;
+    
+    const stockDisponible = producto.stockDisponible || 0;
+    
+    if (stockDisponible === 0) {
+        showNotification('Producto sin stock disponible', 'error');
+        return;
+    }
+    
+    const itemExistente = carrito.find(item => item.producto.idProducto === productoId);
+    
+    if (itemExistente) {
+        if (itemExistente.cantidad < stockDisponible) {
+            itemExistente.cantidad++;
+        } else {
+            showNotification('Stock insuficiente', 'warning');
+            return;
+        }
+    } else {
+        carrito.push({
+            producto: producto,
+            cantidad: 1,
+            precioUnitario: producto.precioVenta,
+            descuento: 0,
+            stockDisponible: stockDisponible
+        });
+    }
+    
+    renderizarCarrito();
+    calcularTotales();
+    showNotification(`${producto.nombreProducto} agregado`, 'success');
+}
+
+function actualizarCantidad(index, cantidad) {
+    if (cantidad <= 0) {
+        eliminarDelCarrito(index);
+        return;
+    }
+    
+    const item = carrito[index];
+    const stockDisponible = item.stockDisponible || 0;
+    
+    if (cantidad > stockDisponible) {
+        showNotification('Stock insuficiente', 'warning');
+        return;
+    }
+    
+    item.cantidad = cantidad;
+    renderizarCarrito();
+    calcularTotales();
+}
+
+function eliminarDelCarrito(index) {
+    carrito.splice(index, 1);
+    renderizarCarrito();
+    calcularTotales();
+    showNotification('Producto eliminado del carrito', 'info');
+}
+
+function renderizarCarrito() {
+    const container = document.getElementById('ticketItems');
+    
+    if (carrito.length === 0) {
+        container.innerHTML = `
+            <div class="ticket-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <p>No hay productos en el carrito</p>
+                <p style="font-size: 12px; margin-top: 10px;">Selecciona productos para comenzar</p>
+            </div>
+        `;
+        document.getElementById('btnCobrar').disabled = true;
+        return;
+    }
+    
+    container.innerHTML = carrito.map((item, index) => {
+        const subtotal = item.cantidad * item.precioUnitario - item.descuento;
+        
+        return `
+            <div class="ticket-item">
+                <div class="item-info">
+                    <div class="item-nombre">${item.producto.nombreProducto}</div>
+                    <div class="item-precio-unit">$${formatearNumero(item.precioUnitario)} c/u</div>
+                </div>
+                <div class="item-cantidad">
+                    <button class="qty-btn" onclick="actualizarCantidad(${index}, ${item.cantidad - 1})">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" 
+                           class="qty-input" 
+                           value="${item.cantidad}" 
+                           min="1"
+                           onchange="actualizarCantidad(${index}, parseInt(this.value))">
+                    <button class="qty-btn" onclick="actualizarCantidad(${index}, ${item.cantidad + 1})">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div class="item-total">$${formatearNumero(subtotal)}</div>
+                <button class="item-remove" onclick="eliminarDelCarrito(${index})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+    }).join('');
+    
+    document.getElementById('btnCobrar').disabled = false;
+}
+
+function calcularTotales() {
+    let subtotal = 0;
+    
+    carrito.forEach(item => {
+        subtotal += (item.cantidad * item.precioUnitario - item.descuento);
+    });
+    
+    const iva = subtotal * 0.16;
+    const descuentoGlobal = 0;
+    const total = subtotal + iva - descuentoGlobal;
+    
+    document.getElementById('subtotalDisplay').textContent = '$' + formatearNumero(subtotal);
+    document.getElementById('ivaDisplay').textContent = '$' + formatearNumero(iva);
+    document.getElementById('descuentoDisplay').textContent = '$' + formatearNumero(descuentoGlobal);
+    document.getElementById('totalDisplay').textContent = '$' + formatearNumero(total);
+}
+
+function cancelarVenta() {
+    if (carrito.length === 0) return;
+    
+    if (confirm('¿Está seguro de cancelar esta venta?')) {
+        carrito = [];
+        renderizarCarrito();
+        calcularTotales();
+        showNotification('Venta cancelada', 'info');
+    }
+}
+
+// ==================== CLIENTE ====================
+function abrirModalCliente() {
+    const select = document.getElementById('selectCliente');
+    select.innerHTML = clientes.map(cliente => 
+        `<option value="${cliente.idCliente}">${cliente.nombreRazonSocial} - ${cliente.rfc || 'Sin RFC'}</option>`
+    ).join('');
+    
+    if (clienteSeleccionado) {
+        select.value = clienteSeleccionado.idCliente;
+    }
+    
+    document.getElementById('modalCliente').classList.add('active');
+}
+
+function filtrarClientes() {
+    const searchTerm = document.getElementById('searchCliente').value.toLowerCase();
+    const select = document.getElementById('selectCliente');
+    
+    const clientesFiltrados = clientes.filter(c => 
+        c.nombreRazonSocial.toLowerCase().includes(searchTerm) ||
+        (c.rfc && c.rfc.toLowerCase().includes(searchTerm))
+    );
+    
+    select.innerHTML = clientesFiltrados.map(cliente => 
+        `<option value="${cliente.idCliente}">${cliente.nombreRazonSocial} - ${cliente.rfc || 'Sin RFC'}</option>`
+    ).join('');
+}
+
+function seleccionarCliente() {
+    const select = document.getElementById('selectCliente');
+    const clienteId = parseInt(select.value);
+    
+    clienteSeleccionado = clientes.find(c => c.idCliente === clienteId);
+    if (clienteSeleccionado) {
+        document.getElementById('clienteNombre').textContent = clienteSeleccionado.nombreRazonSocial;
+        showNotification('Cliente seleccionado', 'success');
+    }
+    
+    cerrarModal('modalCliente');
+}
+
+// ==================== APERTURA DE CAJA ====================
+function abrirModalAperturaCaja() {
+    // Si ya hay caja abierta, mostrar información en lugar de permitir abrir nueva
+    if (aperturaActual) {
+        mostrarInfoCajaAbierta();
+        return;
+    }
+    
+    document.getElementById('modalAperturaCaja').classList.add('active');
+}
+
+// Nueva función para mostrar información de caja abierta
+function mostrarInfoCajaAbierta() {
+    const saldoEsperado = (aperturaActual.saldoInicial || 0) + 
+                         (aperturaActual.totalIngresos || 0) - 
+                         (aperturaActual.totalEgresos || 0);
+    
+    const mensaje = `
+Caja Actualmente Abierta
+
+Caja: ${cajaAbierta?.nombreCaja || 'N/A'}
+Saldo Inicial: $${formatearNumero(aperturaActual.saldoInicial || 0)}
+Ingresos: $${formatearNumero(aperturaActual.totalIngresos || 0)}
+Egresos: $${formatearNumero(aperturaActual.totalEgresos || 0)}
+Saldo Actual: $${formatearNumero(saldoEsperado)}
+
+¿Desea cerrar esta caja para abrir una nueva?
+    `.trim();
+    
+    if (confirm(mensaje)) {
+        // Cerrar la caja actual y abrir modal para nueva
+        cerrarCaja(saldoEsperado).then(() => {
+            setTimeout(() => {
+                abrirModalAperturaCaja();
+            }, 1000);
+        });
+    }
+}
+
+async function abrirCaja() {
+    try {
+        const cajaId = document.getElementById('selectCaja').value;
+        const saldoInicial = parseFloat(document.getElementById('saldoInicial').value) || 0;
+        const observaciones = document.getElementById('observacionesApertura').value;
+        
+        // Validaciones básicas
+        if (!cajaId) {
+            showNotification('Seleccione una caja', 'error');
+            return;
+        }
+        
+        if (saldoInicial < 0) {
+            showNotification('El saldo inicial no puede ser negativo', 'error');
+            return;
+        }
+        
+        // Primero verificar si ya existe una caja abierta para este usuario
+        const usuarioTieneAbierta = await verificarAperturaUsuario();
+        if (usuarioTieneAbierta) {
+            // Si ya tiene caja abierta, simplemente usar esa
+            await usarCajaExistente();
+            cerrarModal('modalAperturaCaja');
+            return;
+        }
+        
+        // Si no tiene caja abierta, verificar si la caja seleccionada está ocupada
+        const cajaEstaAbierta = await verificarCajaAbierta(cajaId);
+        if (cajaEstaAbierta) {
+            showNotification('Esta caja ya está siendo utilizada por otro usuario', 'warning');
+            return;
+        }
+        
+        // Payload CORREGIDO - enviar saldoReal
+        const payload = {
+            cajaId: parseInt(cajaId),
+            usuarioId: usuarioActual?.id || 1,
+            saldoInicial: saldoInicial,
+            saldoReal: saldoInicial, // ✅ IMPORTANTE: Enviar saldoReal
+            observaciones: observaciones || null
+        };
+        
+        console.log('📦 Payload de apertura:', payload);
+        
+        // Abrir nueva caja
+        console.log('🚀 Abriendo nueva caja...');
+        const response = await fetch(`${API_BASE_URL}/apertura-caja`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || `Error ${response.status} al abrir caja`);
+        }
+        
+        aperturaActual = await response.json();
+        cajaAbierta = aperturaActual.caja;
+        
+        console.log('✅ Caja abierta exitosamente:', aperturaActual);
+        
+        // Actualizar UI
+        actualizarUICajaAbierta();
+        
+        showNotification('✅ Caja abierta exitosamente', 'success');
+        cerrarModal('modalAperturaCaja');
+        
+        // Limpiar formulario
+        document.getElementById('selectCaja').value = '';
+        document.getElementById('saldoInicial').value = '';
+        document.getElementById('observacionesApertura').value = '';
+        
+    } catch (error) {
+        console.error('❌ Error al abrir caja:', error);
+        showNotification('❌ ' + error.message, 'error');
+    }
+}
+
+// Nueva función para usar caja existente
+async function usarCajaExistente() {
+    try {
+        console.log('🔄 Usando caja abierta existente...');
+        
+        const response = await fetch(`${API_BASE_URL}/apertura-caja/usuario/${usuarioActual?.id || 1}/abierta`);
+        
+        if (response.status === 200) {
+            aperturaActual = await response.json();
+            cajaAbierta = aperturaActual.caja;
+            
+            console.log('✅ Caja existente cargada:', aperturaActual);
+            
+            // Actualizar UI
+            actualizarUICajaAbierta();
+            
+            showNotification(`✅ Usando caja abierta: ${cajaAbierta.nombreCaja}`, 'success');
+        } else {
+            throw new Error('No se pudo cargar la caja existente');
+        }
+        
+    } catch (error) {
+        console.error('❌ Error al cargar caja existente:', error);
+        showNotification('❌ Error al cargar caja existente', 'error');
+    }
+}
+
+// Función para actualizar UI cuando hay caja abierta
+function actualizarUICajaAbierta() {
+    document.getElementById('cajaInfo').textContent = cajaAbierta?.nombreCaja || 'Caja Abierta';
+    document.getElementById('cajaInfo').style.color = 'var(--verde-exito)';
+    
+    const btnCaja = document.getElementById('btnGestionCaja');
+    btnCaja.innerHTML = '<i class="fas fa-lock"></i> Cerrar Caja';
+    btnCaja.onclick = () => mostrarModalCerrarCaja();
+    btnCaja.className = 'btn btn-warning';
+}
+
+// ==================== FUNCIONES AUXILIARES CAJA ====================
+async function verificarAperturaUsuario() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/apertura-caja/usuario/${usuarioActual?.id || 1}/tiene-abierta`);
+        if (response.ok) {
+            const data = await response.json();
+            return data.tieneAbierta;
+        }
+        return false;
+    } catch (error) {
+        console.error('Error verificando apertura usuario:', error);
+        return false;
+    }
+}
+
+async function verificarCajaAbierta(cajaId) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/apertura-caja/caja/${cajaId}/existe-abierta`);
+        if (response.ok) {
+            const data = await response.json();
+            return data.existe;
+        }
+        return false;
+    } catch (error) {
+        console.error('Error verificando caja abierta:', error);
+        return false;
+    }
+}
+
+// ==================== CERRAR CAJA ====================
+function mostrarModalCerrarCaja() {
+    if (!aperturaActual) {
+        showNotification('No hay caja abierta', 'warning');
+        return;
+    }
+    
+    const saldoEsperado = (aperturaActual.saldoInicial || 0) + 
+                         (aperturaActual.totalIngresos || 0) - 
+                         (aperturaActual.totalEgresos || 0);
+    
+    const mensaje = `
+Cerrar Caja
+
+Caja: ${cajaAbierta?.nombreCaja || 'N/A'}
+Saldo Inicial: $${formatearNumero(aperturaActual.saldoInicial || 0)}
+Ingresos: $${formatearNumero(aperturaActual.totalIngresos || 0)}
+Egresos: $${formatearNumero(aperturaActual.totalEgresos || 0)}
+Saldo Esperado: $${formatearNumero(saldoEsperado)}
+
+¿Desea cerrar la caja?
+    `.trim();
+    
+    if (confirm(mensaje)) {
+        cerrarCaja(saldoEsperado);
+    }
+}
+
+async function cerrarCaja(saldoReal) {
+    if (!aperturaActual) {
+        showNotification('No hay caja abierta', 'warning');
+        return;
+    }
+    
+    const payload = {
+        saldoReal: saldoReal,
+        observaciones: 'Cierre manual de caja'
+    };
+    
+    try {
+        console.log('🔒 Cerrando caja:', payload);
+        
+        const response = await fetch(`${API_BASE_URL}/apertura-caja/${aperturaActual.idApertura}/cerrar`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || `Error ${response.status} al cerrar caja`);
+        }
+        
+        const resultado = await response.json();
+        console.log('✅ Caja cerrada:', resultado);
+        
+        showNotification('✅ Caja cerrada exitosamente', 'success');
+        
+        // Limpiar estado
+        limpiarEstadoCaja();
+        
+        // Mostrar diferencia si existe
+        const saldoEsperado = (resultado.saldoInicial || 0) + 
+                             (resultado.totalIngresos || 0) - 
+                             (resultado.totalEgresos || 0);
+        const diferencia = (resultado.saldoReal || 0) - saldoEsperado;
+        
+        if (Math.abs(diferencia) > 0.01) {
+            setTimeout(() => {
+                const tipo = diferencia > 0 ? 'sobrante' : 'faltante';
+                const icono = diferencia > 0 ? '💰' : '⚠️';
+                showNotification(
+                    `${icono} Diferencia en caja: $${formatearNumero(Math.abs(diferencia))} ${tipo}`,
+                    diferencia > 0 ? 'info' : 'warning'
+                );
+            }, 1000);
+        }
+        
+    } catch (error) {
+        console.error('❌ Error al cerrar caja:', error);
+        showNotification('❌ Error al cerrar caja: ' + error.message, 'error');
+    }
+}
+
+function limpiarEstadoCaja() {
+    aperturaActual = null;
+    cajaAbierta = null;
+    
+    document.getElementById('cajaInfo').textContent = 'Sin Apertura';
+    document.getElementById('cajaInfo').style.color = 'var(--rojo-peligro)';
+    
+    const btnCaja = document.getElementById('btnGestionCaja');
+    btnCaja.innerHTML = '<i class="fas fa-cash-register"></i> Abrir Caja';
+    btnCaja.onclick = () => abrirModalAperturaCaja();
+    btnCaja.className = 'btn btn-primary';
+}
+
+// ==================== COBRO ====================
+function abrirModalCobro() {
+    if (carrito.length === 0) {
+        showNotification('El carrito está vacío', 'warning');
+        return;
+    }
+    
+    if (!aperturaActual) {
+        showNotification('Debe abrir una caja primero', 'warning');
+        return;
+    }
+    
+    const total = calcularTotalVenta();
+    document.getElementById('totalCobro').textContent = '$' + formatearNumero(total);
+    document.getElementById('montoRecibido').value = total.toFixed(2);
+    
+    metodoPagoSeleccionado = 'EFECTIVO';
+    document.querySelectorAll('.metodo-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector('.metodo-btn').classList.add('active');
+    
+    calcularCambio();
+    document.getElementById('modalCobro').classList.add('active');
+}
+
+function seleccionarMetodoPago(metodo) {
+    metodoPagoSeleccionado = metodo;
+    
+    document.querySelectorAll('.metodo-btn').forEach(btn => btn.classList.remove('active'));
+    
+    const clickedBtn = event?.target?.closest('.metodo-btn');
+    if (clickedBtn) {
+        clickedBtn.classList.add('active');
+    }
+    
+    const montoRecibidoGroup = document.getElementById('montoRecibidoGroup');
+    if (metodo === 'EFECTIVO') {
+        montoRecibidoGroup.style.display = 'block';
+    } else {
+        montoRecibidoGroup.style.display = 'none';
+        const total = calcularTotalVenta();
+        document.getElementById('montoRecibido').value = total.toFixed(2);
+        calcularCambio();
+    }
+}
+
+function calcularCambio() {
+    const total = calcularTotalVenta();
+    const montoRecibido = parseFloat(document.getElementById('montoRecibido').value) || 0;
+    const cambio = Math.max(0, montoRecibido - total);
+    
+    document.getElementById('montoRecibidoDisplay').textContent = '$' + formatearNumero(montoRecibido);
+    document.getElementById('cambioDisplay').textContent = '$' + formatearNumero(cambio);
+    
+    const btnProcesar = document.getElementById('btnProcesarVenta');
+    if (montoRecibido >= total) {
+        btnProcesar.disabled = false;
+    } else {
+        btnProcesar.disabled = true;
+    }
+}
+
+function calcularTotalVenta() {
+    let subtotal = 0;
+    carrito.forEach(item => {
+        subtotal += (item.cantidad * item.precioUnitario - item.descuento);
+    });
+    const iva = subtotal * 0.16;
+    return subtotal + iva;
+}
+
+// ==================== PROCESAR VENTA ====================
+async function procesarVenta() {
+    if (!aperturaActual) {
+        showNotification('No hay caja abierta', 'error');
+        return;
+    }
+    
+    if (!clienteSeleccionado) {
+        showNotification('Debe seleccionar un cliente', 'error');
+        return;
+    }
+    
+    if (carrito.length === 0) {
+        showNotification('El carrito está vacío', 'error');
+        return;
+    }
+    
+    const total = calcularTotalVenta();
+    const montoRecibido = parseFloat(document.getElementById('montoRecibido').value) || 0;
+    const cambio = Math.max(0, montoRecibido - total);
+    
+    if (metodoPagoSeleccionado === 'EFECTIVO' && montoRecibido < total) {
+        showNotification('Monto recibido insuficiente', 'error');
+        return;
+    }
+    
+    const btnProcesar = document.getElementById('btnProcesarVenta');
+    const textoOriginal = btnProcesar.innerHTML;
+    btnProcesar.disabled = true;
+    btnProcesar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+    
+    let subtotalTotal = 0;
+    let impuestosTotal = 0;
+    
+    const detalles = carrito.map(item => {
+        const subtotalItem = item.cantidad * item.precioUnitario - item.descuento;
+        const impuestoItem = subtotalItem * 0.16;
+        const totalItem = subtotalItem + impuestoItem;
+        
+        subtotalTotal += subtotalItem;
+        impuestosTotal += impuestoItem;
+        
+        return {
+            producto: { idProducto: item.producto.idProducto },
+            cantidad: item.cantidad,
+            precioUnitario: item.precioUnitario,
+            descuento: item.descuento,
+            subtotal: subtotalItem,
+            impuesto: impuestoItem,
+            total: totalItem
+        };
+    });
+    
+    const venta = {
+        cliente: { idCliente: clienteSeleccionado.idCliente },
+        usuario: { id: usuarioActual?.id || 1 },
+        subtotal: subtotalTotal,
+        impuestos: impuestosTotal,
+        descuento: 0,
+        totalVenta: total,
+        estado: 'PAGADA',
+        tipoPago: metodoPagoSeleccionado,
+        montoRecibido: montoRecibido,
+        cambio: cambio,
+        detalles: detalles
+    };
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/ventas`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(venta)
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({ message: 'Error desconocido' }));
+            throw new Error(errorData.message || 'Error al procesar venta');
+        }
+        
+        const ventaGuardada = await response.json();
+        
+        await registrarMovimientoCaja(ventaGuardada);
+        
+        mostrarConfirmacionVenta(ventaGuardada, cambio);
+        
+        cerrarModal('modalCobro');
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('❌ Error al procesar venta: ' + error.message, 'error');
+        
+        btnProcesar.disabled = false;
+        btnProcesar.innerHTML = textoOriginal;
+    }
+}
+
+async function registrarMovimientoCaja(venta) {
+    const payload = {
+        aperturaId: aperturaActual.idApertura,
+        ventaId: venta.idVenta,
+        monto: venta.totalVenta,
+        formaPago: venta.tipoPago,
+        usuarioId: usuarioActual?.id || 1
+    };
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/movimiento-caja/venta`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        
+        if (!response.ok) {
+            throw new Error('Error al registrar movimiento en caja');
+        }
+        
+        console.log('✅ Movimiento registrado en caja');
+    } catch (error) {
+        console.error('❌ Error al registrar movimiento:', error);
+    }
+}
+
+function mostrarConfirmacionVenta(venta, cambio) {
+    document.getElementById('ventaNumeroConfirm').textContent = venta.numeroVenta;
+    document.getElementById('ventaTotalConfirm').textContent = '$' + formatearNumero(venta.totalVenta);
+    document.getElementById('ventaCambioConfirm').textContent = '$' + formatearNumero(cambio);
+    
+    document.getElementById('modalConfirmacion').classList.add('active');
+}
+
+function nuevaVenta() {
+    carrito = [];
+    renderizarCarrito();
+    calcularTotales();
+    clienteSeleccionado = clientes.find(c => c.idCliente === 1);
+    document.getElementById('clienteNombre').textContent = clienteSeleccionado?.nombreRazonSocial || 'Cliente General';
+    
+    cerrarModal('modalConfirmacion');
+    actualizarTicketNumero();
+    showNotification('Nueva venta iniciada', 'info');
+}
+
+function imprimirTicket() {
+    showNotification('Imprimiendo ticket...', 'info');
+}
+
+// ==================== UTILIDADES ====================
+function actualizarTicketNumero() {
+    const numero = String(Date.now()).slice(-4);
+    document.getElementById('ticketNumero').innerHTML = 
+        `<i class="fas fa-receipt"></i> TICKET #${numero}`;
+}
+
+function actualizarFechaHora() {
+    const now = new Date();
+    const fecha = now.toLocaleDateString('es-MX', { 
+        day: '2-digit', 
+        month: '2-digit', 
+        year: 'numeric' 
+    });
+    const hora = now.toLocaleTimeString('es-MX', { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+    });
+    
+    document.getElementById('ticketFecha').innerHTML = 
+        `<i class="fas fa-clock"></i> ${fecha} ${hora}`;
+    
+    setTimeout(actualizarFechaHora, 60000);
+}
+
+function formatearNumero(numero) {
+    return parseFloat(numero).toLocaleString('es-MX', { 
+        minimumFractionDigits: 2, 
+        maximumFractionDigits: 2 
+    });
+}
+
+function cerrarModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+}
+
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
+}
+
+function cerrarSesion() {
+    if (confirm('¿Está seguro que desea cerrar sesión?')) {
+        localStorage.removeItem('usuario');
+        window.location.href = '/';
+    }
+}
+
+// ==================== NOTIFICACIONES ====================
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    let bgColor, icon;
+    
+    switch(type) {
+        case 'success':
+            bgColor = 'var(--verde-exito)';
+            icon = 'fa-check-circle';
+            break;
+        case 'error':
+            bgColor = 'var(--rojo-peligro)';
+            icon = 'fa-exclamation-circle';
+            break;
+        case 'warning':
+            bgColor = 'var(--amarillo-advertencia)';
+            icon = 'fa-exclamation-triangle';
+            break;
+        default:
+            bgColor = 'var(--azul-principal)';
+            icon = 'fa-info-circle';
+    }
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${bgColor};
+        color: ${type === 'warning' ? '#333' : 'white'};
+        padding: 18px 24px;
+        border-radius: 12px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideIn 0.4s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 500;
+        max-width: 350px;
+    `;
+    
+    notification.innerHTML = `
+        <i class="fas ${icon}" style="font-size: 20px;"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'fadeOut 0.4s ease';
+        setTimeout(() => notification.remove(), 400);
+    }, 3500);
+}
+
+// ==================== ESTILOS DE ANIMACIÓN ====================
+const styleAnimations = document.createElement('style');
+styleAnimations.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+`;
+document.head.appendChild(styleAnimations);
+
+// ==================== MENSAJES DE CONSOLA ====================
+console.log('%c🛒 Punto de Venta', 'color: #4a90e2; font-size: 20px; font-weight: bold;');
+console.log('%c✅ Sistema cargado', 'color: #28a745; font-size: 14px;');
+
+</script>
+</body>
+</html>
