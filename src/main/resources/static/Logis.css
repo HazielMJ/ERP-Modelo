@@ -1,4 +1,4 @@
-{
+*{
     --azul-principal: #4a90e2;
     --azul-principal-gradient: #357abd;
     --azul-secundario: #6ca0d5;
@@ -923,4 +923,75 @@ tbody tr:hover {
 
 .gap-10 {
     gap: 10px;
+}
+
+/* Footer */
+.footer {
+    background: var(--blanco-fondo);
+    border-top: 1.4px solid var(--gris-suave);
+    padding: 14px 24.5px;
+    margin-left: 196px;
+    box-shadow: 0 -1.4px 7px rgba(0,0,0,0.05);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+}
+
+.footer-left p {
+    color: var(--gris-texto-secundario);
+    font-size: 9.1px;
+    margin: 0;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.footer-right a {
+    color: var(--azul-principal);
+    text-decoration: none;
+    font-size: 9.1px;
+    transition: all 0.3s ease;
+}
+
+.footer-right a:hover {
+    color: var(--azul-principal-gradient);
+    text-decoration: underline;
+}
+
+.footer-divider {
+    color: var(--gris-texto-secundario);
+    font-size: 8.4px;
+}
+
+/* Responsive footer */
+@media (max-width: 768px) {
+    .footer {
+        margin-left: 0;
+        padding: 10.5px 14px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 7px;
+        text-align: center;
+    }
+    
+    .footer-right {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-left p,
+    .footer-right a {
+        font-size: 8.4px;
+    }
 }
