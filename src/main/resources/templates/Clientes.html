@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Clientes</title>
+    <title>Módulo de Clientes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    <link rel="stylesheet" href="Clientes.css">
    
 </head>
 <body>
     <div class="main-container">
-<!-- Sidebar -->
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <h2><i class="fas fa-chart-line"></i> ERP System</h2>
@@ -125,7 +124,6 @@
             </a>
         </li>
         <li>
-        <!-- Botón de cerrar sesión -->
         <div class="logout-section">
             <button class="btn-logout" onclick="cerrarSesion()">
                 <i class="fas fa-sign-out-alt"></i>
@@ -136,16 +134,26 @@
     </ul>
 </aside>
 
-        <!-- MAIN CONTENT -->
         <main class="main-content">
-            <!-- PAGE HEADER -->
-            <div class="page-header">
-                <h1><i class="fas fa-users"></i> Gestión de Clientes</h1>
-            </div>
-
-            <!-- CONTENT SECTION -->
+             <header class="page-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                 <i class="fas fa-bars"></i>
+                </button>
+            <div>
+                <h1>
+                    <i class="fas fa-users"></i> 
+                    <span id="headerTitle">Módulo de Clientes</span>
+                </h1>
+                <div class="breadcrumb">
+                    <a href="/dashboard"><i class="fas fa-home"></i> Inicio</a>
+                    <span>/</span>
+                    <span id="breadcrumbModule">Clientes</span>
+                </div>
+        </div>
+    </div>
+        </header>
             <div class="content-section">
-                <!-- STATISTICS CARDS -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-header">
@@ -196,7 +204,6 @@
                     </div>
                 </div>
 
-                <!-- TOOLBAR -->
                 <div class="toolbar">
                     <div class="search-box">
                         <i class="fas fa-search input-icon"></i>
@@ -220,7 +227,6 @@
                     </button>
                 </div>
 
-                <!-- TABLE -->
                 <div class="table-container">
                     <table class="table" id="tablaClientes">
                         <thead>
@@ -238,7 +244,6 @@
                             </tr>
                         </thead>
                         <tbody id="cuerpoTabla">
-                            <!-- Los datos se cargarán dinámicamente -->
                         </tbody>
                     </table>
                 </div>
@@ -246,7 +251,6 @@
         </main>
     </div>
 
-    <!-- MODAL PARA AGREGAR/EDITAR CLIENTE -->
     <div class="modal" id="modalCliente">
         <div class="modal-content">
             <div class="modal-header">
@@ -351,19 +355,16 @@
     </div>
 
     <script>
-// URL base de la API - ajusta según tu entorno
 const API_BASE_URL = 'http://localhost:8082/api/clientes';
 
 let clientes = [];
 let clienteEditando = null;
 
-// Cargar datos al iniciar
 window.onload = function() {
     cargarClientes();
     actualizarEstadisticas();
 };
 
-// Función para formatear moneda
 function formatearMoneda(valor) {
     return new Intl.NumberFormat('es-MX', {
         style: 'currency',
@@ -371,7 +372,6 @@ function formatearMoneda(valor) {
     }).format(valor);
 }
 
-// Cargar clientes desde la API
 async function cargarClientes() {
     try {
         const response = await fetch(API_BASE_URL);
@@ -387,14 +387,12 @@ async function cargarClientes() {
     }
 }
 
-// Mostrar clientes en la tabla
 function mostrarClientes() {
     const tbody = document.getElementById('cuerpoTabla');
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const filterEstado = document.getElementById('filterEstado').value;
     const filterTipo = document.getElementById('filterTipo').value;
 
-    // Filtrar clientes
     let clientesFiltrados = clientes.filter(cliente => {
         const matchSearch = cliente.nombreRazonSocial.toLowerCase().includes(searchTerm) ||
                           (cliente.rfc && cliente.rfc.toLowerCase().includes(searchTerm)) ||
@@ -443,19 +441,25 @@ function mostrarClientes() {
             <td><strong style="color: var(--morado);">${formatearMoneda(cliente.saldoActual)}</strong></td>
             <td>${estadoBadge}</td>
             <td>
-                <button class="btn btn-sm btn-primary" onclick="editarCliente(${cliente.idCliente})" title="Editar">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn btn-sm btn-danger" onclick="eliminarCliente(${cliente.idCliente})" title="Eliminar">
-                    <i class="fas fa-trash"></i>
-                </button>
+                <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                    <button class="btn btn-sm btn-primary" onclick="editarCliente(${cliente.idCliente})" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm ${cliente.estado === 'ACTIVO' ? 'btn-warning' : 'btn-success'}" 
+                            onclick="cambiarEstadoCliente(${cliente.idCliente}, '${cliente.estado}')" 
+                            title="${cliente.estado === 'ACTIVO' ? 'Desactivar' : 'Activar'}">
+                        <i class="fas ${cliente.estado === 'ACTIVO' ? 'fa-toggle-on' : 'fa-toggle-off'}"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="borrarCliente(${cliente.idCliente})" title="Eliminar permanentemente">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
             </td>
         `;
         tbody.appendChild(tr);
     });
 }
 
-// Actualizar estadísticas
 function actualizarEstadisticas() {
     const total = clientes.length;
     const activos = clientes.filter(c => c.estado === 'ACTIVO').length;
@@ -468,38 +472,45 @@ function actualizarEstadisticas() {
     document.getElementById('saldoTotal').textContent = formatearMoneda(saldoTotal);
 }
 
-// Abrir modal
 function abrirModal(id = null) {
     const modal = document.getElementById('modalCliente');
     const modalTitle = document.getElementById('modalTitle');
     
     if (id) {
         clienteEditando = clientes.find(c => c.idCliente === id);
+        
+        if (!clienteEditando) {
+            alert('Error: Cliente no encontrado');
+            return;
+        }
+        
         modalTitle.innerHTML = '<i class="fas fa-user-edit"></i> Editar Cliente';
         
-        // Llenar formulario con datos del cliente
-        document.getElementById('clienteId').value = clienteEditando.idCliente;
-        document.getElementById('tipoCliente').value = clienteEditando.tipoCliente;
-        document.getElementById('nombreRazonSocial').value = clienteEditando.nombreRazonSocial;
+        document.getElementById('clienteId').value = clienteEditando.idCliente || '';
+        document.getElementById('tipoCliente').value = clienteEditando.tipoCliente || 'NATURAL';
+        document.getElementById('nombreRazonSocial').value = clienteEditando.nombreRazonSocial || '';
         document.getElementById('rfc').value = clienteEditando.rfc || '';
         document.getElementById('telefono').value = clienteEditando.telefono || '';
         document.getElementById('email').value = clienteEditando.email || '';
         document.getElementById('direccion').value = clienteEditando.direccion || '';
-        document.getElementById('limiteCredito').value = clienteEditando.limiteCredito;
-        document.getElementById('saldoActual').value = clienteEditando.saldoActual;
+        document.getElementById('limiteCredito').value = clienteEditando.limiteCredito || 0;
+        document.getElementById('saldoActual').value = clienteEditando.saldoActual || 0;
         document.getElementById('observaciones').value = clienteEditando.observaciones || '';
-        document.getElementById('estado').value = clienteEditando.estado;
+        document.getElementById('estado').value = clienteEditando.estado || 'ACTIVO';
     } else {
         clienteEditando = null;
         modalTitle.innerHTML = '<i class="fas fa-user-plus"></i> Nuevo Cliente';
         document.getElementById('formCliente').reset();
         document.getElementById('clienteId').value = '';
+        document.getElementById('limiteCredito').value = '0.00';
+        document.getElementById('saldoActual').value = '0.00';
+        document.getElementById('estado').value = 'ACTIVO';
+        document.getElementById('tipoCliente').value = 'NATURAL';
     }
     
     modal.classList.add('active');
 }
 
-// Cerrar modal
 function cerrarModal() {
     const modal = document.getElementById('modalCliente');
     modal.classList.remove('active');
@@ -507,33 +518,32 @@ function cerrarModal() {
     clienteEditando = null;
 }
 
-// Guardar cliente
 async function guardarCliente() {
     const form = document.getElementById('formCliente');
     
     if (!form.checkValidity()) {
-        alert('Por favor complete todos los campos obligatorios');
+        form.reportValidity();
         return;
     }
 
     const clienteId = document.getElementById('clienteId').value;
     const clienteData = {
         tipoCliente: document.getElementById('tipoCliente').value,
-        nombreRazonSocial: document.getElementById('nombreRazonSocial').value,
-        rfc: document.getElementById('rfc').value,
-        telefono: document.getElementById('telefono').value,
-        email: document.getElementById('email').value,
-        direccion: document.getElementById('direccion').value,
+        nombreRazonSocial: document.getElementById('nombreRazonSocial').value.trim(),
+        rfc: document.getElementById('rfc').value.trim() || null,
+        telefono: document.getElementById('telefono').value.trim() || null,
+        email: document.getElementById('email').value.trim() || null,
+        direccion: document.getElementById('direccion').value.trim() || null,
         limiteCredito: parseFloat(document.getElementById('limiteCredito').value) || 0,
         saldoActual: parseFloat(document.getElementById('saldoActual').value) || 0,
-        observaciones: document.getElementById('observaciones').value,
+        observaciones: document.getElementById('observaciones').value.trim() || null,
         estado: document.getElementById('estado').value
     };
 
     try {
-        if (clienteId) {
-            // Editar cliente existente
-            const response = await fetch(`${API_BASE_URL}/${clienteId}`, {
+        let response;
+        if (clienteId && clienteId !== '') {
+            response = await fetch(`${API_BASE_URL}/${clienteId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -542,13 +552,13 @@ async function guardarCliente() {
             });
 
             if (!response.ok) {
-                throw new Error('Error al actualizar cliente: ' + response.statusText);
+                const errorText = await response.text();
+                throw new Error('Error al actualizar cliente: ' + (errorText || response.statusText));
             }
 
             alert('Cliente actualizado exitosamente');
         } else {
-            // Crear nuevo cliente
-            const response = await fetch(API_BASE_URL, {
+            response = await fetch(API_BASE_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -557,57 +567,128 @@ async function guardarCliente() {
             });
 
             if (!response.ok) {
-                throw new Error('Error al crear cliente: ' + response.statusText);
+                const errorText = await response.text();
+                throw new Error('Error al crear cliente: ' + (errorText || response.statusText));
             }
 
             alert('Cliente creado exitosamente');
         }
 
         cerrarModal();
-        await cargarClientes(); // Recargar datos desde la API
+        await cargarClientes(); 
     } catch (error) {
         console.error('Error:', error);
         alert('Error al guardar el cliente: ' + error.message);
     }
 }
 
-// Editar cliente
 function editarCliente(id) {
     abrirModal(id);
 }
 
-// Eliminar cliente
-async function eliminarCliente(id) {
-    if (confirm('¿Está seguro de eliminar este cliente?')) {
+async function cambiarEstadoCliente(id, estadoActual) {
+    if (!id) {
+        alert('Error: ID de cliente no válido');
+        return;
+    }
+
+    const nuevoEstado = estadoActual === 'ACTIVO' ? 'INACTIVO' : 'ACTIVO';
+    const accion = estadoActual === 'ACTIVO' ? 'desactivar' : 'activar';
+    const mensaje = estadoActual === 'ACTIVO' 
+        ? '¿Está seguro de desactivar este cliente? El cliente será marcado como inactivo.'
+        : '¿Está seguro de activar este cliente? El cliente será marcado como activo.';
+
+    if (confirm(mensaje)) {
         try {
-            const response = await fetch(`${API_BASE_URL}/${id}/desactivar`, {
-                method: 'PUT'
+            const endpoint = estadoActual === 'ACTIVO' 
+                ? `${API_BASE_URL}/${id}/desactivar`
+                : `${API_BASE_URL}/${id}/activar`;
+
+            const response = await fetch(endpoint, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
             });
 
             if (!response.ok) {
-                throw new Error('Error al eliminar cliente: ' + response.statusText);
+                const errorText = await response.text();
+                throw new Error(`Error al ${accion} cliente: ` + (errorText || response.statusText));
             }
 
-            alert('Cliente eliminado exitosamente');
-            await cargarClientes(); // Recargar datos desde la API
+            alert(`Cliente ${accion === 'activar' ? 'activado' : 'desactivado'} exitosamente`);
+            await cargarClientes(); 
         } catch (error) {
             console.error('Error:', error);
-            alert('Error al eliminar el cliente: ' + error.message);
+            alert(`Error al ${accion} el cliente: ` + error.message);
         }
     }
 }
 
-// Event listeners para filtros y búsqueda
+async function borrarCliente(id) {
+    if (!id) {
+        alert('Error: ID de cliente no válido');
+        return;
+    }
+
+    if (confirm('⚠️ ADVERTENCIA: ¿Está seguro de ELIMINAR PERMANENTEMENTE este cliente?\n\nEsta acción no se puede deshacer y eliminará todos los datos del cliente del sistema.')) {
+        if (confirm('Esta es su última oportunidad. ¿Realmente desea eliminar este cliente permanentemente?')) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error('Error al eliminar cliente: ' + (errorText || response.statusText));
+                }
+
+                alert('Cliente eliminado permanentemente del sistema');
+                await cargarClientes(); 
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al eliminar el cliente: ' + error.message);
+            }
+        }
+    }
+}
+
 document.getElementById('searchInput').addEventListener('input', mostrarClientes);
 document.getElementById('filterEstado').addEventListener('change', mostrarClientes);
 document.getElementById('filterTipo').addEventListener('change', mostrarClientes);
 
-// Cerrar modal al hacer clic fuera
 document.getElementById('modalCliente').addEventListener('click', function(e) {
     if (e.target === this) {
         cerrarModal();
     }
 });
+
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('active');
+}
+
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    
+    if (window.innerWidth <= 768) {
+        if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+
+function cerrarSesion() {
+    if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 1000);
+    }
+}
     </script>
 </body>
 </html>
