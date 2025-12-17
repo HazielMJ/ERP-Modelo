@@ -10,183 +10,157 @@
 </head>
 <body>
     <div class="main-container">
-        <!-- Sidebar -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h2><i class="fas fa-chart-line"></i> ERP System</h2>
-                <p>Sistema Integral de Gestión</p>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-section">
-                    <div class="nav-section-title">PRINCIPAL</div>
-                </li>
-                <li class="nav-item" data-modulo="dashboard">
-                    <a href="/dashboard" class="nav-link active">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="administracion">
-                    <div class="nav-section-title">ADMINISTRACIÓN</div>
-                </li>
-                <li class="nav-item" data-modulo="usuarios">
-                    <a href="/usuarios" class="nav-link">
-                        <i class="fas fa-user-shield"></i>
-                        <span>Usuarios</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="contabilidad">
-                    <a href="/contabilidad" class="nav-link">
-                        <i class="fas fa-calculator"></i>
-                        <span>Contabilidad</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="ventas">
-                    <div class="nav-section-title">VENTAS</div>
-                </li>
-                <li class="nav-item" data-modulo="Clientes">
-                    <a href="/Clientes" class="nav-link">
-                        <i class="fas fa-users"></i>
-                        <span>Clientes</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="ventas">
-                    <a href="/ventas" class="nav-link">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span>Ventas</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="facturacion">
-                    <a href="/facturacion" class="nav-link">
-                        <i class="fas fa-file-invoice"></i>
-                        <span>Facturación</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="punto-venta">
-                    <a href="/Punto de venta" class="nav-link">
-                        <i class="fas fa-cash-register"></i>
-                        <span>Punto de Venta</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="compras">
-                    <div class="nav-section-title">COMPRAS</div>
-                </li>
-                <li class="nav-item" data-modulo="proveedores">
-                    <a href="/proveedores" class="nav-link">
-                        <i class="fas fa-truck"></i>
-                        <span>Proveedores</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="Compras">
-                    <a href="/Compras" class="nav-link">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span>Compras</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="inventario">
-                    <div class="nav-section-title">INVENTARIO</div>
-                </li>
-                <li class="nav-item" data-modulo="Inventario">
-                    <a href="/Inventario" class="nav-link">
-                        <i class="fas fa-boxes"></i>
-                        <span>Inventario</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="almacenes">
-                    <a href="/Almacenes" class="nav-link">
-                        <i class="fas fa-warehouse"></i>
-                        <span>Almacenes</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="rrhh">
-                    <div class="nav-section-title">RECURSOS HUMANOS</div>
-                </li>
-                <li class="nav-item" data-modulo="rrhh">
-                    <a href="/rrhh" class="nav-link">
-                        <i class="fas fa-user-tie"></i>
-                        <span>Empleados</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-modulo="nomina">
-                    <a href="/nomina" class="nav-link">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <span>Nómina</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="logistica">
-                    <div class="nav-section-title">LOGÍSTICA</div>
-                </li>
-                <li class="nav-item" data-modulo="logistica">
-                    <a href="/logistica" class="nav-link">
-                        <i class="fas fa-shipping-fast"></i>
-                        <span>Envíos</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="analisis">
-                    <div class="nav-section-title">ANÁLISIS</div>
-                </li>
-                <li class="nav-item" data-modulo="reportes">
-                    <a href="/reportes" class="nav-link">
-                        <i class="fas fa-chart-bar"></i>
-                        <span>Reportes</span>
-                    </a>
-                </li>
-                
-                <li class="nav-section" data-seccion="sistema">
-                    <div class="nav-section-title">SISTEMA</div>
-                </li>
-                <li class="nav-item" data-modulo="configuracion">
-                    <a href="/configuracion" class="nav-link">
-                        <i class="fas fa-cog"></i>
-                        <span>Configuración</span>
-                    </a>
-                </li>
-                <li>
-            <!-- Botón de cerrar sesión -->
-            <div class="logout-section">
-                <button class="btn-logout" onclick="cerrarSesion()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Cerrar Sesión</span>
-                </button>
-            </div>
-                </li>
-            </ul>
-        </aside>
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2><i class="fas fa-chart-line"></i> ERP System</h2>
+        <p>Sistema Integral de Gestión</p>
+    </div>
+    <ul class="nav-menu">
+        <li class="nav-section">
+            <div class="nav-section-title">PRINCIPAL</div>
+        </li>
+        <li class="nav-item" data-modulo="dashboard">
+            <a href="/dashboard" class="nav-link active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="administracion">
+            <div class="nav-section-title">ADMINISTRACIÓN</div>
+        </li>
+        <li class="nav-item" data-modulo="contabilidad">
+            <a href="/Contabilidad" class="nav-link">
+                <i class="fas fa-calculator"></i>
+                <span>Contabilidad</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="ventas">
+            <div class="nav-section-title">VENTAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Clientes">
+            <a href="/Clientes" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="ventas">
+            <a href="/ventas" class="nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Ventas</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="punto-venta">
+            <a href="/Punto de venta" class="nav-link">
+                <i class="fas fa-cash-register"></i>
+                <span>Punto de Venta</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="compras">
+            <div class="nav-section-title">COMPRAS</div>
+        </li>
+        <li class="nav-item" data-modulo="Compras">
+            <a href="/Compras" class="nav-link">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Compras</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="inventario">
+            <div class="nav-section-title">INVENTARIO</div>
+        </li>
+        <li class="nav-item" data-modulo="Inventario">
+            <a href="/Inventario" class="nav-link">
+                <i class="fas fa-boxes"></i>
+                <span>Inventario</span>
+            </a>
+        </li>
+        <li class="nav-item" data-modulo="almacenes">
+            <a href="/Almacenes" class="nav-link">
+                <i class="fas fa-warehouse"></i>
+                <span>Almacenes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="rrhh">
+            <div class="nav-section-title">RECURSOS HUMANOS</div>
+        </li>
+        <li class="nav-item" data-modulo="rrhh">
+            <a href="/rrhh" class="nav-link">
+                <i class="fas fa-user-tie"></i>
+                <span>Empleados</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="logistica">
+            <div class="nav-section-title">LOGÍSTICA</div>
+        </li>
+        <li class="nav-item" data-modulo="logistica">
+            <a href="/logistica" class="nav-link">
+                <i class="fas fa-shipping-fast"></i>
+                <span>Envíos</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="analisis">
+            <div class="nav-section-title">ANÁLISIS</div>
+        </li>
+        <li class="nav-item" data-modulo="reportes">
+            <a href="/reportes" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        
+        <li class="nav-section" data-seccion="sistema">
+            <div class="nav-section-title">SISTEMA</div>
+        </li>
+        <li class="nav-item" data-modulo="configuracion">
+            <a href="/configuracion" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </a>
+        </li>
+        <li>
+        <div class="logout-section">
+            <button class="btn-logout" onclick="cerrarSesion()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+        </li>
+    </ul>
+</aside>
 
-        <!-- ==================== MAIN CONTENT ==================== -->
         <div class="main-content">
             
-            <!-- ==================== HEADER ==================== -->
             <header class="page-header">
                 <div class="header-left">
                     <button class="mobile-menu-btn" onclick="toggleSidebar()">
                         <i class="fas fa-bars"></i>
                     </button>
                     <div>
-                        <h1><i class="fas fa-shopping-bag"></i> Módulo de Compras</h1>
+                        <h1>
+                            <i class="fas fa-shopping-bag"></i> 
+                            <span id= "headerTitle">Módulo de Compras</span>
+                            </h1>
                         <div class="breadcrumb">
                             <a href="/dashboard"><i class="fas fa-home"></i> Inicio</a>
                             <span>/</span>
-                            <span>Compras</span>
+                            <span id="breadcrumbModule">Compras</span>
                         </div>
                     </div>
                 </div>
                 <div class="header-right">
-                    <button class="btn btn-primary" onclick="abrirModalNuevaCompra()" id="btnAccionPrincipal">
+                    <button class="btn btn-primary" id="btnAccionPrincipal" onclick="abrirModalNuevaCompra()">
                         <i class="fas fa-plus"></i>
                         Nueva Compra
                     </button>
                 </div>
             </header>
 
-            <!-- ==================== TABS NAVIGATION ==================== -->
             <div class="tabs-container">
                 <div class="tabs-nav">
                     <button class="tab-button active" onclick="cambiarTab('compras')" data-tab="compras">
@@ -202,11 +176,9 @@
                 </div>
             </div>
 
-            <!-- ==================== TAB 1: COMPRAS ==================== -->
             <div class="tab-content active" id="tab-compras">
                 <section class="content-section">
                     
-                    <!-- Stats Cards Compras -->
                     <div class="stats-grid">
                         <div class="stat-card" style="border-left-color: var(--azul-principal)">
                             <div class="stat-header">
@@ -249,7 +221,6 @@
                         </div>
                     </div>
 
-                    <!-- Toolbar Compras -->
                     <div class="toolbar">
                         <div class="search-box">
                             <i class="fas fa-search input-icon"></i>
@@ -270,7 +241,6 @@
                         </div>
                     </div>
 
-                    <!-- Tabla de Compras -->
                     <div class="table-container">
                         <div class="table-header">
                             <h3 class="table-title">
@@ -305,11 +275,9 @@
                 </section>
             </div>
 
-            <!-- ==================== TAB 2: PROVEEDORES ==================== -->
             <div class="tab-content" id="tab-proveedores">
                 <section class="content-section">
                     
-                    <!-- Stats Cards Proveedores -->
                     <div class="stats-grid">
                         <div class="stat-card" style="border-left-color: var(--azul-principal)">
                             <div class="stat-header">
@@ -352,7 +320,6 @@
                         </div>
                     </div>
 
-                    <!-- Toolbar Proveedores -->
                     <div class="toolbar">
                         <div class="search-box">
                             <i class="fas fa-search input-icon"></i>
@@ -360,14 +327,10 @@
                         </div>
                         <div class="toolbar-actions">
                             <select class="filter-select" id="estadoFilterProveedores">
-                                <option value="">Todos</option>
+                                <option value="">Todos los estados</option>
                                 <option value="ACTIVO">Activos</option>
                                 <option value="INACTIVO">Inactivos</option>
                             </select>
-                            <button class="btn btn-success" onclick="abrirModalNuevoProveedor()">
-                                <i class="fas fa-plus"></i>
-                                Nuevo Proveedor
-                            </button>
                             <button class="btn btn-secondary" onclick="cargarProveedores()">
                                 <i class="fas fa-sync-alt"></i>
                                 Actualizar
@@ -375,7 +338,6 @@
                         </div>
                     </div>
 
-                    <!-- Tabla de Proveedores -->
                     <div class="table-container">
                         <div class="table-header">
                             <h3 class="table-title">
@@ -414,7 +376,6 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL: NUEVA/EDITAR COMPRA ==================== -->
     <div class="modal" id="modalCompra">
         <div class="modal-content">
             <div class="modal-header">
@@ -430,7 +391,6 @@
                 <form id="formCompra">
                     <input type="hidden" id="compraId">
                     
-                    <!-- Información General -->
                     <div class="form-grid">
                         <div class="form-group">
                             <label class="form-label">
@@ -496,7 +456,6 @@
                         </div>
                     </div>
 
-                    <!-- Sección de Productos -->
                     <div class="productos-section">
                         <div class="productos-header">
                             <h4 style="color: var(--azul-principal); font-size: 18px;">
@@ -519,11 +478,9 @@
                                 </tr>
                             </thead>
                             <tbody id="productosTableBody">
-                                <!-- Los productos se agregarán dinámicamente -->
                             </tbody>
                         </table>
 
-                        <!-- Totales -->
                         <div class="total-section">
                             <div class="total-row">
                                 <span>Subtotal:</span>
@@ -558,7 +515,6 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL: NUEVO/EDITAR PROVEEDOR ==================== -->
     <div class="modal" id="modalProveedor">
         <div class="modal-content" style="max-width: 700px;">
             <div class="modal-header">
@@ -673,7 +629,6 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL: VER DETALLES COMPRA ==================== -->
     <div class="modal" id="modalDetallesCompra">
         <div class="modal-content">
             <div class="modal-header">
@@ -686,7 +641,6 @@
                 </button>
             </div>
             <div class="modal-body" id="detallesCompraContent">
-                <!-- El contenido se cargará dinámicamente -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalDetallesCompra')">
@@ -697,7 +651,6 @@
         </div>
     </div>
 
-    <!-- ==================== MODAL: VER DETALLES PROVEEDOR ==================== -->
     <div class="modal" id="modalDetallesProveedor">
         <div class="modal-content" style="max-width: 800px;">
             <div class="modal-header">
@@ -710,7 +663,6 @@
                 </button>
             </div>
             <div class="modal-body" id="detallesProveedorContent">
-                <!-- El contenido se cargará dinámicamente -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="cerrarModal('modalDetallesProveedor')">
@@ -723,9 +675,7 @@
 
     
 <script>
-// ==================== PARTE 1: VARIABLES, INICIALIZACIÓN Y CARGA DE DATOS ====================
 
-// ==================== VARIABLES GLOBALES ====================
 let compras = [];
 let proveedores = [];
 let productos = [];
@@ -733,7 +683,6 @@ let usuarioActual = null;
 let productoIndex = 0;
 let tabActual = 'compras';
 
-// ==================== INICIALIZACIÓN ====================
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🛒 Módulo de Compras - Iniciando...');
     
@@ -747,7 +696,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ Módulo cargado correctamente');
 });
 
-// ==================== CARGAR USUARIO ====================
 function cargarUsuario() {
     const usuarioStorage = localStorage.getItem('usuario');
     if (usuarioStorage) {
@@ -758,7 +706,6 @@ function cargarUsuario() {
     }
 }
 
-// ==================== INICIALIZAR EVENTOS ====================
 function inicializarEventos() {
     document.getElementById('searchCompras').addEventListener('input', filtrarCompras);
     document.getElementById('estadoFilterCompras').addEventListener('change', filtrarCompras);
@@ -773,7 +720,6 @@ function setFechaHoy() {
     document.getElementById('fechaCompra').value = hoy;
 }
 
-// ==================== SISTEMA DE TABS ====================
 function cambiarTab(nombreTab) {
     tabActual = nombreTab;
     
@@ -801,7 +747,6 @@ function cambiarTab(nombreTab) {
     console.log(`📑 Tab activo: ${nombreTab}`);
 }
 
-// ==================== CARGAR DATOS - PROVEEDORES ====================
 async function cargarProveedores() {
     try {
         const response = await fetch('/api/proveedores');
@@ -827,19 +772,29 @@ async function cargarProveedores() {
     }
 }
 
-// ==================== CARGAR DATOS - PRODUCTOS ====================
 async function cargarProductos() {
     try {
         const response = await fetch('/api/productos');
+        if (!response.ok) {
+            throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
         productos = await response.json();
         console.log(`✅ ${productos.length} productos cargados`);
+        
+        if (productos.length > 0) {
+            const primerProducto = productos[0];
+            console.log('📦 Estructura del producto:', {
+                idProducto: primerProducto.idProducto,
+                nombreProducto: primerProducto.nombreProducto,
+                precioCompra: primerProducto.precioCompra
+            });
+        }
     } catch (error) {
         console.error('❌ Error al cargar productos:', error);
-        showNotification('Error al cargar productos', 'error');
+        showNotification(`Error al cargar productos: ${error.message}`, 'error');
     }
 }
 
-// ==================== CARGAR DATOS - COMPRAS ====================
 async function cargarCompras() {
     try {
         const response = await fetch('/api/compras');
@@ -855,7 +810,6 @@ async function cargarCompras() {
     }
 }
 
-// ==================== RENDERIZAR TABLA DE COMPRAS ====================
 function renderizarCompras(comprasData) {
     const tbody = document.getElementById('comprasTableBody');
     
@@ -872,7 +826,12 @@ function renderizarCompras(comprasData) {
         return;
     }
     
-    tbody.innerHTML = comprasData.map(compra => `
+    tbody.innerHTML = comprasData.map(compra => {
+        const puedeEditar = compra.estado === 'PENDIENTE';
+        const puedeRecibir = compra.estado === 'PENDIENTE' || compra.estado === 'PARCIAL';
+        const puedeAnular = compra.estado === 'PENDIENTE' || compra.estado === 'PARCIAL';
+        
+        return `
         <tr>
             <td><strong>${compra.numeroCompra}</strong></td>
             <td>${formatearFecha(compra.fechaCompra)}</td>
@@ -884,20 +843,27 @@ function renderizarCompras(comprasData) {
                 <button class="btn btn-icon btn-primary" onclick="verDetallesCompra(${compra.idCompra})" title="Ver Detalles">
                     <i class="fas fa-eye"></i>
                 </button>
-                ${compra.estado === 'PENDIENTE' ? `
-                    <button class="btn btn-icon btn-success" onclick="recibirCompra(${compra.idCompra})" title="Recibir">
-                        <i class="fas fa-check"></i>
-                    </button>
-                    <button class="btn btn-icon btn-danger" onclick="anularCompra(${compra.idCompra})" title="Anular">
-                        <i class="fas fa-ban"></i>
-                    </button>
+                ${puedeEditar ? `
+                <button class="btn btn-icon btn-warning" onclick="editarCompra(${compra.idCompra})" title="Editar">
+                    <i class="fas fa-edit"></i>
+                </button>
+                ` : ''}
+                ${puedeRecibir ? `
+                <button class="btn btn-icon btn-success" onclick="recibirCompra(${compra.idCompra})" title="Recibir">
+                    <i class="fas fa-check"></i>
+                </button>
+                ` : ''}
+                ${puedeAnular ? `
+                <button class="btn btn-icon btn-danger" onclick="anularCompra(${compra.idCompra})" title="Anular">
+                    <i class="fas fa-ban"></i>
+                </button>
                 ` : ''}
             </td>
         </tr>
-    `).join('');
+        `;
+    }).join('');
 }
 
-// ==================== RENDERIZAR TABLA DE PROVEEDORES ====================
 function renderizarProveedores(proveedoresData) {
     const tbody = document.getElementById('proveedoresTableBody');
     
@@ -944,7 +910,6 @@ function renderizarProveedores(proveedoresData) {
     `).join('');
 }
 
-// ==================== BADGES Y ESTADOS ====================
 function getBadgeEstado(estado) {
     const badges = {
         'PENDIENTE': '<span class="badge badge-warning"><i class="fas fa-clock"></i> Pendiente</span>',
@@ -973,7 +938,6 @@ function getEstadoProveedor(estado) {
     }
 }
 
-// ==================== ESTADÍSTICAS - COMPRAS ====================
 function actualizarEstadisticasCompras() {
     const total = compras.length;
     const pendientes = compras.filter(c => c.estado === 'PENDIENTE').length;
@@ -995,7 +959,6 @@ function actualizarEstadisticasCompras() {
     document.getElementById('badgeCompras').textContent = total;
 }
 
-// ==================== ESTADÍSTICAS - PROVEEDORES ====================
 function actualizarEstadisticasProveedores() {
     const total = proveedores.length;
     const activos = proveedores.filter(p => p.estado === 'ACTIVO').length;
@@ -1009,7 +972,6 @@ function actualizarEstadisticasProveedores() {
     document.getElementById('badgeProveedores').textContent = total;
 }
 
-// ==================== FILTROS - COMPRAS ====================
 function filtrarCompras() {
     const searchTerm = document.getElementById('searchCompras').value.toLowerCase();
     const estadoFilter = document.getElementById('estadoFilterCompras').value;
@@ -1027,7 +989,6 @@ function filtrarCompras() {
     renderizarCompras(comprasFiltradas);
 }
 
-// ==================== FILTROS - PROVEEDORES ====================
 function filtrarProveedores() {
     const searchTerm = document.getElementById('searchProveedores').value.toLowerCase();
     const estadoFilter = document.getElementById('estadoFilterProveedores').value;
@@ -1045,10 +1006,18 @@ function filtrarProveedores() {
     
     renderizarProveedores(proveedoresFiltrados);
 }
-// ==================== PARTE 2: MODALES Y GESTIÓN DE PRODUCTOS ====================
 
-// ==================== MODAL - NUEVA COMPRA ====================
 function abrirModalNuevaCompra() {
+    if (productos.length === 0) {
+        showNotification('⚠️ Cargando productos...', 'warning');
+        cargarProductos().then(() => {
+            abrirModalNuevaCompra();
+        }).catch(error => {
+            showNotification('❌ Error al cargar productos. Intente nuevamente.', 'error');
+        });
+        return;
+    }
+    
     document.getElementById('modalCompraTitle').innerHTML = '<i class="fas fa-plus-circle"></i> Nueva Orden de Compra';
     document.getElementById('formCompra').reset();
     document.getElementById('compraId').value = '';
@@ -1059,7 +1028,6 @@ function abrirModalNuevaCompra() {
     document.getElementById('modalCompra').classList.add('active');
 }
 
-// ==================== MODAL - NUEVO PROVEEDOR ====================
 function abrirModalNuevoProveedor() {
     document.getElementById('modalProveedorTitle').innerHTML = '<i class="fas fa-plus-circle"></i> Nuevo Proveedor';
     document.getElementById('formProveedor').reset();
@@ -1068,15 +1036,22 @@ function abrirModalNuevoProveedor() {
     document.getElementById('modalProveedor').classList.add('active');
 }
 
-// ==================== CERRAR MODALES ====================
 function cerrarModal(modalId) {
     document.getElementById(modalId).classList.remove('active');
 }
 
-// ==================== GESTIÓN DE PRODUCTOS EN COMPRA ====================
 function agregarProducto() {
     if (productos.length === 0) {
-        showNotification('No hay productos disponibles', 'warning');
+        showNotification('⚠️ No hay productos disponibles. Cargando productos...', 'warning');
+        cargarProductos().then(() => {
+            if (productos.length > 0) {
+                agregarProducto(); 
+            } else {
+                showNotification('❌ No se encontraron productos en el sistema', 'error');
+            }
+        }).catch(error => {
+            showNotification(`❌ Error al cargar productos: ${error.message}`, 'error');
+        });
         return;
     }
     
@@ -1089,7 +1064,7 @@ function agregarProducto() {
         <td>
             <select class="form-input producto-select" data-index="${index}" required>
                 <option value="">Seleccione producto</option>
-                ${productos.map(p => `<option value="${p.idProducto}" data-precio="${p.precioCompra}">${p.nombre}</option>`).join('')}
+                ${productos.map(p => `<option value="${p.idProducto}" data-precio="${p.precioCompra || 0}">${p.nombreProducto || p.nombre || 'Sin nombre'}</option>`).join('')}
             </select>
         </td>
         <td>
@@ -1118,9 +1093,14 @@ function agregarProducto() {
     
     row.querySelector('.producto-select').addEventListener('change', function(e) {
         const option = e.target.selectedOptions[0];
-        const precio = option.dataset.precio || 0;
-        row.querySelector('.producto-precio').value = precio;
-        calcularSubtotalProducto(index);
+        if (option && option.value) {
+            const precio = parseFloat(option.dataset.precio) || 0;
+            row.querySelector('.producto-precio').value = precio;
+            calcularSubtotalProducto(index);
+        } else {
+            row.querySelector('.producto-precio').value = 0;
+            calcularSubtotalProducto(index);
+        }
     });
     
     row.querySelector('.producto-cantidad').addEventListener('input', () => calcularSubtotalProducto(index));
@@ -1168,7 +1148,6 @@ function calcularTotales() {
     document.getElementById('totalDisplay').textContent = '$' + formatearNumero(total);
 }
 
-// ==================== GUARDAR COMPRA ====================
 async function guardarCompra() {
     if (!document.getElementById('fechaCompra').value) {
         showNotification('Seleccione la fecha de compra', 'error');
@@ -1261,7 +1240,6 @@ async function guardarCompra() {
     }
 }
 
-// ==================== GUARDAR PROVEEDOR ====================
 async function guardarProveedor() {
     if (!document.getElementById('nombreEmpresa').value.trim()) {
         showNotification('El nombre de la empresa es requerido', 'error');
@@ -1306,9 +1284,6 @@ async function guardarProveedor() {
     }
 }
 
-// ==================== PARTE 3: DETALLES, ACCIONES Y UTILIDADES ====================
-
-// ==================== VER DETALLES COMPRA ====================
 async function verDetallesCompra(idCompra) {
     try {
         const response = await fetch(`/api/compras/${idCompra}`);
@@ -1374,7 +1349,7 @@ async function verDetallesCompra(idCompra) {
                 <tbody>
                     ${compra.detalles.map(detalle => `
                         <tr>
-                            <td>${detalle.producto.nombre}</td>
+                            <td>${detalle.producto.nombreProducto || detalle.producto.nombre || 'Sin nombre'}</td>
                             <td>${detalle.cantidad}</td>
                             <td>$${formatearNumero(detalle.precioUnitario)}</td>
                             <td>$${formatearNumero(detalle.descuento)}</td>
@@ -1420,7 +1395,6 @@ async function verDetallesCompra(idCompra) {
     }
 }
 
-// ==================== VER DETALLES PROVEEDOR ====================
 async function verDetallesProveedor(idProveedor) {
     try {
         const response = await fetch(`/api/proveedores/${idProveedor}`);
@@ -1502,8 +1476,115 @@ async function verDetallesProveedor(idProveedor) {
         showNotification('Error al cargar los detalles del proveedor', 'error');
     }
 }
-
-// ==================== EDITAR PROVEEDOR ====================
+async function editarCompra(idCompra) {
+    const compraLocal = compras.find(c => c.idCompra === idCompra);
+    
+    if (!compraLocal) {
+        showNotification('❌ Compra no encontrada', 'error');
+        return;
+    }
+    
+    if (compraLocal.estado !== 'PENDIENTE') {
+        showNotification(`⚠️ No se puede editar una compra con estado: ${compraLocal.estado}`, 'warning');
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/api/compras/${idCompra}`);
+        if (!response.ok) {
+            throw new Error('Error al cargar la compra');
+        }
+        
+        const compra = await response.json();
+        
+        if (compra.estado !== 'PENDIENTE') {
+            showNotification(`⚠️ No se puede editar una compra con estado: ${compra.estado}`, 'warning');
+            return;
+        }
+        
+        document.getElementById('modalCompraTitle').innerHTML = '<i class="fas fa-edit"></i> Editar Orden de Compra';
+        
+        document.getElementById('compraId').value = compra.idCompra;
+        document.getElementById('fechaCompra').value = compra.fechaCompra;
+        document.getElementById('proveedorId').value = compra.proveedor.idProveedor;
+        document.getElementById('numeroFacturaProveedor').value = compra.numeroFacturaProveedor || '';
+        document.getElementById('tipoPago').value = compra.tipoPago;
+        document.getElementById('fechaEntregaEstimada').value = compra.fechaEntregaEstimada || '';
+        document.getElementById('descuentoGlobal').value = compra.descuento || 0;
+        document.getElementById('observaciones').value = compra.observaciones || '';
+        
+        document.getElementById('productosTableBody').innerHTML = '';
+        productoIndex = 0;
+        
+        compra.detalles.forEach(detalle => {
+            const tbody = document.getElementById('productosTableBody');
+            const index = productoIndex++;
+            
+            const row = document.createElement('tr');
+            row.id = `producto-row-${index}`;
+            row.innerHTML = `
+                <td>
+                    <select class="form-input producto-select" data-index="${index}" required>
+                        <option value="">Seleccione producto</option>
+                        ${productos.map(p => `
+                            <option value="${p.idProducto}" 
+                                    data-precio="${p.precioCompra || 0}"
+                                    ${p.idProducto === detalle.producto.idProducto ? 'selected' : ''}>
+                                ${p.nombreProducto || p.nombre || 'Sin nombre'}
+                            </option>
+                        `).join('')}
+                    </select>
+                </td>
+                <td>
+                    <input type="number" class="form-input producto-cantidad" data-index="${index}" 
+                           min="1" step="0.01" value="${detalle.cantidad}" required>
+                </td>
+                <td>
+                    <input type="number" class="form-input producto-precio" data-index="${index}" 
+                           min="0" step="0.01" value="${detalle.precioUnitario}" required>
+                </td>
+                <td>
+                    <input type="number" class="form-input producto-descuento" data-index="${index}" 
+                           min="0" step="0.01" value="${detalle.descuento || 0}">
+                </td>
+                <td>
+                    <strong class="producto-subtotal" data-index="${index}">$${formatearNumero(detalle.subtotal)}</strong>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-icon btn-danger" onclick="eliminarProducto(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            `;
+            
+            tbody.appendChild(row);
+            
+            row.querySelector('.producto-select').addEventListener('change', function(e) {
+                const option = e.target.selectedOptions[0];
+                if (option && option.value) {
+                    const precio = parseFloat(option.dataset.precio) || 0;
+                    row.querySelector('.producto-precio').value = precio;
+                    calcularSubtotalProducto(index);
+                } else {
+                    row.querySelector('.producto-precio').value = 0;
+                    calcularSubtotalProducto(index);
+                }
+            });
+            
+            row.querySelector('.producto-cantidad').addEventListener('input', () => calcularSubtotalProducto(index));
+            row.querySelector('.producto-precio').addEventListener('input', () => calcularSubtotalProducto(index));
+            row.querySelector('.producto-descuento').addEventListener('input', () => calcularSubtotalProducto(index));
+        });
+        
+        calcularTotales();
+        
+        document.getElementById('modalCompra').classList.add('active');
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al cargar la compra', 'error');
+    }
+}
 async function editarProveedor(idProveedor) {
     try {
         const response = await fetch(`/api/proveedores/${idProveedor}`);
@@ -1529,8 +1610,24 @@ async function editarProveedor(idProveedor) {
     }
 }
 
-// ==================== RECIBIR COMPRA ====================
 async function recibirCompra(idCompra) {
+    const compra = compras.find(c => c.idCompra === idCompra);
+    
+    if (!compra) {
+        showNotification('❌ Compra no encontrada', 'error');
+        return;
+    }
+    
+    if (compra.estado === 'RECIBIDA') {
+        showNotification('⚠️ Esta compra ya fue recibida', 'warning');
+        return;
+    }
+    
+    if (compra.estado === 'ANULADA') {
+        showNotification('⚠️ No se puede recibir una compra anulada', 'warning');
+        return;
+    }
+    
     if (!confirm('¿Confirma que ha recibido esta compra? Se actualizará el inventario.')) {
         return;
     }
@@ -1541,19 +1638,44 @@ async function recibirCompra(idCompra) {
         });
         
         if (!response.ok) {
-            throw new Error('Error al recibir la compra');
+            let errorMessage = 'Error al recibir la compra';
+            try {
+                const errorData = await response.json();
+                if (errorData.message) {
+                    errorMessage = errorData.message;
+                }
+            } catch (e) {
+                errorMessage = `Error ${response.status}: ${response.statusText}`;
+            }
+            throw new Error(errorMessage);
         }
         
         showNotification('✅ Compra recibida. Inventario actualizado', 'success');
         cargarCompras();
     } catch (error) {
         console.error('Error:', error);
-        showNotification('❌ Error al recibir la compra', 'error');
+        showNotification(`❌ ${error.message}`, 'error');
     }
 }
 
-// ==================== ANULAR COMPRA ====================
 async function anularCompra(idCompra) {
+    const compra = compras.find(c => c.idCompra === idCompra);
+    
+    if (!compra) {
+        showNotification('❌ Compra no encontrada', 'error');
+        return;
+    }
+    
+    if (compra.estado === 'RECIBIDA') {
+        showNotification('⚠️ No se puede anular una compra ya recibida', 'warning');
+        return;
+    }
+    
+    if (compra.estado === 'ANULADA') {
+        showNotification('⚠️ Esta compra ya está anulada', 'warning');
+        return;
+    }
+    
     if (!confirm('⚠️ ¿Está seguro de anular esta compra? Esta acción no se puede deshacer.')) {
         return;
     }
@@ -1564,19 +1686,39 @@ async function anularCompra(idCompra) {
         });
         
         if (!response.ok) {
-            throw new Error('Error al anular la compra');
+            let errorMessage = 'Error al anular la compra';
+            try {
+                const errorData = await response.json();
+                if (errorData.message) {
+                    errorMessage = errorData.message;
+                }
+            } catch (e) {
+                errorMessage = `Error ${response.status}: ${response.statusText}`;
+            }
+            throw new Error(errorMessage);
         }
         
         showNotification('✅ Compra anulada exitosamente', 'success');
         cargarCompras();
     } catch (error) {
         console.error('Error:', error);
-        showNotification('❌ Error al anular la compra', 'error');
+        showNotification(`❌ ${error.message}`, 'error');
     }
 }
 
-// ==================== DESACTIVAR PROVEEDOR ====================
 async function desactivarProveedor(idProveedor) {
+    const proveedor = proveedores.find(p => p.idProveedor === idProveedor);
+    
+    if (!proveedor) {
+        showNotification('❌ Proveedor no encontrado', 'error');
+        return;
+    }
+    
+    if (proveedor.estado === 'INACTIVO') {
+        showNotification('⚠️ Este proveedor ya está inactivo', 'warning');
+        return;
+    }
+    
     if (!confirm('¿Está seguro de desactivar este proveedor?')) {
         return;
     }
@@ -1587,44 +1729,69 @@ async function desactivarProveedor(idProveedor) {
         });
         
         if (!response.ok) {
-            throw new Error('Error al desactivar el proveedor');
+            let errorMessage = 'Error al desactivar el proveedor';
+            try {
+                const errorData = await response.json();
+                if (errorData.message) {
+                    errorMessage = errorData.message;
+                }
+            } catch (e) {
+                errorMessage = `Error ${response.status}: ${response.statusText}`;
+            }
+            throw new Error(errorMessage);
         }
         
         showNotification('✅ Proveedor desactivado exitosamente', 'success');
         cargarProveedores();
     } catch (error) {
         console.error('Error:', error);
-        showNotification('❌ Error al desactivar el proveedor', 'error');
+        showNotification(`❌ ${error.message}`, 'error');
     }
 }
 
-// ==================== ACTIVAR PROVEEDOR ====================
 async function activarProveedor(idProveedor) {
+    const proveedor = proveedores.find(p => p.idProveedor === idProveedor);
+    
+    if (!proveedor) {
+        showNotification('❌ Proveedor no encontrado', 'error');
+        return;
+    }
+    
+    if (proveedor.estado === 'ACTIVO') {
+        showNotification('⚠️ Este proveedor ya está activo', 'warning');
+        return;
+    }
+    
+    if (!confirm('¿Está seguro de activar este proveedor?')) {
+        return;
+    }
+    
     try {
-        const proveedor = proveedores.find(p => p.idProveedor === idProveedor);
-        if (!proveedor) return;
-        
-        proveedor.estado = 'ACTIVO';
-        
-        const response = await fetch(`/api/proveedores/${idProveedor}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(proveedor)
+        const response = await fetch(`/api/proveedores/${idProveedor}/activar`, {
+            method: 'PUT'
         });
         
         if (!response.ok) {
-            throw new Error('Error al activar el proveedor');
+            let errorMessage = 'Error al activar el proveedor';
+            try {
+                const errorData = await response.json();
+                if (errorData.message) {
+                    errorMessage = errorData.message;
+                }
+            } catch (e) {
+                errorMessage = `Error ${response.status}: ${response.statusText}`;
+            }
+            throw new Error(errorMessage);
         }
         
         showNotification('✅ Proveedor activado exitosamente', 'success');
         cargarProveedores();
     } catch (error) {
         console.error('Error:', error);
-        showNotification('❌ Error al activar el proveedor', 'error');
+        showNotification(`❌ ${error.message}`, 'error');
     }
 }
 
-// ==================== SIDEBAR ====================
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.toggle('active');
@@ -1641,7 +1808,6 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// ==================== CERRAR SESIÓN ====================
 function cerrarSesion() {
     if (confirm('¿Está seguro que desea cerrar sesión?')) {
         showNotification('Cerrando sesión...', 'info');
@@ -1653,7 +1819,6 @@ function cerrarSesion() {
     }
 }
 
-// ==================== UTILIDADES ====================
 function formatearFecha(fecha) {
     if (!fecha) return 'N/A';
     const date = new Date(fecha);
@@ -1671,7 +1836,6 @@ function formatearNumero(numero) {
     });
 }
 
-// ==================== NOTIFICACIONES ====================
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     let bgColor, icon;
@@ -1724,7 +1888,6 @@ function showNotification(message, type = 'info') {
     }, 3500);
 }
 
-// ==================== ESTILOS DE ANIMACIÓN ====================
 const styleAnimations = document.createElement('style');
 styleAnimations.textContent = `
     @keyframes slideIn {
@@ -1738,7 +1901,6 @@ styleAnimations.textContent = `
 `;
 document.head.appendChild(styleAnimations);
 
-// ==================== CONSOLE LOG ====================
 console.log('%c🛒 Módulo de Compras', 'color: #4a90e2; font-size: 20px; font-weight: bold;');
 console.log('%c✅ Sistema cargado', 'color: #28a745; font-size: 14px;');
 console.log('%c📋 Funcionalidades:', 'color: #333; font-size: 13px; font-weight: bold;');
