@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="container">
+        <!-- SIDEBAR -->
         <!-- Sidebar -->
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
@@ -135,33 +136,45 @@
     </ul>
 </aside>
 
+        <!-- MAIN CONTENT -->
         <main class="main-content">
-            <!-- Header -->
-            <header class="header">
-                <div class="header-left">
-                    <h1><i class="fas fa-shipping-fast"></i> Logística y Envíos</h1>
-                </div>
-                <div class="header-right">
-                    <div class="user-info">
-                        <div class="user-avatar">AD</div>
-                        <div>
-                            <div style="font-weight: 600; color: var(--gris-texto);">Admin User</div>
-                            <div style="font-size: 12px; color: var(--gris-texto-secundario);">Administrador</div>
-                        </div>
-                    </div>
-                    <button class="logout-btn" onclick="cerrarSesion()">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Cerrar Sesión
+            <!-- HEADER -->
+       <header class="header">
+    <div class="header-content">
+        <div class="header-left">
+            <h1><i class="fas fa-shipping-fast"></i> Logística</h1>
+        </div>
+        <div class="breadcrumb">
+            <a href="/dashboard"><i class="fas fa-home"></i> Inicio</a>
+            <span>/</span>
+            <span>Logística y Envíos</span>
+        </div>
+    </div>
+</header>
+
+            <!-- CONTENT AREA -->
+            <div class="content-area">
+           <!-- TABS -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('envios')">
+                        <i class="fas fa-box"></i> Envíos
+                    </button>
+                    <button class="tab" onclick="switchTab('metodos')">
+                        <i class="fas fa-shipping-fast"></i> Métodos de Envío
+                    </button>
+                    <button class="tab" onclick="switchTab('transportistas')">
+                        <i class="fas fa-user-tie"></i> Transportistas
+                    </button>
+                    <button class="tab" onclick="switchTab('rutas')">
+                        <i class="fas fa-route"></i> Rutas
                     </button>
                 </div>
-            </header>
 
-            <!-- Content Area -->
-            <div class="content-area">
-                <!-- EstadÃ­sticas -->
+
+               <!-- ESTADÍSTICAS -->
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background: linear-gradient(45deg, var(--naranja-proceso), #e0650d);">
+                    <div class="stat-card" style="--stat-color: linear-gradient(45deg, #FF6F00, #E65100);">
+                        <div class="stat-icon">
                             <i class="fas fa-box"></i>
                         </div>
                         <div class="stat-content">
@@ -169,17 +182,17 @@
                             <p>Envíos Totales</p>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background: linear-gradient(45deg, var(--morado-transito), #5936a8);">
+                    <div class="stat-card" style="--stat-color: linear-gradient(45deg, #6f42c1, #5936a8);">
+                        <div class="stat-icon">
                             <i class="fas fa-truck"></i>
                         </div>
                         <div class="stat-content">
                             <h3 id="enviosEnTransito">0</h3>
-                            <p>En Transito</p>
+                            <p>En Tránsito</p>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background: linear-gradient(45deg, var(--verde-exito), var(--verde-exito-gradient));">
+                    <div class="stat-card" style="--stat-color: linear-gradient(45deg, var(--verde-exito), var(--verde-exito-gradient));">
+                        <div class="stat-icon">
                             <i class="fas fa-check-circle"></i>
                         </div>
                         <div class="stat-content">
@@ -187,8 +200,8 @@
                             <p>Entregados</p>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background: linear-gradient(45deg, var(--amarillo-advertencia), #e0a800);">
+                    <div class="stat-card" style="--stat-color: linear-gradient(45deg, var(--amarillo-advertencia), #e0a800);">
+                        <div class="stat-icon">
                             <i class="fas fa-clock"></i>
                         </div>
                         <div class="stat-content">
@@ -198,35 +211,20 @@
                     </div>
                 </div>
 
-                <!-- Tabs -->
-                <div class="tabs">
-                    <button class="tab active" onclick="switchTab('envios')">
-                        <i class="fas fa-box"></i> Envío
-                    </button>
-                    <button class="tab" onclick="switchTab('metodos')">
-                        <i class="fas fa-shipping-fast"></i> Metodos de Envío
-                    </button>
-                    <button class="tab" onclick="switchTab('transportistas')">
-                        <i class="fas fa-user-tie"></i> Transportistas
-                    </button>
-                    <button class="tab" onclick="switchTab('rutas')">
-                        <i class="fas fa-route"></i> Rutas
-                    </button>
-                </div>
+                <!-- TAB: ENVÍOS -->
                 <div id="tab-envios" class="tab-content active">
                     <div class="action-bar">
                         <div class="search-box">
-                            <input type="text" class="search-input" id="searchEnvios" placeholder="Buscar por número de guia, cliente...">
+                            <input type="text" class="search-input" id="searchEnvios" placeholder="Buscar por número de guía, cliente...">
                             <button class="btn btn-secondary" onclick="buscarEnvios()">
                                 <i class="fas fa-search"></i> Buscar
                             </button>
                         </div>
                         <button class="btn btn-primary" onclick="mostrarModalEnvio()">
-                            <i class="fas fa-plus"></i> Nuevo Envíos
+                            <i class="fas fa-plus"></i> Nuevo Envío
                         </button>
                     </div>
 
-                    <!-- Filtros -->
                     <div class="filter-bar">
                         <select class="filter-select" id="filterEstadoEnvio" onchange="filtrarEnvios()">
                             <option value="">Todos los estados</option>
@@ -252,6 +250,7 @@
                                         <th>Cliente</th>
                                         <th>Destino</th>
                                         <th>Método</th>
+                                        <th>Transportista</th>
                                         <th>Estado</th>
                                         <th>Fecha Creación</th>
                                         <th>Costo</th>
@@ -260,10 +259,10 @@
                                 </thead>
                                 <tbody id="enviosBody">
                                     <tr>
-                                        <td colspan="8">
+                                        <td colspan="9">
                                             <div class="empty-state">
                                                 <i class="fas fa-box-open"></i>
-                                                <h3>No hay envióss registrados</h3>
+                                                <h3>No hay envíos registrados</h3>
                                                 <p>Comienza creando un nuevo envío</p>
                                             </div>
                                         </td>
@@ -273,10 +272,12 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- TAB: MÉTODOS DE ENVÍO -->
                 <div id="tab-metodos" class="tab-content">
                     <div class="action-bar">
                         <div class="search-box">
-                            <input type="text" class="search-input" id="searchMetodos" placeholder="Buscar mÃ©todos de envÃ­o...">
+                            <input type="text" class="search-input" id="searchMetodos" placeholder="Buscar métodos de envío...">
                         </div>
                         <button class="btn btn-primary" onclick="mostrarModalMetodo()">
                             <i class="fas fa-plus"></i> Nuevo Método
@@ -286,7 +287,7 @@
                     <div class="card">
                         <div class="loading" id="loadingMetodos">
                             <div class="spinner"></div>
-                            <p>Cargando metodos de envío...</p>
+                            <p>Cargando métodos de envío...</p>
                         </div>
                         <div class="table-container">
                             <table>
@@ -306,7 +307,7 @@
                                         <td colspan="7">
                                             <div class="empty-state">
                                                 <i class="fas fa-shipping-fast"></i>
-                                              <h3>No hay métodos de envío registrados</h3>
+                                                <h3>No hay métodos de envío registrados</h3>
                                                 <p>Comienza agregando un nuevo método</p>
                                             </div>
                                         </td>
@@ -317,6 +318,7 @@
                     </div>
                 </div>
 
+                <!-- TAB: TRANSPORTISTAS -->
                 <div id="tab-transportistas" class="tab-content">
                     <div class="action-bar">
                         <div class="search-box">
@@ -336,7 +338,7 @@
                             <table>
                                 <thead>
                                     <tr>
-                                       <th>Nombre</th>
+                                        <th>Nombre</th>
                                         <th>Empresa</th>
                                         <th>Teléfono</th>
                                         <th>Email</th>
@@ -362,6 +364,7 @@
                     </div>
                 </div>
 
+                <!-- TAB: RUTAS -->
                 <div id="tab-rutas" class="tab-content">
                     <div class="action-bar">
                         <div class="search-box">
@@ -410,12 +413,15 @@
             </div>
         </main>
     </div>
+
+    <!-- MODAL ENVÍO -->
     <div class="modal" id="modalEnvio">
         <div class="modal-content">
             <div class="modal-header">
                 <h2><i class="fas fa-box"></i> <span id="tituloModalEnvio">Nuevo Envío</span></h2>
                 <button class="close-btn" onclick="cerrarModalEnvio()">&times;</button>
             </div>
+            <div class="modal-body">
             <form id="formEnvio" onsubmit="guardarEnvio(event)">
                 <input type="hidden" id="envioId">
                 
@@ -456,7 +462,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Telefono de Contacto</label>
+                        <label>Teléfono de Contacto</label>
                         <input type="tel" id="envioTelefono">
                     </div>
                     <div class="form-group">
@@ -465,18 +471,24 @@
                     </div>
                 </div>
 
-                <h3 class="form-section-title"><i class="fas fa-shipping-fast"></i> Detalles del Enví­o</h3>
+                <h3 class="form-section-title"><i class="fas fa-shipping-fast"></i> Detalles del Envío</h3>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Metodo de Envío</label>
+                        <label>Método de Envío</label>
                         <select id="envioMetodoId">
-                            <option value="">Seleccionar metodo</option>
+                            <option value="">Seleccionar método</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Ruta</label>
                         <select id="envioRutaId">
                             <option value="">Seleccionar ruta</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Transportista</label>
+                        <select id="envioTransportistaId">
+                            <option value="">Seleccionar transportista</option>
                         </select>
                     </div>
                 </div>
@@ -490,7 +502,7 @@
                         <input type="number" id="envioPeso" step="0.01" min="0" placeholder="0.00">
                     </div>
                     <div class="form-group">
-                        <label>Costo de Enví­o</label>
+                        <label>Costo de Envío</label>
                         <input type="number" id="envioCosto" step="0.01" min="0" placeholder="0.00">
                     </div>
                 </div>
@@ -499,34 +511,37 @@
                     <textarea id="envioObservaciones" rows="3" placeholder="Notas adicionales..."></textarea>
                 </div>
 
+            </form>
+            </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="cerrarModalEnvio()">
                         <i class="fas fa-times"></i> Cancelar
                     </button>
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" form="formEnvio" class="btn btn-success">
                         <i class="fas fa-save"></i> Guardar
                     </button>
                 </div>
-            </form>
         </div>
     </div>
 
+    <!-- MODAL MÉTODO DE ENVÍO -->
     <div class="modal" id="modalMetodo">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-shipping-fast"></i> <span id="tituloModalMetodo">Nuevo Metodo de Envi­o</span></h2>
+                <h2><i class="fas fa-shipping-fast"></i> <span id="tituloModalMetodo">Nuevo Método de Envío</span></h2>
                 <button class="close-btn" onclick="cerrarModalMetodo()">&times;</button>
             </div>
+            <div class="modal-body">
             <form id="formMetodo" onsubmit="guardarMetodo(event)">
                 <input type="hidden" id="metodoId">
                 
                 <div class="form-group">
                     <label>Nombre *</label>
-                    <input type="text" id="metodoNombre" required placeholder="Ej: EnvÃ­o Express">
+                    <input type="text" id="metodoNombre" required placeholder="Ej: Envío Express">
                 </div>
                 <div class="form-group">
                     <label>Descripción</label>
-                    <textarea id="metodoDescripcion" rows="2" placeholder="DescripciÃ³n del mÃ©todo..."></textarea>
+                    <textarea id="metodoDescripcion" rows="2" placeholder="Descripción del método..."></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
@@ -543,23 +558,27 @@
                     <input type="text" id="metodoTiempo" placeholder="Ej: 24-48 horas">
                 </div>
 
+            </form>
+            </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="cerrarModalMetodo()">
                         <i class="fas fa-times"></i> Cancelar
                     </button>
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" form="formMetodo" class="btn btn-success">
                         <i class="fas fa-save"></i> Guardar
                     </button>
                 </div>
-            </form>
         </div>
     </div>
+
+    <!-- MODAL TRANSPORTISTA -->
     <div class="modal" id="modalTransportista">
         <div class="modal-content">
             <div class="modal-header">
                 <h2><i class="fas fa-user-tie"></i> <span id="tituloModalTransportista">Nuevo Transportista</span></h2>
                 <button class="close-btn" onclick="cerrarModalTransportista()">&times;</button>
             </div>
+            <div class="modal-body">
             <form id="formTransportista" onsubmit="guardarTransportista(event)">
                 <input type="hidden" id="transportistaId">
                 
@@ -598,24 +617,27 @@
                     <input type="text" id="transportistaLicencia">
                 </div>
 
+            </form>
+            </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="cerrarModalTransportista()">
                         <i class="fas fa-times"></i> Cancelar
                     </button>
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" form="formTransportista" class="btn btn-success">
                         <i class="fas fa-save"></i> Guardar
                     </button>
                 </div>
-            </form>
         </div>
     </div>
 
+    <!-- MODAL RUTA -->
     <div class="modal" id="modalRuta">
         <div class="modal-content">
             <div class="modal-header">
                 <h2><i class="fas fa-route"></i> <span id="tituloModalRuta">Nueva Ruta</span></h2>
                 <button class="close-btn" onclick="cerrarModalRuta()">&times;</button>
             </div>
+            <div class="modal-body">
             <form id="formRuta" onsubmit="guardarRuta(event)">
                 <input type="hidden" id="rutaId">
                 
@@ -658,18 +680,20 @@
                     <textarea id="rutaReferencias" rows="3" placeholder="Puntos de referencia, indicaciones..."></textarea>
                 </div>
 
+            </form>
+            </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="cerrarModalRuta()">
                         <i class="fas fa-times"></i> Cancelar
                     </button>
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" form="formRuta" class="btn btn-success">
                         <i class="fas fa-save"></i> Guardar
                     </button>
                 </div>
-            </form>
         </div>
     </div>
 
+    <!-- MODAL SEGUIMIENTO -->
     <div class="modal" id="modalSeguimiento">
         <div class="modal-content">
             <div class="modal-header">
@@ -684,23 +708,274 @@
             </div>
         </div>
     </div>
-
-<script>
+    <script>
+// ==================== CONFIGURACIÓN ====================
 const API_BASE = 'http://localhost:8082/api';
 
-document.addEventListener('DOMContentLoaded', function() {
+// ==================== VERIFICACIÓN DE CONEXIÓN ====================
+async function verificarConexion() {
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        
+        const response = await fetch(`${API_BASE}/envios`, {
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        return response.ok;
+    } catch (error) {
+        console.error('❌ Servidor no disponible:', error);
+        showNotification('⚠️ No se puede conectar al servidor', 'error');
+        return false;
+    }
+}
+
+// ==================== INICIALIZACIÓN (UNA SOLA VEZ) ====================
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('🚀 Iniciando aplicación...');
+    
     inicializarSidebar();
     inicializarEventListeners();
     
-    verificarConexion().then(conectado => {
-        if (conectado) {
-            cargarEnvios();
-            actualizarEstadisticas();
-            showNotification('¡Bienvenido al modulo de Logística!', 'success');
-        }
-    });
+    // Verificar conexión con timeout
+    const conectado = await verificarConexion();
+    
+    if (conectado) {
+        console.log('✅ Servidor conectado');
+        
+        // ⚡ Cargar datos en PARALELO
+        Promise.all([
+            cargarEnvios(),
+            cargarMetodos(),
+            cargarTransportistas(),
+            cargarRutas(),
+            actualizarEstadisticas()
+        ]).then(() => {
+            console.log('✅ Datos cargados');
+            showNotification('¡Bienvenido al módulo de Logística!', 'success');
+        }).catch(error => {
+            console.error('Error al cargar datos iniciales:', error);
+        });
+    } else {
+        mostrarErrorConexion();
+    }
 });
 
+// ==================== ERROR DE CONEXIÓN ====================
+function mostrarErrorConexion() {
+    const tbody = document.getElementById('enviosBody');
+    if (tbody) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8">
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle" style="color: #dc3545;"></i>
+                        <h3>No se puede conectar al servidor</h3>
+                        <p>Verifica que el servidor esté corriendo en <code>http://localhost:8082</code></p>
+                        <button class="btn btn-primary" onclick="location.reload()">
+                            <i class="fas fa-sync"></i> Reintentar
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    }
+    
+    // Ocultar loaders
+    document.querySelectorAll('.loading').forEach(el => el.classList.remove('active'));
+}
+// ==================== VALIDAR TRANSICIONES DE ESTADO ====================
+function validarTransicionEstado(estadoActual, estadoNuevo) {
+    const transicionesInvalidas = {
+        'ENTREGADO': ['PENDIENTE', 'PREPARANDO', 'EN_TRANSITO'],
+        'CANCELADO': ['EN_TRANSITO', 'ENTREGADO', 'DEVUELTO']
+    };
+    
+    if (transicionesInvalidas[estadoActual]?.includes(estadoNuevo)) {
+        return `No puedes cambiar de ${getEstadoTexto(estadoActual)} a ${getEstadoTexto(estadoNuevo)}`;
+    }
+    
+    if (estadoActual === 'DEVUELTO' && estadoNuevo !== 'DEVUELTO') {
+        return 'Un envío devuelto no puede cambiar a otro estado';
+    }
+    
+    return null;
+}
+
+// ==================== APLICAR ESTILO VISUAL AL SELECT ====================
+function aplicarEstiloEstado(selectElement, estado) {
+    const estilos = {
+        'PENDIENTE': { bg: '#fff3cd', border: '#ffc107', color: '#856404' },
+        'PREPARANDO': { bg: '#d1ecf1', border: '#17a2b8', color: '#0c5460' },
+        'EN_TRANSITO': { bg: '#e2d9f3', border: '#6f42c1', color: '#4e2a84' },
+        'ENTREGADO': { bg: '#d4edda', border: '#28a745', color: '#155724' },
+        'CANCELADO': { bg: '#f8d7da', border: '#dc3545', color: '#721c24' },
+        'DEVUELTO': { bg: '#f8d7da', border: '#dc3545', color: '#721c24' }
+    };
+    
+    const estilo = estilos[estado] || { bg: '#fff', border: '#ccc', color: '#333' };
+    
+    selectElement.style.backgroundColor = estilo.bg;
+    selectElement.style.borderColor = estilo.border;
+    selectElement.style.color = estilo.color;
+    selectElement.style.fontWeight = '600';
+    selectElement.style.transition = 'all 0.3s ease';
+}
+
+// ==================== FUNCIONES AUXILIARES DE COLORES ====================
+function getBackgroundEstado(estado) {
+    const colores = {
+        'PENDIENTE': '#fff3cd',
+        'PREPARANDO': '#d1ecf1',
+        'EN_TRANSITO': '#e2d9f3',
+        'ENTREGADO': '#d4edda',
+        'CANCELADO': '#f8d7da',
+        'DEVUELTO': '#f8d7da'
+    };
+    return colores[estado] || '#fff';
+}
+
+function getBorderEstado(estado) {
+    const colores = {
+        'PENDIENTE': '#ffc107',
+        'PREPARANDO': '#17a2b8',
+        'EN_TRANSITO': '#6f42c1',
+        'ENTREGADO': '#28a745',
+        'CANCELADO': '#dc3545',
+        'DEVUELTO': '#dc3545'
+    };
+    return colores[estado] || '#ccc';
+}
+
+function getColorEstado(estado) {
+    const colores = {
+        'PENDIENTE': '#856404',
+        'PREPARANDO': '#0c5460',
+        'EN_TRANSITO': '#4e2a84',
+        'ENTREGADO': '#155724',
+        'CANCELADO': '#721c24',
+        'DEVUELTO': '#721c24'
+    };
+    return colores[estado] || '#333';
+}
+
+// ==================== CARGAR ENVÍOS (OPTIMIZADO) ====================
+async function cargarEnvios() {
+    const loading = document.getElementById('loadingEnvios');
+    const tbody = document.getElementById('enviosBody');
+    
+    if (!tbody) return;
+    
+    loading?.classList.add('active');
+    
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        
+        const response = await fetch(`${API_BASE}/envios`, {
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const envios = await response.json();
+        console.log(`📦 ${envios.length} envíos cargados`);
+        
+        if (envios.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="9">
+                        <div class="empty-state">
+                            <i class="fas fa-box-open"></i>
+                            <h3>No hay envíos registrados</h3>
+                            <p>Comienza creando un nuevo envío</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        } else {
+            tbody.innerHTML = envios.map(envio => {
+                const estado = envio.estado || 'PENDIENTE';
+                return `
+                <tr>
+                    <td><strong>${envio.numeroGuia || 'Sin guía'}</strong></td>
+                    <td>${envio.cliente?.nombreRazonSocial || 'N/A'}</td>
+                    <td>${envio.ciudad || 'N/A'}, ${envio.estadoDestino || ''}</td>
+                    <td>${envio.metodoEnvio?.nombre || 'N/A'}</td>
+                    <td>${envio.transportista?.nombre || 'Sin asignar'}</td>
+                    <td>
+                        <select class="estado-select" 
+                                onchange="cambiarEstadoRapido(${envio.idEnvio}, this.value, this)" 
+                                data-estado-actual="${estado}"
+                                data-envio-id="${envio.idEnvio}"
+                                style="background-color: ${getBackgroundEstado(estado)}; 
+                                       border-color: ${getBorderEstado(estado)}; 
+                                       color: ${getColorEstado(estado)}; 
+                                       font-weight: 600;">
+                            <option value="PENDIENTE" ${estado === 'PENDIENTE' ? 'selected' : ''}>⏳ Pendiente</option>
+                            <option value="PREPARANDO" ${estado === 'PREPARANDO' ? 'selected' : ''}>📦 Preparando</option>
+                            <option value="EN_TRANSITO" ${estado === 'EN_TRANSITO' ? 'selected' : ''}>🚚 En Tránsito</option>
+                            <option value="ENTREGADO" ${estado === 'ENTREGADO' ? 'selected' : ''}>✅ Entregado</option>
+                            <option value="CANCELADO" ${estado === 'CANCELADO' ? 'selected' : ''}>❌ Cancelado</option>
+                            <option value="DEVUELTO" ${estado === 'DEVUELTO' ? 'selected' : ''}>↩️ Devuelto</option>
+                        </select>
+                    </td>
+                    <td>${formatearFecha(envio.fechaCreacion)}</td>
+                    <td>${formatearMoneda(envio.costoEnvio)}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary btn-sm" onclick="verSeguimiento(${envio.idEnvio})" title="Ver seguimiento">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </button>
+                            <button class="btn btn-primary btn-sm" onclick="editarEnvio(${envio.idEnvio})" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarEnvio(${envio.idEnvio})" title="Eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                `;
+            }).join('');
+            
+            actualizarEstadisticas();
+        }
+        
+    } catch (error) {
+        console.error('❌ Error al cargar envíos:', error);
+        
+        if (error.name === 'AbortError') {
+            showNotification('⏱️ Tiempo de espera agotado', 'error');
+        } else {
+            showNotification('Error al cargar envíos', 'error');
+        }
+        
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="9">
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error al cargar datos</h3>
+                        <p>${error.message}</p>
+                        <button class="btn btn-primary" onclick="cargarEnvios()">
+                            <i class="fas fa-sync"></i> Reintentar
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    } finally {
+        loading?.classList.remove('active');
+    }
+}
+
+// ==================== SIDEBAR ====================
 function inicializarSidebar() {
     const sidebar = document.getElementById('sidebar');
     const toggleBtn = document.getElementById('toggleBtn');
@@ -720,8 +995,9 @@ function inicializarSidebar() {
     }
 }
 
+// ==================== EVENT LISTENERS ====================
 function inicializarEventListeners() {
-    // BÃºsquedas
+    // Búsquedas
     const searchEnvios = document.getElementById('searchEnvios');
     if (searchEnvios) searchEnvios.addEventListener('input', buscarEnvios);
     
@@ -744,6 +1020,7 @@ function inicializarEventListeners() {
     });
 }
 
+// ==================== TABS ====================
 function switchTab(tabName) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -757,6 +1034,7 @@ function switchTab(tabName) {
     if (tabName === 'rutas') cargarRutas();
 }
 
+// ==================== UTILIDADES ====================
 function cerrarSesion() {
     if (confirm('Estas seguro que deseas cerrar sesión')) {
         showNotification('Cerrando sesión...', 'info');
@@ -816,13 +1094,14 @@ function formatearMoneda(valor) {
     });
 }
 
+// ==================== ESTADISTICAS ====================
 async function actualizarEstadisticas() {
     try {
         // CAMBIO: Usa el endpoint correcto
         const response = await fetch(`${API_BASE}/envios`);
         
         if (!response.ok) {
-            console.warn('No se pudieron cargar las estadísticas');
+            console.warn('No se pudieron cargar las estadásticas');
             return;
         }
         
@@ -841,10 +1120,11 @@ async function actualizarEstadisticas() {
         
     } catch (error) {
         console.error('Error al actualizar estadísticas:', error);
-        // No mostramos notificaciÃ³n para no molestar al usuario
+        // No mostramos notificación para no molestar al usuario
     }
 }
 
+// ==================== ENVÃƒÂOS ====================
 async function cargarEnvios() {
     const loading = document.getElementById('loadingEnvios');
     const tbody = document.getElementById('enviosBody');
@@ -852,20 +1132,23 @@ async function cargarEnvios() {
     loading.classList.add('active');
     
     try {
+        // CAMBIO: Usa el endpoint correcto
         const response = await fetch(`${API_BASE}/envios`);
         
+        // AGREGADO: Verifica si la respuesta es correcta
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const envios = await response.json();
         
+        // AGREGADO: Log para debug
         console.log('Envíos cargados:', envios);
         
         if (envios.length === 0) {
             tbody.innerHTML = `
                 <tr>
-                    <td colspan="8">
+                    <td colspan="9">
                         <div class="empty-state">
                             <i class="fas fa-box-open"></i>
                             <h3>No hay envíos registrados</h3>
@@ -881,8 +1164,9 @@ async function cargarEnvios() {
                     <td>${envio.cliente?.nombreRazonSocial || 'N/A'}</td>
                     <td>${envio.ciudad || 'N/A'}, ${envio.estadoDestino || ''}</td>
                     <td>${envio.metodoEnvio?.nombre || 'N/A'}</td>
+                    <td>${envio.transportista?.nombre || 'Sin asignar'}</td>
                   <td>
-    <select class="estado-select" onchange="cambiarEstadoRapido(${envio.idEnvio}, this.value)" data-estado-actual="${envio.estado || 'PENDIENTE'}">
+     <select class="estado-select" onchange="cambiarEstadoRapido(${envio.idEnvio}, this.value, this)" data-estado-actual="${envio.estado || 'PENDIENTE'}" data-envio-id="${envio.idEnvio}">
         <option value="PENDIENTE" ${(envio.estado === 'PENDIENTE' || !envio.estado) ? 'selected' : ''}>⏳ Pendiente</option>
         <option value="PREPARANDO" ${envio.estado === 'PREPARANDO' ? 'selected' : ''}>📦 Preparando</option>
         <option value="EN_TRANSITO" ${envio.estado === 'EN_TRANSITO' ? 'selected' : ''}>🚚 En Tránsito</option>
@@ -894,15 +1178,17 @@ async function cargarEnvios() {
                     <td>${formatearFecha(envio.fechaCreacion)}</td>
                     <td>${formatearMoneda(envio.costoEnvio)}</td>
                     <td>
-                        <button class="btn btn-secondary btn-sm" onclick="verSeguimiento(${envio.idEnvio})" title="Ver seguimiento">
-                            <i class="fas fa-map-marked-alt"></i>
-                        </button>
-                        <button class="btn btn-warning btn-sm" onclick="actualizarEstadoEnvio(${envio.idEnvio})" title="Actualizar estado">
-                            <i class="fas fa-sync"></i>
-                        </button>
-                        <button class="btn btn-primary btn-sm" onclick="editarEnvio(${envio.idEnvio})" title="Editar">
-                            <i class="fas fa-edit"></i>
-                        </button>
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary btn-sm" onclick="verSeguimiento(${envio.idEnvio})" title="Ver seguimiento">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </button>
+                            <button class="btn btn-primary btn-sm" onclick="editarEnvio(${envio.idEnvio})" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarEnvio(${envio.idEnvio})" title="Eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             `).join('');
@@ -914,7 +1200,7 @@ async function cargarEnvios() {
         showNotification('Error al cargar envíos: ' + error.message, 'error');
         tbody.innerHTML = `
             <tr>
-                <td colspan="8">
+                <td colspan="9">
                     <div class="empty-state">
                         <i class="fas fa-exclamation-triangle"></i>
                         <h3>Error al cargar datos</h3>
@@ -941,13 +1227,14 @@ function getBadgeEstadoEnvio(estado) {
 }
 
 async function mostrarModalEnvio(id = null) {
-    document.getElementById('tituloModalEnvio').textContent = id ? 'Editar EnvÃ­o' : 'Nuevo EnvÃ­o';
+    document.getElementById('tituloModalEnvio').textContent = id ? 'Editar Envío' : 'Nuevo Envío';
     document.getElementById('formEnvio').reset();
     document.getElementById('envioId').value = id || '';
     
     await cargarClientesSelect();
     await cargarMetodosSelect();
     await cargarRutasSelect();
+    await cargarTransportistasSelect();
     
     if (id) {
         try {
@@ -964,6 +1251,7 @@ async function mostrarModalEnvio(id = null) {
             document.getElementById('envioReferencias').value = envio.referenciaDireccion || '';
             document.getElementById('envioMetodoId').value = envio.metodoEnvio?.idMetodoEnvio || '';
             document.getElementById('envioRutaId').value = envio.ruta?.idRuta || '';
+            document.getElementById('envioTransportistaId').value = envio.transportista?.idTransportista || '';
             document.getElementById('envioFechaEstimada').value = envio.fechaEstimadaEntrega || '';
             document.getElementById('envioPeso').value = envio.pesoKg || '';
             document.getElementById('envioCosto').value = envio.costoEnvio || '';
@@ -1000,6 +1288,8 @@ async function guardarEnvio(event) {
             { idMetodoEnvio: parseInt(document.getElementById('envioMetodoId').value) } : null,
         ruta: document.getElementById('envioRutaId').value ? 
             { idRuta: parseInt(document.getElementById('envioRutaId').value) } : null,
+        transportista: document.getElementById('envioTransportistaId').value ? 
+            { idTransportista: parseInt(document.getElementById('envioTransportistaId').value) } : null,
         fechaEstimadaEntrega: document.getElementById('envioFechaEstimada').value || null,
         pesoKg: parseFloat(document.getElementById('envioPeso').value) || null,
         costoEnvio: parseFloat(document.getElementById('envioCosto').value) || null,
@@ -1033,49 +1323,344 @@ async function guardarEnvio(event) {
 async function editarEnvio(id) {
     await mostrarModalEnvio(id);
 }
-// Función para cambiar estado rápidamente desde el select
-async function cambiarEstadoRapido(idEnvio, nuevoEstado) {
-    const select = event.target;
-    const estadoAnterior = select.dataset.estadoActual;
+
+// ==================== ELIMINAR ENVÍO ====================
+async function eliminarEnvio(id) {
+    if (!confirm('¿Estás seguro de que deseas eliminar este envío? Esta acción no se puede deshacer.')) {
+        return;
+    }
     
-    if (nuevoEstado === estadoAnterior) return;
+    try {
+        const response = await fetch(`${API_BASE}/envios/${id}`, {
+            method: 'DELETE'
+        });
+        
+        if (response.ok) {
+            showNotification('Envío eliminado exitosamente', 'success');
+            cargarEnvios();
+            actualizarEstadisticas();
+        } else {
+            const error = await response.text();
+            showNotification(error || 'Error al eliminar envío', 'error');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Error al eliminar envío', 'error');
+    }
+}
+// ==================== FUNCIÓN PARA CAMBIAR ESTADO RÁPIDAMENTE ====================
+async function cambiarEstadoRapido(idEnvio, nuevoEstado, selectElement) {
+    // Si no se pasa el elemento, intentar obtenerlo del evento
+    const select = selectElement || (event && event.target) || document.querySelector(`select[data-envio-id="${idEnvio}"]`);
+    
+    if (!select) {
+        console.error('No se pudo encontrar el elemento select');
+        showNotification('Error: No se pudo encontrar el elemento', 'error');
+        return;
+    }
+    
+    // IMPORTANTE: Guardar el estado anterior ANTES de cualquier cambio
+    // Primero intentar obtener del dataset, si no está, obtener del valor actual del select
+    let estadoAnterior = select.dataset.estadoActual;
+    if (!estadoAnterior) {
+        // Si no está en el dataset, usar el valor actual del select antes de cambiarlo
+        estadoAnterior = select.options[select.selectedIndex].getAttribute('value') || select.value;
+        select.dataset.estadoActual = estadoAnterior;
+    }
+    
+    console.log('Estado anterior:', estadoAnterior, 'Nuevo estado:', nuevoEstado);
+    
+    if (nuevoEstado === estadoAnterior) {
+        console.log('El estado es el mismo, no se hace nada');
+        return;
+    }
+    
+    // Validar transiciones de estado
+    const transicionesInvalidas = validarTransicionEstado(estadoAnterior, nuevoEstado);
+    if (transicionesInvalidas) {
+        showNotification(transicionesInvalidas, 'warning');
+        select.value = estadoAnterior;
+        return;
+    }
+    
+    // Confirmación especial para estados críticos
+    const requiereConfirmacion = ['CANCELADO', 'DEVUELTO'].includes(nuevoEstado);
+    let razon = null;
+    
+    if (requiereConfirmacion) {
+        const mensajes = {
+            'CANCELADO': '⚠️ ¿Estás seguro de CANCELAR este envío?\n\nEsta acción no se puede deshacer y el envío quedará marcado como cancelado.',
+            'DEVUELTO': '⚠️ ¿Estás seguro de marcar este envío como DEVUELTO?\n\nEsto indica que el paquete fue retornado al remitente.'
+        };
+        
+        if (!confirm(mensajes[nuevoEstado])) {
+            select.value = estadoAnterior;
+            return;
+        }
+        
+        // Pedir razón para estados críticos
+        razon = prompt(`Por favor, indica la razón del ${nuevoEstado.toLowerCase()}:`);
+        if (!razon || razon.trim() === '') {
+            showNotification('Debes proporcionar una razón', 'warning');
+            select.value = estadoAnterior;
+            return;
+        }
+    }
     
     select.disabled = true;
     select.style.opacity = '0.6';
     
     try {
+        const descripcion = razon || `Estado actualizado desde la interfaz a ${getEstadoTexto(nuevoEstado)}`;
+        
+        console.log('Enviando petición:', { idEnvio, estado: nuevoEstado, descripcion });
+        
         const response = await fetch(`${API_BASE}/envios/${idEnvio}/actualizar-estado`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 estado: nuevoEstado,
-                descripcion: `Estado actualizado desde la interfaz a ${nuevoEstado}`
+                descripcion: descripcion
             })
         });
         
         if (response.ok) {
-            showNotification(`Estado actualizado a ${nuevoEstado}`, 'success');
+            showNotification(`✅ Estado actualizado a ${getEstadoTexto(nuevoEstado)}`, 'success');
             select.dataset.estadoActual = nuevoEstado;
+            
+            // Aplicar estilo visual según el estado
+            aplicarEstiloEstado(select, nuevoEstado);
+            
+            // Actualizar estadísticas y recargar tabla en segundo plano
             actualizarEstadisticas();
+            
+            // Recargar la tabla de envíos para reflejar el cambio (sin esperar)
+            cargarEnvios().catch(err => console.error('Error al recargar envíos:', err));
+            
+            // Si es cancelado o devuelto, mostrar notificación adicional
+            if (['CANCELADO', 'DEVUELTO'].includes(nuevoEstado)) {
+                setTimeout(() => {
+                    showNotification(`📋 El envío ha sido marcado como ${getEstadoTexto(nuevoEstado).toLowerCase()}`, 'info');
+                }, 1500);
+            }
         } else {
-            showNotification('Error al actualizar estado', 'error');
+            const errorText = await response.text();
+            console.error('Error del servidor:', errorText, 'Status:', response.status);
+            showNotification(`Error del servidor: ${errorText || 'Error desconocido'}`, 'error');
             select.value = estadoAnterior;
+            select.dataset.estadoActual = estadoAnterior;
+            aplicarEstiloEstado(select, estadoAnterior);
         }
     } catch (error) {
-        console.error('Error:', error);
-        showNotification('Error al actualizar estado', 'error');
+        console.error('Error completo:', error);
+        showNotification('Error al actualizar estado: ' + error.message, 'error');
         select.value = estadoAnterior;
+        select.dataset.estadoActual = estadoAnterior;
+        aplicarEstiloEstado(select, estadoAnterior);
     } finally {
         select.disabled = false;
         select.style.opacity = '1';
     }
+}
+
+// ==================== VALIDAR TRANSICIONES DE ESTADO ====================
+function validarTransicionEstado(estadoActual, estadoNuevo) {
+    // Reglas de negocio para transiciones de estado
+    const transicionesInvalidas = {
+        'ENTREGADO': ['PENDIENTE', 'PREPARANDO', 'EN_TRANSITO'],
+        'CANCELADO': ['EN_TRANSITO', 'ENTREGADO', 'DEVUELTO']
+    };
+    
+    if (transicionesInvalidas[estadoActual]?.includes(estadoNuevo)) {
+        return `No puedes cambiar de ${getEstadoTexto(estadoActual)} a ${getEstadoTexto(estadoNuevo)}`;
+    }
+    
+    // No permitir cambiar desde DEVUELTO a otros estados (excepto a sí mismo)
+    if (estadoActual === 'DEVUELTO' && estadoNuevo !== 'DEVUELTO') {
+        return 'Un envío devuelto no puede cambiar a otro estado';
+    }
+    
+    return null;
+}
+
+// ==================== APLICAR ESTILO VISUAL AL SELECT ====================
+function aplicarEstiloEstado(selectElement, estado) {
+    const estilos = {
+        'PENDIENTE': { bg: '#fff3cd', border: '#ffc107', color: '#856404' },
+        'PREPARANDO': { bg: '#d1ecf1', border: '#17a2b8', color: '#0c5460' },
+        'EN_TRANSITO': { bg: '#e2d9f3', border: '#6f42c1', color: '#4e2a84' },
+        'ENTREGADO': { bg: '#d4edda', border: '#28a745', color: '#155724' },
+        'CANCELADO': { bg: '#f8d7da', border: '#dc3545', color: '#721c24' },
+        'DEVUELTO': { bg: '#f8d7da', border: '#dc3545', color: '#721c24' }
+    };
+    
+    const estilo = estilos[estado] || { bg: '#fff', border: '#ccc', color: '#333' };
+    
+    selectElement.style.backgroundColor = estilo.bg;
+    selectElement.style.borderColor = estilo.border;
+    selectElement.style.color = estilo.color;
+    selectElement.style.fontWeight = '600';
+    selectElement.style.transition = 'all 0.3s ease';
+}
+
+
+// ==================== CARGAR ENVÍOS CON ESTILOS APLICADOS ====================
+async function cargarEnvios() {
+    const loading = document.getElementById('loadingEnvios');
+    const tbody = document.getElementById('enviosBody');
+    
+    if (!tbody) return;
+    
+    loading?.classList.add('active');
+    
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        
+        const response = await fetch(`${API_BASE}/envios`, {
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const envios = await response.json();
+        console.log(`📦 ${envios.length} envíos cargados`);
+        
+        if (envios.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="9">
+                        <div class="empty-state">
+                            <i class="fas fa-box-open"></i>
+                            <h3>No hay envíos registrados</h3>
+                            <p>Comienza creando un nuevo envío</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        } else {
+            tbody.innerHTML = envios.map(envio => {
+                const estado = envio.estado || 'PENDIENTE';
+                return `
+                <tr>
+                    <td><strong>${envio.numeroGuia || 'Sin guía'}</strong></td>
+                    <td>${envio.cliente?.nombreRazonSocial || 'N/A'}</td>
+                    <td>${envio.ciudad || 'N/A'}, ${envio.estadoDestino || ''}</td>
+                    <td>${envio.metodoEnvio?.nombre || 'N/A'}</td>
+                    <td>${envio.transportista?.nombre || 'Sin asignar'}</td>
+                    <td>
+                        <select class="estado-select" 
+                                onchange="cambiarEstadoRapido(${envio.idEnvio}, this.value, this)" 
+                                data-estado-actual="${estado}"
+                                data-envio-id="${envio.idEnvio}"
+                                style="background-color: ${getBackgroundEstado(estado)}; 
+                                       border-color: ${getBorderEstado(estado)}; 
+                                       color: ${getColorEstado(estado)}; 
+                                       font-weight: 600;">
+                            <option value="PENDIENTE" ${estado === 'PENDIENTE' ? 'selected' : ''}>⏳ Pendiente</option>
+                            <option value="PREPARANDO" ${estado === 'PREPARANDO' ? 'selected' : ''}>📦 Preparando</option>
+                            <option value="EN_TRANSITO" ${estado === 'EN_TRANSITO' ? 'selected' : ''}>🚚 En Tránsito</option>
+                            <option value="ENTREGADO" ${estado === 'ENTREGADO' ? 'selected' : ''}>✅ Entregado</option>
+                            <option value="CANCELADO" ${estado === 'CANCELADO' ? 'selected' : ''}>❌ Cancelado</option>
+                            <option value="DEVUELTO" ${estado === 'DEVUELTO' ? 'selected' : ''}>↩️ Devuelto</option>
+                        </select>
+                    </td>
+                    <td>${formatearFecha(envio.fechaCreacion)}</td>
+                    <td>${formatearMoneda(envio.costoEnvio)}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary btn-sm" onclick="verSeguimiento(${envio.idEnvio})" title="Ver seguimiento">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </button>
+                            <button class="btn btn-primary btn-sm" onclick="editarEnvio(${envio.idEnvio})" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarEnvio(${envio.idEnvio})" title="Eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                `;
+            }).join('');
+            
+            actualizarEstadisticas();
+        }
+        
+    } catch (error) {
+        console.error('❌ Error al cargar envíos:', error);
+        
+        if (error.name === 'AbortError') {
+            showNotification('⏱️ Tiempo de espera agotado', 'error');
+        } else {
+            showNotification('Error al cargar envíos', 'error');
+        }
+        
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="9">
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Error al cargar datos</h3>
+                        <p>${error.message}</p>
+                        <button class="btn btn-primary" onclick="cargarEnvios()">
+                            <i class="fas fa-sync"></i> Reintentar
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    } finally {
+        loading?.classList.remove('active');
+    }
+}
+
+// ==================== FUNCIONES AUXILIARES DE COLORES ====================
+function getBackgroundEstado(estado) {
+    const colores = {
+        'PENDIENTE': '#fff3cd',
+        'PREPARANDO': '#d1ecf1',
+        'EN_TRANSITO': '#e2d9f3',
+        'ENTREGADO': '#d4edda',
+        'CANCELADO': '#f8d7da',
+        'DEVUELTO': '#f8d7da'
+    };
+    return colores[estado] || '#fff';
+}
+
+function getBorderEstado(estado) {
+    const colores = {
+        'PENDIENTE': '#ffc107',
+        'PREPARANDO': '#17a2b8',
+        'EN_TRANSITO': '#6f42c1',
+        'ENTREGADO': '#28a745',
+        'CANCELADO': '#dc3545',
+        'DEVUELTO': '#dc3545'
+    };
+    return colores[estado] || '#ccc';
+}
+
+function getColorEstado(estado) {
+    const colores = {
+        'PENDIENTE': '#856404',
+        'PREPARANDO': '#0c5460',
+        'EN_TRANSITO': '#4e2a84',
+        'ENTREGADO': '#155724',
+        'CANCELADO': '#721c24',
+        'DEVUELTO': '#721c24'
+    };
+    return colores[estado] || '#333';
 }
 async function actualizarEstadoEnvio(id) {
     const estados = ['PENDIENTE', 'PREPARANDO', 'EN TRANSITO', 'ENTREGADO', 'CANCELADO', 'DEVUELTO'];
     const estadoActual = prompt('Selecciona el nuevo estado:\n\n' + estados.join('\n'));
     
     if (!estadoActual || !estados.includes(estadoActual.toUpperCase())) {
-        showNotification('Estado no valido', 'warning');
+        showNotification('Estado no válido', 'warning');
         return;
     }
     
@@ -1110,19 +1695,55 @@ async function verSeguimiento(envioId) {
     contenido.innerHTML = '<div class="loading active"><div class="spinner"></div><p>Cargando seguimiento...</p></div>';
     
     try {
-        const response = await fetch(`${API_BASE}/envios/${envioId}/seguimiento`);
-        const seguimientos = await response.json();
+        // Cargar información del envío y seguimientos en paralelo
+        const [envioResponse, seguimientosResponse] = await Promise.all([
+            fetch(`${API_BASE}/envios/${envioId}`),
+            fetch(`${API_BASE}/envios/${envioId}/seguimiento`)
+        ]);
+        
+        const envio = await envioResponse.json();
+        const seguimientos = await seguimientosResponse.json();
+        
+        // Construir información del envío
+        let infoEnvio = `
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #007bff;">
+                <h3 style="margin-top: 0; color: #333; font-size: 1.1em;">
+                    <i class="fas fa-box"></i> Envío #${envio.numeroGuia || envioId}
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
+                    <div>
+                        <strong><i class="fas fa-user"></i> Cliente:</strong><br>
+                        <span style="color: #666;">${envio.cliente?.nombreRazonSocial || 'N/A'}</span>
+                    </div>
+                    <div>
+                        <strong><i class="fas fa-truck"></i> Transportista:</strong><br>
+                        <span style="color: #666;">${envio.transportista?.nombre || 'Sin asignar'}</span>
+                        ${envio.transportista?.empresa ? `<br><small style="color: #999;">${envio.transportista.empresa}</small>` : ''}
+                    </div>
+                    <div>
+                        <strong><i class="fas fa-map-marker-alt"></i> Destino:</strong><br>
+                        <span style="color: #666;">${envio.ciudad || 'N/A'}, ${envio.estadoDestino || ''}</span>
+                    </div>
+                    <div>
+                        <strong><i class="fas fa-shipping-fast"></i> Método:</strong><br>
+                        <span style="color: #666;">${envio.metodoEnvio?.nombre || 'N/A'}</span>
+                    </div>
+                </div>
+            </div>
+        `;
         
         if (seguimientos.length === 0) {
-            contenido.innerHTML = `
+            contenido.innerHTML = infoEnvio + `
                 <div class="empty-state">
                     <i class="fas fa-map-marked-alt"></i>
                     <h3>No hay seguimiento disponible</h3>
-                    <p>No se ha registrado seguimiento para este envío</p>
                 </div>
             `;
         } else {
-            contenido.innerHTML = `
+            contenido.innerHTML = infoEnvio + `
+                <h4 style="margin-bottom: 15px; color: #333;">
+                    <i class="fas fa-history"></i> Historial de Seguimiento
+                </h4>
                 <div class="timeline">
                     ${seguimientos.map(seg => `
                         <div class="timeline-item">
@@ -1132,8 +1753,9 @@ async function verSeguimiento(envioId) {
                             <div class="timeline-content" style="border-left-color: ${getColorEstado(seg.estadoEnvio)};">
                                 <div class="timeline-date">${formatearFecha(seg.fechaHora)}</div>
                                 <div class="timeline-title">${seg.estadoEnvio}</div>
-                                <div class="timeline-description">${seg.descripcion || 'Sin descripciÃ³n'}</div>
                                 ${seg.ubicacionActual ? `<div class="timeline-description"><i class="fas fa-map-marker-alt"></i> ${seg.ubicacionActual}</div>` : ''}
+                                ${seg.latitud && seg.longitud ? `<div class="timeline-description" style="font-size: 0.85em; color: #666;"><i class="fas fa-globe"></i> ${seg.latitud}, ${seg.longitud}</div>` : ''}
+                                ${seg.descripcion ? `<div class="timeline-description" style="margin-top: 8px; padding: 8px; background: #f5f5f5; border-radius: 4px;"><i class="fas fa-comment-alt"></i> ${seg.descripcion}</div>` : ''}
                             </div>
                         </div>
                     `).join('')}
@@ -1220,10 +1842,10 @@ function filtrarEnvios() {
     });
 }
 
+// ==================== MTODOS DE ENVÃƒÂO ====================
 async function cargarMetodos() {
     const loading = document.getElementById('loadingMetodos');
     const tbody = document.getElementById('metodosBody');
-    
     loading.classList.add('active');
     
     try {
@@ -1235,6 +1857,8 @@ async function cargarMetodos() {
         }
         
         const metodos = await response.json();
+        
+        // AGREGADO: Log para debug
         console.log('Metodos cargados:', metodos);
         
         if (metodos.length === 0) {
@@ -1243,8 +1867,6 @@ async function cargarMetodos() {
                     <td colspan="7">
                         <div class="empty-state">
                             <i class="fas fa-shipping-fast"></i>
-                            <h3>No hay metodos de envíos registrados</h3>
-                            <p>Comienza agregando un nuevo método</p>
                         </div>
                     </td>
                 </tr>
@@ -1268,7 +1890,7 @@ async function cargarMetodos() {
         }
     } catch (error) {
         console.error('Error completo:', error);
-        showNotification('Error al cargar mÃ©todos: ' + error.message, 'error');
+        showNotification('Error al cargar métodos: ' + error.message, 'error');
         tbody.innerHTML = `
             <tr>
                 <td colspan="7">
@@ -1276,7 +1898,7 @@ async function cargarMetodos() {
                         <i class="fas fa-exclamation-triangle"></i>
                         <h3>Error al cargar datos</h3>
                         <p>${error.message}</p>
-                        <p>Verifica que el servidor estÃ© activo</p>
+                        <p>Verifica que el servidor estÃƒÂ© activo</p>
                     </div>
                 </td>
             </tr>
@@ -1286,7 +1908,7 @@ async function cargarMetodos() {
     }
 }
 async function mostrarModalMetodo(id = null) {
-    document.getElementById('tituloModalMetodo').textContent = id ? 'Editar Metodo de Envió' : 'Nuevo Metodo de Envío';
+    document.getElementById('tituloModalMetodo').textContent = id ? 'Editar Metodo de Envío' : 'Nuevo Metodo de Envío';
     document.getElementById('formMetodo').reset();
     document.getElementById('metodoId').value = id || '';
     
@@ -1302,7 +1924,6 @@ async function mostrarModalMetodo(id = null) {
             document.getElementById('metodoTiempo').value = metodo.tiempoEstimado || '';
         } catch (error) {
             console.error('Error:', error);
-            showNotification('Error al cargar metodo', 'error');
         }
     }
     
@@ -1336,16 +1957,16 @@ async function guardarMetodo(event) {
         });
         
         if (response.ok) {
-            showNotification(`MÃ©todo ${id ? 'actualizado' : 'creado'} exitosamente`, 'success');
+            showNotification(`Método ${id ? 'actualizado' : 'creado'} exitosamente`, 'success');
             cerrarModalMetodo();
             cargarMetodos();
         } else {
             const error = await response.text();
-            showNotification(error || 'Error al guardar mÃ©todo', 'error');
+            showNotification(error || 'Error al guardar método', 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        showNotification('Error al guardar mÃ©todo', 'error');
+        showNotification('Error al guardar método', 'error');
     }
 }
 
@@ -1363,6 +1984,7 @@ function buscarMetodos() {
     });
 }
 
+// ==================== TRANSPORTISTAS ====================
 async function cargarTransportistas() {
     const loading = document.getElementById('loadingTransportistas');
     const tbody = document.getElementById('transportistasBody');
@@ -1412,7 +2034,7 @@ async function cargarTransportistas() {
                     <div class="empty-state">
                         <i class="fas fa-exclamation-triangle"></i>
                         <h3>Error al cargar datos</h3>
-                        <p>Por favor, verifica que el servidor estÃ© activo</p>
+                        <p>Por favor, verifica que el servidor estado activo</p>
                     </div>
                 </td>
             </tr>
@@ -1504,6 +2126,7 @@ function buscarTransportistas() {
     });
 }
 
+// ==================== RUTAS ====================
 async function cargarRutas() {
     const loading = document.getElementById('loadingRutas');
     const tbody = document.getElementById('rutasBody');
@@ -1554,7 +2177,7 @@ async function cargarRutas() {
                     <div class="empty-state">
                         <i class="fas fa-exclamation-triangle"></i>
                         <h3>Error al cargar datos</h3>
-                        <p>Por favor, verifica que el servidor estÃ© activo</p>
+                        <p>Por favor, verifica que el servidor estado activo</p>
                     </div>
                 </td>
             </tr>
@@ -1648,9 +2271,10 @@ function buscarRutas() {
     });
 }
 
+// ==================== FUNCIONES AUXILIARES PARA SELECTS ====================
 async function cargarClientesSelect() {
     try {
-        console.log('🔄 Cargando clientes desde:', `${API_BASE}/clientes/activos`);
+        console.log('ðŸ”„ Cargando clientes desde:', `${API_BASE}/clientes/activos`);
         
         const response = await fetch(`${API_BASE}/clientes/activos`);
         
@@ -1660,12 +2284,12 @@ async function cargarClientesSelect() {
         
         const clientes = await response.json();
         
-        console.log('✅ Respuesta recibida:', clientes);
-        console.log('📊 Total clientes:', clientes.length);
+        console.log('âœ… Respuesta recibida:', clientes);
+        console.log('ðŸ“Š Total clientes:', clientes.length);
         
         if (clientes.length > 0) {
-            console.log('🔍 Estructura primer cliente:', clientes[0]);
-            console.log('🔑 Campos disponibles:', Object.keys(clientes[0]));
+            console.log('ðŸ” Estructura primer cliente:', clientes[0]);
+            console.log('ðŸ”‘ Campos disponibles:', Object.keys(clientes[0]));
         }
         
         const select = document.getElementById('envioClienteId');
@@ -1678,6 +2302,7 @@ async function cargarClientesSelect() {
         }
         
         clientes.forEach((cliente, index) => {
+            // âš ï¸ IMPORTANTE: El campo correcto es nombreRazonSocial
             const nombre = cliente.nombreRazonSocial || 'Sin nombre';
             const id = cliente.idCliente;
             const rfc = cliente.rfc || '';
@@ -1703,7 +2328,7 @@ async function cargarClientesSelect() {
         }
         
     } catch (error) {
-        console.error('❌ Error al cargar clientes:', error);
+        console.error('âŒ Error al cargar clientes:', error);
         
         const select = document.getElementById('envioClienteId');
         select.innerHTML = '<option value="">Error al cargar clientes</option>';
@@ -1718,13 +2343,13 @@ async function cargarMetodosSelect() {
         const metodos = await response.json();
         
         const select = document.getElementById('envioMetodoId');
-        select.innerHTML = '<option value="">Seleccionar metodo</option>';
+        select.innerHTML = '<option value="">Seleccionar método</option>';
         metodos.forEach(metodo => {
             select.innerHTML += `<option value="${metodo.idMetodoEnvio}">${metodo.nombre}</option>`;
         });
     } catch (error) {
-        console.error('Error al cargar metodos:', error);
-        showNotification('Error al cargar metodos de enví­o', 'warning');
+        console.error('Error al cargar métodos:', error);
+        showNotification('Error al cargar métodos de envío', 'warning');
     }
 }
 
@@ -1744,27 +2369,47 @@ async function cargarRutasSelect() {
     }
 }
 
-const styleAnimations = document.createElement('style');
-styleAnimations.textContent = `
-    @keyframes slideInRight {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+async function cargarTransportistasSelect() {
+    try {
+        const response = await fetch(`${API_BASE}/transportistas/activos`);
+        const transportistas = await response.json();
+        
+        const select = document.getElementById('envioTransportistaId');
+        select.innerHTML = '<option value="">Seleccionar transportista</option>';
+        transportistas.forEach(trans => {
+            const nombreCompleto = trans.empresa ? `${trans.nombre} - ${trans.empresa}` : trans.nombre;
+            select.innerHTML += `<option value="${trans.idTransportista}">${nombreCompleto}</option>`;
+        });
+    } catch (error) {
+        console.error('Error al cargar transportistas:', error);
+        showNotification('Error al cargar transportistas', 'warning');
     }
-`;
-document.head.appendChild(styleAnimations);
-document.addEventListener('DOMContentLoaded', function() {
-    inicializarSidebar();
-    inicializarEventListeners();
-    
-    // AGREGADO: Verifica conexiÃ³n primero
-    verificarConexion().then(conectado => {
-        if (conectado) {
-            cargarEnvios();
-            actualizarEstadisticas();
-            showNotification('Â¡Bienvenido al mÃ³dulo de LogÃ­stica!', 'success');
-        }
-    });
-});
-</script>
+}
+
+// ==================== FUNCIONES AUXILIARES DE ESTADO ====================
+function getBadgeClassEstado(estado) {
+    const clases = {
+        'PENDIENTE': 'warning',
+        'PREPARANDO': 'info',
+        'EN_TRANSITO': 'primary',
+        'ENTREGADO': 'success',
+        'CANCELADO': 'danger',
+        'DEVUELTO': 'danger'
+    };
+    return clases[estado] || 'secondary';
+}
+
+function getEstadoTexto(estado) {
+    const textos = {
+        'PENDIENTE': 'Pendiente',
+        'PREPARANDO': 'Preparando',
+        'EN_TRANSITO': 'En Tránsito',
+        'ENTREGADO': 'Entregado',
+        'CANCELADO': 'Cancelado',
+        'DEVUELTO': 'Devuelto'
+    };
+    return textos[estado] || estado;
+}
+    </script>
 </body>
-</html>
+    </html>
