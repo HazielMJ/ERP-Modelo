@@ -4,28 +4,37 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --azul-principal: #4a90e2;
-            --azul-principal-gradient: #357abd;
-            --azul-secundario: #6ca0d5;
-            --azul-hover: rgba(74,144,226,0.1);
-            --verde-exito: #28a745;
-            --verde-exito-gradient: #218838;
-            --rojo-peligro: #dc3545;
-            --rojo-peligro-dark: #c82333;
-            --amarillo-advertencia: #ffc107;
-            --amarillo-advertencia-dark: #e0a800;
-            --gris-texto: #333;
-            --gris-texto-secundario: #6c757d;
-            --blanco-fondo: #fff;
-            --gris-suave: #e0e6ed;
-            --gris-suave-2: #f8f9fa;
-            --gris-suave-3: #e3f2fd;
-            --morado: #9C27B0;
-            --morado-dark: #7B1FA2;
-            --naranja: #FF6F00;
-            --naranja-dark: #E65100;
-        }
+:root {
+    --azul-principal: #4a90e2;
+    --azul-principal-gradient: #357abd;
+    --azul-secundario: #6ca0d5;
+    --azul-hover: rgba(74,144,226,0.1);
+    
+    --verde-exito: #28a745;
+    --verde-exito-gradient: #218838;
+    --rojo-peligro: #dc3545;
+    --rojo-peligro-dark: #c82333;
+    --amarillo-advertencia: #ffc107;
+    --amarillo-advertencia-dark: #e0a800;
+    
+    --morado: #9C27B0;
+    --morado-dark: #7B1FA2;
+    --naranja: #FF6F00;
+    --naranja-dark: #E65100;
+    --cyan: #00BCD4;
+    --cyan-dark: #0097A7;
+    
+    --gris-texto: #333;
+    --gris-texto-secundario: #6c757d;
+    --blanco-fondo: #fff;
+    --gris-suave: #e0e6ed;
+    --gris-suave-2: #f8f9fa;
+    --gris-suave-3: #e3f2fd;
+    
+    --sombra-suave: 0 1px 7px rgba(0,0,0,0.05);
+    --sombra-media: 0 3px 14px rgba(0,0,0,0.08);
+    --sombra-fuerte: 0 6px 21px rgba(0,0,0,0.12);
+}
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -39,7 +48,6 @@
             min-height: 100vh;
         }
 
-        /* ==================== SIDEBAR ==================== */
         .sidebar {
             width: 196px;
             background: linear-gradient(180deg, var(--azul-principal) 0%, var(--azul-principal-gradient) 100%);
@@ -222,7 +230,6 @@
     50% { transform: scale(1.05); }
 }
 
-/* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
     .sidebar {
         left: -196px;
@@ -232,15 +239,12 @@
         left: 0;
     }
 }
-
-        /* ==================== MAIN CONTENT ==================== */
         .main-content {
             flex: 1;
             margin-left: 196px;
             min-height: 100vh;
         }
 
-        /* ==================== HEADER ==================== */
         .page-header {
             background: var(--blanco-fondo);
             padding: 17.5px 24.5px;
@@ -248,9 +252,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1.4px solid var(--gris-suave);
             position: sticky;
             top: 0;
             z-index: 90;
+            backdrop-filter: blur(7px);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
         }
 
         .header-left h1 {
@@ -271,7 +283,6 @@
             margin-top: 5.6px;
         }
 
-        /* ==================== FILTROS Y BÚSQUEDA ==================== */
         .ventas-container {
             padding: 17.5px;
         }
@@ -354,75 +365,104 @@
             box-shadow: 0 4.2px 14px rgba(0,0,0,0.15);
         }
 
-        /* ==================== ESTADÍSTICAS ==================== */
-        .estadisticas-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 14px;
-            margin-bottom: 17.5px;
-        }
+.estadisticas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 17.5px;
+}
 
-        .stat-card {
-            background: var(--blanco-fondo);
-            padding: 17.5px;
-            border-radius: 11.2px;
-            box-shadow: 0 2.8px 14px rgba(0,0,0,0.06);
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            transition: all 0.3s ease;
-        }
+.stat-card {
+    background: var(--blanco-fondo);
+    padding: 17.5px;
+    border-radius: 11.2px;
+    box-shadow: 0 2.8px 14px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
 
-        .stat-card:hover {
-            transform: translateY(-3.5px);
-            box-shadow: 0 5.6px 17.5px rgba(0,0,0,0.12);
-        }
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+}
 
-        .stat-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 11.2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24.5px;
-            color: white;
-        }
+.stat-card:nth-child(1)::before { background: var(--azul-principal); }
+.stat-card:nth-child(2)::before { background: var(--verde-exito); }
+.stat-card:nth-child(3)::before { background: var(--amarillo-advertencia); }
+.stat-card:nth-child(4)::before { background: var(--morado); }
 
-        .stat-icon.ventas {
-            background: linear-gradient(135deg, var(--azul-principal), var(--azul-secundario));
-        }
+.stat-card:hover {
+    transform: translateY(-3.5px);
+    box-shadow: 0 5.6px 17.5px rgba(0,0,0,0.12);
+}
 
-        .stat-icon.ingresos {
-            background: linear-gradient(135deg, var(--verde-exito), var(--verde-exito-gradient));
-        }
+.stat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 11.2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24.5px;
+    color: white;
+}
 
-        .stat-icon.promedio {
-            background: linear-gradient(135deg, var(--morado), var(--morado-dark));
-        }
+.stat-card:nth-child(1) .stat-icon {
+    background: var(--azul-principal);
+}
 
-        .stat-icon.anuladas {
-            background: linear-gradient(135deg, var(--rojo-peligro), var(--rojo-peligro-dark));
-        }
+.stat-card:nth-child(2) .stat-icon {
+    background: var(--verde-exito);
+}
 
-        .stat-info {
-            flex: 1;
-        }
+.stat-card:nth-child(3) .stat-icon {
+    background: var(--amarillo-advertencia);
+}
 
-        .stat-label {
-            font-size: 9.8px;
-            color: var(--gris-texto-secundario);
-            font-weight: 600;
-            margin-bottom: 3.5px;
-        }
+.stat-card:nth-child(4) .stat-icon {
+    background: var(--morado);
+}
 
-        .stat-value {
-            font-size: 19.6px;
-            font-weight: 800;
-            color: var(--gris-texto);
-        }
+.stat-icon.ventas {
+    background: var(--azul-principal);
+}
 
-        /* ==================== TABLA DE VENTAS ==================== */
+.stat-icon.ingresos {
+    background: var(--verde-exito);
+}
+
+.stat-icon.promedio {
+    background: var(--amarillo-advertencia);
+}
+
+.stat-icon.anuladas {
+    background: var(--morado);
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-label {
+    font-size: 9.8px;
+    color: var(--gris-texto-secundario);
+    font-weight: 600;
+    margin-bottom: 3.5px;
+}
+
+.stat-value {
+    font-size: 19.6px;
+    font-weight: 800;
+    color: var(--gris-texto);
+}
         .ventas-table-container {
             background: var(--blanco-fondo);
             border-radius: 11.2px;
@@ -643,7 +683,6 @@
             color: var(--gris-texto-secundario);
         }
 
-        /* ==================== MODAL ==================== */
         .modal {
             display: none;
             position: fixed;
@@ -818,7 +857,6 @@
             font-size: 12.6px;
         }
 
-        /* ==================== ANIMATIONS ==================== */
         @keyframes slideDown {
             from { 
                 opacity: 0; 
@@ -830,7 +868,6 @@
             }
         }
 
-        /* ==================== RESPONSIVE ==================== */
         @media (max-width: 768px) {
             .sidebar {
                 left: -196px;
