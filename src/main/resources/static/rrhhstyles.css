@@ -5,13 +5,11 @@
 }
 
 :root {
-    /* Colores Principales */
     --azul-principal: #4a90e2;
     --azul-principal-gradient: #357abd;
     --azul-secundario: #6ca0d5;
     --azul-hover: rgba(74,144,226,0.1);
     
-    /* Colores de Estado */
     --verde-exito: #28a745;
     --verde-exito-gradient: #218838;
     --rojo-peligro: #dc3545;
@@ -19,7 +17,6 @@
     --amarillo-advertencia: #ffc107;
     --amarillo-advertencia-dark: #e0a800;
     
-    /* Colores Adicionales */
     --morado: #9C27B0;
     --morado-dark: #7B1FA2;
     --naranja: #FF6F00;
@@ -27,7 +24,6 @@
     --cyan: #00BCD4;
     --cyan-dark: #0097A7;
     
-    /* Grises y Neutros */
     --gris-texto: #333;
     --gris-texto-secundario: #6c757d;
     --blanco-fondo: #fff;
@@ -35,7 +31,6 @@
     --gris-suave-2: #f8f9fa;
     --gris-suave-3: #e3f2fd;
     
-    /* Sombras */
     --sombra-suave: 0 1px 7px rgba(0,0,0,0.05);
     --sombra-media: 0 3px 14px rgba(0,0,0,0.08);
     --sombra-fuerte: 0 6px 21px rgba(0,0,0,0.12);
@@ -54,7 +49,6 @@ body {
     min-height: 100vh;
 }
 
-/* ==================== SIDEBAR ==================== */
 .sidebar {
     width: 196px;
     background: linear-gradient(180deg, var(--azul-principal) 0%, var(--azul-principal-gradient) 100%);
@@ -231,14 +225,12 @@ body {
     background: linear-gradient(135deg, var(--rojo-peligro-dark), #a71d2a);
 }
 
-/* ==================== MAIN CONTENT ==================== */
 .main-content {
     flex: 1;
     margin-left: 196px;
     min-height: 100vh;
 }
 
-/* ==================== PAGE HEADER ==================== */
 .page-header {
     background: var(--blanco-fondo);
     padding: 17.5px 24.5px;
@@ -319,7 +311,6 @@ body {
     transform: scale(1.05);
 }
 
-/* ==================== TABS NAVIGATION ==================== */
 .tabs-container {
     background: var(--blanco-fondo);
     padding: 0 25px;
@@ -388,7 +379,6 @@ body {
     text-align: center;
 }
 
-/* ==================== TAB CONTENT ==================== */
 .content-section {
     padding: 25px;
     animation: fadeIn 0.4s ease;
@@ -403,7 +393,6 @@ body {
     animation: fadeIn 0.4s ease;
 }
 
-/* ==================== TOOLBAR ==================== */
 .toolbar {
     display: flex;
     justify-content: space-between;
@@ -473,7 +462,6 @@ body {
     flex-wrap: wrap;
 }
 
-/* ==================== BUTTONS ==================== */
 .btn {
     padding: 8.4px 16.8px;
     border: none;
@@ -554,7 +542,6 @@ body {
     font-size: 9.1px;
 }
 
-/* ==================== STATS CARDS DE EMPLEADOS ==================== */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -575,7 +562,6 @@ body {
     overflow: hidden;
 }
 
-/* Borde izquierdo de colores */
 .stat-card::before {
     content: '';
     position: absolute;
@@ -585,7 +571,6 @@ body {
     height: 100%;
 }
 
-/* Colores de borde izquierdo para cada tarjeta */
 .stat-card:nth-child(1)::before { background: var(--azul-principal); }
 .stat-card:nth-child(2)::before { background: var(--azul-principal); }
 .stat-card:nth-child(3)::before { background: var(--azul-principal); }
@@ -608,13 +593,11 @@ body {
     flex-shrink: 0;
 }
 
-/* Colores de fondo para los iconos - Todos con el mismo color azul */
 .stat-card:nth-child(1) .stat-icon { background: var(--azul-principal); }
 .stat-card:nth-child(2) .stat-icon { background: var(--azul-principal); }
 .stat-card:nth-child(3) .stat-icon { background: var(--azul-principal); }
 .stat-card:nth-child(4) .stat-icon { background: var(--azul-principal); }
 
-/* Clases específicas para empleados, departamentos y puestos */
 .stat-icon.empleados,
 .stat-icon.departamentos,
 .stat-icon.puestos {
@@ -638,7 +621,6 @@ body {
     color: var(--gris-texto);
 }
 
-/* ==================== TABLE ==================== */
 .table-container {
     background: var(--blanco-fondo);
     border-radius: 11px;
