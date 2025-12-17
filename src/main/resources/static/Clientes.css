@@ -9,22 +9,31 @@
     --azul-principal-gradient: #357abd;
     --azul-secundario: #6ca0d5;
     --azul-hover: rgba(74,144,226,0.1);
+    
     --verde-exito: #28a745;
     --verde-exito-gradient: #218838;
     --rojo-peligro: #dc3545;
     --rojo-peligro-dark: #c82333;
     --amarillo-advertencia: #ffc107;
     --amarillo-advertencia-dark: #e0a800;
+    
+    --morado: #9C27B0;
+    --morado-dark: #7B1FA2;
+    --naranja: #FF6F00;
+    --naranja-dark: #E65100;
+    --cyan: #00BCD4;
+    --cyan-dark: #0097A7;
+    
     --gris-texto: #333;
     --gris-texto-secundario: #6c757d;
     --blanco-fondo: #fff;
     --gris-suave: #e0e6ed;
     --gris-suave-2: #f8f9fa;
     --gris-suave-3: #e3f2fd;
-    --morado: #9C27B0;
-    --morado-dark: #7B1FA2;
-    --naranja: #FF6F00;
-    --naranja-dark: #E65100;
+    
+    --sombra-suave: 0 1px 7px rgba(0,0,0,0.05);
+    --sombra-media: 0 3px 14px rgba(0,0,0,0.08);
+    --sombra-fuerte: 0 6px 21px rgba(0,0,0,0.12);
 }
 
 body {
@@ -40,7 +49,6 @@ body {
     min-height: 100vh;
 }
 
-/* ==================== SIDEBAR CLIENTES ==================== */
 .sidebar {
     width: 196px;
     background: linear-gradient(180deg, var(--azul-principal) 0%, var(--azul-principal-gradient) 100%);
@@ -217,14 +225,12 @@ body {
     background: linear-gradient(135deg, var(--rojo-peligro-dark), #a71d2a);
 }
 
-/* ==================== MAIN CONTENT ==================== */
 .main-content {
     flex: 1;
     margin-left: 196px;
     min-height: 100vh;
 }
 
-/* ==================== PAGE HEADER ==================== */
 .page-header {
     background: var(--blanco-fondo);
     padding: 17.5px 24.5px;
@@ -239,7 +245,8 @@ body {
     backdrop-filter: blur(7px);
 }
 
-.page-header h1 {
+.header-left h1,
+.page-header .header-left h1 {
     color: var(--azul-principal);
     font-size: 19.6px;
     font-weight: 700;
@@ -247,6 +254,29 @@ body {
     align-items: center;
     gap: 8.4px;
     margin: 0;
+}
+
+.header-left h1 i,
+.page-header .header-left h1 i {
+    font-size: 18.2px;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 5.6px;
+    font-size: 9.1px;
+    color: var(--gris-texto-secundario);
+    margin-top: 5.6px;
+}
+
+.breadcrumb a {
+    color: var(--azul-principal);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
 }
 
 .mobile-menu-btn {
@@ -262,13 +292,11 @@ body {
     transition: all 0.3s ease;
 }
 
-/* ==================== CONTENT SECTION ==================== */
 .content-section {
     padding: 24.5px;
     animation: fadeIn 0.4s ease;
 }
 
-/* ==================== STATS CARDS ==================== */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
@@ -324,6 +352,11 @@ body {
     box-shadow: 0 2.8px 10.5px rgba(0,0,0,0.15);
 }
 
+.stat-card:nth-child(1) .stat-icon { background: var(--azul-principal); }
+.stat-card:nth-child(2) .stat-icon { background: var(--verde-exito); }
+.stat-card:nth-child(3) .stat-icon { background: var(--amarillo-advertencia); }
+.stat-card:nth-child(4) .stat-icon { background: var(--morado); }
+
 .stat-value {
     font-size: 22.4px;
     font-weight: 800;
@@ -336,8 +369,6 @@ body {
     font-size: 9.1px;
     font-weight: 600;
 }
-
-/* ==================== TOOLBAR ==================== */
 .toolbar {
     display: flex;
     justify-content: space-between;
@@ -401,7 +432,6 @@ body {
     background: white;
 }
 
-/* ==================== BUTTONS ==================== */
 .btn {
     padding: 8.4px 16.8px;
     border: none;
@@ -466,7 +496,6 @@ body {
     border-radius: 5.6px;
 }
 
-/* ==================== TABLE ==================== */
 .table-container {
     background: var(--blanco-fondo);
     border-radius: 11.2px;
@@ -511,7 +540,6 @@ body {
     box-shadow: 0 1.4px 5.6px rgba(0,0,0,0.05);
 }
 
-/* ==================== BADGES ==================== */
 .badge {
     padding: 4.2px 8.4px;
     border-radius: 14px;
@@ -542,7 +570,6 @@ body {
     color: var(--amarillo-advertencia-dark);
 }
 
-/* ==================== MODAL ==================== */
 .modal {
     display: none;
     position: fixed;
@@ -650,7 +677,6 @@ body {
     bottom: 0;
 }
 
-/* ==================== FORM ==================== */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -708,7 +734,6 @@ body {
     resize: vertical;
 }
 
-/* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
     .sidebar {
         left: -196px;
@@ -744,7 +769,6 @@ body {
     }
 }
 
-/* ==================== SCROLLBAR ==================== */
 ::-webkit-scrollbar {
     width: 7px;
     height: 7px;
