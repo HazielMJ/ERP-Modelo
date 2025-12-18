@@ -1,5 +1,6 @@
 package com.erp.erp.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +18,10 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    // ✅ Leer orígenes permitidos desde application.properties
+    @Value("${cors.allowed.origins:http://localhost:8082,http://localhost:8080}")
+    private String allowedOrigins;
 
     /**
      * Bean para encriptar contraseñas usando BCrypt
@@ -52,18 +57,17 @@ public class SecurityConfig {
      * - allowCredentials(true) permite el uso de cookies/sesiones HTTP
      * - Cuando allowCredentials es true, NO se puede usar "*" en allowedOrigins
      * - Se deben especificar los orígenes exactos
+     * - Los orígenes se leen desde application.properties
      */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // ✅ Orígenes permitidos (especificar URLs exactas, NO usar "*" con credentials)
-        configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:8082",
-            "http://localhost:8080",
-            "http://127.0.0.1:8082",
-            "http://127.0.0.1:8080"
-        ));
+        // ✅ Orígenes permitidos desde properties (separados por coma)
+        List<String> origins = Arrays.asList(allowedOrigins.split(","));
+        configuration.setAllowedOrigins(origins.stream()
+            .map(String::trim)
+            .toList());
         
         // ✅ Métodos HTTP permitidos
         configuration.setAllowedMethods(Arrays.asList(
