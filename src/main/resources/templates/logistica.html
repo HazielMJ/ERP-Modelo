@@ -124,7 +124,6 @@
             </a>
         </li>
         <li>
-        <!-- Botón de cerrar sesión -->
         <div class="logout-section">
             <button class="btn-logout" onclick="cerrarSesion()">
                 <i class="fas fa-sign-out-alt"></i>
@@ -218,7 +217,6 @@
                     </div>
                 </div>
 
-                <!-- TAB: ENVÍOS -->
                 <div id="tab-envios" class="tab-content active">
                     <div class="action-bar">
                         <div class="search-box">
@@ -324,7 +322,6 @@
                     </div>
                 </div>
 
-                <!-- TAB: TRANSPORTISTAS -->
                 <div id="tab-transportistas" class="tab-content">
                     <div class="action-bar">
                         <div class="search-box">
@@ -629,7 +626,6 @@
         </div>
     </div>
 
-    <!-- MODAL RUTA -->
     <div class="modal" id="modalRuta">
         <div class="modal-content">
             <div class="modal-header">
@@ -692,7 +688,6 @@
         </div>
     </div>
 
-    <!-- MODAL SEGUIMIENTO -->
     <div class="modal" id="modalSeguimiento">
         <div class="modal-content">
             <div class="modal-header">
@@ -983,7 +978,6 @@ function inicializarSidebar() {
     }
 }
 function inicializarEventListeners() {
-    // Búsquedas
     const searchEnvios = document.getElementById('searchEnvios');
     if (searchEnvios) searchEnvios.addEventListener('input', buscarEnvios);
     
@@ -996,7 +990,6 @@ function inicializarEventListeners() {
     const searchRutas = document.getElementById('searchRutas');
     if (searchRutas) searchRutas.addEventListener('input', buscarRutas);
     
-    // Cerrar modales al hacer clic fuera
     document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', function(e) {
             if (e.target === this) {
@@ -1007,7 +1000,6 @@ function inicializarEventListeners() {
 }
 
 function switchTab(tabName) {
-    // Actualizar botones de tabs
     document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
     
@@ -1084,7 +1076,6 @@ function formatearMoneda(valor) {
 
 async function actualizarEstadisticas() {
     try {
-        // CAMBIO: Usa el endpoint correcto
         const response = await fetch(`${API_BASE}/envios`);
         
         if (!response.ok) {
@@ -1333,7 +1324,6 @@ async function eliminarEnvio(id) {
     }
 }
 async function cambiarEstadoRapido(idEnvio, nuevoEstado, selectElement) {
-    // Si no se pasa el elemento, intentar obtenerlo del evento
     const select = selectElement || (event && event.target) || document.querySelector(`select[data-envio-id="${idEnvio}"]`);
     
     if (!select) {
@@ -1344,7 +1334,6 @@ async function cambiarEstadoRapido(idEnvio, nuevoEstado, selectElement) {
     
     let estadoAnterior = select.dataset.estadoActual;
     if (!estadoAnterior) {
-        // Si no está en el dataset, usar el valor actual del select antes de cambiarlo
         estadoAnterior = select.options[select.selectedIndex].getAttribute('value') || select.value;
         select.dataset.estadoActual = estadoAnterior;
     }
@@ -1377,7 +1366,6 @@ async function cambiarEstadoRapido(idEnvio, nuevoEstado, selectElement) {
             return;
         }
         
-        // Pedir razón para estados críticos
         razon = prompt(`Por favor, indica la razón del ${nuevoEstado.toLowerCase()}:`);
         if (!razon || razon.trim() === '') {
             showNotification('Debes proporcionar una razón', 'warning');
@@ -1439,7 +1427,6 @@ async function cambiarEstadoRapido(idEnvio, nuevoEstado, selectElement) {
 }
 
 function validarTransicionEstado(estadoActual, estadoNuevo) {
-    // Reglas de negocio para transiciones de estado
     const transicionesInvalidas = {
         'ENTREGADO': ['PENDIENTE', 'PREPARANDO', 'EN_TRANSITO'],
         'CANCELADO': ['EN_TRANSITO', 'ENTREGADO', 'DEVUELTO']
@@ -1449,7 +1436,6 @@ function validarTransicionEstado(estadoActual, estadoNuevo) {
         return `No puedes cambiar de ${getEstadoTexto(estadoActual)} a ${getEstadoTexto(estadoNuevo)}`;
     }
     
-    // No permitir cambiar desde DEVUELTO a otros estados (excepto a sí mismo)
     if (estadoActual === 'DEVUELTO' && estadoNuevo !== 'DEVUELTO') {
         return 'Un envío devuelto no puede cambiar a otro estado';
     }
@@ -1665,7 +1651,6 @@ async function verSeguimiento(envioId) {
     contenido.innerHTML = '<div class="loading active"><div class="spinner"></div><p>Cargando seguimiento...</p></div>';
     
     try {
-        // Cargar información del envío y seguimientos en paralelo
         const [envioResponse, seguimientosResponse] = await Promise.all([
             fetch(`${API_BASE}/envios/${envioId}`),
             fetch(`${API_BASE}/envios/${envioId}/seguimiento`)
@@ -1786,25 +1771,20 @@ function filtrarEnvios() {
     const rows = document.querySelectorAll('#enviosBody tr');
     
     rows.forEach(row => {
-        // Si la fila es el empty-state, la dejamos siempre visible
         if (row.querySelector('.empty-state')) {
             row.style.display = '';
             return;
         }
         
         if (!estadoFiltro) {
-            // Si no hay filtro, mostrar todas las filas
             row.style.display = '';
         } else {
-            // Buscar el select de estado en esta fila
             const selectEstado = row.querySelector('.estado-select');
             
             if (selectEstado) {
                 const estadoActual = selectEstado.value;
-                // Mostrar solo si coincide con el filtro
                 row.style.display = estadoActual === estadoFiltro ? '' : 'none';
             } else {
-                // Si no hay select, ocultar la fila
                 row.style.display = 'none';
             }
         }
@@ -1827,14 +1807,12 @@ async function cargarMetodos() {
             }
         });
         
-        // AGREGADO: Verifica si la respuesta es correcta
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const metodos = await response.json();
         
-        // AGREGADO: Log para debug
         console.log(`✅ ${metodos.length} métodos cargados`);
         
         if (metodos.length === 0) {
@@ -1865,7 +1843,6 @@ async function cargarMetodos() {
             `).join('');
         }
         
-        // Actualizar badge de métodos
         const badgeMetodos = document.getElementById('badgeMetodos');
         if (badgeMetodos) badgeMetodos.textContent = metodos.length || 0;
         
@@ -1974,7 +1951,6 @@ async function cargarTransportistas() {
     loading?.classList.add('active');
     
     try {
-        // Agregar timestamp para evitar cache
         const response = await fetch(`${API_BASE}/transportistas/activos?t=${Date.now()}`, {
             cache: 'no-cache',
             headers: {
@@ -2100,16 +2076,13 @@ async function guardarTransportista(event) {
         if (response.ok) {
             cerrarModalTransportista();
             
-            // Recargar transportistas y esperar a que termine
             await cargarTransportistas();
             
-            // Si estamos en la pestaña de envíos, también recargar envíos para actualizar nombres de transportistas
             const tabEnvios = document.getElementById('tab-envios');
             if (tabEnvios && tabEnvios.classList.contains('active')) {
                 await cargarEnvios();
             }
             
-            // Mostrar notificación después de recargar
             showNotification(`Transportista ${id ? 'actualizado' : 'creado'} exitosamente`, 'success');
         } else {
             const error = await response.text();
@@ -2313,7 +2286,6 @@ async function cargarClientesSelect() {
         }
         
         clientes.forEach((cliente, index) => {
-            // âš ï¸ IMPORTANTE: El campo correcto es nombreRazonSocial
             const nombre = cliente.nombreRazonSocial || 'Sin nombre';
             const id = cliente.idCliente;
             const rfc = cliente.rfc || '';
