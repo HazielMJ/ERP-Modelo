@@ -10,6 +10,7 @@
 </head>
 <body>
     <div class="main-container">
+<!-- Sidebar -->
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <h2><i class="fas fa-chart-line"></i> ERP System</h2>
@@ -124,6 +125,7 @@
             </a>
         </li>
         <li>
+        <!-- Botón de cerrar sesión -->
         <div class="logout-section">
             <button class="btn-logout" onclick="cerrarSesion()">
                 <i class="fas fa-sign-out-alt"></i>
@@ -134,7 +136,9 @@
     </ul>
 </aside>
         
+        <!-- MAIN CONTENT -->
         <main class="main-content">
+            <!-- PAGE HEADER -->
             <header class="page-header">
                 <div class="header-left">
                     <button class="mobile-menu-btn" onclick="toggleSidebar()">
@@ -154,7 +158,9 @@
                 </div>
             </header>
 
+            <!-- CONTENT SECTION -->
             <section class="content-section">
+                <!-- STATS CARDS -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-header">
@@ -205,6 +211,7 @@
                     </div>
                 </div>
 
+                <!-- TOOLBAR -->
                 <div class="toolbar">
                     <div class="search-box">
                         <i class="fas fa-search input-icon"></i>
@@ -227,6 +234,7 @@
                     </div>
                 </div>
 
+                <!-- TABLE -->
                 <div class="table-container">
                     <div class="table-header">
                         <h3 class="table-title">
@@ -248,6 +256,7 @@
                             </tr>
                         </thead>
                         <tbody id="almacenesBody">
+                            <!-- Data will be populated here -->
                         </tbody>
                     </table>
                 </div>
@@ -255,6 +264,7 @@
         </main>
     </div>
 
+    <!-- MODAL -->
     <div class="modal" id="almacenModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -337,6 +347,7 @@
 
 
     <script>
+// URL base de la API - ajusta según tu entorno
 const API_BASE_URL = 'http://localhost:8082/api/almacenes';
 
 let almacenes = [];
@@ -344,11 +355,13 @@ let currentFilter = '';
 let currentEstado = '';
 let editingId = null;
 
+// Initialize
 async function init() {
     await cargarAlmacenes();
     setupEventListeners();
 }
 
+// Cargar almacenes desde la API
 async function cargarAlmacenes() {
     try {
         const response = await fetch(`${API_BASE_URL}/activos`);
@@ -392,6 +405,7 @@ function renderTable() {
     const tbody = document.getElementById('almacenesBody');
     let filteredData = almacenes;
 
+    // Apply search filter
     if (currentFilter) {
         filteredData = filteredData.filter(a => 
             a.codigoAlmacen.toLowerCase().includes(currentFilter) ||
@@ -400,6 +414,7 @@ function renderTable() {
         );
     }
 
+    // Apply estado filter
     if (currentEstado) {
         filteredData = filteredData.filter(a => a.estado === currentEstado);
     }
@@ -490,6 +505,7 @@ async function saveAlmacen() {
 
     try {
         if (editingId) {
+            // Update existing almacén
             const response = await fetch(`${API_BASE_URL}/${editingId}`, {
                 method: 'PUT',
                 headers: {
@@ -504,6 +520,7 @@ async function saveAlmacen() {
 
             showNotification('✅ Almacén actualizado exitosamente', 'success');
         } else {
+            // Create new almacén
             const response = await fetch(API_BASE_URL, {
                 method: 'POST',
                 headers: {
@@ -519,7 +536,7 @@ async function saveAlmacen() {
             showNotification('✅ Almacén creado exitosamente', 'success');
         }
 
-        await cargarAlmacenes(); 
+        await cargarAlmacenes(); // Recargar datos desde la API
         closeModal();
     } catch (error) {
         console.error('Error:', error);
@@ -584,17 +601,20 @@ async function viewAlmacen(id) {
     }
 }
 
+// Close modal when clicking outside
 document.getElementById('almacenModal').addEventListener('click', (e) => {
     if (e.target.id === 'almacenModal') {
         closeModal();
     }
 });
 
+// ==================== SIDEBAR ====================
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.toggle('active');
 }
 
+// Cerrar sidebar al hacer clic fuera en móvil
 document.addEventListener('click', function(e) {
     const sidebar = document.getElementById('sidebar');
     const menuBtn = document.querySelector('.mobile-menu-btn');
@@ -606,6 +626,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
+// ==================== CERRAR SESIÓN ====================
 function cerrarSesion() {
     if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
         showNotification('Cerrando sesión...', 'info');
@@ -615,6 +636,7 @@ function cerrarSesion() {
     }
 }
 
+// Sistema de notificaciones
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     let bgColor, icon;
@@ -668,6 +690,7 @@ function showNotification(message, type = 'info') {
     }, 4000);
 }
 
+// Animaciones
 const styleAnimations = document.createElement('style');
 styleAnimations.textContent = `
     @keyframes slideIn {
@@ -681,6 +704,7 @@ styleAnimations.textContent = `
 `;
 document.head.appendChild(styleAnimations);
 
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     init();
 });
