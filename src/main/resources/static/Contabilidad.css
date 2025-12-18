@@ -1,3 +1,4 @@
+/* ==================== RESET Y VARIABLES ==================== */
 * {
     margin: 0;
     padding: 0;
@@ -5,11 +6,13 @@
 }
 
 :root {
+    /* Colores Principales */
     --azul-principal: #4a90e2;
     --azul-principal-gradient: #357abd;
     --azul-secundario: #6ca0d5;
     --azul-hover: rgba(74,144,226,0.1);
     
+    /* Colores de Estado */
     --verde-exito: #28a745;
     --verde-exito-gradient: #218838;
     --rojo-peligro: #dc3545;
@@ -17,6 +20,7 @@
     --amarillo-advertencia: #ffc107;
     --amarillo-advertencia-dark: #e0a800;
     
+    /* Colores Adicionales */
     --morado: #9C27B0;
     --morado-dark: #7B1FA2;
     --naranja: #FF6F00;
@@ -24,6 +28,7 @@
     --cyan: #00BCD4;
     --cyan-dark: #0097A7;
     
+    /* Grises y Neutros */
     --gris-texto: #333;
     --gris-texto-secundario: #6c757d;
     --blanco-fondo: #fff;
@@ -31,11 +36,13 @@
     --gris-suave-2: #f8f9fa;
     --gris-suave-3: #e3f2fd;
     
+    /* Sombras */
     --sombra-suave: 0 1px 7px rgba(0,0,0,0.05);
     --sombra-media: 0 3px 14px rgba(0,0,0,0.08);
     --sombra-fuerte: 0 6px 21px rgba(0,0,0,0.12);
 }
 
+/* ==================== BASE ==================== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, var(--gris-suave-2) 0%, var(--gris-suave-3) 100%);
@@ -44,11 +51,13 @@ body {
     overflow-x: hidden;
 }
 
+/* ==================== LAYOUT PRINCIPAL ==================== */
 .main-container {
     display: flex;
     min-height: 100vh;
 }
 
+/* ==================== SIDEBAR CLIENTES ==================== */
 .sidebar {
     width: 196px;
     background: linear-gradient(180deg, var(--azul-principal) 0%, var(--azul-principal-gradient) 100%);
@@ -225,12 +234,14 @@ body {
     background: linear-gradient(135deg, var(--rojo-peligro-dark), #a71d2a);
 }
 
+/* ==================== MAIN CONTENT ==================== */
 .main-content {
     flex: 1;
     margin-left: 196px;
     min-height: 100vh;
 }
 
+/* ==================== HEADER ==================== */
 .page-header {
     background: var(--blanco-fondo);
     padding: 18px 25px;
@@ -312,6 +323,7 @@ body {
     transform: scale(1.05);
 }
 
+/* ==================== TABS NAVIGATION ==================== */
 .tabs-container {
     background: var(--blanco-fondo);
     padding: 0 25px;
@@ -380,6 +392,7 @@ body {
     text-align: center;
 }
 
+/* ==================== CONTENT SECTION ==================== */
 .content-section {
     padding: 25px;
     animation: fadeIn 0.4s ease;
@@ -399,6 +412,7 @@ body {
     animation: fadeIn 0.4s ease;
 }
 
+/* ==================== SUB-TABS ==================== */
 .subtabs-nav {
     display: flex;
     gap: 7px;
@@ -408,6 +422,7 @@ body {
     flex-wrap: wrap;
 }
 
+/* ==================== TOOLBAR ==================== */
 .toolbar {
     display: flex;
     justify-content: space-between;
@@ -478,6 +493,7 @@ body {
     flex-wrap: wrap;
 }
 
+/* ==================== BUTTONS ==================== */
 .btn {
     padding: 8px 17px;
     border: none;
@@ -566,6 +582,7 @@ body {
     border-radius: 6px;
 }
 
+/* ==================== STATS CARDS CONTABILIDAD ==================== */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
@@ -592,6 +609,7 @@ body {
     height: 100%;
 }
 
+/* Colores de borde izquierdo para cada tarjeta */
 .stat-card:nth-child(1)::before { background: var(--azul-principal); }
 .stat-card:nth-child(2)::before { background: var(--verde-exito); }
 .stat-card:nth-child(3)::before { background: var(--amarillo-advertencia); }
@@ -621,6 +639,7 @@ body {
     box-shadow: 0 3px 11px rgba(0,0,0,0.15);
 }
 
+/* Colores de fondo para los iconos */
 .stat-card:nth-child(1) .stat-icon { background: var(--azul-principal); }
 .stat-card:nth-child(2) .stat-icon { background: var(--verde-exito); }
 .stat-card:nth-child(3) .stat-icon { background: var(--amarillo-advertencia); }
@@ -639,6 +658,7 @@ body {
     font-size: 9px;
     font-weight: 600;
 }
+/* ==================== CARD GRID ==================== */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
@@ -752,6 +772,7 @@ body {
     border-top: 1px solid var(--gris-suave-2);
 }
 
+/* ==================== BADGES ==================== */
 .badge {
     padding: 4px 8px;
     border-radius: 14px;
@@ -792,6 +813,7 @@ body {
     color: var(--morado);
 }
 
+/* ==================== MODALS ==================== */
 .modal {
     display: none;
     position: fixed;
@@ -890,6 +912,7 @@ body {
     bottom: 0;
 }
 
+/* ==================== FORMS ==================== */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -954,6 +977,21 @@ body {
     opacity: 0.6;
 }
 
+/* Estados de validación */
+.form-input:valid:not(:placeholder-shown),
+.form-select:valid:not([value=""]),
+.form-textarea:valid:not(:placeholder-shown) {
+    border-color: var(--verde-exito);
+}
+
+.form-input:invalid:not(:placeholder-shown):not(:focus),
+.form-select:invalid:not([value=""]):not(:focus),
+.form-textarea:invalid:not(:placeholder-shown):not(:focus) {
+    border-color: var(--rojo-peligro);
+    background: rgba(220, 53, 69, 0.03);
+}
+
+/* ==================== EMPTY STATE ==================== */
 .empty-state {
     text-align: center;
     padding: 42px 14px;
@@ -977,6 +1015,7 @@ body {
     color: var(--gris-texto-secundario);
 }
 
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 1200px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1108,6 +1147,7 @@ body {
     }
 }
 
+/* ==================== SCROLLBAR PERSONALIZADO ==================== */
 ::-webkit-scrollbar {
     width: 7px;
     height: 7px;
@@ -1128,6 +1168,7 @@ body {
     background: var(--azul-principal-gradient);
 }
 
+/* ==================== UTILITY CLASSES ==================== */
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 .text-left { text-align: left; }
@@ -1172,6 +1213,7 @@ body {
 .gap-10 { gap: 7px; }
 .gap-20 { gap: 14px; }
 
+/* ==================== ANIMACIONES ADICIONALES ==================== */
 @keyframes slideInRight {
     from {
         opacity: 0;
@@ -1217,6 +1259,7 @@ body {
     animation: scaleIn 0.3s ease;
 }
 
+/* ==================== LOADING SPINNER ==================== */
 .spinner {
     border: 2px solid var(--gris-suave);
     border-top: 2px solid var(--azul-principal);
@@ -1238,6 +1281,7 @@ body {
     border-width: 1px;
 }
 
+/* ==================== TOOLTIPS ==================== */
 [data-tooltip] {
     position: relative;
     cursor: pointer;
@@ -1279,6 +1323,7 @@ body {
     opacity: 1;
 }
 
+/* ==================== ALERTS ==================== */
 .alert {
     padding: 11px 14px;
     border-radius: 7px;
@@ -1318,6 +1363,7 @@ body {
     border-left: 3px solid var(--azul-principal);
 }
 
+/* ==================== PROGRESS BAR ==================== */
 .progress {
     width: 100%;
     height: 6px;
@@ -1357,6 +1403,7 @@ body {
     100% { transform: translateX(100%); }
 }
 
+/* ==================== DIVIDER ==================== */
 .divider {
     height: 1px;
     background: var(--gris-suave);
@@ -1369,6 +1416,7 @@ body {
     height: 100%;
 }
 
+/* ==================== SHADOWS ==================== */
 .shadow-sm {
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
 }
@@ -1385,12 +1433,14 @@ body {
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
 }
 
+/* ==================== BORDER RADIUS ==================== */
 .rounded-sm { border-radius: 4px; }
 .rounded { border-radius: 7px; }
 .rounded-lg { border-radius: 11px; }
 .rounded-xl { border-radius: 14px; }
 .rounded-full { border-radius: 9999px; }
 
+/* ==================== TRANSITIONS ==================== */
 .transition-all {
     transition: all 0.3s ease;
 }
@@ -1403,6 +1453,7 @@ body {
     transition: transform 0.3s ease;
 }
 
+/* ==================== HOVER EFFECTS ==================== */
 .hover-lift:hover {
     transform: translateY(-2px);
     box-shadow: var(--sombra-fuerte);
@@ -1416,6 +1467,7 @@ body {
     opacity: 0.8;
 }
 
+/* ==================== PRINT STYLES ==================== */
 @media print {
     .sidebar,
     .page-header,
@@ -1442,6 +1494,7 @@ body {
     }
 }
 
+/* Footer */
 .footer {
     background: var(--blanco-fondo);
     border-top: 1.4px solid var(--gris-suave);
@@ -1486,6 +1539,7 @@ body {
     font-size: 8.4px;
 }
 
+/* Responsive footer */
 @media (max-width: 768px) {
     .footer {
         margin-left: 0;
