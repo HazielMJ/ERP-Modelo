@@ -20,9 +20,6 @@ public class EnvioService {
     private final TransportistaRepository transportistaRepository;
     private final SeguimientoEnvioRepository seguimientoEnvioRepository;
     
-    /**
-     * 🔥 CAMBIO CRÍTICO: Usa findAllWithRelations() en lugar de findAll()
-     */
     @Transactional(readOnly = true)
     public List<Envio> obtenerTodos() {
         return envioRepository.findAllWithRelations();
@@ -54,7 +51,6 @@ public class EnvioService {
         
         Envio guardado = envioRepository.save(envio);
         
-        // Crear seguimiento inicial
         crearSeguimiento(guardado.getIdEnvio(), "Envío creado", SeguimientoEnvio.EstadoSeguimiento.PENDIENTE);
         
         return guardado;
@@ -104,15 +100,11 @@ public class EnvioService {
         
         envioRepository.save(envio);
         
-        // Crear seguimiento del cambio de estado
         SeguimientoEnvio.EstadoSeguimiento estadoSeguimiento = 
             SeguimientoEnvio.EstadoSeguimiento.valueOf(nuevoEstado.name());
         crearSeguimiento(envioId, descripcion != null ? descripcion : "Estado actualizado a " + nuevoEstado, estadoSeguimiento);
     }
     
-
-
-
     public void eliminarEnvio(Integer id) {
         Envio envio = obtenerEnvioPorId(id);
         envioRepository.delete(envio);
@@ -145,7 +137,6 @@ public class EnvioService {
     
     @Transactional(readOnly = true)
     public List<SeguimientoEnvio> obtenerSeguimientoEnvio(Integer envioId) {
-        // Opción 1: Usando el método directo con Envio
         Envio envio = obtenerEnvioPorId(envioId);
         return seguimientoEnvioRepository.findByEnvioOrderByFechaHoraDesc(envio);
     }
