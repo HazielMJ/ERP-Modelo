@@ -681,7 +681,7 @@
         </div>
     </div>
 
-
+    <!-- MODAL: Detalle Contable -->
     <div class="modal" id="modalDetalle">
         <div class="modal-content">
             <div class="modal-header">
@@ -739,7 +739,7 @@
         </div>
     </div>
 
-
+    <!-- MODAL: Nómina -->
     <div class="modal" id="modalNomina">
         <div class="modal-content">
             <div class="modal-header">
@@ -835,6 +835,7 @@
         </div>
     </div>
 
+    <!-- MODAL: Detalle Nómina -->
     <div class="modal" id="modalDetalleNomina">
         <div class="modal-content">
             <div class="modal-header">
@@ -895,6 +896,7 @@
         </div>
     </div>
 
+    <!-- MODAL: Factura -->
     <div class="modal" id="modalFactura">
         <div class="modal-content" style="max-width: 900px;">
             <div class="modal-header">
@@ -1076,10 +1078,13 @@
         </div>
     </div>
 
+<script src="permisos-menu.js"></script>
 <!-- JavaScript del Módulo -->
     <script>
 
-const API_BASE_URL = 'http://localhost:8082/api';
+// ==================== CONFIGURACIÓN GLOBAL ====================
+// Configuración desde config.js
+const API_BASE_URL = window.API_BASE_URL || '/api';
 
 // Variables Globales
 let moduloActual = 'contabilidad';
@@ -1096,15 +1101,17 @@ let detalleNomina = [];
 let facturas = [];
 let impuestos = [];
 
+// ==================== INICIALIZACIÓN ====================
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Módulo Administrativo - Iniciando...');
-    mostrarLoading(true);
+    // Loading removido - carga directa
     cargarTodosLosDatos();
     configurarEventos();
     configurarEventosModales();
     console.log('✅ Módulo cargado correctamente');
 });
 
+// ==================== CONFIGURACIÓN DE EVENTOS ====================
 function configurarEventos() {
     // Eventos de búsqueda
     document.getElementById('searchAsientos')?.addEventListener('input', filtrarAsientos);
@@ -1147,6 +1154,7 @@ function configurarEventosModales() {
     });
 }
 
+// ==================== FUNCIONES DE UTILIDAD ====================
 function mostrarLoading(show) {
     const overlay = document.getElementById('loadingOverlay');
     if (overlay) {
@@ -1163,6 +1171,7 @@ function obtenerValor(obj, ...keys) {
     return null;
 }
 
+// ==================== CARGA DE DATOS ====================
 async function cargarTodosLosDatos() {
     try {
         await Promise.all([
@@ -1173,10 +1182,10 @@ async function cargarTodosLosDatos() {
             cargarFacturas(),
             cargarImpuestos()
         ]);
-        mostrarLoading(false);
+        // Loading removido - no se muestra ni se oculta
         showNotification('✅ Datos cargados correctamente', 'success');
     } catch (error) {
-        mostrarLoading(false);
+        // Loading removido - no se muestra ni se oculta
         console.error('Error cargando datos:', error);
         showNotification('❌ Error al cargar algunos datos', 'error');
     }
@@ -1610,6 +1619,7 @@ async function guardarImpuesto() {
     }
 }
 
+// ==================== ELIMINAR DATOS ====================
 async function eliminarAsiento(id) {
     if (!confirm('¿Está seguro de eliminar este asiento contable?')) return;
     
@@ -1735,6 +1745,8 @@ async function eliminarImpuesto(id) {
         showNotification('❌ Error al eliminar el impuesto', 'error');
     }
 }
+
+// ==================== SISTEMA DE NAVEGACIÓN ====================
 function cambiarModulo(modulo) {
     moduloActual = modulo;
     
@@ -1852,6 +1864,8 @@ function actualizarBotonAccion(modulo, subtab = null) {
     btn.innerHTML = `<i class="fas fa-${config.icon}"></i> ${config.text}`;
     btn.onclick = config.action;
 }
+
+// ==================== GESTIÓN DE MODALES ====================
 function abrirModal(modalId) {
     const modal = document.getElementById(modalId);
     if (!modal) return;
@@ -1893,6 +1907,7 @@ function cerrarModal(modalId) {
     }
 }
 
+// ==================== VER DETALLES ====================
 function verDetalleAsiento(id) {
     const asiento = asientos.find(a => 
         (a.idAsiento === id) || (a.id_asiento === id)
@@ -1990,6 +2005,7 @@ function editarImpuesto(id) {
     abrirModal('modalImpuesto');
 }
 
+// ==================== CÁLCULOS AUTOMÁTICOS ====================
 function configurarCalculosFactura() {
     const subtotal = document.getElementById('subtotalFactura');
     const impuestos = document.getElementById('impuestosFactura');
@@ -2002,15 +2018,15 @@ function configurarCalculosFactura() {
         const sub = parseFloat(subtotal.value) || 0;
         const desc = parseFloat(descuentos.value) || 0;
         
-
+        // Calcular IVA (16%)
         const imp = sub * 0.16;
         impuestos.value = imp.toFixed(2);
         
-  
+        // Calcular total
         const totalFinal = sub + imp - desc;
         total.value = totalFinal.toFixed(2);
         
-    
+        // Validar descuento
         if (desc > sub) {
             descuentos.value = sub.toFixed(2);
             showNotification('⚠️ El descuento no puede ser mayor al subtotal', 'warning');
@@ -2066,6 +2082,7 @@ function verificarBalanceAsiento(idAsiento) {
     }
 }
 
+// ==================== RENDERIZADO DE CARDS ====================
 function renderizarAsientos(data) {
     const grid = document.getElementById('asientosGrid');
     if (!grid) return;
@@ -2242,7 +2259,7 @@ function renderizarNominas(data) {
         const totalNeto = obtenerValor(n, 'totalNeto', 'total_neto') || 0;
         const estado = obtenerValor(n, 'estado') || 'PENDIENTE';
         
-      
+        // Obtener ID del empleado
         let idEmpleado = obtenerValor(n, 'idEmpleado', 'id_empleado');
         if (!idEmpleado && n.empleado) {
             idEmpleado = obtenerValor(n.empleado, 'idEmpleado', 'id_empleado');
@@ -2396,6 +2413,7 @@ function renderizarFacturas(data) {
         const total = obtenerValor(f, 'total') || 0;
         const estado = obtenerValor(f, 'estado') || 'PENDIENTE';
         
+        // Obtener ID del cliente
         let idCliente = obtenerValor(f, 'idCliente', 'id_cliente');
         if (!idCliente && f.cliente) {
             idCliente = obtenerValor(f.cliente, 'idCliente', 'id_cliente');
@@ -2530,6 +2548,7 @@ function renderizarImpuestos(data) {
     }).join('');
 }
 
+// ==================== ESTADÍSTICAS ====================
 function actualizarEstadisticasContabilidad() {
     const total = asientos.length;
     const contabilizados = asientos.filter(a => obtenerValor(a, 'estado') === 'CONTABILIZADO').length;
@@ -2616,7 +2635,7 @@ function actualizarEstadisticasImpuestos() {
     document.getElementById('tasaPromedio').textContent = formatearNumero(promedio) + '%';
 }
 
-
+// ==================== FILTROS Y BÚSQUEDA ====================
 function filtrarAsientos() {
     const search = document.getElementById('searchAsientos')?.value.toLowerCase() || '';
     const estado = document.getElementById('estadoFilterAsientos')?.value || '';
@@ -2739,7 +2758,7 @@ function filtrarImpuestos() {
     renderizarImpuestos(filtrados);
 }
 
-
+// ==================== UTILIDADES ====================
 function formatearFecha(fecha) {
     if (!fecha) return 'N/A';
     try {
@@ -2787,6 +2806,7 @@ function getBadgeEstado(estado) {
     return badges[estado] || `<span class="badge badge-secondary">${estado}</span>`;
 }
 
+// ==================== NOTIFICACIONES ====================
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     let bgColor, icon;
@@ -2841,7 +2861,7 @@ function showNotification(message, type = 'info') {
     }, 4000);
 }
 
-
+// ==================== SIDEBAR MÓVIL ====================
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     if (sidebar) {
@@ -2861,7 +2881,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
-
+// ==================== CERRAR SESIÓN ====================
 function cerrarSesion() {
     if (confirm('¿Está seguro que desea cerrar sesión?')) {
         showNotification('Cerrando sesión...', 'info');
@@ -2871,7 +2891,7 @@ function cerrarSesion() {
     }
 }
 
-
+// ==================== ANIMACIONES CSS ====================
 const styleAnimations = document.createElement('style');
 styleAnimations.textContent = `
     @keyframes slideIn {
@@ -2885,7 +2905,7 @@ styleAnimations.textContent = `
 `;
 document.head.appendChild(styleAnimations);
 
-
+// ==================== CONSOLE LOG ====================
 console.log('%c🚀 Módulo Administrativo ERP', 'color: #4a90e2; font-size: 20px; font-weight: bold;');
 console.log('%c✅ Sistema cargado', 'color: #28a745; font-size: 14px;');
 console.log('%c📋 Módulos disponibles:', 'color: #333; font-size: 13px; font-weight: bold;');
