@@ -868,9 +868,11 @@
         </div>
     </div>
 
+<script src="config.js"></script>
+<script src="permisos-menu.js"></script>
     <script>
     // ==================== CONFIGURACIÓN ====================
-    const API_BASE = 'http://localhost:8082/api';
+    const API_BASE = window.API_BASE_URL || '/api';
     let tabActual = 'empleados';
 
     // ==================== INICIALIZACIÓN ====================
