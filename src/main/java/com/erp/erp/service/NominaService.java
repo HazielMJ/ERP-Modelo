@@ -70,7 +70,7 @@ public class NominaService {
         Empleado empleado = empleadoRepository.findById(empleadoId)
             .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
         
-        // Calcular días trabajados
+    
         int diasTrabajados = (int) java.time.temporal.ChronoUnit.DAYS.between(inicio, fin) + 1;
         BigDecimal salarioDiario = empleado.getSalarioBase().divide(new BigDecimal("30"), 2, BigDecimal.ROUND_HALF_UP);
         BigDecimal salarioBase = salarioDiario.multiply(new BigDecimal(diasTrabajados));
@@ -88,10 +88,10 @@ public class NominaService {
         
         nomina = nominaRepository.save(nomina);
         
-        // Agregar percepción de salario base
+        
         agregarPercepcion(nomina.getIdNomina(), "Salario Base", salarioBase, "001");
         
-        // Calcular y agregar deducciones (ejemplo: ISR e IMSS)
+        
         BigDecimal isr = calcularISR(salarioBase);
         if (isr.compareTo(BigDecimal.ZERO) > 0) {
             agregarDeduccion(nomina.getIdNomina(), "ISR", isr, "002");
@@ -120,7 +120,6 @@ public class NominaService {
     }
     
     private BigDecimal calcularISR(BigDecimal ingreso) {
-        // Cálculo simplificado de ISR - En producción usar tablas del SAT
         if (ingreso.compareTo(new BigDecimal("7000")) <= 0) {
             return BigDecimal.ZERO;
         } else if (ingreso.compareTo(new BigDecimal("15000")) <= 0) {
