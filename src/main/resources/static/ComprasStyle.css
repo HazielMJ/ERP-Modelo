@@ -5,11 +5,13 @@
 }
 
 :root {
+    /* Colores Principales */
     --azul-principal: #4a90e2;
     --azul-principal-gradient: #357abd;
     --azul-secundario: #6ca0d5;
     --azul-hover: rgba(74,144,226,0.1);
     
+    /* Colores de Estado */
     --verde-exito: #28a745;
     --verde-exito-gradient: #218838;
     --rojo-peligro: #dc3545;
@@ -17,6 +19,7 @@
     --amarillo-advertencia: #ffc107;
     --amarillo-advertencia-dark: #e0a800;
     
+    /* Colores Adicionales */
     --morado: #9C27B0;
     --morado-dark: #7B1FA2;
     --naranja: #FF6F00;
@@ -24,6 +27,7 @@
     --cyan: #00BCD4;
     --cyan-dark: #0097A7;
     
+    /* Grises y Neutros */
     --gris-texto: #333;
     --gris-texto-secundario: #6c757d;
     --blanco-fondo: #fff;
@@ -31,6 +35,7 @@
     --gris-suave-2: #f8f9fa;
     --gris-suave-3: #e3f2fd;
     
+    /* Sombras */
     --sombra-suave: 0 1px 7px rgba(0,0,0,0.05);
     --sombra-media: 0 3px 14px rgba(0,0,0,0.08);
     --sombra-fuerte: 0 6px 21px rgba(0,0,0,0.12);
@@ -49,6 +54,7 @@ body {
     min-height: 100vh;
 }
 
+/* ==================== SIDEBAR ==================== */
 .sidebar {
     width: 196px;
     background: linear-gradient(180deg, var(--azul-principal) 0%, var(--azul-principal-gradient) 100%);
@@ -225,12 +231,14 @@ body {
     background: linear-gradient(135deg, var(--rojo-peligro-dark), #a71d2a);
 }
 
+/* ==================== MAIN CONTENT ==================== */
 .main-content {
     flex: 1;
     margin-left: 196px;
     min-height: 100vh;
 }
 
+/* ==================== PAGE HEADER ==================== */
 .page-header {
     background: var(--blanco-fondo);
     padding: 17.5px 24.5px;
@@ -302,6 +310,7 @@ body {
     transition: all 0.3s ease;
 }
 
+/* ==================== TABS NAVIGATION ==================== */
 .tabs-container {
     background: var(--blanco-fondo);
     padding: 0 24.5px;
@@ -370,6 +379,7 @@ body {
     text-align: center;
 }
 
+/* ==================== TAB CONTENT ==================== */
 .content-section {
     padding: 24.5px;
     animation: fadeIn 0.4s ease;
@@ -384,6 +394,7 @@ body {
     animation: fadeIn 0.4s ease;
 }
 
+/* ==================== TOOLBAR ==================== */
 .toolbar {
     display: flex;
     justify-content: space-between;
@@ -453,6 +464,7 @@ body {
     flex-wrap: wrap;
 }
 
+/* ==================== BUTTONS ==================== */
 .btn {
     padding: 8.4px 16.8px;
     border: none;
@@ -533,6 +545,9 @@ body {
     font-size: 9.1px;
 }
 
+/* ==================== STATS CARDS - COMPRAS Y PROVEEDORES ==================== */
+/* Rediseñadas con icono lateral IZQUIERDO como en VENTAS */
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -553,6 +568,7 @@ body {
     overflow: hidden;
 }
 
+/* Borde izquierdo de colores */
 .stat-card::before {
     content: '';
     position: absolute;
@@ -562,6 +578,7 @@ body {
     height: 100%;
 }
 
+/* ==================== COLORES PARA TAB DE COMPRAS ==================== */
 #tab-compras .stat-card:nth-child(1)::before { 
     background: var(--azul-principal);
 }
@@ -578,6 +595,7 @@ body {
     background: var(--morado);
 }
 
+/* Colores de iconos para COMPRAS */
 #tab-compras .stat-card:nth-child(1) .stat-icon {
     background: var(--azul-principal);
 }
@@ -594,6 +612,7 @@ body {
     background: var(--morado);
 }
 
+/* ==================== COLORES PARA TAB DE PROVEEDORES ==================== */
 #tab-proveedores .stat-card:nth-child(1)::before { 
     background: var(--azul-principal);
 }
@@ -610,6 +629,7 @@ body {
     background: var(--morado);
 }
 
+/* Colores de iconos para PROVEEDORES */
 #tab-proveedores .stat-card:nth-child(1) .stat-icon {
     background: var(--azul-principal);
 }
@@ -659,6 +679,7 @@ body {
     font-weight: 800;
     color: var(--gris-texto);
 }
+/* ==================== TABLE ==================== */
 .table-container {
     background: var(--blanco-fondo);
     border-radius: 11.2px;
@@ -721,6 +742,7 @@ body {
     box-shadow: 0 1.4px 5.6px rgba(0,0,0,0.05);
 }
 
+/* ==================== BADGES ==================== */
 .badge {
     padding: 4.2px 8.4px;
     border-radius: 14px;
@@ -756,6 +778,7 @@ body {
     color: var(--gris-texto-secundario);
 }
 
+/* ==================== MODAL ==================== */
 .modal {
     display: none;
     position: fixed;
@@ -843,6 +866,7 @@ body {
     bottom: 0;
 }
 
+/* ==================== FORM ==================== */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -907,6 +931,21 @@ body {
     opacity: 0.6;
 }
 
+/* Estados de validación */
+.form-input:valid:not(:placeholder-shown),
+.form-select:valid:not([value=""]),
+.form-textarea:valid:not(:placeholder-shown) {
+    border-color: var(--verde-exito);
+}
+
+.form-input:invalid:not(:placeholder-shown):not(:focus),
+.form-select:invalid:not([value=""]):not(:focus),
+.form-textarea:invalid:not(:placeholder-shown):not(:focus) {
+    border-color: var(--rojo-peligro);
+    background: rgba(220, 53, 69, 0.03);
+}
+
+/* ==================== PRODUCTOS TABLE (DENTRO DEL MODAL) ==================== */
 .productos-section {
     margin-top: 17.5px;
     padding-top: 17.5px;
@@ -972,6 +1011,7 @@ body {
     color: var(--azul-principal);
 }
 
+/* ==================== EMPTY STATE ==================== */
 .empty-state {
     text-align: center;
     padding: 42px 14px;
@@ -990,6 +1030,7 @@ body {
     color: var(--gris-texto);
 }
 
+/* ==================== ANIMATIONS ==================== */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -1011,6 +1052,7 @@ body {
     50% { transform: scale(1.05); }
 }
 
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 1200px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1084,6 +1126,7 @@ body {
     }
 }
 
+/* ==================== SCROLLBAR ==================== */
 ::-webkit-scrollbar {
     width: 7px;
     height: 7px;
@@ -1102,6 +1145,7 @@ body {
     background: var(--azul-principal-gradient);
 }
 
+/* ==================== INFO CARD (PARA PROVEEDORES) ==================== */
 .info-card {
     background: var(--gris-suave-3);
     padding: 14px;
@@ -1135,12 +1179,14 @@ body {
     color: var(--gris-texto);
 }
 
+/* ==================== ACCIONES RÁPIDAS ==================== */
 .quick-actions {
     display: flex;
     gap: 7px;
     flex-wrap: wrap;
 }
 
+/* ==================== ESTADO VISUAL ==================== */
 .estado-visual {
     display: inline-flex;
     align-items: center;
@@ -1178,6 +1224,7 @@ body {
     box-shadow: 0 0 5.6px var(--rojo-peligro);
 }
 
+/* ==================== LOADING SPINNER ==================== */
 .loading-spinner {
     display: inline-block;
     width: 14px;
@@ -1192,6 +1239,7 @@ body {
     to { transform: rotate(360deg); }
 }
 
+/* ==================== ALERT BOX ==================== */
 .alert-box {
     padding: 10.5px 14px;
     border-radius: 7px;
@@ -1231,6 +1279,7 @@ body {
     color: var(--rojo-peligro);
 }
 
+/* ==================== DETALLES EXPANDIBLES ==================== */
 .detalle-expandible {
     background: var(--blanco-fondo);
     border-radius: 8.4px;
@@ -1274,6 +1323,7 @@ body {
     background: var(--azul-hover);
 }
 
+/* ==================== PAGINATION ==================== */
 .pagination {
     display: flex;
     justify-content: center;
@@ -1309,6 +1359,7 @@ body {
     cursor: not-allowed;
 }
 
+/* ==================== GRID LAYOUT (ALTERNATIVA A TABLA) ==================== */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
@@ -1356,6 +1407,7 @@ body {
     border-top: 1px solid var(--gris-suave-2);
 }
 
+/* ==================== TOOLTIPS ==================== */
 .tooltip {
     position: relative;
     display: inline-block;
@@ -1384,6 +1436,7 @@ body {
     opacity: 1;
 }
 
+/* ==================== UTILITIES ==================== */
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 .text-left { text-align: left; }

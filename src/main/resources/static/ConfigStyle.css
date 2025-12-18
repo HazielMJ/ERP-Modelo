@@ -5,11 +5,13 @@
 }
 
 :root {
+    /* Colores Principales */
     --azul-principal: #4a90e2;
     --azul-principal-gradient: #357abd;
     --azul-secundario: #6ca0d5;
     --azul-hover: rgba(74,144,226,0.1);
     
+    /* Colores de Estado */
     --verde-exito: #28a745;
     --verde-exito-gradient: #218838;
     --rojo-peligro: #dc3545;
@@ -17,6 +19,7 @@
     --amarillo-advertencia: #ffc107;
     --amarillo-advertencia-dark: #e0a800;
     
+    /* Colores Adicionales */
     --morado: #9C27B0;
     --morado-dark: #7B1FA2;
     --naranja: #FF6F00;
@@ -24,6 +27,7 @@
     --cyan: #00BCD4;
     --cyan-dark: #0097A7;
     
+    /* Grises y Neutros */
     --gris-texto: #333;
     --gris-texto-secundario: #6c757d;
     --blanco-fondo: #fff;
@@ -50,6 +54,7 @@ body {
     min-height: 100vh;
 }
 
+/* ==================== SIDEBAR Config==================== */
 .sidebar {
     width: 196px;
     background: linear-gradient(180deg, var(--azul-principal) 0%, var(--azul-principal-gradient) 100%);
@@ -227,12 +232,14 @@ body {
 }
 
 
+/* ==================== MAIN CONTENT ==================== */
 .main-content {
     flex: 1;
     margin-left: 196px;
     min-height: 100vh;
 }
 
+/* ==================== PAGE HEADER ==================== */
 .page-header {
     background: var(--blanco-fondo);
     padding: 17.5px 24.5px;
@@ -321,6 +328,7 @@ body {
     transform: translateY(0);
 }
 
+/* ==================== MOBILE MENU ==================== */
 .mobile-menu-btn {
     display: none;
     width: 30.8px;
@@ -339,6 +347,7 @@ body {
     transform: scale(1.05);
 }
 
+/* ==================== CONFIG CONTAINER ==================== */
 .config-container {
     padding: 24.5px;
     max-width: 840px;
@@ -353,6 +362,7 @@ body {
     box-shadow: 0 2.8px 17.5px rgba(0,0,0,0.08);
 }
 
+/* ==================== PROFILE SECTIONS ==================== */
 .profile-section {
     margin-bottom: 28px;
     padding-bottom: 21px;
@@ -377,6 +387,7 @@ body {
     font-size: 16.8px;
 }
 
+/* ==================== FORM ELEMENTS ==================== */
 .form-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -421,6 +432,16 @@ body {
     opacity: 0.6;
 }
 
+/* Estados de validación */
+.form-input:valid:not(:placeholder-shown) {
+    border-color: var(--verde-exito);
+}
+
+.form-input:invalid:not(:placeholder-shown):not(:focus) {
+    border-color: var(--rojo-peligro);
+    background: rgba(220, 53, 69, 0.03);
+}
+
 .input-with-icon {
     position: relative;
 }
@@ -438,6 +459,7 @@ body {
     padding-left: 31.5px;
 }
 
+/* ==================== SWITCH TOGGLE ==================== */
 .switch-container {
     display: flex;
     align-items: center;
@@ -490,6 +512,7 @@ input:checked + .slider:before {
     transform: translateX(18.2px);
 }
 
+/* ==================== STATUS INDICATOR ==================== */
 .status-indicator {
     display: inline-flex;
     align-items: center;
@@ -528,6 +551,7 @@ input:checked + .slider:before {
     box-shadow: 0 0 5.6px var(--rojo-peligro);
 }
 
+/* ==================== ALERTS ==================== */
 .alert {
     padding: 11.2px 14px;
     border-radius: 7px;
@@ -566,6 +590,7 @@ input:checked + .slider:before {
     color: var(--amarillo-advertencia);
 }
 
+/* ==================== METADATA ==================== */
 .metadata {
     background: var(--gris-suave-3);
     padding: 17.5px;
@@ -619,6 +644,7 @@ input:checked + .slider:before {
     border: 1px solid var(--gris-suave);
 }
 
+/* ==================== BUTTONS ==================== */
 .button-group {
     display: flex;
     gap: 10.5px;
@@ -682,6 +708,7 @@ input:checked + .slider:before {
     background: linear-gradient(135deg, var(--rojo-peligro-dark), #a71d2a);
 }
 
+/* ==================== ANIMATIONS ==================== */
 @keyframes fadeIn {
     from { 
         opacity: 0; 
@@ -726,6 +753,7 @@ input:checked + .slider:before {
     }
 }
 
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
     .sidebar {
         left: -196px;
@@ -812,6 +840,7 @@ input:checked + .slider:before {
     }
 }
 
+/* ==================== SCROLLBAR STYLING ==================== */
 ::-webkit-scrollbar {
     width: 7px;
     height: 7px;

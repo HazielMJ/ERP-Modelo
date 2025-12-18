@@ -5,11 +5,13 @@
         }
 
 :root {
+    /* Colores Principales */
     --azul-principal: #4a90e2;
     --azul-principal-gradient: #357abd;
     --azul-secundario: #6ca0d5;
     --azul-hover: rgba(74,144,226,0.1);
     
+    /* Colores de Estado */
     --verde-exito: #28a745;
     --verde-exito-gradient: #218838;
     --rojo-peligro: #dc3545;
@@ -17,6 +19,7 @@
     --amarillo-advertencia: #ffc107;
     --amarillo-advertencia-dark: #e0a800;
     
+    /* Colores Adicionales */
     --morado: #9C27B0;
     --morado-dark: #7B1FA2;
     --naranja: #FF6F00;
@@ -24,6 +27,7 @@
     --cyan: #00BCD4;
     --cyan-dark: #0097A7;
     
+    /* Grises y Neutros */
     --gris-texto: #333;
     --gris-texto-secundario: #6c757d;
     --blanco-fondo: #fff;
@@ -31,6 +35,7 @@
     --gris-suave-2: #f8f9fa;
     --gris-suave-3: #e3f2fd;
     
+    /* Sombras */
     --sombra-suave: 0 1px 7px rgba(0,0,0,0.05);
     --sombra-media: 0 3px 14px rgba(0,0,0,0.08);
     --sombra-fuerte: 0 6px 21px rgba(0,0,0,0.12);
@@ -49,9 +54,10 @@
             min-height: 100vh;
         }
 
+         /* ==================== SIDEBAR ==================== */
         .sidebar {
             width: 196px;
-            height: 100vh; 
+            height: 100vh; /* Alto de la barra lateral */
             background: linear-gradient(180deg, var(--azul-principal) 0%, var(--azul-principal-gradient) 100%);
             color: white;
             padding: 0;
@@ -226,12 +232,14 @@
             background: linear-gradient(135deg, var(--rojo-peligro-dark), #a71d2a);
         }
 
+        /* ==================== MAIN CONTENT ==================== */
         .main-content {
             flex: 1;
             margin-left: 196px;
             min-height: 100vh;
         }
 
+        /* ==================== PAGE HEADER ==================== */
         .page-header {
             background: var(--blanco-fondo);
             padding: 17.5px 24.5px;
@@ -278,11 +286,13 @@
             transition: all 0.3s ease;
         }
 
+        /* ==================== CONTENT SECTION ==================== */
         .content-section {
             padding: 24.5px;
             animation: fadeIn 0.4s ease;
         }
 
+        /* ==================== STATS CARDS ==================== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
@@ -356,6 +366,7 @@
             font-weight: 600;
         }
 
+        /* ==================== TOOLBAR ==================== */
         .toolbar {
             display: flex;
             justify-content: space-between;
@@ -425,6 +436,7 @@
             flex-wrap: wrap;
         }
 
+        /* ==================== BUTTONS ==================== */
         .btn {
             padding: 8.4px 16.8px;
             border: none;
@@ -488,6 +500,7 @@
             justify-content: center;
         }
 
+        /* ==================== TABLE ==================== */
         .table-container {
             background: var(--blanco-fondo);
             border-radius: 11.2px;
@@ -550,6 +563,7 @@
             box-shadow: 0 1.4px 5.6px rgba(0,0,0,0.05);
         }
 
+        /* ==================== BADGES ==================== */
         .badge {
             padding: 4.2px 8.4px;
             border-radius: 14px;
@@ -570,6 +584,7 @@
             color: var(--rojo-peligro);
         }
 
+        /* ==================== PROGRESS BAR ==================== */
         .progress-container {
             background: var(--gris-suave-2);
             border-radius: 7px;
@@ -597,6 +612,7 @@
             background: linear-gradient(90deg, var(--rojo-peligro), var(--rojo-peligro-dark));
         }
 
+        /* ==================== MODAL ==================== */
         .modal {
             display: none;
             position: fixed;
@@ -694,6 +710,7 @@
             bottom: 0;
         }
 
+        /* ==================== FORM ==================== */
         .form-group {
             margin-bottom: 14px;
         }
@@ -739,6 +756,20 @@
             resize: vertical;
         }
 
+        /* Estados de validación */
+        .form-input:valid:not(:placeholder-shown),
+        .form-select:valid:not([value=""]),
+        .form-textarea:valid:not(:placeholder-shown) {
+            border-color: var(--verde-exito);
+        }
+
+        .form-input:invalid:not(:placeholder-shown):not(:focus),
+        .form-select:invalid:not([value=""]):not(:focus),
+        .form-textarea:invalid:not(:placeholder-shown):not(:focus) {
+            border-color: var(--rojo-peligro);
+            background: rgba(220, 53, 69, 0.03);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -749,6 +780,7 @@
             50% { transform: scale(1.05); }
         }
 
+        /* ==================== RESPONSIVE ==================== */
         @media (max-width: 768px) {
             .sidebar {
                 left: -196px;
@@ -780,6 +812,7 @@
             }
         }
 
+        /* ==================== SCROLLBAR ==================== */
         ::-webkit-scrollbar {
             width: 7px;
             height: 7px;

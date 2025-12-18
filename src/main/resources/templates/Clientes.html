@@ -10,6 +10,7 @@
 </head>
 <body>
     <div class="main-container">
+<!-- Sidebar -->
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <h2><i class="fas fa-chart-line"></i> ERP System</h2>
@@ -124,6 +125,7 @@
             </a>
         </li>
         <li>
+        <!-- Botón de cerrar sesión -->
         <div class="logout-section">
             <button class="btn-logout" onclick="cerrarSesion()">
                 <i class="fas fa-sign-out-alt"></i>
@@ -134,7 +136,9 @@
     </ul>
 </aside>
 
+        <!-- MAIN CONTENT -->
         <main class="main-content">
+            <!-- PAGE HEADER -->
              <header class="page-header">
             <div class="header-left">
                 <button class="mobile-menu-btn" onclick="toggleSidebar()">
@@ -153,7 +157,9 @@
         </div>
     </div>
         </header>
+            <!-- CONTENT SECTION -->
             <div class="content-section">
+                <!-- STATISTICS CARDS -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-header">
@@ -204,6 +210,7 @@
                     </div>
                 </div>
 
+                <!-- TOOLBAR -->
                 <div class="toolbar">
                     <div class="search-box">
                         <i class="fas fa-search input-icon"></i>
@@ -227,6 +234,7 @@
                     </button>
                 </div>
 
+                <!-- TABLE -->
                 <div class="table-container">
                     <table class="table" id="tablaClientes">
                         <thead>
@@ -244,6 +252,7 @@
                             </tr>
                         </thead>
                         <tbody id="cuerpoTabla">
+                            <!-- Los datos se cargarán dinámicamente -->
                         </tbody>
                     </table>
                 </div>
@@ -251,6 +260,7 @@
         </main>
     </div>
 
+    <!-- MODAL PARA AGREGAR/EDITAR CLIENTE -->
     <div class="modal" id="modalCliente">
         <div class="modal-content">
             <div class="modal-header">
@@ -355,16 +365,19 @@
     </div>
 
     <script>
+// URL base de la API - ajusta según tu entorno
 const API_BASE_URL = 'http://localhost:8082/api/clientes';
 
 let clientes = [];
 let clienteEditando = null;
 
+// Cargar datos al iniciar
 window.onload = function() {
     cargarClientes();
     actualizarEstadisticas();
 };
 
+// Función para formatear moneda
 function formatearMoneda(valor) {
     return new Intl.NumberFormat('es-MX', {
         style: 'currency',
@@ -372,6 +385,7 @@ function formatearMoneda(valor) {
     }).format(valor);
 }
 
+// Cargar clientes desde la API
 async function cargarClientes() {
     try {
         const response = await fetch(API_BASE_URL);
@@ -387,12 +401,14 @@ async function cargarClientes() {
     }
 }
 
+// Mostrar clientes en la tabla
 function mostrarClientes() {
     const tbody = document.getElementById('cuerpoTabla');
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
     const filterEstado = document.getElementById('filterEstado').value;
     const filterTipo = document.getElementById('filterTipo').value;
 
+    // Filtrar clientes
     let clientesFiltrados = clientes.filter(cliente => {
         const matchSearch = cliente.nombreRazonSocial.toLowerCase().includes(searchTerm) ||
                           (cliente.rfc && cliente.rfc.toLowerCase().includes(searchTerm)) ||
@@ -460,6 +476,7 @@ function mostrarClientes() {
     });
 }
 
+// Actualizar estadísticas
 function actualizarEstadisticas() {
     const total = clientes.length;
     const activos = clientes.filter(c => c.estado === 'ACTIVO').length;
@@ -472,6 +489,7 @@ function actualizarEstadisticas() {
     document.getElementById('saldoTotal').textContent = formatearMoneda(saldoTotal);
 }
 
+// Abrir modal
 function abrirModal(id = null) {
     const modal = document.getElementById('modalCliente');
     const modalTitle = document.getElementById('modalTitle');
@@ -486,6 +504,7 @@ function abrirModal(id = null) {
         
         modalTitle.innerHTML = '<i class="fas fa-user-edit"></i> Editar Cliente';
         
+        // Llenar formulario con datos del cliente
         document.getElementById('clienteId').value = clienteEditando.idCliente || '';
         document.getElementById('tipoCliente').value = clienteEditando.tipoCliente || 'NATURAL';
         document.getElementById('nombreRazonSocial').value = clienteEditando.nombreRazonSocial || '';
@@ -511,6 +530,7 @@ function abrirModal(id = null) {
     modal.classList.add('active');
 }
 
+// Cerrar modal
 function cerrarModal() {
     const modal = document.getElementById('modalCliente');
     modal.classList.remove('active');
@@ -518,6 +538,7 @@ function cerrarModal() {
     clienteEditando = null;
 }
 
+// Guardar cliente
 async function guardarCliente() {
     const form = document.getElementById('formCliente');
     
@@ -543,6 +564,7 @@ async function guardarCliente() {
     try {
         let response;
         if (clienteId && clienteId !== '') {
+            // Editar cliente existente
             response = await fetch(`${API_BASE_URL}/${clienteId}`, {
                 method: 'PUT',
                 headers: {
@@ -558,6 +580,7 @@ async function guardarCliente() {
 
             alert('Cliente actualizado exitosamente');
         } else {
+            // Crear nuevo cliente
             response = await fetch(API_BASE_URL, {
                 method: 'POST',
                 headers: {
@@ -575,17 +598,19 @@ async function guardarCliente() {
         }
 
         cerrarModal();
-        await cargarClientes(); 
+        await cargarClientes(); // Recargar datos desde la API
     } catch (error) {
         console.error('Error:', error);
         alert('Error al guardar el cliente: ' + error.message);
     }
 }
 
+// Editar cliente
 function editarCliente(id) {
     abrirModal(id);
 }
 
+// Cambiar estado del cliente (activar/desactivar)
 async function cambiarEstadoCliente(id, estadoActual) {
     if (!id) {
         alert('Error: ID de cliente no válido');
@@ -617,7 +642,7 @@ async function cambiarEstadoCliente(id, estadoActual) {
             }
 
             alert(`Cliente ${accion === 'activar' ? 'activado' : 'desactivado'} exitosamente`);
-            await cargarClientes(); 
+            await cargarClientes(); // Recargar datos desde la API
         } catch (error) {
             console.error('Error:', error);
             alert(`Error al ${accion} el cliente: ` + error.message);
@@ -625,6 +650,7 @@ async function cambiarEstadoCliente(id, estadoActual) {
     }
 }
 
+// Borrar cliente permanentemente
 async function borrarCliente(id) {
     if (!id) {
         alert('Error: ID de cliente no válido');
@@ -647,7 +673,7 @@ async function borrarCliente(id) {
                 }
 
                 alert('Cliente eliminado permanentemente del sistema');
-                await cargarClientes(); 
+                await cargarClientes(); // Recargar datos desde la API
             } catch (error) {
                 console.error('Error:', error);
                 alert('Error al eliminar el cliente: ' + error.message);
@@ -656,21 +682,25 @@ async function borrarCliente(id) {
     }
 }
 
+// Event listeners para filtros y búsqueda
 document.getElementById('searchInput').addEventListener('input', mostrarClientes);
 document.getElementById('filterEstado').addEventListener('change', mostrarClientes);
 document.getElementById('filterTipo').addEventListener('change', mostrarClientes);
 
+// Cerrar modal al hacer clic fuera
 document.getElementById('modalCliente').addEventListener('click', function(e) {
     if (e.target === this) {
         cerrarModal();
     }
 });
 
+// ==================== SIDEBAR ====================
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     sidebar.classList.toggle('active');
 }
 
+// Cerrar sidebar al hacer clic fuera en móvil
 document.addEventListener('click', function(e) {
     const sidebar = document.getElementById('sidebar');
     const menuBtn = document.querySelector('.mobile-menu-btn');
@@ -682,6 +712,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
+// ==================== CERRAR SESIÓN ====================
 function cerrarSesion() {
     if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
         setTimeout(() => {

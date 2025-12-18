@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Inventario</title>
+    <title>Módulo de Inventario</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
      <link rel="stylesheet" href="Inventario.css">
-     
+    
 </head>
 <body>
     <div class="main-container">
@@ -138,10 +138,25 @@
 
         <!-- MAIN CONTENT -->
         <main class="main-content">
-            <!-- PAGE HEADER -->
-            <div class="page-header">
-                <h1><i class="fas fa-boxes"></i> Gestión de Inventario</h1>
-            </div>
+           <!-- ==================== HEADER ==================== -->
+            <header class="page-header">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1>
+                            <i class="fas fa-warehouse"></i> 
+                            <span id="headerTitle">Módulo de Inventario</span>
+                        </h1>
+                        <div class="breadcrumb">
+                            <a href="/dashboard"><i class="fas fa-home"></i> Inicio</a>
+                            <span>/</span>
+                            <span id="breadcrumbModule">Inventario</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
 
             <!-- TABS -->
             <div class="tabs-container">
@@ -1602,6 +1617,33 @@ console.log('%c✅ Sistema cargado correctamente', 'color: #28a745; font-size: 1
 console.log('%c📋 Funcionalidades:', 'color: #333; font-size: 13px; font-weight: bold;');
 console.log('%c  • Gestión de inventario y stock', 'color: #6c757d; font-size: 12px;');
 console.log('%c  • Movimientos de inventario', 'color: #6c757d; font-size: 12px;');
+
+// ==================== SIDEBAR ====================
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('active');
+}
+
+// Cerrar sidebar al hacer clic fuera en móvil
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    
+    if (window.innerWidth <= 768) {
+        if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+
+// ==================== CERRAR SESIÓN ====================
+function cerrarSesion() {
+    if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 1000);
+    }
+}
 console.log('%c  • Gestión de categorías', 'color: #6c757d; font-size: 12px;');
 console.log('%c  • Estadísticas en tiempo real', 'color: #6c757d; font-size: 12px;')
     </script>
