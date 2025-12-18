@@ -1,3 +1,27 @@
+package com.erp.erp.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import lombok.*;
+
+@Entity
+@Table(name = "empleado")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Empleado {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_empleado")
+    private Integer idEmpleado;
+    
+    @Column(name = "codigo_empleado", unique = true, length = 50)
+    private String codigoEmpleado;
+    
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
     
     @Column(name = "apellido", length = 100)
@@ -44,11 +68,13 @@
     @Column(name = "fecha_termino")
     private LocalDate fechaTermino;
     
+    // ✅ ACTUALIZADO: LAZY + JsonIgnoreProperties
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "puesto_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Puesto puesto;
     
+    // ✅ ACTUALIZADO: LAZY + JsonIgnoreProperties
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "departamento_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -71,11 +97,15 @@
     @Column(name = "estado", columnDefinition = "ENUM('ACTIVO','INACTIVO','BAJA') DEFAULT 'ACTIVO'")
     private EstadoEmpleado estado = EstadoEmpleado.ACTIVO;
     
+    // ✅ CAMPO: ROL DEL EMPLEADO
     @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "rol", columnDefinition = "ENUM('ADMIN','GERENTE','VENDEDOR','CONTADOR','ALMACENISTA','RRHH','EMPLEADO') DEFAULT 'EMPLEADO'")
     private RolEmpleado rol = RolEmpleado.EMPLEADO;
     
+    // ==========================================
+    // ENUMS
+    // ==========================================
     
     public enum TipoDocumento {
         DNI, CURP, RFC, PASAPORTE, OTRO
@@ -97,17 +127,24 @@
         ACTIVO, INACTIVO, BAJA
     }
     
+    // ✅ ENUM: ROLES DEL SISTEMA
     public enum RolEmpleado {
-        ADMIN,         
-        GERENTE,    
-        VENDEDOR,    
-        CONTADOR,     
-        ALMACENISTA,   
-        RRHH,          
-        EMPLEADO       
+        ADMIN,          // Administrador - Acceso total
+        GERENTE,        // Gerente - Dashboard, Reportes, Aprobaciones
+        VENDEDOR,       // Vendedor - Ventas, Clientes, POS
+        CONTADOR,       // Contador - Contabilidad, Facturación
+        ALMACENISTA,    // Almacenista - Inventario, Compras, Almacenes
+        RRHH,           // RRHH - Empleados, Nómina
+        EMPLEADO        // Empleado - Solo su información
     }
     
-
+    // ==========================================
+    // MÉTODOS AUXILIARES
+    // ==========================================
+    
+    /**
+     * Obtener nombre completo del empleado
+     */
     public String getNombreCompleto() {
         return nombre + (apellido != null ? " " + apellido : "");
     }

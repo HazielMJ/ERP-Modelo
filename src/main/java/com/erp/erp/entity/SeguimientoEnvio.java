@@ -1,12 +1,13 @@
 package com.erp.erp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.*;
 
 @Entity
-@Table(name = "SeguimientoEnvio")
+@Table(name = "Seguimiento_Envio")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,8 +18,11 @@ public class SeguimientoEnvio {
     @Column(name = "id_seguimiento")
     private Integer idSeguimiento;
     
-    @ManyToOne
+    // ✅ Evita ciclos con Envio
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_envio", nullable = false)
+    @JsonIgnoreProperties({"seguimientos", "venta", "hibernateLazyInitializer", "handler"})
+    @ToString.Exclude
     private Envio envio;
     
     @Column(name = "fecha_hora")
@@ -34,14 +38,16 @@ public class SeguimientoEnvio {
     private BigDecimal longitud;
     
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado_envio")
+    @Column(name = "estado_envio", length = 20)
     private EstadoSeguimiento estadoEnvio;
     
     @Column(columnDefinition = "TEXT")
     private String descripcion;
     
-    @ManyToOne
+    // ✅ Evita ciclos con Usuario
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Usuario usuario;
     
     @PrePersist
@@ -50,6 +56,13 @@ public class SeguimientoEnvio {
     }
     
     public enum EstadoSeguimiento {
-        PENDIENTE, PREPARANDO, EN_TRANSITO, ENTREGADO, RETRASADO, INCIDENTE
+        PENDIENTE,
+        PREPARANDO,
+        EN_TRANSITO,
+        ENTREGADO,
+        CANCELADO,
+        DEVUELTO,
+        RETRASADO,
+        INCIDENTE
     }
 }
