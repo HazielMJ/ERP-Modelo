@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Reportes </title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="Reportes.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-chart-line"></i> ERP System</h2>
+            <p>Sistema Integral de Gestión</p>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-section">
+                <div class="nav-section-title">PRINCIPAL</div>
+            </li>
+            <li class="nav-item" data-modulo="dashboard">
+                <a href="/dashboard" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            
+            <li class="nav-section" data-seccion="ventas">
+                <div class="nav-section-title">VENTAS</div>
+            </li>
+            <li class="nav-item" data-modulo="Clientes">
+                <a href="/Clientes" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span>Clientes</span>
+                </a>
+            </li>
+            <li class="nav-item" data-modulo="ventas">
+                <a href="/ventas" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Ventas</span>
+                </a>
+            </li>
+            
+            <li class="nav-section" data-seccion="compras">
+                <div class="nav-section-title">COMPRAS</div>
+            </li>
+            <li class="nav-item" data-modulo="Compras">
+                <a href="/Compras" class="nav-link">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Compras</span>
+                </a>
+            </li>
+            
+            <li class="nav-section" data-seccion="rrhh">
+                <div class="nav-section-title">RECURSOS HUMANOS</div>
+            </li>
+            <li class="nav-item" data-modulo="rrhh">
+                <a href="/rrhh" class="nav-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Empleados</span>
+                </a>
+            </li>
+            
+            <li class="nav-section" data-seccion="logistica">
+                <div class="nav-section-title">LOGÍSTICA</div>
+            </li>
+            <li class="nav-item" data-modulo="logistica">
+                <a href="/logistica" class="nav-link">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Envíos</span>
+                </a>
+            </li>
+            
+            <li class="nav-section" data-seccion="analisis">
+                <div class="nav-section-title">ANÁLISIS</div>
+            </li>
+            <li class="nav-item" data-modulo="reportes">
+                <a href="/reportes" class="nav-link active">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reportes</span>
+                </a>
+            </li>
+            
+            <li class="nav-section" data-seccion="sistema">
+                <div class="nav-section-title">SISTEMA</div>
+            </li>
+            <li class="nav-item" data-modulo="configuracion">
+                <a href="/configuracion" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+            </li>
+            <li>
+                <div class="logout-section">
+                    <button class="btn-logout" onclick="cerrarSesion()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Cerrar Sesión</span>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header class="page-header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div>
+                    <h1>
+                        <i class="fas fa-chart-bar"></i> 
+                        <span id="headerTitle">Módulo de Reportes</span>
+                    </h1>
+                    <div class="breadcrumb">
+                        <a href="/dashboard"><i class="fas fa-home"></i> Inicio</a>
+                        <span>/</span>
+                        <span id="breadcrumbModule">Reportes</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Filtros de Fecha -->
+        <div class="filters-section">
+            <div class="filter-card">
+                <label><i class="fas fa-calendar-alt"></i> Fecha Inicio (Opcional)</label>
+                <input type="date" id="fechaInicio" class="filter-input">
+            </div>
+            <div class="filter-card">
+                <label><i class="fas fa-calendar-check"></i> Fecha Fin (Opcional)</label>
+                <input type="date" id="fechaFin" class="filter-input">
+            </div>
+            <div class="filter-card">
+                <button class="btn-clear" onclick="limpiarFiltros()">
+                    <i class="fas fa-times"></i> Limpiar
+                </button>
+            </div>
+        </div>
+        
+        <div class="reports-grid">
+            <!-- Reporte de Ventas -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #10b981, #059669);">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="report-title">Ventas</div>
+                </div>
+                <div class="report-description">
+                    Histórico completo de ventas con detalles de productos, clientes, montos y estados.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('ventas', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('ventas', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Compras -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #f59e0b, #d97706);">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="report-title">Compras</div>
+                </div>
+                <div class="report-description">
+                    Órdenes de compra, proveedores, productos adquiridos, costos y estados.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('compras', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('compras', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Clientes -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #ec4899, #db2777);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="report-title">Clientes</div>
+                </div>
+                <div class="report-description">
+                    Base de clientes completa con información de contacto, saldos y estado.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('clientes', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('clientes', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Proveedores -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #06b6d4, #0891b2);">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="report-title">Proveedores</div>
+                </div>
+                <div class="report-description">
+                    Listado completo de proveedores con contactos, límites de crédito y saldos.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('proveedores', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('proveedores', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Recursos Humanos -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #14b8a6, #0d9488);">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="report-title">Recursos Humanos</div>
+                </div>
+                <div class="report-description">
+                    Información completa de empleados, departamentos, puestos y estados.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('rrhh', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('rrhh', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Logística -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #f97316, #ea580c);">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="report-title">Logística</div>
+                </div>
+                <div class="report-description">
+                    Envíos, transportistas, rutas, estados de entrega y seguimientos.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('logistica', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('logistica', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Contabilidad -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #6366f1, #4f46e5);">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="report-title">Contabilidad</div>
+                </div>
+                <div class="report-description">
+                    Asientos contables, balance general, estado de resultados y análisis financiero.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('contabilidad', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('contabilidad', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Inventario -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #8b5cf6, #7c3aed);">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="report-title">Inventario</div>
+                </div>
+                <div class="report-description">
+                    Stock actual, productos, movimientos, valoración y productos con bajo inventario.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('inventario', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('inventario', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Punto de Venta -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #84cc16, #65a30d);">
+                        <i class="fas fa-cash-register"></i>
+                    </div>
+                    <div class="report-title">Punto de Venta</div>
+                </div>
+                <div class="report-description">
+                    Transacciones diarias, cierres de caja, aperturas y métodos de pago.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('pos', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('pos', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Facturación -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #ef4444, #dc2626);">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <div class="report-title">Facturación</div>
+                </div>
+                <div class="report-description">
+                    Facturas emitidas, cuentas por cobrar, documentos fiscales y análisis de pagos.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('facturacion', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('facturacion', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Departamentos -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #9333ea, #7e22ce);">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="report-title">Departamentos</div>
+                </div>
+                <div class="report-description">
+                    Estructura organizacional, departamentos y su información administrativa.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('departamentos', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('departamentos', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Puestos -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #0ea5e9, #0284c7);">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="report-title">Puestos</div>
+                </div>
+                <div class="report-description">
+                    Catálogo de puestos de trabajo, descripciones y niveles organizacionales.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('puestos', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('puestos', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Métodos de Envío -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #22c55e, #16a34a);">
+                        <i class="fas fa-truck-loading"></i>
+                    </div>
+                    <div class="report-title">Métodos de Envío</div>
+                </div>
+                <div class="report-description">
+                    Métodos de envío disponibles, costos, tiempos estimados y estados.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('metodos-envio', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('metodos-envio', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Transportistas -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #3b82f6, #2563eb);">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="report-title">Transportistas</div>
+                </div>
+                <div class="report-description">
+                    Transportistas activos, información de contacto y capacidad de transporte.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('transportistas', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('transportistas', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Rutas -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #a855f7, #9333ea);">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <div class="report-title">Rutas</div>
+                </div>
+                <div class="report-description">
+                    Rutas de entrega activas, destinos, distancias y tiempos estimados.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('rutas', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('rutas', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Nómina -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #f59e0b, #d97706);">
+                        <i class="fas fa-money-check-alt"></i>
+                    </div>
+                    <div class="report-title">Nómina</div>
+                </div>
+                <div class="report-description">
+                    Registros de nómina, períodos, percepciones, deducciones y pagos netos.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('nomina', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('nomina', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Impuestos -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #eab308, #ca8a04);">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <div class="report-title">Impuestos</div>
+                </div>
+                <div class="report-description">
+                    Catálogo de impuestos, tasas, tipos y configuraciones fiscales.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('impuestos', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('impuestos', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Categorías -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #ec4899, #db2777);">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div class="report-title">Categorías</div>
+                </div>
+                <div class="report-description">
+                    Catálogo de categorías de productos, descripciones y estados.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('categorias', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('categorias', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reporte de Almacenes -->
+            <div class="report-card">
+                <div class="report-header">
+                    <div class="report-icon" style="background: linear-gradient(45deg, #64748b, #475569);">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <div class="report-title">Almacenes</div>
+                </div>
+                <div class="report-description">
+                    Almacenes activos, ubicaciones, capacidades y estados operativos.
+                </div>
+                <div class="report-actions">
+                    <button class="btn-excel" onclick="generarReporte('almacenes', 'excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="btn-pdf" onclick="generarReporte('almacenes', 'pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== FUNCIONES PRINCIPALES ====================
+        
+        async function generarReporte(modulo, formato) {
+            try {
+                showNotification('⏳ Generando reporte...', 'info');
+                
+                const fechaInicio = document.getElementById('fechaInicio').value;
+                const fechaFin = document.getElementById('fechaFin').value;
+                
+                let datos = await obtenerDatos(modulo, fechaInicio, fechaFin);
+                
+                if (!datos || datos.length === 0) {
+                    showNotification('⚠️ No hay datos disponibles para este reporte', 'error');
+                    return;
+                }
+                
+                if (formato === 'excel') {
+                    generarExcel(datos, modulo);
+                } else {
+                    generarPDF(datos, modulo);
+                }
+                
+                showNotification(`✅ Reporte ${formato.toUpperCase()} generado exitosamente`, 'success');
+            } catch (error) {
+                console.error('Error al generar reporte:', error);
+                showNotification(`❌ Error al generar reporte: ${error.message}`, 'error');
+            }
+        }
+        
+        // ==================== OBTENER DATOS REALES ====================
+        
+        async function obtenerDatos(modulo, fechaInicio, fechaFin) {
+            let url = '';
+            let transformarDatos = null;
+            let esAsync = false;
+            
+            switch(modulo) {
+                case 'ventas':
+                    url = '/api/ventas';
+                    transformarDatos = transformarVentas;
+                    break;
+                case 'compras':
+                    url = '/api/compras';
+                    transformarDatos = transformarCompras;
+                    break;
+                case 'clientes':
+                    url = '/api/clientes';
+                    transformarDatos = transformarClientes;
+                    break;
+                case 'proveedores':
+                    url = '/api/proveedores';
+                    transformarDatos = transformarProveedores;
+                    break;
+                case 'rrhh':
+                    url = '/api/empleados/activos';
+                    transformarDatos = transformarEmpleados;
+                    break;
+                case 'logistica':
+                    url = '/api/envios';
+                    transformarDatos = transformarEnvios;
+                    break;
+                case 'contabilidad':
+                    url = '/api/contabilidad';
+                    transformarDatos = transformarContabilidad;
+                    break;
+                case 'inventario':
+                    url = '/api/productos/activos';
+                    transformarDatos = transformarInventario;
+                    esAsync = true;
+                    break;
+                case 'pos':
+                    url = '/api/apertura-caja';
+                    transformarDatos = transformarPOS;
+                    break;
+                case 'facturacion':
+                    url = '/api/factura';
+                    transformarDatos = transformarFacturacion;
+                    break;
+                case 'departamentos':
+                    url = '/api/departamentos';
+                    transformarDatos = transformarDepartamentos;
+                    break;
+                case 'puestos':
+                    url = '/api/puestos';
+                    transformarDatos = transformarPuestos;
+                    break;
+                case 'metodos-envio':
+                    url = '/api/metodos-envio';
+                    transformarDatos = transformarMetodosEnvio;
+                    break;
+                case 'transportistas':
+                    url = '/api/transportistas/activos';
+                    transformarDatos = transformarTransportistas;
+                    break;
+                case 'rutas':
+                    url = '/api/rutas/activas';
+                    transformarDatos = transformarRutas;
+                    break;
+                case 'nomina':
+                    url = '/api/nomina';
+                    transformarDatos = transformarNomina;
+                    break;
+                case 'impuestos':
+                    url = '/api/impuesto';
+                    transformarDatos = transformarImpuestos;
+                    break;
+                case 'categorias':
+                    url = '/api/categorias';
+                    transformarDatos = transformarCategorias;
+                    break;
+                case 'almacenes':
+                    url = '/api/almacenes/activos';
+                    transformarDatos = transformarAlmacenes;
+                    break;
+                default:
+                    throw new Error('Módulo no válido');
+            }
+            
+            // Agregar filtros de fecha si existen
+            if (fechaInicio && fechaFin) {
+                if (modulo === 'ventas') {
+                    url += `/periodo?inicio=${fechaInicio}T00:00:00&fin=${fechaFin}T23:59:59`;
+                } else if (modulo === 'compras') {
+                    url += `/periodo?inicio=${fechaInicio}&fin=${fechaFin}`;
+                }
+                // Nota: Otros módulos pueden no soportar filtros de fecha
+            }
+            
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Error al obtener datos: ${response.statusText}`);
+            }
+            
+            const datos = await response.json();
+            
+            // Si la transformación es asíncrona (inventario)
+            if (esAsync) {
+                return await transformarDatos(datos);
+            } else {
+                return transformarDatos(datos);
+            }
+        }
+        
+        // ==================== TRANSFORMAR DATOS ====================
+        
+        function transformarVentas(ventas) {
+            return {
+                titulo: 'Reporte de Ventas',
+                headers: ['ID', 'Número Venta', 'Fecha', 'Cliente', 'Estado', 'Subtotal', 'IVA', 'Total', 'Tipo Pago'],
+                data: ventas.map(v => [
+                    v.idVenta || v.id || '',
+                    v.numeroVenta || '',
+                    formatearFecha(v.fechaVenta || v.fecha || ''),
+                    v.cliente?.nombreRazonSocial || v.cliente?.nombre || 'N/A',
+                    v.estado || 'N/A',
+                    formatearMoneda(v.subtotal || 0),
+                    formatearMoneda(v.impuestos || 0),
+                    formatearMoneda(v.totalVenta || v.total || 0),
+                    v.tipoPago || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarCompras(compras) {
+            return {
+                titulo: 'Reporte de Compras',
+                headers: ['ID', 'Número Compra', 'Fecha', 'Proveedor', 'Estado', 'Subtotal', 'Impuestos', 'Total', 'Tipo Pago'],
+                data: compras.map(c => [
+                    c.idCompra || c.id || '',
+                    c.numeroCompra || '',
+                    formatearFecha(c.fechaCompra || c.fecha || ''),
+                    c.proveedor?.nombreEmpresa || 'N/A',
+                    c.estado || 'N/A',
+                    formatearMoneda(c.subtotal || 0),
+                    formatearMoneda(c.impuestos || 0),
+                    formatearMoneda(c.totalCompra || c.total || 0),
+                    c.tipoPago || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarClientes(clientes) {
+            return {
+                titulo: 'Reporte de Clientes',
+                headers: ['ID', 'Nombre/Razón Social', 'RFC', 'Email', 'Teléfono', 'Límite Crédito', 'Saldo Actual', 'Estado'],
+                data: clientes.map(c => [
+                    c.idCliente || c.id || '',
+                    c.nombreRazonSocial || c.nombre || 'N/A',
+                    c.rfc || 'N/A',
+                    c.email || 'N/A',
+                    c.telefono || 'N/A',
+                    formatearMoneda(c.limiteCredito || 0),
+                    formatearMoneda(c.saldoActual || 0),
+                    c.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarProveedores(proveedores) {
+            return {
+                titulo: 'Reporte de Proveedores',
+                headers: ['ID', 'Nombre Empresa', 'RFC', 'Email', 'Teléfono', 'Límite Crédito', 'Saldo Actual', 'Estado'],
+                data: proveedores.map(p => [
+                    p.idProveedor || p.id || '',
+                    p.nombreEmpresa || 'N/A',
+                    p.rfc || 'N/A',
+                    p.email || 'N/A',
+                    p.telefono || 'N/A',
+                    formatearMoneda(p.limiteCredito || 0),
+                    formatearMoneda(p.saldoActual || 0),
+                    p.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarEmpleados(empleados) {
+            return {
+                titulo: 'Reporte de Recursos Humanos',
+                headers: ['ID', 'Nombre', 'Apellidos', 'Email', 'Teléfono', 'Departamento', 'Puesto', 'Estado'],
+                data: empleados.map(e => [
+                    e.idEmpleado || e.id || '',
+                    e.nombre || 'N/A',
+                    e.apellidos || 'N/A',
+                    e.email || 'N/A',
+                    e.telefono || 'N/A',
+                    e.departamento?.nombreDepartamento || e.departamento || 'N/A',
+                    e.puesto?.nombrePuesto || e.puesto || 'N/A',
+                    e.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarEnvios(envios) {
+            return {
+                titulo: 'Reporte de Logística',
+                headers: ['ID', 'Número Guía', 'Venta', 'Destinatario', 'Transportista', 'Estado', 'Fecha Envío', 'Fecha Entrega'],
+                data: envios.map(e => [
+                    e.idEnvio || e.id || '',
+                    e.numeroGuia || 'N/A',
+                    e.venta?.numeroVenta || e.venta?.id || 'N/A',
+                    e.destinatarioNombre || 'N/A',
+                    e.transportista?.nombreEmpresa || e.transportista?.nombre || 'N/A',
+                    e.estado || 'N/A',
+                    formatearFecha(e.fechaEnvio || ''),
+                    formatearFecha(e.fechaEntrega || '')
+                ])
+            };
+        }
+        
+        function transformarContabilidad(asientos) {
+            return {
+                titulo: 'Reporte de Contabilidad',
+                headers: ['ID', 'Número Asiento', 'Fecha', 'Descripción', 'Periodo', 'Total Debe', 'Total Haber', 'Estado'],
+                data: asientos.map(a => [
+                    a.idAsiento || a.id || '',
+                    a.numeroAsiento || 'N/A',
+                    formatearFecha(a.fechaAsiento || ''),
+                    a.descripcion || 'N/A',
+                    a.periodoContable || 'N/A',
+                    formatearMoneda(a.totalDebe || 0),
+                    formatearMoneda(a.totalHaber || 0),
+                    a.estado || 'N/A'
+                ])
+            };
+        }
+        
+        async function transformarInventario(productos) {
+            // Para inventario, necesitamos obtener el stock de cada producto
+            const inventarioData = [];
+            
+            for (const producto of productos) {
+                try {
+                    const response = await fetch(`/api/inventario/disponible/${producto.idProducto}`);
+                    if (response.ok) {
+                        const stockInfo = await response.json();
+                        inventarioData.push([
+                            producto.idProducto || '',
+                            producto.nombreProducto || 'N/A',
+                            producto.codigoProducto || 'N/A',
+                            producto.categoria?.nombreCategoria || 'N/A',
+                            stockInfo.stockDisponible || 0,
+                            producto.stockMinimo || 0,
+                            producto.stockMaximo || 0,
+                            formatearMoneda(producto.precioCompra || 0),
+                            formatearMoneda((producto.precioCompra || 0) * (stockInfo.stockDisponible || 0))
+                        ]);
+                    } else {
+                        inventarioData.push([
+                            producto.idProducto || '',
+                            producto.nombreProducto || 'N/A',
+                            producto.codigoProducto || 'N/A',
+                            producto.categoria?.nombreCategoria || 'N/A',
+                            0,
+                            producto.stockMinimo || 0,
+                            producto.stockMaximo || 0,
+                            formatearMoneda(producto.precioCompra || 0),
+                            '$0.00'
+                        ]);
+                    }
+                } catch (e) {
+                    inventarioData.push([
+                        producto.idProducto || '',
+                        producto.nombreProducto || 'N/A',
+                        producto.codigoProducto || 'N/A',
+                        producto.categoria?.nombreCategoria || 'N/A',
+                        0,
+                        producto.stockMinimo || 0,
+                        producto.stockMaximo || 0,
+                        formatearMoneda(producto.precioCompra || 0),
+                        '$0.00'
+                    ]);
+                }
+            }
+            
+            return {
+                titulo: 'Reporte de Inventario',
+                headers: ['ID', 'Producto', 'Código', 'Categoría', 'Stock Disponible', 'Stock Mínimo', 'Stock Máximo', 'Precio Compra', 'Valor Total'],
+                data: inventarioData
+            };
+        }
+        
+        function transformarPOS(aperturas) {
+            return {
+                titulo: 'Reporte de Punto de Venta',
+                headers: ['ID', 'Caja', 'Usuario', 'Fecha Apertura', 'Saldo Inicial', 'Fecha Cierre', 'Saldo Final', 'Estado'],
+                data: aperturas.map(a => [
+                    a.idApertura || a.id || '',
+                    a.caja?.numeroCaja || a.caja?.nombreCaja || 'N/A',
+                    a.usuario?.nombre || 'N/A',
+                    formatearFecha(a.fechaApertura || ''),
+                    formatearMoneda(a.saldoInicial || 0),
+                    formatearFecha(a.fechaCierre || ''),
+                    formatearMoneda(a.saldoFinal || 0),
+                    a.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarFacturacion(facturas) {
+            return {
+                titulo: 'Reporte de Facturación',
+                headers: ['ID', 'Número Factura', 'Cliente', 'RFC', 'Fecha', 'Subtotal', 'Impuestos', 'Descuentos', 'Total', 'Estado'],
+                data: facturas.map(f => [
+                    f.idFactura || f.id || '',
+                    f.numeroFactura || 'N/A',
+                    f.cliente?.nombreRazonSocial || f.cliente?.nombre || 'N/A',
+                    f.cliente?.rfc || 'N/A',
+                    formatearFecha(f.fechaFactura || f.fecha || ''),
+                    formatearMoneda(f.subtotal || 0),
+                    formatearMoneda(f.impuestos || 0),
+                    formatearMoneda(f.descuentos || 0),
+                    formatearMoneda(f.total || 0),
+                    f.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarDepartamentos(departamentos) {
+            return {
+                titulo: 'Reporte de Departamentos',
+                headers: ['ID', 'Código', 'Nombre', 'Descripción', 'Jefe', 'Estado'],
+                data: departamentos.map(d => [
+                    d.idDepartamento || d.id || '',
+                    d.codigoDepartamento || 'N/A',
+                    d.nombreDepartamento || d.nombre || 'N/A',
+                    d.descripcion || 'N/A',
+                    d.jefe ? (d.jefe.nombre + ' ' + (d.jefe.apellido || '')) : 'N/A',
+                    d.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarPuestos(puestos) {
+            return {
+                titulo: 'Reporte de Puestos',
+                headers: ['ID', 'Código', 'Nombre', 'Descripción', 'Nivel', 'Salario Mínimo', 'Salario Máximo', 'Estado'],
+                data: puestos.map(p => [
+                    p.idPuesto || p.id || '',
+                    p.codigoPuesto || 'N/A',
+                    p.nombrePuesto || p.nombre || 'N/A',
+                    p.descripcion || 'N/A',
+                    p.nivelJerarquico || 'N/A',
+                    formatearMoneda(p.salarioMinimo || 0),
+                    formatearMoneda(p.salarioMaximo || 0),
+                    p.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarMetodosEnvio(metodos) {
+            return {
+                titulo: 'Reporte de Métodos de Envío',
+                headers: ['ID', 'Nombre', 'Descripción', 'Costo Base', 'Costo por Km', 'Tiempo Estimado', 'Estado'],
+                data: metodos.map(m => [
+                    m.idMetodoEnvio || m.id || '',
+                    m.nombre || 'N/A',
+                    m.descripcion || 'N/A',
+                    formatearMoneda(m.costoBase || 0),
+                    formatearMoneda(m.costoPorKm || 0),
+                    m.tiempoEstimado || 'N/A',
+                    m.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarTransportistas(transportistas) {
+            return {
+                titulo: 'Reporte de Transportistas',
+                headers: ['ID', 'Nombre', 'Empresa', 'Teléfono', 'Email', 'Tipo Vehículo', 'Placa', 'Licencia', 'Estado'],
+                data: transportistas.map(t => [
+                    t.idTransportista || t.id || '',
+                    t.nombre || 'N/A',
+                    t.empresa || 'N/A',
+                    t.telefono || 'N/A',
+                    t.email || 'N/A',
+                    t.tipoVehiculo || 'N/A',
+                    t.placaVehiculo || 'N/A',
+                    t.licencia || 'N/A',
+                    t.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarRutas(rutas) {
+            return {
+                titulo: 'Reporte de Rutas',
+                headers: ['ID', 'Código', 'Nombre', 'Origen', 'Destino', 'Distancia (Km)', 'Tiempo Estimado (Min)', 'Costo Estimado', 'Estado'],
+                data: rutas.map(r => [
+                    r.idRuta || r.id || '',
+                    r.codigoRuta || 'N/A',
+                    r.nombreRuta || r.nombre || 'N/A',
+                    r.origen || 'N/A',
+                    r.destino || 'N/A',
+                    r.distanciaKm || 0,
+                    r.tiempoEstimadoMin ? r.tiempoEstimadoMin + ' min' : 'N/A',
+                    formatearMoneda(r.costoEstimado || 0),
+                    r.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarNomina(nominas) {
+            return {
+                titulo: 'Reporte de Nómina',
+                headers: ['ID', 'Empleado', 'Periodo', 'Tipo', 'Fecha Inicio', 'Fecha Fin', 'Fecha Pago', 'Días Trabajados', 'Salario Diario', 'Percepciones', 'Deducciones', 'Total Neto', 'Estado'],
+                data: nominas.map(n => [
+                    n.idNomina || n.id || '',
+                    n.empleado ? (n.empleado.nombre + ' ' + (n.empleado.apellido || '')) : 'N/A',
+                    n.periodoNomina || 'N/A',
+                    n.tipoNomina || 'N/A',
+                    formatearFecha(n.fechaInicio || ''),
+                    formatearFecha(n.fechaFin || ''),
+                    formatearFecha(n.fechaPago || ''),
+                    n.diasTrabajados || 0,
+                    formatearMoneda(n.salarioDiario || 0),
+                    formatearMoneda(n.totalPercepciones || 0),
+                    formatearMoneda(n.totalDeducciones || 0),
+                    formatearMoneda(n.totalNeto || 0),
+                    n.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarImpuestos(impuestos) {
+            return {
+                titulo: 'Reporte de Impuestos',
+                headers: ['ID', 'Nombre', 'Tipo', 'Tasa (%)', 'Descripción', 'Estado'],
+                data: impuestos.map(i => [
+                    i.idImpuesto || i.id || '',
+                    i.nombre || 'N/A',
+                    i.tipo || 'N/A',
+                    i.tasa ? (parseFloat(i.tasa) * 100).toFixed(2) + '%' : '0%',
+                    i.descripcion || 'N/A',
+                    i.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarCategorias(categorias) {
+            return {
+                titulo: 'Reporte de Categorías',
+                headers: ['ID', 'Código', 'Nombre', 'Descripción', 'Estado'],
+                data: categorias.map(c => [
+                    c.idCategoria || c.id || '',
+                    c.codigoCategoria || 'N/A',
+                    c.nombreCategoria || c.nombre || 'N/A',
+                    c.descripcion || 'N/A',
+                    c.estado || 'N/A'
+                ])
+            };
+        }
+        
+        function transformarAlmacenes(almacenes) {
+            return {
+                titulo: 'Reporte de Almacenes',
+                headers: ['ID', 'Código', 'Nombre', 'Ubicación', 'Capacidad Total', 'Espacio Utilizado', 'Estado'],
+                data: almacenes.map(a => [
+                    a.idAlmacen || a.id || '',
+                    a.codigoAlmacen || 'N/A',
+                    a.nombreAlmacen || a.nombre || 'N/A',
+                    a.ubicacion || 'N/A',
+                    a.capacidadTotal ? a.capacidadTotal + ' m²' : 'N/A',
+                    a.espacioUtilizado ? a.espacioUtilizado + ' m²' : '0 m²',
+                    a.estado || 'N/A'
+                ])
+            };
+        }
+        
+        // ==================== GENERAR EXCEL ====================
+        
+        function generarExcel(datos, modulo) {
+            const wb = XLSX.utils.book_new();
+            
+            // Hoja principal con resumen
+            const wsData = [
+                [datos.titulo],
+                ['Fecha de generación: ' + new Date().toLocaleDateString('es-MX')],
+                [],
+                datos.headers,
+                ...datos.data
+            ];
+            
+            const ws = XLSX.utils.aoa_to_sheet(wsData);
+            
+            // Ajustar anchos de columna
+            const colWidths = datos.headers.map(() => ({ wch: 20 }));
+            ws['!cols'] = colWidths;
+            
+            // Estilo para el título
+            if (!ws['A1']) ws['A1'] = { t: 's', v: datos.titulo };
+            ws['!merges'] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: datos.headers.length - 1 } }];
+            
+            XLSX.utils.book_append_sheet(wb, ws, 'Reporte');
+            
+            const nombreArchivo = `Reporte_${getNombreModulo(modulo)}_${new Date().toISOString().split('T')[0]}.xlsx`;
+            XLSX.writeFile(wb, nombreArchivo);
+        }
+        
+        // ==================== GENERAR PDF ====================
+        
+        function generarPDF(datos, modulo) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('landscape', 'mm', 'a4');
+            
+            let yPos = 20;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const margin = 15;
+            const tableWidth = pageWidth - (margin * 2);
+            const colWidth = tableWidth / datos.headers.length;
+            
+            // Título
+            doc.setFontSize(18);
+            doc.setFont(undefined, 'bold');
+            doc.text(datos.titulo, pageWidth / 2, yPos, { align: 'center' });
+            yPos += 8;
+            
+            // Fecha
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.text('Fecha de generación: ' + new Date().toLocaleDateString('es-MX'), pageWidth / 2, yPos, { align: 'center' });
+            yPos += 10;
+            
+            // Línea separadora
+            doc.setLineWidth(0.5);
+            doc.line(margin, yPos, pageWidth - margin, yPos);
+            yPos += 5;
+            
+            // Encabezados
+            doc.setFontSize(9);
+            doc.setFont(undefined, 'bold');
+            datos.headers.forEach((header, index) => {
+                doc.text(header, margin + (index * colWidth) + 2, yPos);
+            });
+            yPos += 5;
+            
+            // Línea bajo encabezados
+            doc.line(margin, yPos, pageWidth - margin, yPos);
+            yPos += 5;
+            
+            // Datos
+            doc.setFontSize(7);
+            doc.setFont(undefined, 'normal');
+            
+            datos.data.forEach((row, rowIndex) => {
+                if (yPos > pageHeight - 20) {
+                    doc.addPage('landscape');
+                    yPos = 20;
+                }
+                
+                row.forEach((cell, cellIndex) => {
+                    const text = String(cell || '');
+                    const lines = doc.splitTextToSize(text, colWidth - 4);
+                    doc.text(lines, margin + (cellIndex * colWidth) + 2, yPos);
+                });
+                
+                yPos += 7;
+            });
+            
+            // Pie de página
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.setFontSize(8);
+                doc.setFont(undefined, 'italic');
+                doc.text(`Página ${i} de ${pageCount}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
+                doc.text('Sistema ERP - Reporte Generado Automáticamente', pageWidth / 2, pageHeight - 5, { align: 'center' });
+            }
+            
+            const nombreArchivo = `Reporte_${getNombreModulo(modulo)}_${new Date().toISOString().split('T')[0]}.pdf`;
+            doc.save(nombreArchivo);
+        }
+        
+        // ==================== UTILIDADES ====================
+        
+        function getNombreModulo(modulo) {
+            const nombres = {
+                'ventas': 'Ventas',
+                'compras': 'Compras',
+                'clientes': 'Clientes',
+                'proveedores': 'Proveedores',
+                'rrhh': 'RecursosHumanos',
+                'logistica': 'Logistica',
+                'contabilidad': 'Contabilidad',
+                'inventario': 'Inventario',
+                'pos': 'PuntoDeVenta',
+                'facturacion': 'Facturacion',
+                'departamentos': 'Departamentos',
+                'puestos': 'Puestos',
+                'metodos-envio': 'MetodosEnvio',
+                'transportistas': 'Transportistas',
+                'rutas': 'Rutas',
+                'nomina': 'Nomina',
+                'impuestos': 'Impuestos',
+                'categorias': 'Categorias',
+                'almacenes': 'Almacenes'
+            };
+            return nombres[modulo] || modulo;
+        }
+        
+        function formatearFecha(fecha) {
+            if (!fecha) return 'N/A';
+            try {
+                const date = new Date(fecha);
+                return date.toLocaleDateString('es-MX');
+            } catch (e) {
+                return fecha;
+            }
+        }
+        
+        function formatearMoneda(valor) {
+            if (!valor) return '$0.00';
+            return '$' + parseFloat(valor).toLocaleString('es-MX', { 
+                minimumFractionDigits: 2, 
+                maximumFractionDigits: 2 
+            });
+        }
+        
+        function limpiarFiltros() {
+            document.getElementById('fechaInicio').value = '';
+            document.getElementById('fechaFin').value = '';
+        }
+        
+        // ==================== SIDEBAR ====================
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // Cerrar sidebar al hacer clic fuera en móvil
+        document.addEventListener('click', function(e) {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (window.innerWidth <= 768) {
+                if (menuBtn && !sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                }
+            }
+        });
+
+        // ==================== CERRAR SESIÓN ====================
+        function cerrarSesion() {
+            if (confirm('¿Está seguro que desea cerrar sesión?')) {
+                localStorage.removeItem('usuario');
+                window.location.href = '/';
+            }
+        }
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // Establecer fecha fin por defecto (hoy)
+        document.addEventListener('DOMContentLoaded', function() {
+            const hoy = new Date().toISOString().split('T')[0];
+            document.getElementById('fechaFin').value = hoy;
+        });
+    </script>
+</body>
+</html>
