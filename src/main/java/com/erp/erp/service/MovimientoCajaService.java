@@ -25,9 +25,6 @@ public class MovimientoCajaService {
     private final VentasRepository ventaRepository;
     private final AperturaCajaService aperturaCajaService;
     
-    /**
-     * Registrar movimiento genérico
-     */
     public MovimientoCaja registrarMovimiento(Integer aperturaId, MovimientoCaja movimiento) {
         log.info("Registrando movimiento en apertura {}: {} - ${}", 
             aperturaId, movimiento.getConcepto(), movimiento.getMonto());
@@ -38,13 +35,11 @@ public class MovimientoCajaService {
         if (!apertura.isAbierta()) {
             throw new BusinessException("No se pueden registrar movimientos en una caja cerrada");
         }
-        
-        // Validar monto
+    
         if (movimiento.getMonto() == null || movimiento.getMonto().compareTo(BigDecimal.ZERO) <= 0) {
             throw new BusinessException("El monto debe ser mayor a 0");
         }
         
-        // Validar saldo para egresos
         if (movimiento.getTipoMovimiento() == MovimientoCaja.TipoMovimiento.EGRESO) {
             BigDecimal saldoActual = aperturaCajaService.obtenerSaldoActual(aperturaId);
             if (saldoActual.compareTo(movimiento.getMonto()) < 0) {
@@ -55,39 +50,29 @@ public class MovimientoCajaService {
             }
         }
         
-        // Establecer apertura y guardar
         movimiento.setApertura(apertura);
         MovimientoCaja movimientoGuardado = movimientoCajaRepository.save(movimiento);
-        
-        // Actualizar totales de la apertura
         aperturaCajaService.actualizarTotalesApertura(aperturaId);
         
         log.info("Movimiento registrado exitosamente. ID: {}", movimientoGuardado.getIdMovimiento());
         return movimientoGuardado;
     }
     
-    /**
-     * Registrar venta en caja
-     */
     public MovimientoCaja registrarVenta(Integer aperturaId, Integer ventaId, 
                                         BigDecimal monto, MovimientoCaja.FormaPago formaPago,
                                         Integer usuarioId) {
         log.info("Registrando venta {} en apertura {}", ventaId, aperturaId);
         
-        // Validar que la venta exista
         Venta venta = ventaRepository.findById(ventaId)
             .orElseThrow(() -> new ResourceNotFoundException("Venta no encontrada"));
         
-        // Validar que no se haya registrado ya
         if (movimientoCajaRepository.existeMovimientoParaVenta(ventaId)) {
             throw new BusinessException("Esta venta ya fue registrada en caja");
         }
         
-        // Obtener usuario
         Usuario usuario = usuarioRepository.findById(usuarioId)
             .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
         
-        // Crear movimiento de venta
         MovimientoCaja movimiento = MovimientoCaja.builder()
             .tipoMovimiento(MovimientoCaja.TipoMovimiento.INGRESO)
             .categoria(MovimientoCaja.CategoriaMovimiento.VENTA)
@@ -102,9 +87,6 @@ public class MovimientoCajaService {
         return registrarMovimiento(aperturaId, movimiento);
     }
     
-    /**
-     * Registrar retiro de efectivo
-     */
     public MovimientoCaja registrarRetiro(Integer aperturaId, BigDecimal monto, 
                                          String concepto, Integer usuarioId, String referencia) {
         log.info("Registrando retiro de ${} en apertura {}", monto, aperturaId);
@@ -125,9 +107,6 @@ public class MovimientoCajaService {
         return registrarMovimiento(aperturaId, movimiento);
     }
     
-    /**
-     * Registrar gasto
-     */
     public MovimientoCaja registrarGasto(Integer aperturaId, BigDecimal monto, 
                                         String concepto, Integer usuarioId, String referencia) {
         log.info("Registrando gasto de ${} en apertura {}", monto, aperturaId);
@@ -148,9 +127,6 @@ public class MovimientoCajaService {
         return registrarMovimiento(aperturaId, movimiento);
     }
     
-    /**
-     * Registrar depósito
-     */
     public MovimientoCaja registrarDeposito(Integer aperturaId, BigDecimal monto, 
                                            String concepto, Integer usuarioId, String referencia) {
         log.info("Registrando depósito de ${} en apertura {}", monto, aperturaId);
@@ -171,9 +147,6 @@ public class MovimientoCajaService {
         return registrarMovimiento(aperturaId, movimiento);
     }
     
-    /**
-     * Registrar ajuste (puede ser ingreso o egreso)
-     */
     public MovimientoCaja registrarAjuste(Integer aperturaId, BigDecimal monto,
                                          MovimientoCaja.TipoMovimiento tipo,
                                          String concepto, Integer usuarioId, String referencia) {
@@ -195,9 +168,7 @@ public class MovimientoCajaService {
         return registrarMovimiento(aperturaId, movimiento);
     }
     
-    /**
-     * Eliminar movimiento (solo si la caja está abierta)
-     */
+    
     public void eliminarMovimiento(Integer movimientoId) {
         log.info("Eliminando movimiento: {}", movimientoId);
         
@@ -207,7 +178,6 @@ public class MovimientoCajaService {
             throw new BusinessException("No se pueden eliminar movimientos de una caja cerrada");
         }
         
-        // No se pueden eliminar movimientos de ventas
         if (movimiento.isVenta()) {
             throw new BusinessException("No se pueden eliminar movimientos de ventas");
         }
@@ -221,7 +191,6 @@ public class MovimientoCajaService {
         log.info("Movimiento eliminado exitosamente");
     }
     
-    // ==================== CONSULTAS ====================
     
     @Transactional(readOnly = true)
     public MovimientoCaja obtenerMovimientoPorId(Integer id) {
