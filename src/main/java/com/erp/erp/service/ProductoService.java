@@ -54,7 +54,7 @@ public class ProductoService {
             .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
     }
     
-    // ⭐ NUEVO: Método para obtener TODOS los productos
+  
     @Transactional(readOnly = true)
     public List<Producto> obtenerTodosLosProductos() {
         return productoRepository.findAll();
@@ -70,13 +70,13 @@ public class ProductoService {
         return productoRepository.findProductosBajoStock();
     }
 
-    // ============ NUEVOS MÉTODOS PARA CÓDIGOS DE BARRAS ============
+
 
 @Transactional
 public Producto generarCodigoBarras(Integer id) {
     Producto producto = obtenerProductoPorId(id);
     
-    // Generar código de barras basado en los datos del producto
+
     String codigoBarras = generarCodigoBarrasTexto(producto);
     producto.setCodigoBarras(codigoBarras);
     
@@ -105,7 +105,7 @@ public List<Producto> obtenerProductosSinCodigoBarras() {
         .collect(java.util.stream.Collectors.toList());
 }
 
-// Método privado para generar el texto del código de barras
+
 private String generarCodigoBarrasTexto(Producto producto) {
     // Formato: MARCA-NOMBRE-CODIGO
     StringBuilder sb = new StringBuilder();
@@ -119,7 +119,7 @@ private String generarCodigoBarrasTexto(Producto producto) {
             .toUpperCase()
             .replaceAll("[^A-Z0-9]", "");
     
-    // Limitar a 15 caracteres
+
     if (nombreLimpio.length() > 15) {
         nombreLimpio = nombreLimpio.substring(0, 15);
     }

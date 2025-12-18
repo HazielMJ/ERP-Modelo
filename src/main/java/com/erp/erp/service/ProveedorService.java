@@ -45,10 +45,22 @@ public class ProveedorService {
         proveedor.setSaldoActual(nuevoSaldo);
         proveedorRepository.save(proveedor);
     }
-    
-    public void desactivarProveedor(Integer id) {
+
+public void desactivarProveedor(Integer id) {
         Proveedor proveedor = obtenerProveedorPorId(id);
+        if (proveedor.getEstado() == Proveedor.EstadoProveedor.INACTIVO) {
+            throw new RuntimeException("El proveedor ya está inactivo");
+        }
         proveedor.setEstado(Proveedor.EstadoProveedor.INACTIVO);
+        proveedorRepository.save(proveedor);
+    }
+    
+    public void activarProveedor(Integer id) {
+        Proveedor proveedor = obtenerProveedorPorId(id);
+        if (proveedor.getEstado() == Proveedor.EstadoProveedor.ACTIVO) {
+            throw new RuntimeException("El proveedor ya está activo");
+        }
+        proveedor.setEstado(Proveedor.EstadoProveedor.ACTIVO);
         proveedorRepository.save(proveedor);
     }
     

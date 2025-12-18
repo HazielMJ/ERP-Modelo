@@ -20,19 +20,15 @@ public class CajaService {
     
     private final CajaRepository cajaRepository;
     private final AperturaCajaRepository aperturaCajaRepository;
-    
-    /**
-     * Crear nueva caja
-     */
+
     public Caja crearCaja(Caja caja) {
         log.info("Creando nueva caja: {}", caja.getNumeroCaja());
         
-        // Validar que no exista el número de caja
+
         if (cajaRepository.existsByNumeroCaja(caja.getNumeroCaja())) {
             throw new BusinessException("Ya existe una caja con el número: " + caja.getNumeroCaja());
         }
         
-        // Validar que no exista el nombre
         if (cajaRepository.existsByNombreCaja(caja.getNombreCaja())) {
             throw new BusinessException("Ya existe una caja con el nombre: " + caja.getNombreCaja());
         }
@@ -42,15 +38,11 @@ public class CajaService {
         return cajaNueva;
     }
     
-    /**
-     * Actualizar caja
-     */
     public Caja actualizarCaja(Integer id, Caja caja) {
         log.info("Actualizando caja: {}", id);
         
         Caja cajaExistente = obtenerCajaPorId(id);
         
-        // Validar número de caja si cambió
         if (!cajaExistente.getNumeroCaja().equals(caja.getNumeroCaja())) {
             if (cajaRepository.existsByNumeroCaja(caja.getNumeroCaja())) {
                 throw new BusinessException("Ya existe una caja con ese número");
@@ -65,15 +57,12 @@ public class CajaService {
         return cajaRepository.save(cajaExistente);
     }
     
-    /**
-     * Eliminar caja (solo si no tiene aperturas)
-     */
+
     public void eliminarCaja(Integer id) {
         log.info("Eliminando caja: {}", id);
         
         Caja caja = obtenerCajaPorId(id);
         
-        // Validar que no tenga aperturas
         List<AperturaCaja> aperturas = aperturaCajaRepository.findByCaja(caja);
         if (!aperturas.isEmpty()) {
             throw new BusinessException("No se puede eliminar la caja porque tiene aperturas registradas");
@@ -83,15 +72,12 @@ public class CajaService {
         log.info("Caja eliminada exitosamente");
     }
     
-    /**
-     * Cambiar estado de caja
-     */
+
     public Caja cambiarEstadoCaja(Integer id, Caja.EstadoCaja nuevoEstado) {
         log.info("Cambiando estado de caja {} a {}", id, nuevoEstado);
         
         Caja caja = obtenerCajaPorId(id);
         
-        // Validar que no tenga apertura abierta si se va a desactivar
         if (nuevoEstado != Caja.EstadoCaja.ACTIVA) {
             if (aperturaCajaRepository.existeAperturaAbierta(id)) {
                 throw new BusinessException("No se puede cambiar el estado de la caja porque tiene una apertura abierta");
@@ -102,28 +88,21 @@ public class CajaService {
         return cajaRepository.save(caja);
     }
     
-    /**
-     * Activar caja
-     */
+
     public Caja activarCaja(Integer id) {
         return cambiarEstadoCaja(id, Caja.EstadoCaja.ACTIVA);
     }
     
-    /**
-     * Desactivar caja
-     */
+    
     public Caja desactivarCaja(Integer id) {
         return cambiarEstadoCaja(id, Caja.EstadoCaja.INACTIVA);
     }
     
-    /**
-     * Poner caja en mantenimiento
-     */
+
     public Caja ponerCajaEnMantenimiento(Integer id) {
         return cambiarEstadoCaja(id, Caja.EstadoCaja.MANTENIMIENTO);
     }
     
-    // ==================== CONSULTAS ====================
     
     @Transactional(readOnly = true)
     public Caja obtenerCajaPorId(Integer id) {

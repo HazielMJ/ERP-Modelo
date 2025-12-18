@@ -121,7 +121,6 @@ public class DetalleVentaService {
         return detalleVentaRepository.findDetallesVentasHoy();
     }
     
-    // ==================== DTOs ====================
     
     public record ProductoVendidoDTO(
         Integer idProducto,

@@ -25,13 +25,9 @@ public class AperturaCajaService {
     private final UsuarioRepository usuarioRepository;
     private final MovimientoCajaRepository movimientoCajaRepository;
     
-    /**
-     * Abrir caja - CORREGIDO: Usa el constructor estático
-     */
     public AperturaCaja abrirCaja(Integer cajaId, Integer usuarioId, BigDecimal saldoInicial, String observaciones) {
         log.info("Abriendo caja {} por usuario {}", cajaId, usuarioId);
         
-        // Validar que la caja exista y esté activa
         Caja caja = cajaRepository.findById(cajaId)
             .orElseThrow(() -> new ResourceNotFoundException("Caja no encontrada"));
         
@@ -39,26 +35,23 @@ public class AperturaCajaService {
             throw new BusinessException("La caja no está activa. Estado actual: " + caja.getEstado());
         }
         
-        // Validar que no exista una apertura activa para esta caja
         if (aperturaCajaRepository.existeAperturaAbierta(cajaId)) {
             throw new BusinessException("La caja ya está abierta");
         }
         
-        // Validar que el usuario no tenga otra caja abierta
         if (aperturaCajaRepository.existeAperturaAbiertaParaUsuario(usuarioId)) {
             throw new BusinessException("El usuario ya tiene una caja abierta");
         }
-        
-        // Validar saldo inicial
+
         if (saldoInicial == null || saldoInicial.compareTo(BigDecimal.ZERO) < 0) {
             throw new BusinessException("El saldo inicial no puede ser negativo");
         }
         
-        // Obtener usuario
+
         Usuario usuario = usuarioRepository.findById(usuarioId)
             .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
         
-        // CORREGIDO: Usar constructor estático que asegura valores correctos
+
         AperturaCaja apertura = AperturaCaja.crearApertura(caja, usuario, saldoInicial, observaciones);
         
         AperturaCaja aperturaGuardada = aperturaCajaRepository.save(apertura);
@@ -67,13 +60,10 @@ public class AperturaCajaService {
         return aperturaGuardada;
     }
     
-    /**
-     * Método alternativo para abrir caja recibiendo objeto completo
-     */
     public AperturaCaja abrirCaja(AperturaCaja aperturaCaja) {
         log.info("Abriendo caja con objeto completo");
         
-        // CORREGIDO: Usar constructor estático en lugar del objeto recibido directamente
+
         AperturaCaja nuevaApertura = AperturaCaja.crearApertura(
             aperturaCaja.getCaja(),
             aperturaCaja.getUsuario(), 
@@ -81,7 +71,7 @@ public class AperturaCajaService {
             aperturaCaja.getObservaciones()
         );
         
-        // Validaciones adicionales
+
         if (aperturaCajaRepository.existeAperturaAbierta(nuevaApertura.getCaja().getIdCaja())) {
             throw new BusinessException("La caja ya está abierta");
         }
@@ -96,9 +86,6 @@ public class AperturaCajaService {
         return aperturaGuardada;
     }
     
-    /**
-     * Cerrar caja
-     */
     public AperturaCaja cerrarCaja(Integer aperturaId, BigDecimal saldoReal, String observaciones) {
         log.info("Cerrando apertura de caja: {}", aperturaId);
         
@@ -112,7 +99,6 @@ public class AperturaCajaService {
             throw new BusinessException("El saldo real es inválido");
         }
         
-        // Calcular totales de movimientos
         BigDecimal totalIngresos = movimientoCajaRepository
             .getTotalIngresosByApertura(aperturaId);
         BigDecimal totalEgresos = movimientoCajaRepository
@@ -121,12 +107,12 @@ public class AperturaCajaService {
         apertura.setTotalIngresos(totalIngresos != null ? totalIngresos : BigDecimal.ZERO);
         apertura.setTotalEgresos(totalEgresos != null ? totalEgresos : BigDecimal.ZERO);
         
-        // Cerrar la caja
+    
         apertura.cerrar(saldoReal, observaciones);
         
         AperturaCaja aperturaCerrada = aperturaCajaRepository.save(apertura);
         
-        // Log de diferencia si existe
+        
         if (aperturaCerrada.tieneDiferencia()) {
             log.warn("Caja cerrada con diferencia de ${}: {}", 
                 aperturaCerrada.getDiferencia(), 
@@ -138,9 +124,6 @@ public class AperturaCajaService {
         return aperturaCerrada;
     }
     
-    /**
-     * Actualizar totales de apertura (llamado por MovimientoCajaService)
-     */
     public void actualizarTotalesApertura(Integer aperturaId) {
         log.debug("Actualizando totales de apertura: {}", aperturaId);
         
@@ -157,9 +140,6 @@ public class AperturaCajaService {
         aperturaCajaRepository.save(apertura);
     }
     
-    /**
-     * Obtener saldo actual de una apertura
-     */
     @Transactional(readOnly = true)
     public BigDecimal obtenerSaldoActual(Integer aperturaId) {
         AperturaCaja apertura = obtenerAperturaPorId(aperturaId);
@@ -179,9 +159,6 @@ public class AperturaCajaService {
         return apertura.getSaldoInicial().add(ingresos).subtract(egresos);
     }
     
-    /**
-     * Obtener resumen completo de caja
-     */
     @Transactional(readOnly = true)
     public ResumenAperturaDTO obtenerResumenApertura(Integer aperturaId) {
         AperturaCaja apertura = obtenerAperturaPorId(aperturaId);
@@ -197,11 +174,11 @@ public class AperturaCajaService {
         Long numeroEgresos = movimientoCajaRepository
             .countByAperturaAndTipo(aperturaId, MovimientoCaja.TipoMovimiento.EGRESO);
         
-        // Obtener totales por forma de pago
+
         List<Object[]> totalesPorFormaPago = movimientoCajaRepository
             .getTotalPorFormaPago(aperturaId);
         
-        // Obtener estadísticas por categoría
+
         List<Object[]> estadisticasPorCategoria = movimientoCajaRepository
             .getEstadisticasPorCategoria(aperturaId);
         
@@ -217,7 +194,6 @@ public class AperturaCajaService {
         );
     }
     
-    // ==================== CONSULTAS ====================
     
     @Transactional(readOnly = true)
     public AperturaCaja obtenerAperturaPorId(Integer id) {
@@ -280,7 +256,6 @@ public class AperturaCajaService {
         return aperturaCajaRepository.existeAperturaAbiertaParaUsuario(usuarioId);
     }
     
-    // ==================== DTO ====================
     
     public record ResumenAperturaDTO(
         AperturaCaja apertura,
