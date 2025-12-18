@@ -35,11 +35,9 @@ public class ClienteService {
         return clienteRepository.save(existente);
     }
     
-    // ✅ MÉTODO CORREGIDO - Compatible con FacturaService
     public void actualizarSaldo(Integer id, BigDecimal monto, boolean esAumento) {
         Cliente cliente = obtenerClientePorId(id);
         
-        // Inicializar saldo si es null
         BigDecimal saldoActual = cliente.getSaldoActual() != null ? 
             cliente.getSaldoActual() : BigDecimal.ZERO;
         
@@ -47,13 +45,10 @@ public class ClienteService {
             saldoActual.add(monto) : 
             saldoActual.subtract(monto);
         
-        // ✅ CORRECCIÓN: Permitir saldos negativos (cuando se paga más de lo debido)
-        // Solo evitar que sea menor a 0 en casos de pago
         if (!esAumento && nuevoSaldo.compareTo(BigDecimal.ZERO) < 0) {
             nuevoSaldo = BigDecimal.ZERO;
         }
         
-        // ✅ ADVERTENCIA: Solo advertir si excede límite, pero permitir guardar
         if (esAumento && nuevoSaldo.compareTo(cliente.getLimiteCredito() != null ? 
             cliente.getLimiteCredito() : BigDecimal.ZERO) > 0) {
             System.out.println("⚠️ ADVERTENCIA: Cliente " + cliente.getNombreRazonSocial() + 
