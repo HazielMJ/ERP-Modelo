@@ -53,7 +53,6 @@ public class VentaMapper {
             .observaciones(dto.getObservaciones())
             .build();
         
-        // Mapear detalles
         if (dto.getDetalles() != null) {
             venta.setDetalles(dto.getDetalles().stream()
                 .map(detalleDTO -> toDetalleEntity(detalleDTO, venta))

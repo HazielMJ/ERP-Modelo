@@ -32,7 +32,7 @@ public class EmpleadoMapper {
             .salarioBase(empleado.getSalarioBase())
             .build();
         
-        // Convertir enums a String
+      
         if (empleado.getTipoDocumento() != null) {
             dto.setTipoDocumento(empleado.getTipoDocumento().name());
         }
@@ -52,7 +52,6 @@ public class EmpleadoMapper {
             dto.setRol(empleado.getRol().name());
         }
         
-        // Mapear Puesto (solo si está cargado)
         if (empleado.getPuesto() != null) {
             dto.setPuesto(EmpleadoDTO.PuestoDTO.builder()
                 .idPuesto(empleado.getPuesto().getIdPuesto())
@@ -61,7 +60,6 @@ public class EmpleadoMapper {
                 .build());
         }
         
-        // Mapear Departamento (solo si está cargado)
         if (empleado.getDepartamento() != null) {
             dto.setDepartamento(EmpleadoDTO.DepartamentoDTO.builder()
                 .idDepartamento(empleado.getDepartamento().getIdDepartamento())
